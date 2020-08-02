@@ -1,0 +1,108 @@
+:published_at: 2019-11-12
+:hp-tags: tech lead, erreur
+:hp-alt-title: Erreurs courantes
+
+= Erreurs courantes
+
+[quote, Winston Churchill]
+Le succès, c'est se promener d'échecs en échecs tout en restant motivé.
+
+Dans ce blog, nous allons voir les difficultés courantes rencontrées par les tech leads.
+
+== Développer à 100%
+
+Être tech lead n'est pas le même rôle que développeur et c'est une erreur courante que de se reposer uniquement sur le développement bien que  ça soit, en général, une des forces du tech lead.
+
+Si le tech lead développe 100% de son temps, il négligera les autres aspects de son métier et cela peut mettre à risque l'équipe et le projet.
+
+Par le passé, nouvellement arrivé dans une équipe en tant que tech lead, j'ai eu à me focaliser sur le développement parce que c'est ce que le management attendait de moi.
+
+En effet, l'équipe avait du mal à livrer l'engagement pris à chaque début de sprint.
+Et je me suis mis à ne faire que du développement de fonctionnalités, ce qui a eu pour effet de me ralentir dans l'identification et la résolution des problèmes techniques et humains que l'équipe rencontraient.
+
+J'aurai dû focaliser, dès le début, sur l'amélioration des façons de faire de l'équipe.
+Ces façons de faire étaient la cause principale des problèmes de qualité et de productivité de notre équipe.
+
+Lorsque, je me suis rendu compte de mon erreur, j'ai pu mettre en place les mesures pour améliorer la qualité et la rapidité de nos livraisons ce qui a eu pour effet de nous aider à tenir nos engagements de sprint.
+
+== Ne pas gérer l'humain
+
+Souvent, les tech leads sont de bons développeurs, ce qui fait que certains négligent l'aspect humain d'une équipe parce qu'ils pensent que l'aspect technique est suffisant pour résoudre tous les problèmes.
+
+Bien au contraire, à mon sens, l'aspect humain est le plus important pour le bon fonctionnement d'une équipe.
+Un conflit humain qui survient dans une équipe peut détruire la productivité de cette équipe.
+
+Par le fait, le conflit humain entrave le flot de décisions/travail qui permet à l'équipe d'aller dans le même sens ce qui impacte négativement la productivité d'une équipe voir la détruit complétement.
+
+== Être le seul à décider
+
+Le tech lead ne doit jamais décider seul des choses sinon son équipe perdra en engagement et donc en productivité.
+
+De par son expérience, le tech lead est généralement une personne très expérimentée, si ce n'est la plus expérimentée dans une équipe, mais ce n'est pas toujours le cas et quand bien même ça le serait, il faut amener l'équipe à prendre les décisions ensemble.
+
+Lorsque les membres d'une équipe ne se sentent pas écoutés, ils ne se sentent pas valorisés et ne vont donc plus avoir la même mobilisation quant à la réussite de l'équipe et du projet.
+
+Dans certains cas, les membres de l'équipes qui ne se sentent pas écoutés par le tech lead vont même faire en sorte de tendre des pièges au tech lead, comme :
+
+ - ne pas remonter des problèmes éventuels (techniques, humains, organisationnel...)
+ - amener une partie de l'équipe à aller contre le tech lead
+ - amener le management à outrepasser les décisions du tech lead
+
+Bref, en tant que tech lead, il ne vaut mieux pas avoir ce genre de difficultés à gérer.
+
+Donc autant gérer ce genre de choses en amont...
+
+== Ne pas guider l'équipe
+
+Une équipe autonome permet au tech lead de travailler sur l'aspect facilitateur de son métier mais il faut éviter de penser que l'équipe n'a pas besoin de guide.
+
+Une équipe sans guide est comme une voiture sans conducteur
+(luttez contre le geek en vous et oubliez la voiture autonome dans ce cas...).
+La voiture ne peut pas aller dans la bonne direction si le conducteur n'est pas là pour tenir le volant.
+Le volant permet au conducteur d'éviter les obstacles lorsqu'ils surviennent.
+
+Un tech lead c'est un conducteur qui doit éviter à son équipe d'être arrêtée par un obstacle.
+Une équipe peut-être autonome sur les aspects :
+
+- développement
+- livraison
+- contrôle qualité
+- ...
+
+Mais n'est en général pas dans la capacité à :
+
+- défendre un périmètre réaliste
+- lutter contre les décisions politiques dangereuses (ex: livrer sans qualité)
+- trouver de nouveau membre pour la bonne marche de l'équipe
+- ...
+
+Si l'équipe est autonome dans les processus de réalisations, le tech lead peut plus facilement travailler les aspects externes au projet.
+
+Par contre, il faut qu'il regarde, de temps en temps dans le rétroviseur pour s'assurer que l'équipe va toujours dans la bonne direction. Et c'est promis, j'arrête les métaphores avec les voitures pour la suite.
+Sans guidage clair, la productivité de l'équipe n'est plus optimale.
+
+== Ne pas gérer les discussions de l'équipe
+
+Le concept est un peu vague donc je vais donner un exemple concret. Lorsque l'équipe se questionne sur des choix déterminants comme :
+
+- tabulation vs espace
+- gradle vs maven
+- javascript vs typescript
+
+Malgrès la plaisanterie, je veux montrer que toute discussion d'équipe doit se terminer assez rapidement pour le bien du projet.
+
+Sinon ce genre de discussion a pour effet de créer, à minima 2 camps (il y a des cas où il a plus que 2 solutions), les pours et les contres et cela impacte la bonne marche du projet.
+
+Les longues tergiversations sur le choix d'une solution ou d'un chemin doivent être tranchées rapidement quitte à revenir sur le sujet lorsque de nouveaux éléments sont mis à la connaissance de l'équipe.
+
+== Accuser les membres de l'équipe des problèmes
+
+Le tech lead est responsable de l'équipe.
+Il est donc responsable de la bonne marche de celle-ci.
+Lorsqu'un membre de l'équipe ne fait pas son travail comme il faut,
+il ne sert à rien d'accuser ce membre de tous les problèmes.
+
+Dans tous les cas, passer du temps à se plaindre ne permet pas de les adresser et gaspille de l'énergie qui n'est pas utilisé à améliorer les choses.
+
+
+J'aborderai les solutions pour éviter ces erreurs dans un autre post. Stay tuned.

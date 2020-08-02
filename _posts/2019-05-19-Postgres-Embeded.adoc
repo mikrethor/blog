@@ -1,0 +1,76 @@
+= Postgres Embeded
+// :hp-image: /covers/cover.png
+// :published_at: 2019-05-19
+// :hp-tags: Spring Boot, Postgres Embeded
+// :hp-alt-title: Postgres Embeded
+
+When I develop locally on my laptop, I usually use H2 database to test the layer between my code and the database. But sometimes it's not enough...
+
+Indeed some specific database types are useful in production but unuseable in development because H2 doesn't have them or they have another definition.
+
+With postgres we have an alternative, we can use https://github.com/yandex-qatools/postgresql-embedded[postgresql-embedded] in order to use postgresql locally.
+
+In order to use it, we need to add the following dependency to our project. In my case I use maven :
+
+[source,xml]
+----
+<dependency>
+    <groupId>ru.yandex.qatools.embed</groupId>
+    <artifactId>postgresql-embedded</artifactId>
+    <version>2.10</version>
+</dependency>
+----
+
+And we can create some beans in a spring boot project in order to launch the database at startup.
+
+[source,kotlin]
+----
+@Bean
+@Throws(IOException::class)
+fun postgresConfig(): PostgresConfig {
+     val postgresConfig = PostgresConfig(Version.V11_1,
+            AbstractPostgresConfig.Net(host, port!!),
+            AbstractPostgresConfig.Storage(database),
+            AbstractPostgresConfig.Timeout(),
+            AbstractPostgresConfig.Credentials(username, password)
+     )
+postgresConfig.additionalInitDbParams.addAll(DEFAULT_ADDITIONAL_INIT_DB_PARAMS)
+
+   return postgresConfig
+}
+
+@Bean(destroyMethod = "stop")
+@Throws(IOException::class)
+fun postgresProcess(config: PostgresConfig): PostgresProcess {
+        val runtime = PostgresStarter.getDefaultInstance()
+        val exec = runtime.prepare(config)
+        val postgres = exec.start()
+        return postgres
+    }
+----
+
+The postgresConfig bean allows us to define all the database information :
+
+* host
+* port
+* user
+* password
+
+The postgresProcess bean launch database.
+
+The first time the database is launched, the database binary is downloaded and installed on your computer.
+
+----
+Download Version{11.1-1}:OS_X:B64 START
+Download Version{11.1-1}:OS_X:B64 DownloadSize: 242187339
+Download Version{11.1-1}:OS_X:B64 0% 1% 2% 3% 4% 5% 6% 7% 8% 9% 10% 11% 12% 13% 14% 15% 16% 17% 18% 19% 20% 21% 22% 23% 24% 25% 26% 27% 28% 29% 30% 31% 32% 33% 34% 35% 36% 37% 38% 39% 40% 41% 42% 43% 44% 45% 46% 47% 48% 49% 50% 51% 52% 53% 54% 55% 56% 57% 58% 59% 60% 61% 62% 63% 64% 65% 66% 67% 68% 69% 70% 71% 72% 73% 74% 75% 76% 77% 78% 79% 80% 81% 82% 83% 84% 85% 86% 87% 88% 89% 90% 91% 92% 93% 94% 95% 96% 97% 98% 99% 100% Download Version{11.1-1}:OS_X:B64 downloaded with 1131kb/s
+Download Version{11.1-1}:OS_X:B64 DONE
+Extract /Users/user666/.embedpostgresql/postgresql-11.1-1-osx-binaries.zip START
+..................................................................................................................................................................................................................................................................................................................
+Extract /Users/user666/.embedpostgresql/postgresql-11.1-1-osx-binaries.zip DONE
+----
+
+After this first download, the database is just extracted and executed each time our app is executed.
+
+For more info, you can watch this https://github.com/mikrethor/customer-r2dbc[github repo].
+

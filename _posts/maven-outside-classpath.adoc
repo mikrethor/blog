@@ -1,0 +1,71 @@
+= Utiliser des plugins Maven avec des sources en dehors du répertoire src/main/java
+Xavier BOUCLET
+2015-07-21
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, asciidoc
+:idprefix:
+
+Tout d'abord, le non respect des conventions limite le choix des plugins utilisables par Maven. Par exemple, je n'ai pas réussi à faire marcher le plugin PMD. En effet, l'option sourcepath n'existe pas sur tous les plugins.
+
+C'est pourquoi, je préconise le respect des conventions mais dans le cas de ce projet, il n'était pas possible de les respecter sans un coût non négligeable sur ce projet.
+
+== Javadoc
+
+[source,xml]
+----
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+ <artifactId>maven-javadoc-plugin</artifactId>
+  <version>2.10.3</version>
+   <configuration>
+    <failOnError>false</failOnError>
+   </configuration>
+   <reportSets>
+    <reportSet>
+     <id>html</id>
+     <configuration>
+      <sourcepath>chemin vers les sources</sourcepath>
+     </configuration>
+     <reports>
+      <report>javadoc</report>
+     </reports>
+    </reportSet>
+    <reportSet>
+     <id>test-html</id>
+     <configuration>
+       <sourcepath>chemin vers les sources de tests</sourcepath>
+     </configuration>
+     <reports>
+       <report>test-javadoc</report>
+     </reports>
+    </reportSet>
+   </reportSets>
+</plugin>
+----
+
+L'option "failOnError" permet de ne pas faire échouer la génération de la documentation lorsque les références ne sont pas trouvées. En effet, je n'ai pas trouvé de moyen d'ajouter le classpath. Il y avait bien une option qui prend les dépendances mais dans mon cas, j'ai encore pas mal de librairies qui ne sont pas mavenisées.
+
+== Xref
+
+[source,xml]
+----
+<plugin>
+ <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-jxr-plugin</artifactId>
+   <version>2.5</version>
+   <reportSets>
+    <reportSet>
+     <id>aggregate</id>
+     <configuration>
+      <sourcePath>chemin vers les sources</sourcePath>
+     </configuration>
+     <reports>
+      <report>aggregate</report>
+     </reports>
+    </reportSet>
+   </reportSets>
+ </plugin>
+----
+
+Attention dans le cas de xref, l'option est sourcePath et non sourcepath.

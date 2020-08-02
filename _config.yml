@@ -1,0 +1,35 @@
+title:              Xavier's Thoughts
+email:              mikrethor@gmail.com.com
+description:        My personnal blog
+author:             Xavier Bouclet
+baseurl:            "/blog"
+url:                "https://startbootstrap.github.io"
+
+# Social Profiles
+twitter_username:   XavierBOUCLET
+github_username:    mikrethor
+facebook_username:
+instagram_username:
+linkedin_username: xavier-bouclet-667b0431/
+disqus-shortname: xavierbouclet
+
+# Add your google-analytics ID here to activate google analytics
+google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
+
+# Build settings
+markdown:           kramdown
+paginate:           5
+paginate_path:      "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
+
+asciidoc: {}
+asciidoctor:
+  base_dir: :docdir
+  safe: unsafe
+  attributes:
+    - idseparator=_
+    - source-highlighter=coderay
+    - icons=font

@@ -1,0 +1,12 @@
+= From JBake to Hubpress
+// See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
+// :hp-image: /covers/cover.png
+:published_at: 2017-10-29
+:hp-tags: HubPress, Blog, JBake,
+:hp-alt-title: From JBake to Hubpress
+
+Somedays ago I watched a 2015 Devoxx Fr Video about Asciidoc and Hubpress and  I chose to migrate my blog from JBake to Hubpress.
+
+video::kyGJEVEjfAs[youtube]
+
+I already liked Asciidoc but I was not totally satisfied with JBake so I decided to give Hubpress a try. I will tell you about it after some posts.

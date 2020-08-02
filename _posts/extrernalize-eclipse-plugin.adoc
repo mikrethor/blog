@@ -1,0 +1,44 @@
+= Externaliser un plugin Eclipse
+Xavier BOUCLET
+2011-09-17
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, asciidoc
+:idprefix:
+
+Afin de ne pas polluer un environnement Eclipse existant lors du test d'un plugin, Eclipse offre la possibilité d'externaliser ses plugins.
+Pour cela, il faut utiliser les fichiers link. Ces fichiers sont de simples fichier texte contenant le chemin vers le plugin.
+
+Exemple : Plugin m2.
+
+Le plugin m2 est installé dans le répertoire suivant :
+D:\tools\org\sonatype\m2eclipse-plugin\0.12.1
+
+   -> features
+   ->plugins
+
+
+Puis un fichier m2.link est initialisé dans le répertoire dropins d'Eclipse. Ce fichier contient la ligne suivante :
+path=D:/tools/org/sonatype/m2eclipse-plugin/0.12.1
+
+Lors du lancement d'Eclipse, il est possible de vérifier que le plugin est installé. Pour le désinstaller, il suffit de supprimer le fichier et de lancer Eclipse en mode clean.
+
+Le plus dur est de récupérer les répertoires d'un plugin au travers d'un update site. Heureusement, il est possible de récupérer les fichiers spécifique à un plugin en lançant Eclipse avec le paramètre -configuration.
+Ce paramètre permet de spécifier un répertoire qui contiendra la configuration spécifique à notre Eclipse. Il permet d'avoir un même répertoire pour l'ide de base pour plusieurs projets différents. Ainsi, ces projets peuvent avoir des plugins différents et utiliser le même répertoire de base pour l'ide. Le répertoire configuration contient les éléments suivants :
+
+   ->configuration
+   ->p2
+   ->artifacts.xml
+
+Avec ce paramètrage, il est possible d'utiliser l'installeur de plugin. Une fois l'installation d'un plugin terminée, le répertoire configuration contient les éléments suivants :
+
+   ->configuration
+   ->p2
+   ->artifacts.xml
+   ->plugins
+   ->features
+
+Les répertoires plugins et features correspondent au plugin nouvellement installé.
+
+Pour externaliser ce plugin, il faut copier les répertoires plugins et features dans un nouveau répertoire.
+Voir le plugin m2 plus haut.

@@ -1,0 +1,102 @@
+= Log in angular with NgxLogger
+// See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
+// :hp-image: /covers/cover.png
+:published_at: 2018-01-15
+:hp-tags: Angular, NgxLogger,
+:hp-alt-title: Log in angular with NgxLogger
+
+Coming from the Java world, I am used to use Log Framework in my projects. I was fed up of using the following.
+
+[source,ts]
+----
+console.log("Stuff to log");
+----
+
+So, I looked for a Log framework in Angular world and I came accross   https://www.npmjs.com/package/ngx-logger[NgxLogger].
+For people coming from Java, NgxLogger is like Log4j. 
+The mains advantages of NgxLogger are :
+
+- Several log levels
+- Switching log easily
+- Sending logs through url
+
+To install NgxLogger in your project, go in the folder project and use npm using the following :
+
+[source,sh]
+----
+npm install --save ngx-logger
+----
+
+Modify the module :
+
+[source,ts]
+----
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+
+@NgModule({
+  ...
+  imports: [LoggerModule.forRoot({serverLoggingUrl: '/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}), ...],
+  ...
+})
+export class AppModule {
+}
+----
+
+And in each component or service where you want to log do this :
+
+[source,ts]
+----
+import {Component, OnInit} from '@angular/core';
+import {NGXLogger} from "ngx-logger";
+
+@Component({
+    selector: 'login',
+    templateUrl: './login.html',
+})
+export class LoginComponent implements OnInit {
+    model: any = {};
+
+    constructor(
+        private logger: NGXLogger,
+    ) { }
+
+    ngOnInit() {
+        this.logger.info("ngOnInit");
+    }
+
+    login() {
+        this.logger.debug(this.model.username);
+    }
+}
+----
+
+The level at our disposal are :
+
+- TRACE
+- DEBUG
+- INFO
+- LOG
+- WARN
+- ERROR
+
+It's possible to use OFF to switch off the logging. By modifying the module :
+
+[source,ts]
+----
+level: NgxLoggerLevel.DEBUG
+----
+
+to 
+
+[source,ts]
+----
+level: NgxLoggerLevel.OFF
+----
+
+Et voilà, you are good to go.
+
+Next time, I will show how to send logs to the server side.
+
+
+
+

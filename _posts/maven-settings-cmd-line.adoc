@@ -1,0 +1,13 @@
+= [MAVEN] settings en ligne de commande
+Xavier BOUCLET
+2011-11-14
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, asciidoc
+:idprefix:
+
+Indiquer un settings.xml pour maven en ligne de commande
+Il est possible de surcharger les settings.xml de base pour maven.
+
+mvn install --settings c:\user\settings.xml
+    --global-settings c:\global\settings.xml

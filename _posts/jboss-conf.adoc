@@ -1,0 +1,14 @@
+= [JBOSS] Utiliser une configuration en dehors du JBOSS_HOME
+Xavier BOUCLET
+2011-08-16
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, asciidoc
+:idprefix:
+
+Le but est de décorreler une configuration JBOSS du serveur lui même afin d'avoir cette configuration en gestion de conf.
+
+    -Djboss.server.base.dir="D:\projects\tartanpion\jboss\server"
+    -Djboss.server.base.url="file:D:\projects\tartanpion\jboss\server" -c tartanpion
+
+Dans ce cas, le JBOSS_HOME est D:/tools/jboss et il n'y pas de configuration tartanpion dans le répertoire JBOSS_HOME/server

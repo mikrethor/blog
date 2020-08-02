@@ -1,0 +1,11 @@
+= [MAVEN] settings en ligne de commande
+// :hp-image: /covers/cover.png
+:published_at: 2011-11-14
+:hp-tags: Maven, Settings
+:hp-alt-title: [MAVEN] settings en ligne de commande
+
+Indiquer un settings.xml pour maven en ligne de commande
+Il est possible de surcharger les settings.xml de base pour maven.
+
+mvn install --settings c:\user\settings.xml
+    --global-settings c:\global\settings.xml

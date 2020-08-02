@@ -1,0 +1,209 @@
+= Définir sa vision en tant que Tech Lead
+:published_at: 2019-10-17
+:hp-tags: vision, tech lead, team
+:hp-alt-title: Définir sa vision en tant que Tech Lead
+:hp-image: /blog/images/2019-10-17-vision.jpg
+:icons: font
+
+Définir sa vision est pour moi, la chose la plus importante à concrétiser.
+
+[quote, John Carmack]
+____
+Une équipe solide peut transformer n'importe quelle vision folle en réalité. +
+____
+
+Concrétement, la vision, une fois définie va permettre d'orienter tous les choix en rapport avec l'équipe et le produit.
+Lorsque, je prends du temps pour définir la vision d'équipe, je me focalise sur les aspects suivants :
+
+- exigence sur la qualité
+- innovation technologique
+- prise de risque
+
+== Exigence sur la qualité
+
+J'ai l'air d'enfoncer une porte ouverte, mais il n'est pas si évident d'arriver à un niveau de qualité qui permette à une équipe d'avoir une confiance totale dans la livraison d'un produit.
+Ce qui rend la tâche difficile, c'est le facteur humain.
+
+En effet, de nos jours, il existe tellement d'outils pour tester que ça ne peut pas être le facteur technique.
+
+Le problème vient des habitudes prises sur certains vieux systèmes.
+Sur ces vieux systèmes, il est compliqué de mettre en place les tests (mais pas impossible), donc les développeurs ne le font pas.
+
+À chaque fois, que je suis intervenu sur ce genre de système, nous avons réussi...
+
+La question est comment ? Là je ne parle pas d'outillage mais de vision.
+
+En tant que tech lead, j'estime être le garant de la qualité et donc je ne transige pas avec les façons de faire pour amener
+un haut niveau de qualité :
+
+- revue de code
+- retravaille du code qui ne convient pas même quand celui-ci ne concerne pas la fonctionnalité (à pondérer avec le temps)
+- ajout de tests unitaires sur tout nouveau code
+- ajout de tests sur tout ancien code où c'est rapide à faire
+- mise en place de rapport sur la qualité (à un moment, il faut quand même embarquer le management...)
+- mise en place d'un CI/CD pour avoir une feedback loop courte
+- mise en place de tests fonctionnels
+
+Avec tout ça, quel message est envoyé à l'équipe ?
+
+- La qualité n'est plus un facteur sur lequel transiger
+
+Petit à petit, l'équipe adhère. Ce qui entraine l'amélioration constante de la qualité.
+Avec le temps et l'amélioration, il faut tranquillement augmenter les standards de qualité.
+
+[NOTE]
+====
+Au début d'un de mes projets, les gens ne voulaient pas faire les tests unitaires automatisés car ils étaient compliqués
+à écrire.
+Pour enforcer l'écriture des tests unitaires, j'ai mis en place le contrôle de la couverture de code.
+Puis, j'ai mis un pourcentage à atteindre pour pouvoir construire le projet dans le pipeline.
+Sans atteindre le pourcentage, le projet ne pouvait pas se construire.
+L'équipe m'a souvent challengé mais j'ai tenu bon.
+En parallèle, j'ai cherché les bonnes recettes pour écrire les tests unitaires.
+Au final, les tests unitaires sont devenus faciles à écrire puisque nous avions les façons de faire à portée de main.
+====
+
+== Innovation technologique
+
+Souvent, les équipes de développement subissent les stacks technologiques des entreprises.
+Il n'est pas possible d'utiliser la dernière version de tel ou tel langage car le serveur de production est mutualisé avec
+d'autres applications.
+
+Heureusement, la containarisation et le cloud sont en train de changer la donne.
+
+Dans le cas de l'outillage, l'entreprise peut avoir acheté un outil et ne pas permettre l'utilisation d'un autre qui pourrait être mieux pour votre équipe.
+
+Dans les deux cas, il est possible d'aller chercher les raisons de ça et voir ce qu'il est possible de faire.
+Dans le pire des cas, ça vous mettra en visibilité et dans le meilleur vous réussirez à faire changer les choses.
+
+[quote, Lao-Tseu]
+____
+Un voyage de mille lieues commence toujours par un premier pas.
+____
+
+Mais concrétement, qu'apporte l'innovation technologique ?
+
+L'innovation technologique apporte, en général, deux choses :
+
+- amélioration de la motivation de l'équipe
+- amélioration des pratiques
+
+Une équipe qui a la possibilité d'innover et qui prend l'habitude d'innover sera bien meilleure qu'une équipe qui ne le fait pas...
+
+Pour amener ça dans mes équipes, je questionne toujours pour remettre en cause les choix qui ne font pas de sens.
+Bref, je refuse le status quo.
+Ce n'est pas toujours facile, mais ça permet de gagner des batailles pour faciliter le travail de l'équipe mais même lorsque la bataille est perdue, le tech lead améliore le respect que l'équipe peut avoir de lui.
+
+Là encore, il s'agit d'être intransigeant avec les choses qui ne font pas de sens et de montrer les bonnes choses à faire.
+
+Ce qui m'amène au dernier point la prise de risque.
+Car pour innover, il faut prendre des risques.
+
+== Prise de risque
+
+La prise de risque est très importante pour améliorer les choses et débloquer les pratiques de développement.
+Certains développeurs, ne veulent plus prendre de risque parce que ça fonctionne bien comme ça.
+Et que dans le cas où il y a un problème, le management cherchera un responsable...
+
+Je vais vous rassurer tout de suite, je ne suis pas du genre à prendre des risques inconsidérés. Quoique...
+
+Par contre, toute prise de risque qui a un gain potentiel important est à considérer.
+
+Je vais donner quelques exemple :
+
+J'ai eu une fois à décider si mon équipe prenait le risque de passer notre application en Java 8 alors que l'entreprise
+bloquait la compilation à Java 6 alors que le runtime sur le serveur était en 8 (ne me demandez pas la raison du blocage).
+Nous avions en quelques mois fait passer la couverture de tests unitaires de 0 à 65%
+et nous avions 70% des fonctionnalités couvertes par des tests fonctionnels automatisés.
+Tous nos indicateurs étaient au vert mais le chef de projets nous bloquait par peur.
+J'ai décidé d'aller prêcher la bonne parole au chef de mon chef en lui expliquant les choses suivantes :
+
+- améliorations des performances (négligeable mais on veut convaincre)
+- facilité pour attirer des développeurs (critère qu'un directeur peut comprendre)
+- nous avions les tests pour nous rassurer et réagir au cas où
+- l'équipe était confiante
+
+Il a dit si ton chef de projets veut bloquer la migration qu'il viennent me voir.
+Ce que le chef de projets ne fit jamais...
+
+Et devinez quoi, après la livraison, tout c'est bien passé, nous avons découvert quelques bogues au fil des mois mais le tout était négligeable par rapport au taux de bogue lors d'ajout de fonctionnalité et surtout la réactivité de l'équipe permettait de gérer tout ça.
+
+Autre exemple, lors de ma première expérience avec des microservices, j'ai eu à choisir si nous allions en Kotlin ou en Java.
+J'ai fait le choix d'obtenir de l'expérience en écrivant un seul microservice en Kotlin et voir ce qu'il en serait.
+Les retours étaient positifs d'un point de vue expérience de développement
+et nous n'avions aucun gros problèmes suite à l'écriture du microservice en Kotlin.
+L'équipe a finalement décidé d'aller majoritairement dans ce sens.
+
+Cela nous a permis d'améliorer notre équipe et notre productivité en attirant des talents qui ne seraient pas venu sinon.
+
+== Définir votre vision
+
+Que faut-il déterminer lors de votre réflexion sur la vision pour votre équipe ?
+
+- les règles de qualité
+- les objectifs technologiques pour le produit
+- les objectifs de livraison
+- culture d'équipe
+
+=== Les règles de qualité
+
+La qualité est un élément essentiel, il faut que les règles soient plus fortes au fil du temps.
+Il faut voir comment passer de la situation courante vers l'objectif et le mieux est d'y aller par pas successifs en ayant en tête une cible lointaine.
+Si par bonheur vous atteignez la cible, cherchez en une encore plus loin.
+
+=== Les règles de sécurité
+
+La sécurité est un élément encore plus essentiel.
+En effet, une faille de sécurité exploitée peut mettre à mal la réputation et la santé financière d'une entreprise.
+
+Heureusement, les entreprises ont commencé à s'outiller avec des outils d'analyse d'artefacts.
+Il est donc facile d'ajouter une étape de gating afin d'arrêter la livraison en production d'un artefact si celui-ci contient des failles de sécurité d'un niveau non acceptable pour l'entreprise.
+
+Par contre, il faut permettre à l'équipe de livrer l'artefact si cette faille est déjà présente en production.
+Générallement il s'agit du cas ou une faille de sécurité a été découverte dans une librairie tiers.
+
+Bien sûr, il est nécessaire de s'assurer que la faille n'est pas facilement corrigeable avant de livrer.
+Selon la complexité de la faille, il faut la corriger.
+
+Une des actions préventives, à mettre en place pour éviter d'avoir à gérer les failles de sécurité, est de faire une passe de mise à jour sur les versions de librairies régulièrement pendant le développement.
+C'est à l'équipe de mettre en place une intégration continue et une livraison continue qui permettent d'assurer que la mise à jour des versions des librairies soit sécuritaire.
+
+L'idéal est que les mises à jour se fassent avec un minimum d'intervention humaine.
+Il faut donc s'outiller pour avoir un processus qui analyse les mises à jour disponibles des librairies et qui met à jour le code dès qu'une mise à jour est disponible.
+Cette mise à jour, bien sûr, doit être testée automatiquement dans un pipeline afin qu'un développeur n'ait plus qu'à valider l'ajout du code dans la base de code.
+
+=== Les objectifs technologiques pour le produit
+
+Les objectifs technologiques ne sont pas là pour avoir du fun techniquement (bon un peu quand même...).
+Ils doivent servir des besoins en arrière.
+Par exemple, amener une nouvelle technologie pour préparer une équipe à d'autres développements qui arriveront plus tard.
+Essayer de ne pas s'enfermer dans une technologie pour pouvoir évoluer vers quelques choses mieux et éviter de faire du legacy.
+
+=== Les objectifs de livraison
+
+Sur ce point, nous sommes en 2019, donc mes objectifs de livraison sont de base en tout temps et automatiquement.
+Mais ce n'est pas forcément le cas lorsque j'arrive quelques part donc il faut travailler cette cible et mettre tout
+l'outillage en place pour y arriver.
+
+=== La culture d'équipe
+
+Vous pensez certainement que la culture d'équipe n'est pas l'apanage du tech lead.
+Ouais, c'est pas faux.
+Mais tant qu'à faire autant aider à mettre en place une culture oû vous avez envie de travailler.
+
+Et si je limite la culture d'équipe à la culture technique, il s'agit bien du rôle de tech lead.
+
+Dans mon cas, lorsque j'essaie de construire une culture d'équipe, je ne me limite pas à la culture technique.
+En effet, il faut aussi penser au vivre ensemble nous allons passer dans les 8h par jour ensemble autant avoir du fun.
+
+J'essaie d'amener ces différentes choses dans la culture de mes équipes :
+
+- la transparence
+- l'éxigence
+- la mobilisation
+- l'amélioration et le partage des connaissances
+
+== Conclusion
+
+J'espère que vous aurez apprécié ce post et n'hésitez pas à commenter si vous avez des points de vues différents.
+

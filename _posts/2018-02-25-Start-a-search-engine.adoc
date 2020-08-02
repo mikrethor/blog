@@ -1,0 +1,33 @@
+= Start a search engine
+Xavier BOUCLET
+:published_at: 2018-02-25
+:hp-tags: Elastic, Kibana, Db2
+:hp-alt-title: Start a search engine
+
+In our web application we have a search functionality which is based on SQL requests.
+It works ok but it's really hard to test, maintain and optimize.
+
+There is a better way : a search engine.
+
+I have worked with the search engine Elastic Search before and I find it really easy to use.
+But I have never used it integrated in a webapp.
+
+To start using Elastic Search in our webapp, I am going to extract data from our db2 database and visualize it in Kibana.
+
+Download Elastic, Kibana and Logstash
+
+
+
+
+
+
+
+
+
+
+
+
+
+In an other post, I will write about the webapp integration.
+
+

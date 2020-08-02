@@ -1,0 +1,31 @@
+= Why I use asciidoc to take my notes
+// :hp-image: /covers/cover.png
+:published_at: 2017-03-29
+:hp-tags: Notes, Asciidoc
+:hp-alt-title: Why I use asciidoc to take my notes
+
+For some time now I have used asciidoc to write all my notes.
+I even use asciidoc to write this blog.
+
+My main use case was that I wanted to be able to send a proper report of what I was doing especially when investing a problem.
+I took this habit while working with an architect who sent a note to the project manager at the end of each day when working on a problem.
+This note contained all his paths of research.
+Such note was really helpful when you had to work on the problem after him.
+
+The advantages I find in using asciidoc are :
+
+* Clear syntax (http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick syntax])
+* Can generate proper output in many formats
+* Can easily be reused in a project documentation
+* Only need a simple text editor
+
+I had to find some disadvantages :
+
+* Need to have some tools installed to use all the features
+* Have to learn the syntax to properly modify a note
+
+For me no better argument than an example to really show you why I use asciidoc :
+
+https://github.com/mikrethor/blog/tree/master/src/main/asciidoc/asciidoc-note-example.ad[source] -> https://mikrethor.github.io/blog/blog/2017/asciidoc-note-example.pdf[output]
+
+To properly and easily access my notes I push them in a git repository but I have heard about using asciidoc with Evenote (https://emmanuelbernard.com/blog/2017/03/28/evernote-and-vim/[asciidoc vim Evernote]).

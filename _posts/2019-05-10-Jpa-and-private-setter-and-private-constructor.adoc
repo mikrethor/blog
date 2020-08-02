@@ -1,0 +1,75 @@
+= Jpa and private setter and private constructor
+// See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
+// :hp-image: /covers/cover.png
+// :published_at: 2019-05-10
+// :hp-tags: JPA, Setter, OO,
+// :hp-alt-title: Jpa and private setter and private constructor
+
+Today, with my colleagues, I talked about Oriented Programming and why we shouldn't always generate all the getters and setters when we design a class (https://www.javaworld.com/article/2073723/why-getter-and-setter-methods-are-evil.html[Why getter and setter methods are evil?]).
+And someone told me that JPA forces us to declare setters and getters in an entity class. Does it?
+
+== What is the JPA requirements for an entity class
+
+=== No setter ?
+
+When an entity class doesn't contain a setter for a field, JPA will raise the following error :
+
+....
+org.hibernate.PropertyNotFoundException: Could not locate setter method for property 
+....
+
+=== No constructor ?
+
+When an entity class doesn't contain a constructor without parameters, JPA will raise the following error :
+
+....
+org.hibernate.InstantiationException: No default constructor for entity: 
+....
+
+== Conclusion
+
+JPA needs a constructor and setter for each declared field. Does it mean we have to expose the default constructor and each setter ?
+
+It doesn't...
+
+JPA supports private constructor and private setters.
+
+[source,java]
+----
+@Entity
+public class Person {
+  private long id;
+  private String name;
+
+  public Person(long id, String name) {
+    this.id = id;
+    this.name = name;
+  }
+
+  private Person() {
+  }
+
+  @Id
+  public long getId() {
+    return id;
+  }
+
+  private void setId(long id) {
+    this.id = id;
+  }
+
+  @Column
+  public String getName() {
+    return name;
+  }
+
+  private void setName(String name) {
+    this.name = name;
+  }
+}
+----
+
+This entity is a valid JPA entity and it can't be modified after its creation.
+
+You can use the following github project to try by ourself.
+https://github.com/mikrethor/jpa-private[JpaPrivate @ *GitHub*]

@@ -1,0 +1,82 @@
+= Bilan de 7 années en SSII
+Xavier BOUCLET
+2017-03-22
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, asciidoc
+:idprefix:
+
+Récemment, j'ai vu que mes anciens collègues de la SSII S....A (disons SA) se congratulaient d'être présents au super kick-off de
+l'entreprise. Vous savez, le super kick-off ou seuls les managers sont conviés... Je suis, tellement, en décalage avec cette
+vision, que je pense que le moment est venu pour moi de faire le point sur ma vie en SSII.
+
+Voici ma petite histoire : j'ai été recruté par SA en 2007 en stage de fin d'études et j'ai progressé les échelons,
+ jusqu'à finalement quitter ce pourquoi j'avais appris à développer en faisant du management. Tu comprends faire du
+ développement c'est pour les gens qui n'ont pas d'ambition, il faut faire de la gestion de projets.
+ Donc en 2010, changement de carrière pour être le parfait petit soldat et je comprends vite qu'il faut répondre
+ au besoin du client mais que ce besoin doit se vendre cher. Je veux répondre au besoin de mon client
+ de la manière la plus efficace alors que mon directeur veut vendre le plus de jour possible.
+ Ce qui donne pour un client qui veut une 2cv, une Clio au prix d'une Ferrari.
+ Bref, je ne suis pas assez dans le moule. Mon mal être grandit mais je tiens bon car je rencontre des gens super
+ compétents (techniques la plupart du temps).
+
+[[img-nantesnaonedbretagnebreizh2]]
+image::https://nantes.indymedia.org/system/photo/2008/01/08/7615/nantesnaonedbretagnebreizh2.jpg[Nantes, 300, 200, link="https://nantes.indymedia.org/system/photo/2008/01/08/7615/nantesnaonedbretagnebreizh2.jpg"]
+
+Je finis par me dire allons voir du côté de Nantes ça ne peut pas être pire qu'à Paris.
+ En fait, c'est pire parce que tu comprends ton client est à Paris et le management est à Paris donc un petit
+ déplacement par semaine lever 4h30 retour à la maison 21h. La paie ne suit pas.
+ Surtout qu'en plus la mutation n'en est pas une, car SA ne te mute pas elle t'invite à faire une demande de mutation.
+ Le super directeur m'a dit bon 100 euros de moins par mois et SA te paie le déménagement.
+ Que demande le peuple? J'accepte et oui je suis fou. Je veux surtout quitter Paris.
+ Malgré tout, je finis par kiffer car l'équipe que je participe à monter finit par se gérer seule et c'est magique...
+
+Et là, c'est le drame, après 2 ans où tout se passe bien, un nouveau manager arrive et veut tout changer à marche forcée.
+ Il n'aime pas que je lui dise que c'est inenvisageable de tout changer dans un délai aussi court.
+ Il veut absolument vendre un truc super risqué et je suis contre sans des études plus approfondies.
+ Ma fin fut prononcée lorsque j'ai pris 1 mois de vacances pour la naissance de mon deuxième enfant.
+ Il aurait voulu que je prenne 3 semaines. Ça change tout... Pour me recaser, que fait SA?
+ Elle a besoin de monde pour une task-force à Rennes qui se trouve à 1h30 de chez moi.
+ Elle prend donc ses meilleurs éléments (the Expandables) pour les envoyer en mission temporaire.
+ Je signe parce que c'est le plus gros programme de SA et que tout les gens qui sont dessus sont des pointures et donc
+ que je vais apprendre.
+ Mais dans ma tête, c'est la fin de ma relation avec SA. Surtout lorsqu'après une semaine complète sur Rennes je
+ finis par rentrer chez moi et que mon fils de 1 mois ne me reconnaît pas. Mais que faire retourner dans une SSII
+ et retrouver la même chose? Avec ma femme, nous finissons par nous dire qu'il nous faut du neuf et qu'il est impossible
+ de faire du neuf dans le même contexte.
+
+Nous décidons de partir à l'étranger mais où? Nous hésitons entre différents pays : Australie, Canada...
+Le Canada et notamment Montréal finissent par s'imposer grâce aux formidables rencontres des journées du Québec qui ont lieu 2 fois par an à Paris.
+À ces journées, les gens me prennent pour un extraterrestre lorsque je raconte mes semaines et ils me disent qu'il y a un meilleur ratio travail/famille.
+Je raconterai l'histoire de mon débarquement à Montréal dans un autre post.
+
+[[img-drapeau-quebec]]
+image::https://upload.wikimedia.org/wikipedia/commons/b/be/Drapeau_quebec.jpg[Quebec, 300, 200, link="https://upload.wikimedia.org/wikipedia/commons/b/be/Drapeau_quebec.jpg"]
+
+Un an s'écoule entre notre décision de débarquer à Montréal et notre arrivée. Je pense que j'ai été conforté dans ma
+décision lorsque le directeur qui a géré mon départ m'a dit : "Combien tu veux pour rester?"
+Pour rester, j'aurai voulu de la considération et ne pas m'éloigner de ce que j'aime faire parce que SA veut des managers/commerciaux
+et non des développeurs. Je quitte donc SA pour l'aventure outre-Atlantique.
+Si je ne trouve rien, ça sera road-trip.
+Et là j'ai trouvé un travail de développeur une journée avant de prendre l'avion. Pourquoi développeur?
+Parce que c'est ce que j'ai envie de faire et qu'il y a plus de possibilités.
+
+Et là, oh miracle je fais ce que j'aime et le premier jour, je rentre vers 17h et ma femme n'est même pas à la maison
+car elle pensait que j'arriverai comme avant vers 19-20h.
+Depuis lors ma confiance en moi est revenue et j'ai envie de créer des choses nouvelles.
+En bref, je suis développeur. Ça ne veut pas dire que je ne pas faire autre chose, comme créer une entreprise
+ou participer à la création de grands produits. Ça veut dire que je veux :
+
+* Apprendre de nouvelle choses
+* Me remettre en question (humainement, intellectuellement...)
+* Rencontrer des gens passionnés et compétents
+...
+
+Bref vivre ma vie pleinement.
+
+En conclusion, si j'ai quelques conseils à donner, c'est de toujours écouter notre petite voix intérieure
+et de ne surtout pas se juger par rapport aux notations SSII qui rappelons le doivent toujours maintenir un ratio
+de gens exceptionnels/bon/bof/à virer. Je rajouterai qu'en début de carrière, il vaut mieux tenter de créer sa boîte.
+Bref prenez en main votre carrière et votre vie sans la laisser aux mains d'un autre.
+
+Signé un dév

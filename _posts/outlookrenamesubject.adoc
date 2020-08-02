@@ -1,0 +1,16 @@
+= How to change the mail subject in outlook 2016
+Xavier BOUCLET
+2017-05-29
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, outlook, rename subject
+:idprefix:
+
+For a while now I have been wondering how to best organise my mails.
+Now I have found a tip very useful to me : rewrite the subject of your inbox mails.
+
+1.   Open the mail
+2.   Click in subject
+3.   Type the new subject
+4.   Save the mail
+5.   Et voilà

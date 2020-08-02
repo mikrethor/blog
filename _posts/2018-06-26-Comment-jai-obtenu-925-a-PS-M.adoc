@@ -1,0 +1,50 @@
+= Comment j'ai obtenu 92,5% à PSM1
+// See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
+// :hp-image: /covers/cover.png
+// :published_at: 2019-01-31
+// :hp-tags: HubPress, Blog, Open_Source,
+// :hp-alt-title: My English Title
+
+== Mon objectif
+
+Depuis quelques temps déjà, mon positionnement en tant que Tech Lead et mon expérience en gestion de projets font que je suis généralement choisi pour remplacer le Scrum Master de l’équipe lors de congés ou de fin de projets. Il s’agit pourtant d’un rôle à part entière qui ne s’improvise pas. C’est pourquoi, j’ai choisi de passer la certification de Professional Scrum Master 1 (PSM1). Le but était de pouvoir aider l’équipe au mieux dans ce rôle. Dans ce post, je vais vous faire partager la méthode que j’ai employée pour passer cette certification.
+
+== Professional Scrum Master 1 (PSM1)
+
+La certification PSM1 permet de comprendre les tenants et aboutissants du rôle de Scrum Master et plus généralement des avantages à utiliser la méthode Scrum. Loin d’être suffisante pour bien comprendre le rôle de Scrum Master, elle est un point d’entrée.
+
+Lors du passage de la certification PSM1, il faut répondre correctement à un minimum de 68 questions sur les 80 proposées (85%). Le tout en 60 minutes. Ce qui donne 45 secondes par question. À ça, il faut rajouter que cette certification est uniquement en anglais, ce qui peut rajouter de la difficulté pour certains.
+
+== Préparation
+
+Pour ceux qui comme moi ont tendance à procrastiner, je conseille d’acheter l’évaluation et de se mettre un objectif de révision de 2 semaines maximum. Avec mon expérience de plusieurs projets Scrum je ne voulais pas investir dans des cours dont le coût peut dépasser les 1000 CAD et plus. J’ai personnellement choisi  scrum.org. Il est aussi possible de le faire  au travers de scrumalliance.org mais le coût et la méthode différent entre les 2 sites. Sur scrum.org, il s’agit de 150 USD par tentative de passage et il est possible de le faire en ligne.
+
+Ma préparation a consisté à lire le guide scrum en anglais une à deux fois par jour afin de bien incorporer les différentes notions. Le guide scrum est disponible en français mais j’ai choisi de le lire uniquement en anglais pour bien me familiariser aux termes en anglais. Pour ceux qui ont plus de mal en anglais, je conseille de le lire dans leur langue maternelle mais de très rapidement se familiariser avec la version anglaise. Pour monitoire ma progression et déterminer si j’étais prêt, j’ai utilisé les tests gratuits suivants :
+
+- https://www.scrum.org/open-assessments/scrum-open[Scrum Open]
+- https://www.scrum.org/open-assessments/nexus-open[Nexus Open]
+- https://www.scrum.org/open-assessments/product-owner-open[Product Owner Open]
+- http://mlapshin.com/index.php/scrum-quizzes/[Le site Mikhail Lapshin]
+- https://www.thescrummaster.co.uk/professional-scrum-master-i-psm-i-practice-assessment[Practice Assessment]
+
+En plus des tests et du guide scrum, je conseille de lire le https://www.scrum.org/resources/scrum-glossary[glossaire scrum] et de passer 2-3h sur différents sujets du https://www.scrum.org/forum/scrum-forum[forum] scrum.org.
+
+Les tests open de scrum.org sont utiles comme point d’entrée pour bien comprendre et certaines questions sont dans la certification. Il est donc utile de les pratiquer et d’avoir un temps final dans les 5 minutes sur chaque open plusieurs fois à la suite pour avoir toutes les questions possibles.
+
+Les tests les plus intéressants pour moi furent les 2 derniers. Ils totalisent à eux 2 une centaine de question. Il faut donc s’assurer d’obtenir 100% à chacun de ses tests plusieurs fois à la suite. Le site de Mikhail Lapsin est le plus intéressant car il offre une possibilité de passer le tests en mode apprentissage ce qui permet d’avoir une explication de chaque réponse et donc de mieux cerner le guide scrum. 
+
+image::../../../img/posts/2018-06-26-mikhail-learning-mode.png[Mikhail Lapsin Learning Mode]
+
+Il est possible d'aller plus loin dans les tests en allant sur des sites payants mais je n'ai pas eu à les utiliser.
+
+== Le passage
+
+Une fois ma préparation terminée, je me suis lancé et j’ai finalement obtenu un score de 92,5% soit 6 mauvaises réponses sur 80. Je pense que si j’avais passé plus de temps sur le forum, j’aurais pu améliorer mon score mais je suis satisfait après tout mon but n’est pas de devenir scrum master…
+
+image::../../../img/posts/2018-06-26-stats.png[Résultat final]
+
+Il est un peu désolant de ne pas pouvoir savoir sur quelles réponses on a échouées mais on peut au moins avoir un aperçu des domaines à travailler.
+
+Sur le passage en tant que tel, je conseille d’avoir une feuille avec le temps par question jusqu’à la quatre-vingtième question pour savoir si on est en avance ou en retard par rapport à l’objectif. J’ai personnellement eu 10 minutes d’avance ce qui m’a permis de repasser sereinement sur les questions que j’avais mises en favoris. Il vaut mieux mettre des questions en favoris pour y revenir plus tard. Pour les gens non anglophone, je conseille aussi d’avoir un onglet ouvert sur google traduction afin de très rapidement traduire les questions dont on n’est pas 100% sûr du sens.
+
+Voilà bonne certification.

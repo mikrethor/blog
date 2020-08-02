@@ -1,0 +1,19 @@
+= Mon premier livre électronique : La dure vie de TechLead
+// See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
+:hp-image: /blog/techlead-book-cover.png
+:published_at: 2019-02-03
+:hp-tags: Techlead, Livre, Book, 
+:hp-alt-title: Mon premier livre électronique : La dure vie de TechLead
+
+C’est avec grand plaisir que je vous fait partager mon premier livre électronique : 
+
+https://www.amazon.ca/dp/B083GJCHSG/[« La dure vie de techlead » @ *Amazon*] 
+
+Ce livre a pour but d'aider les personnes à devenir techlead et ceux qui le sont déjà (volontairement ou non...).
+Il contient le recueil de mes années d'expérience ainsi que toutes mes recherches sur le sujet.
+
+Des erreurs courantes aux stratégies à mettre en place vous découvrirez pleins de conseils pour vous aider à progresser que vous soyez nouveau ou aguerri dans ce métier.
+
+J'espère que la lecture de ce livre vous donnera autant de plaisir que j'ai eu à l'écrire.
+
+Et n'hésitez pas à me contacter si vous avez des éléments à ajouter ou tout simplement l'envie de discuter sur le sujet.

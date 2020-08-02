@@ -1,0 +1,122 @@
+= Being a tech lead
+Xavier BOUCLET
+2018-02-18
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, tech lead
+:idprefix:
+
+Almost one year ago, my client needed a Tech Lead in one of it's development team.
+In fact they needed someone that would help to get their regulatory project back on the right track.
+
+It was not easy at first but what an achievement the team has done from this moment.
+
+== The project
+
+When I arrived in the team, the status was the following :
+
+- The team used scrum but was not able to deliver an increment
+- The team was not in the same place
+- Some team member were angry at each other
+- Every developer deployed in test environment without pulling the code from the VCS
+- There was no unit test, all the testing was made by hand
+
+First thing first, I talked to each team member to clearly identify all the problems in the team.
+It could seem not important but it's something that had to be done to help team member to move on.
+
+From that point, we had to get some quick win to help team member to get back their confidence in them and in the project.
+
+In order to do that, I helped the team to kill some bad habits by using the CI server to help us deploy our webapp directly from the VCS.
+It helped us to be sure that the code deployed was the one in the VCS.
+
+After that, we started to use pull requests to review each line of code being commit to the development branch.
+Being peer reviewed took some time but is now part of our daily routine.
+
+Fortunately for us, those few moves helped the QA tester to properly and rapidly test.
+Improving the feedback loop had a good impact on the webapp quality and the development team started to deliver the increment.
+
+All these victories helped me work on improving the development speed and quality by putting in place proper unit testing.
+Exhorting the team member to use unit tests instead of locally deploy the webapp and test it by hand was quite a challenge.
+I thought it was pretty straight forward for a developer to understand that doing unit test reduce development time.
+Especially when deploying the webapp locally takes a few minutes but it seems that some old habits die hard.
+
+So we had to change some team members. In fact, I don't know if we can speak about team member in such case because they didn't really followed the team guidelines.
+
+In such conditions, we managed to succeed the first webapp delivery to production with an acceptable quality.
+
+My job has become a lot easier since then.
+I have focused on improving team efficiency and some team member have taken good habits.
+We have managed to improve the code coverage from 0 to 50%.
+And with this the team has the proper tools and the confidence to refactor the code when needed.
+
+It's quite an achievement from our starting point and I am proud of what the team has achieved.
+
+== The role
+
+For me a Tech Lead is a developer who is in charge of leading the development team.
+It's really important that the Tech Lead develops because without that it's not possible to have the team confidence.
+
+To be good in the job, a Tech Lead has to divide his time between :
+
+- coding
+- motivating the team
+- supporting/organizing the team
+- innovation
+
+The balance is sometimes hard to achieve. But when you move away from this repartition, don't forget to get back to these ratios
+ as soon as possible or you will do a poor job as a Tech Lead.
+
+On my current project, I was too much in the code and it prevented me to see some member problem soon enough.
+
+=== Coding
+
+A Tech Lead who doesn't code can't be a Teach Lead because he won't identify what the team is going through.
+I mean a Tech Lead has to understand the team context and improve this context to facilitate the team work.
+
+Usually, it represents 30% of my time.
+
+=== Motivating the team
+
+Motivating the team means helping the team to be motivated.
+It means :
+- removing the problem
+- reducing the development difficulties
+- helping having a good atmosphere
+
+It takes approximately 30% of my time.
+
+=== Supporting / organizing the team
+
+Supporting and organizing the team is the same in this case because the goal is to encourage team members to discuss among themselves.
+It helps improving knowledge and collaboration.
+
+It also takes approximately 30% of my time.
+
+=== Innovation
+
+Innovation could seem irrelevant but it's a part of team motivation because without innovation the team will
+ loose motivation to improve things and innovation is a way to improve development time and quality.
+
+I guess you have already found that it takes me 10% of my time.
+
+== One last thing
+
+A take lead can't do his job properly, without having a team ready to listen. My job on this project would have been a
+ lot harder if no one had listen and started to embrace the change.
+
+
+
+https://www.thekua.com/atwork/2014/11/the-definition-of-a-tech-lead/[Reference1]
+
+
+
+
+
+
+
+
+
+
+
+
+

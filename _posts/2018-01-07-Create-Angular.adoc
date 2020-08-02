@@ -1,0 +1,49 @@
+= Create a project with angular-cli
+// See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
+// :hp-image: /covers/cover.png
+:published_at: 2018-01-07
+:hp-tags: Angular, Angular/cli,
+:hp-alt-title: Create a project with angular-cli
+
+Angular/cli can be used to create an angular project with the latest module versions.
+In the first place, we have to install angular/cli.
+
+[source,sh]
+----
+npm install -g @angular/cli
+----
+
+In case angular/cli is already installed, it can be updated using the following command.
+
+[source,sh]
+----
+npm install -g @angular/cli@latest
+----
+
+In case npm is not globally installed use this command.
+
+[source,sh]
+----
+npm i -g npm
+----
+
+To create the project use ng new.
+
+[source,sh]
+----
+ng new myproject
+----
+
+In order to launch the project, we have to use the ng serve command inside the myproject folder.
+
+[source,sh]
+----
+cd myproject
+ng serve
+----
+
+Et voilà!
+
+----
+image::../../../img/posts/2018-01-07-angular-app-cli.png
+----

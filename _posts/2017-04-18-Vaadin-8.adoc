@@ -1,0 +1,31 @@
+= Vaadin 8
+// :hp-image: /covers/cover.png
+:published_at: 2017-04-18
+:hp-tags: Vaadin, Spring
+:hp-alt-title: Vaadin 8
+
+Last week, I had the chance to attend to the Vaadin talk by @marcushellberg (Marcus Hellberg) hosted by the Montreal Jug.
+I have been so impressed that I am pretty sure I will write my next webapp with Vaadin.
+I decided to give Vaadin a try and get back to Angular if I am not convinced.
+My choice is mainly based on two facts :
+
+* I am more productive in Java than in Angular
+* Vaadin is a pretty mature
+
+Vaadin is Rich Internet Application framework first released in year 2002.
+In 2007 the  the product license was changed to open source Apache License 2.0.
+The version 8 of Vaadin just came out two month ago with many enhancements.
+Such as :
+
+* Re-written data binding API utilizing modern Java features, such as type parameters and lambda expressions
+* CPU and memory improvements
+
+To help you see what Vaadin can help you do, you can watch this video : https://www.youtube.com/watch?v=qUBt8k4pQgQ[Vaadin 8].
+This is mostly the same presentation I saw at Montreal Jug.
+
+You can find the code of the demo on Github. Follow this https://github.com/vaadin-marcus/spring-boot-todo[link].
+
+I was able to develop the note app in a bit more of time than Marcus but I did it in less than an hour.
+From this starting point, I am learning through the Vaadin https://vaadin.com/docs/[documentation]
+
+
