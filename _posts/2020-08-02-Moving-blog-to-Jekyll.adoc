@@ -1,0 +1,70 @@
+= Moving my blog to Jekyll
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2020-08-02 23:45:13 -0400
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Moving my blog to Jekyll"
+:page-background: /img/posts/2020-08-02-Jekyll.png
+
+== Why moving away from Hubpress
+
+A few weeks ago, I decided to move my blog from Hubpress to something else.
+Indeed, Hubpress is not maintained anymore and I wanted someting close enough to want I had.
+Meaning, asciidoc (or markdown) based, publishable easily on Github Pages and with the possibility to get feedback from my audience (who knows ?).
+
+== Solution considered
+
+After a few minutes on the web, I decided to look more into https://gohugo.io[Hugo] and https://jekyllrb.com[Jekyll].
+
+=== Hugo
+
+Hugo is written in Go and is a static website generator.
+It's possible to use Asciidoc or Markdown and it seems to be able to use Disqus which is the comment solution I already used with Hubpress.
+
+=== Jekyll
+
+I already use Jekyll because it's the solution we use for the https://www.montreal-jug.org[Montreal Jug Website].
+Same as Hugo, Jekyll is a static website generator. It's possible to use Asciidoc or Markdown and Disqus.
+Instead of Hugo, it's written in Ruby.
+
+=== JBake
+
+For the ones considering JBake, I moved from https://www.montreal-jug.org[JBake] a long time ago as you can read in my link:../../../2017/10/29/From-J-Bke-to-Hubpress.html[post] on that.
+
+=== Decision
+
+I decided to go with Jekyll as I am already familiar with it and I don't care about performance.
+The ones who do should consider Hugo.
+
+== Theme
+
+I did some research on the web to start with a pre-existing theme and I went with https://startbootstrap.com/themes/clean-blog-jekyll/[Clean Blog]
+
+== Commenting
+
+As I said, I already use Disqus so I didn't want to change.
+I would like a solution where the content doesn't belong to me but at the moment I didn't find any that meets my needs of owning my content.
+I am considering to move away from Disqus at some point for https://utteranc.es[utterances] that is based on Github Issues but I will be still not owning my content.
+
+== Blog migration
+
+I was already using asciidoc so I copied all my asciidoc files directly to the post folder in Jekyll.
+Everything went smoothly and all the posts where generated to HTML with all the informations needed.
+
+I add to adapt the images path with the new one in some asciidoc files contening pictures but a quick CMD+R helped me to change all the files in a nutshell.
+
+So I avoided having to develop a batch to process all my asciidoc to migrate but with a lot more content it would have been the solution I would have used.
+
+== Automate the deployment
+
+I had never tried "Github Actions" before so I decided to give it a try and it was as easy as following this https://jekyllrb.com/docs/continuous-integration/github-actions/[procedure].
+
+I took a few minutes to generate "et voilà !"
+
+And now, because you are reading those lines I guess everything worked fine.
+
+== Conclusion
+
+I miss Hubpress which has a web interface to edit the asciidoc but it's completely replaced by the automating of the deployement to the Github Pages.
