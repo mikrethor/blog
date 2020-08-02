@@ -5,7 +5,7 @@
 :date: 2020-08-02 23:45:13 -0400
 :layout: post
 //:title: Man must explore, r sand this is exploration at its greatest
-:page-subtitle: "Moving my blog to Jekyll"
+:page-subtitle: "Why moving away from Hubpress"
 :page-background: /img/posts/2020-08-02-Jekyll.png
 
 == Why moving away from Hubpress
