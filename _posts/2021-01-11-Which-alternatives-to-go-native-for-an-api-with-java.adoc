@@ -1,0 +1,119 @@
+= Which alternatives could be used to make an api with GraalVM
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2021-01-11 23:45:13 -0400
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Which alternatives could be used to make an api with GraalVM"
+:page-background: /img/posts/2021-01-11-GraalVM-going-native.png
+
+This blog post is the first of many on native compilation of Java API.
+
+== Container density problem
+
+In the first place, why would we want to use GraalVM to realize an API with Java.
+It's simple we love Java. It has been here for 25 years and it still evolves to meet enterprise needs.
+But in comparaison with other languages, Java need a JVM to run so in addition to our program we need to add this JVM in our
+container.
+So the container density problem arises.
+Indeed, the main Java competitors are lighter than Java and a standard JVM.
+What does it mean? It means that with the same space we can't deploy as many Java microservices as we could with Go or NodeJs microservices.
+
+image::../../../img/posts/2021-01-11-container-density-without-graalvm.svg[Container density problem]
+
+So what should we do ? I heard from some ops that my team should start developing in Go or NodeJS but another problem arise.
+We need to change our developpers skills and loose productivity.
+Fortunately there is GraalVM that allows us to compile our code specifically to the destination conrainer and remove as much unecessary code as possible.
+
+== The solution using Java : GraalVM
+
+image::../../../img/posts/2021-01-11-container-density-with-graalvm.svg[Container density java solution]
+
+GraalVM is a VM and a JDK based on OpenJDK. The first production-ready version (19.0) was released in May 2019.
+It can be used for other languages such as Javascript, Ruby C and C++ but for our use case we are gonna stick with Java only.
+
+With Ahead Of Time (AOT) compilation, our executable is gonna be removed of the code that we don't need in our code.
+Meaning the code in the frameworks and the JDK that is not needed in our final executable.
+
+image::../../../img/posts/native-executable-process.png[GraalVM AOT]
+
+Does it mean we don't use any VM for our native executable.
+It does not, our final executable contains the SubstrateVM a small JVM without all the optimization that we have in a standard JVM.
+
+So the AOT compilation is not magical, it does come at a price :
+
+- Dynamic classloading => not supported
+- JVMTI, JMX and other VM interfaces (no agent) => not supported
+- Reflection => partially supported
+- No JVM optimization
+
+More details on the https://github.com/oracle/graal/blob/master/substratevm/Limitations.md[SubstrateVM limitations]
+
+To compile an executable with GraalVM it can be complicated to parameter.
+By example, GraalVM can't detect the code called using reflection.
+
+So in order to use the power of GraalVM with all the frameworks which help us to be productive with Java,
+we need use tools which are already GraalVM ready.
+
+== Tools at our disposal
+
+A rapid search on the web gives us a list of five :
+
+- https://helidon.io/[Helidon]
+- https://quarkus.io[Quarkus]
+- https://micronaut.io[Micronaut]
+- https://projects.eclipse.org/projects/technology.microprofile[Microprofile]
+- https://spring.io/projects/spring-boot[Spring Boot]
+
+=== Helidon
+
+Helidon was an internal Oracle project (J4C => Java for cloud) which implement the Microprofile specification.
+The first version was released in February 2019.
+
+https://helidon.io/docs/latest/#/mp/guides/02_quickstart[To generate a Helidon project]
+
+=== Quarkus
+
+Quarkus is a Red Hat project released in March 2019 hwich implement the Microprofile specification.
+There has been lot of traction on Quarkus since the beginning.
+
+I had the chance to make a talk on Quarkus inside https://www.nbc.ca[NBC] in April 2020
+following by a workshop for the https://github.com/montrealjug/quarkus-workshop[Montréal Jug] in June 2020.
+
+https://quarkus.io[To generate a Quarkus project]
+
+=== Micronaut
+
+Micronaut is a project released in May 2018.
+It seems to have a foundation behind it and is pretty active.
+
+https://micronaut.io[To generate a Micronaut project]
+
+=== Microprofile
+
+Micro Profile is more a specification and the starter can generate the project for a specific runtime :
+
+- Quarkus
+- Helidon
+- Open Liberty
+- Payara Micro
+- Thorntail V2
+- Wildfly
+- KumuluzEE
+
+It's backed by the Eclipse Foundation.
+
+https://start.microprofile.io[To generate a Micro Profile project]
+
+=== Spring Boot
+
+Spring Boot is the most ancient (released in April 2014) and yet the one of the less mature to be used with native compilation,
+but it seems to progress really fast on that end.
+
+https://spring.io/projects/spring-boot[To generate a Spring Boot project]
+
+== Conclusion
+
+We have many options. I will write about some of them in my next blog posts.
+In my next blog posts, I will develop a Java API using Quarkus, Micronaut or Spring Boot with a PostgreSQL database behind it.
