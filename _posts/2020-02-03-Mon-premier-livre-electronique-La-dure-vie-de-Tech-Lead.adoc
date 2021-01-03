@@ -1,6 +1,6 @@
 = Mon premier livre électronique : La dure vie de TechLead
 // See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
-:hp-image: /images/techlead-book-cover.png
+:page-background:  /img/techlead-book-cover.png
 :published_at: 2020-02-03
 :hp-tags: Techlead, Livre, Book, 
 :hp-alt-title: Mon premier livre électronique : La dure vie de TechLead

@@ -2,7 +2,7 @@
 :published_at: 2019-10-17
 :hp-tags: vision, tech lead, team
 :hp-alt-title: Définir sa vision en tant que Tech Lead
-:hp-image: /images/2019-10-17-vision.jpg
+:page-background:  /img/posts/2019-10-17-vision.jpg
 :icons: font
 
 Définir sa vision est pour moi, la chose la plus importante à concrétiser.
