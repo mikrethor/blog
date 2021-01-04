@@ -91,3 +91,5 @@ _site/
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+iml,jekyll
 /Gemfile.lock
+
+.tweet-cache
