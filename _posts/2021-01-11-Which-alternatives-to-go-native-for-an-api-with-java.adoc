@@ -2,7 +2,7 @@
 :showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
-:date: 2021-01-11 23:45:13 -0400
+:date: 2021-01-11 7:00:00 -0500
 :layout: post
 //:title: Man must explore, r sand this is exploration at its greatest
 :page-subtitle: "Which alternatives could be used to make an api with GraalVM"
@@ -12,19 +12,21 @@ This blog post is the first of many on native compilation of Java API.
 
 == Container density problem
 
-In the first place, why would we want to use GraalVM to realize an API with Java.
-It's simple we love Java. It has been here for 25 years and it still evolves to meet enterprise needs.
-But in comparaison with other languages, Java need a JVM to run so in addition to our program we need to add this JVM in our
+In the first place, why would we want to use GraalVM to develop an API with Java.
+It's simple, we love Java. It has been here for 25 years and it still evolves to meet enterprise needs.
+But in comparison with other languages, Java need a JVM to run so in addition to our program we need to add this JVM in our
 container.
 So the container density problem arises.
 Indeed, the main Java competitors are lighter than Java and a standard JVM.
-What does it mean? It means that with the same space we can't deploy as many Java microservices as we could with Go or NodeJs microservices.
+What does it mean? It means that with the same resources we can't deploy as many Java microservices as we could with Go or NodeJs microservices.
 
 image::../../../img/posts/2021-01-11-container-density-without-graalvm.svg[Container density problem]
 
-So what should we do ? I heard from some ops that my team should start developing in Go or NodeJS but another problem arise.
-We need to change our developpers skills and loose productivity.
-Fortunately there is GraalVM that allows us to compile our code specifically to the destination conrainer and remove as much unecessary code as possible.
+Indeed, with the same resources we can't have as many Java microservices as we would have with Go or NodeJS microservices.
+
+What should we do? Move our development using non-JVM based languages, which eventually will require a shift in development skills. One could take this approach
+if losing productivity is not an issue along with a shift in the development paradigm but fortunately for JVM lovers, we have GraalVm to the rescue.
+GraalVM allows us to compile our code specifically to the destination container and remove as much unnecessary code as possible.
 
 == The solution using Java : GraalVM
 
@@ -33,7 +35,7 @@ image::../../../img/posts/2021-01-11-container-density-with-graalvm.svg[Containe
 GraalVM is a VM and a JDK based on OpenJDK. The first production-ready version (19.0) was released in May 2019.
 It can be used for other languages such as Javascript, Ruby C and C++ but for our use case we are gonna stick with Java only.
 
-With Ahead Of Time (AOT) compilation, our executable is gonna be removed of the code that we don't need in our code.
+With Ahead Of Time (AOT) compilation, our executable is gonna be removed of the code that we don't need in our executable.
 Meaning the code in the frameworks and the JDK that is not needed in our final executable.
 
 image::../../../img/posts/native-executable-process.png[GraalVM AOT]
@@ -75,7 +77,7 @@ https://helidon.io/docs/latest/#/mp/guides/02_quickstart[To generate a Helidon p
 
 === Quarkus
 
-Quarkus is a Red Hat project released in March 2019 hwich implement the Microprofile specification.
+Quarkus is a Red Hat project released in March 2019 which implement the Microprofile specification.
 There has been lot of traction on Quarkus since the beginning.
 
 I had the chance to make a talk on Quarkus inside https://www.nbc.ca[NBC] in April 2020

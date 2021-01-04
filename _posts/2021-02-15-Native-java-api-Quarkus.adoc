@@ -1,0 +1,42 @@
+= Building a Java native REST API — Part 1: Quarkus
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2021-02-15 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Building a Java native REST API — Part 1: Quarkus"
+:page-background: /img/posts/2021-01-11-GraalVM-going-native.png
+
+== What is Quarkus ?
+
+== What We’ll Be Building
+
+We will be building a REST API for blog posts. It allows one to search for a blog, fetch all blogs, get a single blog, create a blog, update, and delete an existing blog.
+Link to the other blog post
+
+== Requirements
+
+Good understanding of Java or Kotlin programming language.
+Basic knowledge of Maven.
+Basic knowledge of Docker
+
+== Tools Needed
+
+GraalVM
+Java Development Kit (JDK) 11
+IntelliJ IDEA, NetBeans, Eclipse (I will be using IntelliJ IDEA).
+Docker
+
+== Getting Started
+
+create the project
+
+== What's Next
+
+the same api with another tool
+
+
+== Source code
+
+link to github
