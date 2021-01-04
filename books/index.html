@@ -1,0 +1,36 @@
+---
+layout: page
+title: Book reviews
+background: '/img/bg-book-reviews.jpg'
+---
+
+{% for book in site.books %}
+
+<article class="book-preview">
+
+    <div>
+        <img src="{{ book.background }}" height="150px" width="100px" border="1px" style="float: right;">
+        <a href="{{ book.url | prepend: site.baseurl | replace: '//', '/' }}">
+            <h2 class="book-title">{{ book.title }}</h2>
+            {% if book.author %}
+            <h3 class="book-subtitle">Written by {{ book.writter }}</h3>
+            {% else %}
+            <h3 class="book-subtitle">{{ book.excerpt | strip_html | truncatewords: 15 }}</h3>
+            {% endif %}
+        </a>
+        <p class="book-meta">Posted by
+            {% if book.author %}
+            {{ book.author }}
+            {% else %}
+            {{ site.author }}
+            {% endif %}
+            on {{ book.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=book.content %}
+        </p>
+    </div>
+</article>
+{% else %}
+
+<h2 class="book-title">Coming soon...</h2>
+
+{% endfor %}
+
