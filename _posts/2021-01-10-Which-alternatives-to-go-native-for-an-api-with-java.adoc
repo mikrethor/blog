@@ -2,7 +2,7 @@
 :showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
-:date: 2021-01-11 7:00:00 -0500
+:date: 2021-01-10 7:00:00 -0500
 :layout: post
 //:title: Man must explore, r sand this is exploration at its greatest
 :page-subtitle: "Which alternatives could be used to make an api with GraalVM"
