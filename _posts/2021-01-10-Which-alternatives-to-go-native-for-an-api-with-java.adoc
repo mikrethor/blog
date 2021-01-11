@@ -22,7 +22,7 @@ What does it mean? It means that with the same resources we can't deploy as many
 
 image::../../../img/posts/2021-01-11-container-density-without-graalvm.svg[Container density problem]
 
-Indeed, with the same resources we can't have as many Java microservices as we would have with Go or NodeJS microservices.
+So, we can't have as many Java microservices as we would have with Go or NodeJS microservices.
 
 What should we do? Move our development using non-JVM based languages, which eventually will require a shift in development skills. One could take this approach
 if losing productivity is not an issue along with a shift in the development paradigm but fortunately for JVM lovers, we have GraalVm to the rescue.
