@@ -1,0 +1,32 @@
+= Movie API a concrete example for a CRUD GraalVM API
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2021-01-24 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Movie API a concrete example for a CRUD GraalVM API"
+:page-background: /img/posts/2021-01-25-KungFury.jpg
+
+To push forward my last article link:../../../2021/01/10/Which-alternatives-to-go-native-for-an-api-with-java.html[Which alternatives could be used to make an api with GraalVM],
+I am going to develop a CRUD Api to handle actors and movies.
+
+To have some fun the Api will only be able to add the movies https://www.imdb.com/title/tt3472226/[Kung Fury] and https://www.imdb.com/title/tt5765844/[Kung Fury 2].
+It will allow us to see some error handling.
+
+== Database model
+
+To design the database, I use https://www.vertabelo.com[Vertabelo Data Modeler].
+
+image::../../../img/posts/2021-01-25-NativeJava.svg[Database model]
+
+So as you can see, the API will interact with actors and movies.
+The hard part is the many to many relation between actors and movies.
+
+== Api contract
+
+The Api contract id available http://127.0.0.1:4000/posts/native-api-doc/index.html[here].
+
+== First implementation
+
+The first implementation will be available in a couple of weeks.
