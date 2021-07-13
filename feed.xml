@@ -1,0 +1,1198 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://startbootstrap.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://startbootstrap.github.io/" rel="alternate" type="text/html" /><updated>2021-07-13T01:09:06+00:00</updated><id>https://startbootstrap.github.io/feed.xml</id><title type="html">Xavier Bouclet</title><subtitle>My personal blog</subtitle><author><name>Xavier Bouclet</name></author><entry><title type="html">Building a Java native REST API — Part 3: Micronaut</title><link href="https://startbootstrap.github.io/2021/04/12/Native-java-api-Micronaut.html" rel="alternate" type="text/html" title="Building a Java native REST API — Part 3: Micronaut" /><published>2021-04-12T00:00:00+00:00</published><updated>2021-04-12T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2021/04/12/Native-java-api-Micronaut</id><content type="html" xml:base="https://startbootstrap.github.io/2021/04/12/Native-java-api-Micronaut.html">&lt;h1&gt;Building a Java native REST API — Part 3: Micronaut&lt;/h1&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;what_is_micronaut&quot;&gt;What is Micronaut ?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;what_well_be_building&quot;&gt;What We’ll Be Building&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We will be building a REST API for blog posts. It allows one to search for a blog, fetch all blogs, get a single blog, create a blog, update, and delete an existing blog.
+Link to the other blog post&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;requirements&quot;&gt;Requirements&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Good understanding of Java programming language.
+Basic knowledge of Maven.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tools_needed&quot;&gt;Tools Needed&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;GraalVM
+Java Development Kit (JDK) 11
+IntelliJ IDEA, NetBeans, Eclipse (I will be using IntelliJ IDEA).
+Docker&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;getting_started&quot;&gt;Getting Started&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;create the project&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;whats_next&quot;&gt;What&amp;#8217;s Next&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;the same api with another tool&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;source_code&quot;&gt;Source code&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;link to github&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Xavier Bouclet</name></author><summary type="html">Building a Java native REST API — Part 3: Micronaut What is Micronaut ?</summary></entry><entry><title type="html">Building a Java native REST API — Part 2: Spring Boot</title><link href="https://startbootstrap.github.io/2021/03/15/Native-java-api-SpringBoot.html" rel="alternate" type="text/html" title="Building a Java native REST API — Part 2: Spring Boot" /><published>2021-03-15T00:00:00+00:00</published><updated>2021-03-15T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2021/03/15/Native-java-api-SpringBoot</id><content type="html" xml:base="https://startbootstrap.github.io/2021/03/15/Native-java-api-SpringBoot.html">&lt;h1&gt;Building a Java native REST API — Part 2: Spring Boot&lt;/h1&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;what_is_springboot&quot;&gt;What is SpringBoot ?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;what_well_be_building&quot;&gt;What We’ll Be Building&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We will be building a REST API for blog posts. It allows one to search for a blog, fetch all blogs, get a single blog, create a blog, update, and delete an existing blog.
+Link to the other blog post&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;requirements&quot;&gt;Requirements&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Good understanding of Java programming language.
+Basic knowledge of Maven.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tools_needed&quot;&gt;Tools Needed&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;GraalVM
+Java Development Kit (JDK) 11
+IntelliJ IDEA, NetBeans, Eclipse (I will be using IntelliJ IDEA).
+Docker&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;getting_started&quot;&gt;Getting Started&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;create the project&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;whats_next&quot;&gt;What&amp;#8217;s Next&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;the same api with another tool&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;source_code&quot;&gt;Source code&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;link to github&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Xavier Bouclet</name></author><summary type="html">Building a Java native REST API — Part 2: Spring Boot What is SpringBoot ?</summary></entry><entry><title type="html">Building a Java native REST API — Part 1: Quarkus</title><link href="https://startbootstrap.github.io/2021/02/15/Native-java-api-Quarkus.html" rel="alternate" type="text/html" title="Building a Java native REST API — Part 1: Quarkus" /><published>2021-02-15T00:00:00+00:00</published><updated>2021-02-15T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2021/02/15/Native-java-api-Quarkus</id><content type="html" xml:base="https://startbootstrap.github.io/2021/02/15/Native-java-api-Quarkus.html">&lt;h1&gt;Building a Java native REST API — Part 1: Quarkus&lt;/h1&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;what_is_quarkus&quot;&gt;What is Quarkus ?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;what_well_be_building&quot;&gt;What We’ll Be Building&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We will be building a REST API for blog posts. It allows one to search for a blog, fetch all blogs, get a single blog, create a blog, update, and delete an existing blog.
+Link to the other blog post&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;requirements&quot;&gt;Requirements&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Good understanding of Java or Kotlin programming language.
+Basic knowledge of Maven.
+Basic knowledge of Docker&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tools_needed&quot;&gt;Tools Needed&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;GraalVM
+Java Development Kit (JDK) 11
+IntelliJ IDEA, NetBeans, Eclipse (I will be using IntelliJ IDEA).
+Docker&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;getting_started&quot;&gt;Getting Started&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;create the project&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;whats_next&quot;&gt;What&amp;#8217;s Next&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;the same api with another tool&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;source_code&quot;&gt;Source code&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;link to github&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Xavier Bouclet</name></author><summary type="html">Building a Java native REST API — Part 1: Quarkus What is Quarkus ?</summary></entry><entry><title type="html">Movie API a concrete example for a CRUD GraalVM API</title><link href="https://startbootstrap.github.io/2021/01/24/Native-java-api-with-PostgreSQL.html" rel="alternate" type="text/html" title="Movie API a concrete example for a CRUD GraalVM API" /><published>2021-01-24T00:00:00+00:00</published><updated>2021-01-24T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2021/01/24/Native-java-api-with-PostgreSQL</id><content type="html" xml:base="https://startbootstrap.github.io/2021/01/24/Native-java-api-with-PostgreSQL.html">&lt;h1&gt;Movie API a concrete example for a CRUD GraalVM API&lt;/h1&gt;
+&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To push forward my last article &lt;a href=&quot;../../../2021/01/10/Which-alternatives-to-go-native-for-an-api-with-java.html&quot;&gt;Which alternatives could be used to make an api with GraalVM&lt;/a&gt;,
+I am going to develop a CRUD Api to handle actors and movies.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To have some fun the Api will only be able to add the movies &lt;a href=&quot;https://www.imdb.com/title/tt3472226/&quot;&gt;Kung Fury&lt;/a&gt; and &lt;a href=&quot;https://www.imdb.com/title/tt5765844/&quot;&gt;Kung Fury 2&lt;/a&gt;.
+It will allow us to see some error handling.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;database_model&quot;&gt;Database model&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To design the database, I use &lt;a href=&quot;https://www.vertabelo.com&quot;&gt;Vertabelo Data Modeler&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;../../../img/posts/2021-01-25-NativeJava.svg&quot; alt=&quot;Database model&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So as you can see, the API will interact with actors and movies.
+The hard part is the many to many relation between actors and movies.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;api_contract&quot;&gt;Api contract&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The Api contract is available &lt;a href=&quot;http://127.0.0.1:4000/posts/native-api-doc/index.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;first_implementation&quot;&gt;First implementation&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The first implementation will be available in a couple of weeks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Xavier Bouclet</name></author><summary type="html">Movie API a concrete example for a CRUD GraalVM API To push forward my last article Which alternatives could be used to make an api with GraalVM, I am going to develop a CRUD Api to handle actors and movies.</summary></entry><entry><title type="html">Which alternatives could be used to make an api with GraalVM</title><link href="https://startbootstrap.github.io/2021/01/10/Which-alternatives-to-go-native-for-an-api-with-java.html" rel="alternate" type="text/html" title="Which alternatives could be used to make an api with GraalVM" /><published>2021-01-10T00:00:00+00:00</published><updated>2021-01-10T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2021/01/10/Which-alternatives-to-go-native-for-an-api-with-java</id><content type="html" xml:base="https://startbootstrap.github.io/2021/01/10/Which-alternatives-to-go-native-for-an-api-with-java.html">&lt;h1&gt;Which alternatives could be used to make an api with GraalVM&lt;/h1&gt;
+&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This blog post is the first of many on native compilation of Java API.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;container_density_problem&quot;&gt;Container density problem&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the first place, why would we want to use GraalVM to develop an API with Java.
+It&amp;#8217;s simple, we love Java. It has been here for 25 years and it still evolves to meet enterprise needs.
+But in comparison with other languages, Java need a JVM to run so in addition to our program we need to add this JVM in our
+container.
+So the container density problem arises.
+Indeed, the main Java competitors are lighter than Java and a standard JVM.
+What does it mean? It means that with the same resources we can&amp;#8217;t deploy as many Java microservices as we could with Go or NodeJs microservices.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;../../../img/posts/2021-01-11-container-density-without-graalvm.svg&quot; alt=&quot;Container density problem&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So, we can&amp;#8217;t have as many Java microservices as we would have with Go or NodeJS microservices.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;What should we do? Move our development using non-JVM based languages, which eventually will require a shift in development skills. One could take this approach
+if losing productivity is not an issue along with a shift in the development paradigm but fortunately for JVM lovers, we have GraalVm to the rescue.
+GraalVM allows us to compile our code specifically to the destination container and remove as much unnecessary code as possible.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the_solution_using_java_graalvm&quot;&gt;The solution using Java : GraalVM&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;../../../img/posts/2021-01-11-container-density-with-graalvm.svg&quot; alt=&quot;Container density java solution&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;GraalVM is a VM and a JDK based on OpenJDK. The first production-ready version (19.0) was released in May 2019.
+It can be used for other languages such as Javascript, Ruby C and C++ but for our use case we are gonna stick with Java only.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With Ahead Of Time (AOT) compilation, our executable is gonna be removed of the code that we don&amp;#8217;t need in our executable.
+Meaning the code in the frameworks and the JDK that is not needed in our final executable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;../../../img/posts/native-executable-process.png&quot; alt=&quot;GraalVM AOT&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Does it mean we don&amp;#8217;t use any VM for our native executable.
+It does not, our final executable contains the SubstrateVM a small JVM without all the optimization that we have in a standard JVM.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So the AOT compilation is not magical, it does come at a price :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Dynamic classloading &amp;#8658; not supported&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JVMTI, JMX and other VM interfaces (no agent) &amp;#8658; not supported&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reflection &amp;#8658; partially supported&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No JVM optimization&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;More details on the &lt;a href=&quot;https://github.com/oracle/graal/blob/master/substratevm/Limitations.md&quot;&gt;SubstrateVM limitations&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To compile an executable with GraalVM it can be complicated to parameter.
+By example, GraalVM can&amp;#8217;t detect the code called using reflection.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So in order to use the power of GraalVM with all the frameworks which help us to be productive with Java,
+we need use tools which are already GraalVM ready.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tools_at_our_disposal&quot;&gt;Tools at our disposal&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A rapid search on the web gives us a list of five :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://helidon.io/&quot;&gt;Helidon&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://quarkus.io&quot;&gt;Quarkus&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://micronaut.io&quot;&gt;Micronaut&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://projects.eclipse.org/projects/technology.microprofile&quot;&gt;Microprofile&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://spring.io/projects/spring-boot&quot;&gt;Spring Boot&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;helidon&quot;&gt;Helidon&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Helidon was an internal Oracle project (J4C &amp;#8658; Java for cloud) which implement the Microprofile specification.
+The first version was released in February 2019.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://helidon.io/docs/latest/#/mp/guides/02_quickstart&quot;&gt;To generate a Helidon project&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;quarkus&quot;&gt;Quarkus&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Quarkus is a Red Hat project released in March 2019 which implement the Microprofile specification.
+There has been lot of traction on Quarkus since the beginning.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I had the chance to make a talk on Quarkus inside &lt;a href=&quot;https://www.nbc.ca&quot;&gt;NBC&lt;/a&gt; in April 2020
+following by a workshop for the &lt;a href=&quot;https://github.com/montrealjug/quarkus-workshop&quot;&gt;Montréal Jug&lt;/a&gt; in June 2020.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://quarkus.io&quot;&gt;To generate a Quarkus project&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;micronaut&quot;&gt;Micronaut&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Micronaut is a project released in May 2018.
+It seems to have a foundation behind it and is pretty active.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://micronaut.io&quot;&gt;To generate a Micronaut project&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;microprofile&quot;&gt;Microprofile&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Micro Profile is more a specification and the starter can generate the project for a specific runtime :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Quarkus&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Helidon&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Open Liberty&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Payara Micro&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Thorntail V2&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Wildfly&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;KumuluzEE&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It&amp;#8217;s backed by the Eclipse Foundation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://start.microprofile.io&quot;&gt;To generate a Micro Profile project&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;spring_boot&quot;&gt;Spring Boot&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Spring Boot is the most ancient (released in April 2014) and yet the one of the less mature to be used with native compilation,
+but it seems to progress really fast on that end.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://spring.io/projects/spring-boot&quot;&gt;To generate a Spring Boot project&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We have many options. I will write about some of them in my next blog posts.
+In my next blog posts, I will develop a Java API using Quarkus, Micronaut or Spring Boot with a PostgreSQL database behind it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Xavier Bouclet</name></author><summary type="html">Which alternatives could be used to make an api with GraalVM This blog post is the first of many on native compilation of Java API.</summary></entry><entry><title type="html">Moving my blog to Jekyll</title><link href="https://startbootstrap.github.io/2020/08/02/Moving-blog-to-Jekyll.html" rel="alternate" type="text/html" title="Moving my blog to Jekyll" /><published>2020-08-02T00:00:00+00:00</published><updated>2020-08-02T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2020/08/02/Moving-blog-to-Jekyll</id><content type="html" xml:base="https://startbootstrap.github.io/2020/08/02/Moving-blog-to-Jekyll.html">&lt;h1&gt;Moving my blog to Jekyll&lt;/h1&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;why_moving_away_from_hubpress&quot;&gt;Why moving away from Hubpress&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A few weeks ago, I decided to move my blog from Hubpress to something else.
+Indeed, Hubpress is not maintained anymore and I wanted someting close enough to want I had.
+Meaning, asciidoc (or markdown) based, publishable easily on Github Pages and with the possibility to get feedback from my audience (who knows ?).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;solution_considered&quot;&gt;Solution considered&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;After a few minutes on the web, I decided to look more into &lt;a href=&quot;https://gohugo.io&quot;&gt;Hugo&lt;/a&gt; and &lt;a href=&quot;https://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;hugo&quot;&gt;Hugo&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Hugo is written in Go and is a static website generator.
+It&amp;#8217;s possible to use Asciidoc or Markdown and it seems to be able to use Disqus which is the comment solution I already used with Hubpress.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;jekyll&quot;&gt;Jekyll&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I already use Jekyll because it&amp;#8217;s the solution we use for the &lt;a href=&quot;https://www.montreal-jug.org&quot;&gt;Montreal Jug Website&lt;/a&gt;.
+Same as Hugo, Jekyll is a static website generator. It&amp;#8217;s possible to use Asciidoc or Markdown and Disqus.
+Instead of Hugo, it&amp;#8217;s written in Ruby.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;jbake&quot;&gt;JBake&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For the ones considering JBake, I moved from &lt;a href=&quot;https://www.montreal-jug.org&quot;&gt;JBake&lt;/a&gt; a long time ago as you can read in my &lt;a href=&quot;../../../2017/10/29/From-J-Bke-to-Hubpress.html&quot;&gt;post&lt;/a&gt; on that.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;decision&quot;&gt;Decision&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I decided to go with Jekyll as I am already familiar with it and I don&amp;#8217;t care about performance.
+The ones who do should consider Hugo.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;theme&quot;&gt;Theme&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I did some research on the web to start with a pre-existing theme and I went with &lt;a href=&quot;https://startbootstrap.com/themes/clean-blog-jekyll/&quot;&gt;Clean Blog&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;commenting&quot;&gt;Commenting&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As I said, I already use Disqus so I didn&amp;#8217;t want to change.
+I would like a solution where the content doesn&amp;#8217;t belong to me but at the moment I didn&amp;#8217;t find any that meets my needs of owning my content.
+I am considering to move away from Disqus at some point for &lt;a href=&quot;https://utteranc.es&quot;&gt;utterances&lt;/a&gt; that is based on Github Issues but I will be still not owning my content.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;blog_migration&quot;&gt;Blog migration&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I was already using asciidoc so I copied all my asciidoc files directly to the post folder in Jekyll.
+Everything went smoothly and all the posts where generated to HTML with all the informations needed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I add to adapt the images path with the new one in some asciidoc files contening pictures but a quick CMD+R helped me to change all the files in a nutshell.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So I avoided having to develop a batch to process all my asciidoc to migrate but with a lot more content it would have been the solution I would have used.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;automate_the_deployment&quot;&gt;Automate the deployment&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I had never tried &quot;Github Actions&quot; before so I decided to give it a try and it was as easy as following this &lt;a href=&quot;https://jekyllrb.com/docs/continuous-integration/github-actions/&quot;&gt;procedure&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I took a few minutes to generate &quot;et voilà !&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And now, because you are reading those lines I guess everything worked fine.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I miss Hubpress which has a web interface to edit the asciidoc but it&amp;#8217;s completely replaced by the automating of the deployement to the Github Pages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Xavier Bouclet</name></author><summary type="html">Moving my blog to Jekyll Why moving away from Hubpress</summary></entry><entry><title type="html">Mon premier livre électronique : La dure vie de TechLead</title><link href="https://startbootstrap.github.io/2020/02/03/Mon-premier-livre-electronique-La-dure-vie-de-Tech-Lead.html" rel="alternate" type="text/html" title="Mon premier livre électronique : La dure vie de TechLead" /><published>2020-02-03T00:00:00+00:00</published><updated>2020-02-03T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2020/02/03/Mon-premier-livre-electronique-La-dure-vie-de-Tech-Lead</id><content type="html" xml:base="https://startbootstrap.github.io/2020/02/03/Mon-premier-livre-electronique-La-dure-vie-de-Tech-Lead.html">&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;C’est avec grand plaisir que je vous fait partager mon premier livre électronique :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.amazon.ca/dp/B083GJCHSG/&quot;&gt;« La dure vie de techlead » @ &lt;strong&gt;Amazon&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ce livre a pour but d&amp;#8217;aider les personnes à devenir techlead et ceux qui le sont déjà (volontairement ou non&amp;#8230;&amp;#8203;).
+Il contient le recueil de mes années d&amp;#8217;expérience ainsi que toutes mes recherches sur le sujet.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Des erreurs courantes aux stratégies à mettre en place vous découvrirez pleins de conseils pour vous aider à progresser que vous soyez nouveau ou aguerri dans ce métier.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;J&amp;#8217;espère que la lecture de ce livre vous donnera autant de plaisir que j&amp;#8217;ai eu à l&amp;#8217;écrire.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Et n&amp;#8217;hésitez pas à me contacter si vous avez des éléments à ajouter ou tout simplement l&amp;#8217;envie de discuter sur le sujet.&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Xavier Bouclet</name></author><summary type="html">C’est avec grand plaisir que je vous fait partager mon premier livre électronique :</summary></entry><entry><title type="html">Erreurs courantes</title><link href="https://startbootstrap.github.io/2019/11/12/Erreurs-courantes.html" rel="alternate" type="text/html" title="Erreurs courantes" /><published>2019-11-12T00:00:00+00:00</published><updated>2019-11-12T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2019/11/12/Erreurs-courantes</id><content type="html" xml:base="https://startbootstrap.github.io/2019/11/12/Erreurs-courantes.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Le succès, c&amp;#8217;est se promener d&amp;#8217;échecs en échecs tout en restant motivé.
+&lt;/blockquote&gt;
+&lt;div class=&quot;attribution&quot;&gt;
+&amp;#8212; Winston Churchill
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dans ce blog, nous allons voir les difficultés courantes rencontrées par les tech leads.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;développer_à_100&quot;&gt;Développer à 100%&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Être tech lead n&amp;#8217;est pas le même rôle que développeur et c&amp;#8217;est une erreur courante que de se reposer uniquement sur le développement bien que  ça soit, en général, une des forces du tech lead.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Si le tech lead développe 100% de son temps, il négligera les autres aspects de son métier et cela peut mettre à risque l&amp;#8217;équipe et le projet.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Par le passé, nouvellement arrivé dans une équipe en tant que tech lead, j&amp;#8217;ai eu à me focaliser sur le développement parce que c&amp;#8217;est ce que le management attendait de moi.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;En effet, l&amp;#8217;équipe avait du mal à livrer l&amp;#8217;engagement pris à chaque début de sprint.
+Et je me suis mis à ne faire que du développement de fonctionnalités, ce qui a eu pour effet de me ralentir dans l&amp;#8217;identification et la résolution des problèmes techniques et humains que l&amp;#8217;équipe rencontraient.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;J&amp;#8217;aurai dû focaliser, dès le début, sur l&amp;#8217;amélioration des façons de faire de l&amp;#8217;équipe.
+Ces façons de faire étaient la cause principale des problèmes de qualité et de productivité de notre équipe.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Lorsque, je me suis rendu compte de mon erreur, j&amp;#8217;ai pu mettre en place les mesures pour améliorer la qualité et la rapidité de nos livraisons ce qui a eu pour effet de nous aider à tenir nos engagements de sprint.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;ne_pas_gérer_lhumain&quot;&gt;Ne pas gérer l&amp;#8217;humain&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Souvent, les tech leads sont de bons développeurs, ce qui fait que certains négligent l&amp;#8217;aspect humain d&amp;#8217;une équipe parce qu&amp;#8217;ils pensent que l&amp;#8217;aspect technique est suffisant pour résoudre tous les problèmes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Bien au contraire, à mon sens, l&amp;#8217;aspect humain est le plus important pour le bon fonctionnement d&amp;#8217;une équipe.
+Un conflit humain qui survient dans une équipe peut détruire la productivité de cette équipe.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Par le fait, le conflit humain entrave le flot de décisions/travail qui permet à l&amp;#8217;équipe d&amp;#8217;aller dans le même sens ce qui impacte négativement la productivité d&amp;#8217;une équipe voir la détruit complétement.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;être_le_seul_à_décider&quot;&gt;Être le seul à décider&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le tech lead ne doit jamais décider seul des choses sinon son équipe perdra en engagement et donc en productivité.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;De par son expérience, le tech lead est généralement une personne très expérimentée, si ce n&amp;#8217;est la plus expérimentée dans une équipe, mais ce n&amp;#8217;est pas toujours le cas et quand bien même ça le serait, il faut amener l&amp;#8217;équipe à prendre les décisions ensemble.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Lorsque les membres d&amp;#8217;une équipe ne se sentent pas écoutés, ils ne se sentent pas valorisés et ne vont donc plus avoir la même mobilisation quant à la réussite de l&amp;#8217;équipe et du projet.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dans certains cas, les membres de l&amp;#8217;équipes qui ne se sentent pas écoutés par le tech lead vont même faire en sorte de tendre des pièges au tech lead, comme :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ne pas remonter des problèmes éventuels (techniques, humains, organisationnel&amp;#8230;&amp;#8203;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;amener une partie de l&amp;#8217;équipe à aller contre le tech lead&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;amener le management à outrepasser les décisions du tech lead&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Bref, en tant que tech lead, il ne vaut mieux pas avoir ce genre de difficultés à gérer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Donc autant gérer ce genre de choses en amont&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;ne_pas_guider_léquipe&quot;&gt;Ne pas guider l&amp;#8217;équipe&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Une équipe autonome permet au tech lead de travailler sur l&amp;#8217;aspect facilitateur de son métier mais il faut éviter de penser que l&amp;#8217;équipe n&amp;#8217;a pas besoin de guide.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Une équipe sans guide est comme une voiture sans conducteur
+(luttez contre le geek en vous et oubliez la voiture autonome dans ce cas&amp;#8230;&amp;#8203;).
+La voiture ne peut pas aller dans la bonne direction si le conducteur n&amp;#8217;est pas là pour tenir le volant.
+Le volant permet au conducteur d&amp;#8217;éviter les obstacles lorsqu&amp;#8217;ils surviennent.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Un tech lead c&amp;#8217;est un conducteur qui doit éviter à son équipe d&amp;#8217;être arrêtée par un obstacle.
+Une équipe peut-être autonome sur les aspects :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;développement&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;livraison&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;contrôle qualité&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Mais n&amp;#8217;est en général pas dans la capacité à :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;défendre un périmètre réaliste&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;lutter contre les décisions politiques dangereuses (ex: livrer sans qualité)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;trouver de nouveau membre pour la bonne marche de l&amp;#8217;équipe&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Si l&amp;#8217;équipe est autonome dans les processus de réalisations, le tech lead peut plus facilement travailler les aspects externes au projet.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Par contre, il faut qu&amp;#8217;il regarde, de temps en temps dans le rétroviseur pour s&amp;#8217;assurer que l&amp;#8217;équipe va toujours dans la bonne direction. Et c&amp;#8217;est promis, j&amp;#8217;arrête les métaphores avec les voitures pour la suite.
+Sans guidage clair, la productivité de l&amp;#8217;équipe n&amp;#8217;est plus optimale.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;ne_pas_gérer_les_discussions_de_léquipe&quot;&gt;Ne pas gérer les discussions de l&amp;#8217;équipe&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le concept est un peu vague donc je vais donner un exemple concret. Lorsque l&amp;#8217;équipe se questionne sur des choix déterminants comme :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;tabulation vs espace&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;gradle vs maven&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;javascript vs typescript&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Malgrès la plaisanterie, je veux montrer que toute discussion d&amp;#8217;équipe doit se terminer assez rapidement pour le bien du projet.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Sinon ce genre de discussion a pour effet de créer, à minima 2 camps (il y a des cas où il a plus que 2 solutions), les pours et les contres et cela impacte la bonne marche du projet.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Les longues tergiversations sur le choix d&amp;#8217;une solution ou d&amp;#8217;un chemin doivent être tranchées rapidement quitte à revenir sur le sujet lorsque de nouveaux éléments sont mis à la connaissance de l&amp;#8217;équipe.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;accuser_les_membres_de_léquipe_des_problèmes&quot;&gt;Accuser les membres de l&amp;#8217;équipe des problèmes&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le tech lead est responsable de l&amp;#8217;équipe.
+Il est donc responsable de la bonne marche de celle-ci.
+Lorsqu&amp;#8217;un membre de l&amp;#8217;équipe ne fait pas son travail comme il faut,
+il ne sert à rien d&amp;#8217;accuser ce membre de tous les problèmes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dans tous les cas, passer du temps à se plaindre ne permet pas de les adresser et gaspille de l&amp;#8217;énergie qui n&amp;#8217;est pas utilisé à améliorer les choses.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;J&amp;#8217;aborderai les solutions pour éviter ces erreurs dans un autre post. Stay tuned.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Xavier Bouclet</name></author></entry><entry><title type="html">Définir sa vision en tant que Tech Lead</title><link href="https://startbootstrap.github.io/2019/10/17/Definir-sa-vision-en-tant-que-Tech-Lead.html" rel="alternate" type="text/html" title="Définir sa vision en tant que Tech Lead" /><published>2019-10-17T00:00:00+00:00</published><updated>2019-10-17T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2019/10/17/Definir-sa-vision-en-tant-que-Tech-Lead</id><content type="html" xml:base="https://startbootstrap.github.io/2019/10/17/Definir-sa-vision-en-tant-que-Tech-Lead.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Définir sa vision est pour moi, la chose la plus importante à concrétiser.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Une équipe solide peut transformer n&amp;#8217;importe quelle vision folle en réalité.&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;attribution&quot;&gt;
+&amp;#8212; John Carmack
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Concrétement, la vision, une fois définie va permettre d&amp;#8217;orienter tous les choix en rapport avec l&amp;#8217;équipe et le produit.
+Lorsque, je prends du temps pour définir la vision d&amp;#8217;équipe, je me focalise sur les aspects suivants :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;exigence sur la qualité&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;innovation technologique&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;prise de risque&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;exigence_sur_la_qualité&quot;&gt;Exigence sur la qualité&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;J&amp;#8217;ai l&amp;#8217;air d&amp;#8217;enfoncer une porte ouverte, mais il n&amp;#8217;est pas si évident d&amp;#8217;arriver à un niveau de qualité qui permette à une équipe d&amp;#8217;avoir une confiance totale dans la livraison d&amp;#8217;un produit.
+Ce qui rend la tâche difficile, c&amp;#8217;est le facteur humain.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;En effet, de nos jours, il existe tellement d&amp;#8217;outils pour tester que ça ne peut pas être le facteur technique.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le problème vient des habitudes prises sur certains vieux systèmes.
+Sur ces vieux systèmes, il est compliqué de mettre en place les tests (mais pas impossible), donc les développeurs ne le font pas.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;À chaque fois, que je suis intervenu sur ce genre de système, nous avons réussi&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La question est comment ? Là je ne parle pas d&amp;#8217;outillage mais de vision.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;En tant que tech lead, j&amp;#8217;estime être le garant de la qualité et donc je ne transige pas avec les façons de faire pour amener
+un haut niveau de qualité :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;revue de code&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;retravaille du code qui ne convient pas même quand celui-ci ne concerne pas la fonctionnalité (à pondérer avec le temps)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ajout de tests unitaires sur tout nouveau code&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ajout de tests sur tout ancien code où c&amp;#8217;est rapide à faire&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mise en place de rapport sur la qualité (à un moment, il faut quand même embarquer le management&amp;#8230;&amp;#8203;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mise en place d&amp;#8217;un CI/CD pour avoir une feedback loop courte&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mise en place de tests fonctionnels&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Avec tout ça, quel message est envoyé à l&amp;#8217;équipe ?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;La qualité n&amp;#8217;est plus un facteur sur lequel transiger&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Petit à petit, l&amp;#8217;équipe adhère. Ce qui entraine l&amp;#8217;amélioration constante de la qualité.
+Avec le temps et l&amp;#8217;amélioration, il faut tranquillement augmenter les standards de qualité.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Au début d&amp;#8217;un de mes projets, les gens ne voulaient pas faire les tests unitaires automatisés car ils étaient compliqués
+à écrire.
+Pour enforcer l&amp;#8217;écriture des tests unitaires, j&amp;#8217;ai mis en place le contrôle de la couverture de code.
+Puis, j&amp;#8217;ai mis un pourcentage à atteindre pour pouvoir construire le projet dans le pipeline.
+Sans atteindre le pourcentage, le projet ne pouvait pas se construire.
+L&amp;#8217;équipe m&amp;#8217;a souvent challengé mais j&amp;#8217;ai tenu bon.
+En parallèle, j&amp;#8217;ai cherché les bonnes recettes pour écrire les tests unitaires.
+Au final, les tests unitaires sont devenus faciles à écrire puisque nous avions les façons de faire à portée de main.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;innovation_technologique&quot;&gt;Innovation technologique&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Souvent, les équipes de développement subissent les stacks technologiques des entreprises.
+Il n&amp;#8217;est pas possible d&amp;#8217;utiliser la dernière version de tel ou tel langage car le serveur de production est mutualisé avec
+d&amp;#8217;autres applications.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Heureusement, la containarisation et le cloud sont en train de changer la donne.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dans le cas de l&amp;#8217;outillage, l&amp;#8217;entreprise peut avoir acheté un outil et ne pas permettre l&amp;#8217;utilisation d&amp;#8217;un autre qui pourrait être mieux pour votre équipe.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dans les deux cas, il est possible d&amp;#8217;aller chercher les raisons de ça et voir ce qu&amp;#8217;il est possible de faire.
+Dans le pire des cas, ça vous mettra en visibilité et dans le meilleur vous réussirez à faire changer les choses.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Un voyage de mille lieues commence toujours par un premier pas.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;attribution&quot;&gt;
+&amp;#8212; Lao-Tseu
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Mais concrétement, qu&amp;#8217;apporte l&amp;#8217;innovation technologique ?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;L&amp;#8217;innovation technologique apporte, en général, deux choses :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;amélioration de la motivation de l&amp;#8217;équipe&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;amélioration des pratiques&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Une équipe qui a la possibilité d&amp;#8217;innover et qui prend l&amp;#8217;habitude d&amp;#8217;innover sera bien meilleure qu&amp;#8217;une équipe qui ne le fait pas&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour amener ça dans mes équipes, je questionne toujours pour remettre en cause les choix qui ne font pas de sens.
+Bref, je refuse le status quo.
+Ce n&amp;#8217;est pas toujours facile, mais ça permet de gagner des batailles pour faciliter le travail de l&amp;#8217;équipe mais même lorsque la bataille est perdue, le tech lead améliore le respect que l&amp;#8217;équipe peut avoir de lui.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Là encore, il s&amp;#8217;agit d&amp;#8217;être intransigeant avec les choses qui ne font pas de sens et de montrer les bonnes choses à faire.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ce qui m&amp;#8217;amène au dernier point la prise de risque.
+Car pour innover, il faut prendre des risques.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;prise_de_risque&quot;&gt;Prise de risque&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La prise de risque est très importante pour améliorer les choses et débloquer les pratiques de développement.
+Certains développeurs, ne veulent plus prendre de risque parce que ça fonctionne bien comme ça.
+Et que dans le cas où il y a un problème, le management cherchera un responsable&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Je vais vous rassurer tout de suite, je ne suis pas du genre à prendre des risques inconsidérés. Quoique&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Par contre, toute prise de risque qui a un gain potentiel important est à considérer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Je vais donner quelques exemple :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;J&amp;#8217;ai eu une fois à décider si mon équipe prenait le risque de passer notre application en Java 8 alors que l&amp;#8217;entreprise
+bloquait la compilation à Java 6 alors que le runtime sur le serveur était en 8 (ne me demandez pas la raison du blocage).
+Nous avions en quelques mois fait passer la couverture de tests unitaires de 0 à 65%
+et nous avions 70% des fonctionnalités couvertes par des tests fonctionnels automatisés.
+Tous nos indicateurs étaient au vert mais le chef de projets nous bloquait par peur.
+J&amp;#8217;ai décidé d&amp;#8217;aller prêcher la bonne parole au chef de mon chef en lui expliquant les choses suivantes :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;améliorations des performances (négligeable mais on veut convaincre)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;facilité pour attirer des développeurs (critère qu&amp;#8217;un directeur peut comprendre)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;nous avions les tests pour nous rassurer et réagir au cas où&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;l&amp;#8217;équipe était confiante&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Il a dit si ton chef de projets veut bloquer la migration qu&amp;#8217;il viennent me voir.
+Ce que le chef de projets ne fit jamais&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Et devinez quoi, après la livraison, tout c&amp;#8217;est bien passé, nous avons découvert quelques bogues au fil des mois mais le tout était négligeable par rapport au taux de bogue lors d&amp;#8217;ajout de fonctionnalité et surtout la réactivité de l&amp;#8217;équipe permettait de gérer tout ça.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Autre exemple, lors de ma première expérience avec des microservices, j&amp;#8217;ai eu à choisir si nous allions en Kotlin ou en Java.
+J&amp;#8217;ai fait le choix d&amp;#8217;obtenir de l&amp;#8217;expérience en écrivant un seul microservice en Kotlin et voir ce qu&amp;#8217;il en serait.
+Les retours étaient positifs d&amp;#8217;un point de vue expérience de développement
+et nous n&amp;#8217;avions aucun gros problèmes suite à l&amp;#8217;écriture du microservice en Kotlin.
+L&amp;#8217;équipe a finalement décidé d&amp;#8217;aller majoritairement dans ce sens.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Cela nous a permis d&amp;#8217;améliorer notre équipe et notre productivité en attirant des talents qui ne seraient pas venu sinon.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;définir_votre_vision&quot;&gt;Définir votre vision&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Que faut-il déterminer lors de votre réflexion sur la vision pour votre équipe ?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;les règles de qualité&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;les objectifs technologiques pour le produit&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;les objectifs de livraison&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;culture d&amp;#8217;équipe&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;les_règles_de_qualité&quot;&gt;Les règles de qualité&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La qualité est un élément essentiel, il faut que les règles soient plus fortes au fil du temps.
+Il faut voir comment passer de la situation courante vers l&amp;#8217;objectif et le mieux est d&amp;#8217;y aller par pas successifs en ayant en tête une cible lointaine.
+Si par bonheur vous atteignez la cible, cherchez en une encore plus loin.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;les_règles_de_sécurité&quot;&gt;Les règles de sécurité&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La sécurité est un élément encore plus essentiel.
+En effet, une faille de sécurité exploitée peut mettre à mal la réputation et la santé financière d&amp;#8217;une entreprise.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Heureusement, les entreprises ont commencé à s&amp;#8217;outiller avec des outils d&amp;#8217;analyse d&amp;#8217;artefacts.
+Il est donc facile d&amp;#8217;ajouter une étape de gating afin d&amp;#8217;arrêter la livraison en production d&amp;#8217;un artefact si celui-ci contient des failles de sécurité d&amp;#8217;un niveau non acceptable pour l&amp;#8217;entreprise.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Par contre, il faut permettre à l&amp;#8217;équipe de livrer l&amp;#8217;artefact si cette faille est déjà présente en production.
+Générallement il s&amp;#8217;agit du cas ou une faille de sécurité a été découverte dans une librairie tiers.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Bien sûr, il est nécessaire de s&amp;#8217;assurer que la faille n&amp;#8217;est pas facilement corrigeable avant de livrer.
+Selon la complexité de la faille, il faut la corriger.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Une des actions préventives, à mettre en place pour éviter d&amp;#8217;avoir à gérer les failles de sécurité, est de faire une passe de mise à jour sur les versions de librairies régulièrement pendant le développement.
+C&amp;#8217;est à l&amp;#8217;équipe de mettre en place une intégration continue et une livraison continue qui permettent d&amp;#8217;assurer que la mise à jour des versions des librairies soit sécuritaire.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;L&amp;#8217;idéal est que les mises à jour se fassent avec un minimum d&amp;#8217;intervention humaine.
+Il faut donc s&amp;#8217;outiller pour avoir un processus qui analyse les mises à jour disponibles des librairies et qui met à jour le code dès qu&amp;#8217;une mise à jour est disponible.
+Cette mise à jour, bien sûr, doit être testée automatiquement dans un pipeline afin qu&amp;#8217;un développeur n&amp;#8217;ait plus qu&amp;#8217;à valider l&amp;#8217;ajout du code dans la base de code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;les_objectifs_technologiques_pour_le_produit&quot;&gt;Les objectifs technologiques pour le produit&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Les objectifs technologiques ne sont pas là pour avoir du fun techniquement (bon un peu quand même&amp;#8230;&amp;#8203;).
+Ils doivent servir des besoins en arrière.
+Par exemple, amener une nouvelle technologie pour préparer une équipe à d&amp;#8217;autres développements qui arriveront plus tard.
+Essayer de ne pas s&amp;#8217;enfermer dans une technologie pour pouvoir évoluer vers quelques choses mieux et éviter de faire du legacy.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;les_objectifs_de_livraison&quot;&gt;Les objectifs de livraison&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Sur ce point, nous sommes en 2019, donc mes objectifs de livraison sont de base en tout temps et automatiquement.
+Mais ce n&amp;#8217;est pas forcément le cas lorsque j&amp;#8217;arrive quelques part donc il faut travailler cette cible et mettre tout
+l&amp;#8217;outillage en place pour y arriver.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;la_culture_déquipe&quot;&gt;La culture d&amp;#8217;équipe&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Vous pensez certainement que la culture d&amp;#8217;équipe n&amp;#8217;est pas l&amp;#8217;apanage du tech lead.
+Ouais, c&amp;#8217;est pas faux.
+Mais tant qu&amp;#8217;à faire autant aider à mettre en place une culture oû vous avez envie de travailler.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Et si je limite la culture d&amp;#8217;équipe à la culture technique, il s&amp;#8217;agit bien du rôle de tech lead.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dans mon cas, lorsque j&amp;#8217;essaie de construire une culture d&amp;#8217;équipe, je ne me limite pas à la culture technique.
+En effet, il faut aussi penser au vivre ensemble nous allons passer dans les 8h par jour ensemble autant avoir du fun.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;J&amp;#8217;essaie d&amp;#8217;amener ces différentes choses dans la culture de mes équipes :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;la transparence&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;l&amp;#8217;éxigence&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;la mobilisation&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;l&amp;#8217;amélioration et le partage des connaissances&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;J&amp;#8217;espère que vous aurez apprécié ce post et n&amp;#8217;hésitez pas à commenter si vous avez des points de vues différents.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Xavier Bouclet</name></author><summary type="html">Définir sa vision est pour moi, la chose la plus importante à concrétiser.</summary></entry><entry><title type="html">Postgres Embeded</title><link href="https://startbootstrap.github.io/2019/05/19/Postgres-Embeded.html" rel="alternate" type="text/html" title="Postgres Embeded" /><published>2019-05-19T00:00:00+00:00</published><updated>2019-05-19T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2019/05/19/Postgres-Embeded</id><content type="html" xml:base="https://startbootstrap.github.io/2019/05/19/Postgres-Embeded.html">&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When I develop locally on my laptop, I usually use H2 database to test the layer between my code and the database. But sometimes it&amp;#8217;s not enough&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Indeed some specific database types are useful in production but unuseable in development because H2 doesn&amp;#8217;t have them or they have another definition.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With postgres we have an alternative, we can use &lt;a href=&quot;https://github.com/yandex-qatools/postgresql-embedded&quot;&gt;postgresql-embedded&lt;/a&gt; in order to use postgresql locally.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In order to use it, we need to add the following dependency to our project. In my case I use maven :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;ru.yandex.qatools.embed&lt;span class=&quot;tag&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;postgresql-embedded&lt;span class=&quot;tag&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.10&lt;span class=&quot;tag&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And we can create some beans in a spring boot project in order to launch the database at startup.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;kotlin&quot;&gt;@Bean
+@Throws(IOException::class)
+fun postgresConfig(): PostgresConfig {
+     val postgresConfig = PostgresConfig(Version.V11_1,
+            AbstractPostgresConfig.Net(host, port!!),
+            AbstractPostgresConfig.Storage(database),
+            AbstractPostgresConfig.Timeout(),
+            AbstractPostgresConfig.Credentials(username, password)
+     )
+postgresConfig.additionalInitDbParams.addAll(DEFAULT_ADDITIONAL_INIT_DB_PARAMS)
+
+   return postgresConfig
+}
+
+@Bean(destroyMethod = &amp;quot;stop&amp;quot;)
+@Throws(IOException::class)
+fun postgresProcess(config: PostgresConfig): PostgresProcess {
+        val runtime = PostgresStarter.getDefaultInstance()
+        val exec = runtime.prepare(config)
+        val postgres = exec.start()
+        return postgres
+    }&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The postgresConfig bean allows us to define all the database information :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;host&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;port&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;user&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;password&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The postgresProcess bean launch database.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The first time the database is launched, the database binary is downloaded and installed on your computer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;Download Version{11.1-1}:OS_X:B64 START
+Download Version{11.1-1}:OS_X:B64 DownloadSize: 242187339
+Download Version{11.1-1}:OS_X:B64 0% 1% 2% 3% 4% 5% 6% 7% 8% 9% 10% 11% 12% 13% 14% 15% 16% 17% 18% 19% 20% 21% 22% 23% 24% 25% 26% 27% 28% 29% 30% 31% 32% 33% 34% 35% 36% 37% 38% 39% 40% 41% 42% 43% 44% 45% 46% 47% 48% 49% 50% 51% 52% 53% 54% 55% 56% 57% 58% 59% 60% 61% 62% 63% 64% 65% 66% 67% 68% 69% 70% 71% 72% 73% 74% 75% 76% 77% 78% 79% 80% 81% 82% 83% 84% 85% 86% 87% 88% 89% 90% 91% 92% 93% 94% 95% 96% 97% 98% 99% 100% Download Version{11.1-1}:OS_X:B64 downloaded with 1131kb/s
+Download Version{11.1-1}:OS_X:B64 DONE
+Extract /Users/user666/.embedpostgresql/postgresql-11.1-1-osx-binaries.zip START
+..................................................................................................................................................................................................................................................................................................................
+Extract /Users/user666/.embedpostgresql/postgresql-11.1-1-osx-binaries.zip DONE&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;After this first download, the database is just extracted and executed each time our app is executed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For more info, you can watch this &lt;a href=&quot;https://github.com/mikrethor/customer-r2dbc&quot;&gt;github repo&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Xavier Bouclet</name></author><summary type="html">When I develop locally on my laptop, I usually use H2 database to test the layer between my code and the database. But sometimes it&amp;#8217;s not enough&amp;#8230;&amp;#8203;</summary></entry></feed>
