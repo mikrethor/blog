@@ -1,0 +1,324 @@
+= Building a Java native REST API — Part 1: Spring Boot
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2021-03-15 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Building a Java native REST API — Part 1: Quarkus"
+:page-background: /img/posts/2021-01-11-GraalVM-going-native.png
+
+== What is Spring Boot ?
+
+If you don't know it yet, Spring Boot has been around for quite a while now (2014).
+For the oldest ones, who used Spring before Spring Boot, you know that you had to choose what frameworks to use with Spring and which versions worked well together.
+Spring Boot came with the goal of already defined what people did.
+Like they say on their page :
+
+[quote, Spring team]
+We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss.
+
+So now using Spring Boot, we are able with a minimal effort to launch a Spring based application and start developing in it.
+
+== Why should we build a Java Native application ?
+
+Java has been around for more than 25 years now and it's still evolving and I would add that it has never evolved that fast before.
+In the cloud, java was competing with others technologies (Go, NodeJS) which were using less resources than Java (you need a JVM after all).
+So Java was behind those technologies and then came https://www.graalvm.org[GraalVM] and the possibility to compile Java as close as possible to the system running it.
+
+== What We’ll Be Building
+
+In one of my previous https://www.xavierbouclet.com/2021/01/10/Which-alternatives-to-go-native-for-an-api-with-java.html[post],
+I wrote about which alternative you can use to use the full potential of Java Native in one of your APIs.
+So this post is about the Spring Boot alternative.
+
+In order to compare every alternative, we will be building a REST API for movies and actors.
+
+To see a bit more about the design check my last https://www.xavierbouclet.com/2021/01/24/Native-java-api-with-PostgreSQL.html[post].
+
+== Requirements
+
+Good understanding of Kotlin or Java programming language.
+Basic knowledge of Maven and Spring Boot.
+
+== Tools Needed
+
+- GraalVM
+- Java Development Kit (JDK) 11
+- IntelliJ IDEA, NetBeans, Eclipse (I will be using IntelliJ IDEA).
+- Docker
+
+== Getting Started
+
+To create the project you can go on https://start.spring.io/[Spring Initializr].
+
+image::../../../img/posts/2021-03-15-create-project.png[Create project,width=100%]
+
+Add the following dependencies :
+
+- Spring Native [Experimental]
+- Spring Web
+- Testcontainers
+- Spring Data JPA
+- PostgreSQL Driver
+
+Add the following dependency to your pom :
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.zalando</groupId>
+    <artifactId>problem</artifactId>
+    <version>0.25.0</version>
+</dependency>
+----
+
+This dependency is to handle error more beautifully :
+
+[source, kotlin]
+----
+    val problem = Problem.builder()
+    .withType(URI.create("https://mymovieapp.com/probs/cant-add-other-movie-kung-fury"))
+    .withTitle("Kung Fury movies are the only ones")
+    .withDetail("How dare you add this movie ? Only Kung Fury movies are worthy.")
+    .withStatus(Status.FORBIDDEN)
+    .build()
+----
+
+In order to compile your project using GraalVM, you need to add the followin profile :
+
+[source, xml]
+----
+ <profiles>
+    <profile>
+        <id>native</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.graalvm.nativeimage</groupId>
+                    <artifactId>native-image-maven-plugin</artifactId>
+                    <version>21.0.0</version>
+                    <configuration>
+                        <mainClass>com.lafabrique.digit.owl.JvmApiApplicationKt</mainClass>
+                        <buildArgs>-Dspring.native.remove-yaml-support=true -Dspring.spel.ignore=true
+<!--                            -Dspring.native.dump-config=./feature-reflect-config.json-->
+                        </buildArgs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>native-image</goal>
+                            </goals>
+                            <phase>package</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+ </profiles>
+----
+
+I won't detail all the code because at the end of this post you will find the link to my repo on Github.
+
+But I am going to detail the movie part with the components :
+
+- MovieController
+- MovieService
+- MovieRepository
+- Movie
+
+The MovieController is to handle every request to my endpoints /movies/* :
+
+[source, kotlin]
+----
+@RestController
+@RequestMapping("movies")
+class MovieController(val service: MovieService) {
+
+    @GetMapping
+    fun list(): ResponseEntity<*> {
+        return ResponseEntity.status(HttpStatus.OK).body(service.list())
+    }
+
+    @GetMapping("/{id}")
+    fun list(@PathVariable id: UUID): ResponseEntity<*> {
+        return ResponseEntity.status(HttpStatus.OK).body(service.get(id))
+    }
+
+    @PostMapping
+    fun add(@RequestBody movie: Movie): ResponseEntity<*>? {
+        val title = movie.title
+
+        if (title.isNotBlank() && ("Kung Fury" == title || "Kung Fury 2" == title)) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.add(movie))
+        }
+        val problem = Problem.builder()
+                .withType(URI.create("https://mymovieapp.com/probs/cant-add-other-movie-kung-fury"))
+                .withTitle("Kung Fury movies are the only ones")
+                .withDetail("How dare you add this movie ? Only Kung Fury movies are worthy.")
+                .withStatus(Status.FORBIDDEN)
+                .build()
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problem)
+    }
+
+    @PutMapping
+    fun modify(movie: Movie): ResponseEntity<*>? {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.modify(movie))
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: UUID): ResponseEntity<*>? {
+        return ResponseEntity.status(HttpStatus.OK).body(service.delete(id))
+    }
+
+    @PutMapping("/{id}/actors/{actorId}")
+    fun addActorToMovie(@PathVariable id: UUID, @PathVariable actorId: UUID): ResponseEntity<*>? {
+        val movie = service.addActorToMovie(id, actorId)
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(movie)
+    }
+
+    @DeleteMapping("/{id}/actors/{actorId}")
+    fun deleteActorFromMovie(@PathVariable id: UUID, @PathVariable actorId: UUID): ResponseEntity<*>? {
+        return ResponseEntity.status(HttpStatus.OK).body(service.removeActorFromMovie(id, actorId))
+    }
+}
+----
+
+Nothing fancy there, it calls the MovieService :
+
+[source, kotlin]
+----
+@Component
+class MovieService(val repository: MovieRepository, val actorRepository: ActorRepository) {
+
+    fun list(): MutableIterable<Movie> {
+        return repository.findAll()
+    }
+
+    fun list(title: String): List<Movie> {
+        return repository.findByTitle(title)
+    }
+
+    fun add(movie: Movie): Movie {
+        return repository.save(movie)
+    }
+
+    fun modify(movie: Movie): Movie {
+        return repository.save(movie)
+    }
+
+    fun delete(id: UUID): UUID {
+        repository.deleteById(id)
+        return id
+    }
+
+    fun addActorToMovie(id: UUID, idActor: UUID): Movie {
+        val movie = repository.findById(id).get()
+        val actor = actorRepository.findById(idActor).get()
+        movie.actors?.add(actor)
+        actor.movies?.add(movie)
+        return repository.save(movie)
+    }
+
+    fun get(id: UUID): Movie? {
+        return repository.findByIdOrNull(id)
+    }
+
+    fun removeActorFromMovie(id: UUID, idActor: UUID): Movie {
+        val movie = repository.findById(id).get()
+        val actor = actorRepository.findById(idActor).get()
+        movie.actors?.remove(actor)
+        actor.movies?.remove(movie)
+        return repository.save(movie)
+    }
+}
+----
+
+And the JPA repository MovieRepository :
+
+[source, kotlin]
+----
+@Repository
+interface MovieRepository : JpaRepository<Movie, UUID> {
+
+    fun findByTitle(title: String): List<Movie>
+}
+----
+
+And then the object Movie itself :
+
+[source, kotlin]
+----
+@Entity
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator::class, property="id")
+class Movie {
+
+    @javax.persistence.Id
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    var id: UUID? = null
+
+    var title: String = ""
+    var year: Int = 0
+
+    @JsonIgnoreProperties("movies")
+    @ManyToMany(mappedBy = "movies")
+    var actors: MutableSet<Actor>? = mutableSetOf()
+}
+----
+
+To be noted, the annotations :
+
+[source, kotlin]
+----
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator::class, property="id")
+----
+
+And
+
+[source, kotlin]
+----
+@JsonIgnoreProperties("movies")
+----
+
+These annotations are there to avoid going too deep in the serialisation to JSON and avoid cyclic reference.
+
+And now we are gonna deep dive in the compilation.
+
+== Build the project
+
+It's a normal Maven project so you can use the following command to build it :
+
+[source, bash]
+----
+mvn package
+----
+
+And execute it on a JVM. Like you always do.
+
+If you want to compile your artefact using GraalVM, you need to use the profile *"native"* we added in the pom.
+
+[source, bash]
+----
+mvn spring-boot:build-image -Pnative
+----
+
+The compilation takes a few minutes depending on your machine. That's why you pratically never compile natively on your machine.
+
+image::../../../img/posts/2021-03-15-native-compilation.png[Create project,width=100%]
+
+As you can see it took 9 minutes on my laptop.
+
+== What's Next
+
+On my next post I will write about the micronaut alternative.
+
+== Source code
+
+You can check the code on https://github.com/mikrethor/native-apis/tree/master/native-spring-api[Github].

@@ -25,7 +25,7 @@ The hard part is the many to many relation between actors and movies.
 
 == Api contract
 
-The Api contract is available http://127.0.0.1:4000/posts/native-api-doc/index.html[here].
+The Api contract is available https://xavier.bouclet.com/posts/native-api-doc/index.html[here].
 
 == First implementation
 
