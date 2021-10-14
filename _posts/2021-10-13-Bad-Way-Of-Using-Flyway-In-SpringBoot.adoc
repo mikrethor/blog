@@ -1,0 +1,109 @@
+= Which of Flyway or JPA should be responsible of generating your db structure?
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2021-10-13 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Which of Flyway or JPA should be responsible of generating your db structure?"
+:page-background: /img/posts/Flyway-plus-SpringBoot.png
+
+== 1. What is Flyway ?
+
+https://flywaydb.org/documentation/[Flyway] is an open-source database migration tool.
+It helps to keep track of all the changes done on the DB.
+It's done with the help of the table "flyway_schema_history".
+
+image::../../../img/posts/2021-01-11-flyway_schema_history[Flyway Schema History]
+
+In a Java project, Flyway applies SQL file or Java Migration code to the database (through command-line, Maven plugin,...).
+
+== 2. How Flyway is intended to be used with Spring Boot ?
+
+In Spring Boot everything being configured by default, the Spring Boot developers have chosen to execute Flyway and then trigger the Entity Manager.
+But some people have decided to delegate that to JPA and most of them visited at some point that https://stackoverflow.com/questions/37097876/spring-boot-hibernate-and-flyway-boot-order[StackOverflow page].
+
+Most of this post comes from the content on that page and the few hours I needed to make it work on our project.
+
+== 3. What happens if people wants to let JPA create the tables structure instead of Flyway ?
+
+=== Prior 2.5.X
+
+As someone on the stackoverflow page wrote, we could prior to 2.3 trigger Flyway after JPA by adding this property to our application.properties file.
+
+[source, properties]
+----
+spring.flyway.enabled=false
+----
+
+That property prevent Flyway to be autoconfigured by Spring Boot.
+
+And to use Flyway anyway and trigger it after JPA you need to add this following @Configuration file.
+
+[source, java]
+----
+@Configuration
+public class MigrationConfiguration {
+
+    /**
+     * Override default flyway initializer to do nothing
+     */
+    @Bean
+    FlywayMigrationInitializer flywayInitializer(Flyway flyway) {
+        return new FlywayMigrationInitializer(flyway, (f) ->{} );
+    }
+
+    /**
+     * Create a second flyway initializer to run after jpa has created the schema
+     */
+    @Bean
+    @DependsOn("entityManagerFactory")
+    FlywayMigrationInitializer delayedFlywayInitializer(Flyway flyway) {
+        return new FlywayMigrationInitializer(flyway);
+    }
+}
+----
+
+The @DependsOn annotation is what trigger the Flyway migration after the "EntityManagerFactory" has been created by Spring Boot.
+
+Unfortunately for us that way doesn't work anymore with Spring boot 2.5.X
+
+=== After 2.5.X
+
+We need to remove the Flyway autoconfigure with another way than the one we used prior.
+It's done with a "BeanFactoryPostProcessor".
+We need to exclude the DependsOn from 2 classes :
+
+- DataSourceScriptDatabaseInitializer
+- EntityManagerFactory
+
+Let's call our bean "FlywayDeferrerPostProcessor".
+
+[source, java]
+----
+@Component
+public class FlywayDeferrerPostProcessor implements BeanFactoryPostProcessor {
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        excludeDependsOnFlywayFromBean(beanFactory, DataSourceScriptDatabaseInitializer.class);
+        excludeDependsOnFlywayFromBean(beanFactory, EntityManagerFactory.class);
+    }
+
+    private void excludeDependsOnFlywayFromBean(ConfigurableListableBeanFactory beanFactory, Class<?> beanClass) {
+        Stream.of(beanFactory.getBeanNamesForType(beanClass))
+            .map(beanFactory::getBeanDefinition)
+            .filter(it -> it.getDependsOn() != null && it.getDependsOn().length > 0)
+            .forEach(it -> it.setDependsOn(Stream.of(it.getDependsOn()).filter(name -> !name.equals("flyway")).toArray(String[]::new)));
+    }
+}
+----
+
+== 4. Conclusion
+
+When we migrated from Spring Boot 2.3.X to 2.5.X, It took me a few hours to make Flyway work properly after JPA.
+It worked with 2.3 but Spring Boot changed something and it broke.
+And that's normal because that's not the way Spring Boot is supposed to work.
+So we shouldn't fight against the Spring Boot way of using Flyway.
+Now that our migration works we are gonna move away from JPA building the db structure and go back to use plain old Flyway.
+And you should to.
