@@ -1,0 +1,393 @@
+= The weight of annotations @Mock and @MockBean
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2021-10-19 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "The weight of annotations @Mock and @MockBean"
+:page-background: /img/posts/2021-12-19-mockito2.jpg
+
+== 1. Purpose of this blog post
+
+Once I run a test class with the MockitoExtension within Intellij Idea.
+I was amazed by the time it took to execute a simple test : 0.5 second.
+
+Not big you might say. Unfortunately in a big code base time adds up and we end with minutes in the test phase.
+
+So I decided to investigate what we should do to improve the test time.
+
+You will read the experiment and the results of my investigation at the conclusion of this article.
+
+== 2. How to mock with Mockito ?
+
+When doing unit testing, we often have to use mock to avoid building complex objects.
+To help us, we have Mock frameworks such has https://site.mockito.org/[Mockito].
+We have 2 ways to build our mock objects :
+
+- The "mock(Class<T> classToMock)" method
+- The "@Mock" annotation
+
+And since I develop mostly Spring Boot project at the moment, I will add a third option :
+
+- The "@MockBean" annotation
+
+=== 2.1. The "mock(Class<T> classToMock)" method
+
+The mock method creates an object of the parameter class and we can add afterwards the behaviour we wanna have.
+
+[source, java]
+----
+    SimpleObject simpleObject = mock(SimpleObject.class);
+----
+
+=== 2.2. The "@Mock" annotation
+
+The mock annotation do the same as the mock method without the boilerplate.
+
+[source, java]
+----
+    @Mock
+    SimpleObject simpleObject;
+----
+
+It uses the MockitoExtension at the class level.
+[source, java]
+----
+    @ExtendWith(MockitoExtension.class)
+----
+
+=== 2.3. The "@MockBean" annotation
+
+[source, java]
+----
+    @MockBean
+    SimpleObject simpleObject;
+----
+
+It uses the SpringExtension at the class level.
+[source, java]
+----
+    @ExtendWith(SpringExtension.class)
+----
+
+== 3. The experiment
+
+Within a Spring Boot project, we have 4 tests :
+
+- Test - class test executed at first of the run to avoid weird result related to the start of our test execution.
+- SimpleObjectMockTest - the test class which uses the mock method
+- SimpleObjectAnnotationTest - the test class which uses the annotation @Mock
+- SimpleObjectMockBeanTest -  the test class which uses the annotation @MockBean
+
+We have 2 objects that we will mock in our tests :
+
+- SimpleObject
+
+[source,java]
+----
+@RequiredArgsConstructor
+public class SimpleObject {
+
+    private final String name="";
+
+    public String name(){
+        return name;
+    }
+}
+----
+
+- AnotherSimpleObject
+
+[source,java]
+----
+@RequiredArgsConstructor
+public class AnotherSimpleObject {
+
+    private final String name="";
+
+    public String name(){
+        return name;
+    }
+}
+----
+
+We use Lombok to avoid boilerplate.
+
+=== 3.1. Test
+
+[source, java]
+----
+class A_Test {
+
+    @Test
+    void simpleTest() {
+        System.out.println("useless test to avoid ");
+    }
+}
+----
+
+=== 3.2. SimpleObjectMockTest
+
+[source, java]
+----
+class SimpleObjectMockTest {
+
+    private SimpleObject simpleObject = mock(SimpleObject.class);
+
+    private AnotherSimpleObject anotherSimpleObject = mock(AnotherSimpleObject.class);
+
+    private static final String NAME = "mock()";
+
+    @Test
+    void simpleTest() {
+        when(simpleObject.name()).thenReturn(NAME);
+        assertThat(simpleObject).isNotNull();
+        assertThat(simpleObject.name()).isEqualTo(NAME);
+    }
+
+    @Test
+    void anotherSimpleTest() {
+        when(anotherSimpleObject.name()).thenReturn(NAME);
+        assertThat(anotherSimpleObject).isNotNull();
+        assertThat(anotherSimpleObject.name()).isEqualTo(NAME);
+    }
+}
+----
+
+=== 3.3. SimpleObjectAnnotationTest
+
+[source,java]
+----
+@ExtendWith(MockitoExtension.class)
+class C_SimpleObjectAnnotationTest {
+
+    @Mock
+    SimpleObject simpleObject;
+
+    @Mock
+    AnotherSimpleObject anotherSimpleObject;
+
+    private static final String NAME="@Mock";
+
+    @Test
+    void simpleTest() {
+        when(simpleObject.name()).thenReturn(NAME);
+        assertThat(simpleObject).isNotNull();
+        assertThat(simpleObject.name()).isEqualTo(NAME);
+    }
+
+    @Test
+    void anotherSimpleTest(){
+        when(anotherSimpleObject.name()).thenReturn(NAME);
+        assertThat(anotherSimpleObject).isNotNull();
+        assertThat(anotherSimpleObject.name()).isEqualTo(NAME);
+    }
+}
+----
+
+=== 3.4. SimpleObjectMockBeanTest
+
+[source,java]
+----
+@ExtendWith(SpringExtension.class)
+class B_SimpleObjectMockBeanTest {
+
+    @MockBean
+    SimpleObject simpleObject;
+
+    @MockBean
+    AnotherSimpleObject anotherSimpleObject;
+
+    private static final String NAME="Mock";
+
+    @Test
+    void simpleTest(){
+        when(simpleObject.name()).thenReturn(NAME);
+        assertThat(simpleObject).isNotNull();
+        assertThat(simpleObject.name()).isEqualTo(NAME);
+    }
+
+    @Test
+    void anotherSimpleTest(){
+        when(anotherSimpleObject.name()).thenReturn(NAME);
+        assertThat(anotherSimpleObject).isNotNull();
+        assertThat(anotherSimpleObject.name()).isEqualTo(NAME);
+    }
+}
+----
+
+=== 3.5. The test runs
+
+In order to have consistent results that we can analyse we are gonna mix execution order.
+Prior to the tests, I would have thought that the fastest would be the mock method, then MockitoExtension and the SpringExtension.
+Indeed, the annotations need to be processed and SpringExtension in my mind was only for Spring Bean.
+
+The tests are run through Maven and to have a specific order we use a specific surefire configuration to run our test classes in a specific order.
+
+[source, xml]
+----
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-surefire-plugin</artifactId>
+	<configuration>
+		<runOrder>alphabetical</runOrder>
+	</configuration>
+</plugin>
+----
+
+The test "Test" is always executed first, so we have 6 execution order.
+
+[cols="1,1",frame=ends]
+|===
+|Execution order|Time in seconds
+
+|Test
+
+SimpleObjectAnnotationTest
+
+SimpleObjectMockBeanTest
+
+SimpleObjectMockTest
+
+|0.008
+
+0.215
+
+0.207
+
+0.001
+
+|Test
+
+SimpleObjectAnnotationTest
+
+SimpleObjectMockTest
+
+SimpleObjectMockBeanTest
+|0.007
+
+0.218
+
+0.211
+
+0
+
+|Test
+
+SimpleObjectMockTest
+
+SimpleObjectAnnotationTest
+
+SimpleObjectMockBeanTest
+|0.008
+
+0.214
+
+0.008
+
+0.215
+
+|Test
+
+SimpleObjectMockTest
+
+SimpleObjectMockBeanTest
+
+SimpleObjectAnnotationTest
+|0.008
+
+0.206
+
+0.209
+
+0.009
+
+|Test
+
+SimpleObjectMockBeanTest
+
+SimpleObjectMockTest
+
+SimpleObjectAnnotationTest
+|0.009
+
+0.419
+
+0
+
+0.007
+
+|Test
+
+SimpleObjectMockBeanTest
+
+SimpleObjectAnnotationTest
+
+SimpleObjectMockTest
+|0.008
+
+0.427
+
+0.007
+
+0.001
+|===
+
+The results are not the ones I expected.
+And I would say it has to be because the JVM is warming up.
+Indeed, when the MockBean are executed first, the other tests are almost instantaneous.
+
+[cols="1,1",frame=ends]
+|===
+|Test|Average time in seconds
+
+|SimpleObjectAnnotationTest
+|111.83
+
+|SimpleObjectMockTest
+|105.5
+
+|SimpleObjectMockBeanTest
+|246.33
+|===
+
+The average of each test is what I expected.
+
+=== 3.6. One execution at a time
+
+[cols="1,1",frame=ends]
+|===
+|Test|Average time in seconds
+
+|SimpleObjectAnnotationTest
+|235.4
+
+|SimpleObjectMockTest
+|36.4
+
+|SimpleObjectMockBeanTest
+|38.2
+|===
+
+Once again, the results are not the ones I expected.
+I don't understand why the @MockBean is as fast as the mock method and the @Mock is more than 6 times slower than the mock method.
+I used Intellij Ultimate in my tests, and I thought at first than be Spring was more optimized, but I tried in Eclipse as well and the results were the same.
+
+Don't hesitate to reach out to me if you have an explanation about that.
+
+== 4. Conclusion
+
+In conclusion, the mock method is faster than the others ways but as soon as the JVM has warmed up the tests are almost instantaneous.
+
+If we take 0.001 second for the mock method and 0.007 second for the @Mock method.
+
+We would be able to execute 1000 tests on 1 second with the mock method and 143 tests.
+
+I can't explain why in the IDE the MockBean annotation is way faster than the Mock annotation, and I am gonna look into that matter. And I won't use the SpringExtension in favor of the MockitoExtension because it relly on Spring and I prefer to have my test unaware of what framework is behind the scene, in case I want to move away from Spring Boot in favor of Micronaut or Quarkus.
+
+Depending on what you prefer execution time or readability you can favor one method over the other.
+
+If you want to look in details you can find the source code on my https://github.com/mikrethor/mockito-annotation.git[Github]
+
+
