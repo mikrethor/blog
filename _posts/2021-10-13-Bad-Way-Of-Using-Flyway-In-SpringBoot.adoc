@@ -14,7 +14,7 @@ https://flywaydb.org/documentation/[Flyway] is an open-source database migration
 It helps to keep track of all the changes done on the DB.
 It's done with the help of the table "flyway_schema_history".
 
-image::../../../img/posts/2021-01-11-flyway_schema_history[Flyway Schema History]
+image::../../../img/posts/2021-01-11-flyway_schema_history.png[Flyway Schema History]
 
 In a Java project, Flyway applies SQL file or Java Migration code to the database (through command-line, Maven plugin,...).
 
