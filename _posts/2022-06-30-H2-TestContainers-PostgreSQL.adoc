@@ -1,0 +1,81 @@
+= Be specific with your Spring data repositories
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2022-06-21 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Be specific with your Spring data repositories"
+:page-background: /img/posts/2022-06-30-bg-testcontainers.png
+
+== 1. Purpose of this blog post
+
+The purpose of this post is to detail why our build & test time went from 3 min 30 to 1 hour just by switching from H2 to PostgreSQL with Testcontainers.
+
+== 2. Ascertainment - 1 hour build time
+
+In order to explain why our build time went through the rough, let's give some context.
+
+Firstly, our stack is :
+
+- Spring Boot 2.7
+- Java 17
+- PostgreSQL
+- Junit/Cucumber
+
+Finally, our database schema, we store mostly media contents and our schema could be summed up with a table Content storing the common field of all contents and then a specific table by content type. It translates into at least 15 tables with a reference on the Content table.
+
+image::../../../img/posts/2022-06-30-db-diagram.png[Database,width=100%]
+
+The two main reasons our build time exploded are :
+
+- @ManyToMany relation
+- The use of ContentRepository instead of specific repository.
+
+== 3. Solution
+
+=== 3.1. @ManyToMany relation
+
+ManyToMany relation should be avoided and when mandatory, they should be done https://vladmihalcea.com/the-best-way-to-use-the-manytomany-annotation-with-jpa-and-hibernate/[properly].
+Of course, we haven't used the proper way and we weren't not able to do so because our code was using List instead of Set and it would have been too much work to replace that.
+
+But we found some interesting things by pushing our analysis, the @ManyToMany relation between Story and Content was instead a relation between Story and PhotoGallery so by changing Content to PhotoGallery we divided our build time by two (most of our test are using Story)
+
+Before :
+
+image::../../../img/posts/2022-06-30-many-to-many-story-content.png[ManyToMany Story Content,width=100%]
+
+After :
+
+image::../../../img/posts/2022-06-30-many-to-many-story-photogallery.png[ManyToMany Story PhotoGallery]
+
+=== 3.2. The use of ContentRepository
+
+Most of the time, our code uses a ContentRepository, but we already know which content type we want.
+By using a specific repository when possible we managed to divide our build time again.
+
+Bellow, an example of what we did :
+
+image::../../../img/posts/2022-06-30-specific-repository.png[Specific repository]
+
+Before both methods used ContentRepository and that prevented PostgreSQL to do its optimization.
+
+=== 3.3. Test optimisation
+
+Before our optimisations, our tests used the same repositories as our code to clean up our tables.
+We changed those with jdbcTemplate to use SQL queries to clean up our tables.
+
+image::../../../img/posts/2022-06-30-jdbcTemplate.png[JdbcTemplate]
+
+
+== 4. Conclusion
+
+Before, our code was optimized for H2 and now our code is optimized for PostgreSQL.
+And thanks to our build time problem, we managed to find optimizations that are now in production. On our production database, the change from Content to PhotoGallery went from an average of 95ms to 5ms maximum.
+
+To improve database performance, try to be as specific as possible to help your SGBD to do its work.
+
+To conclude, it's always important to reduce the feedback loop.
+Now our test database is also a PostgresSQL database and we will detect when a query is not optimized as soon as possible.
+
+
