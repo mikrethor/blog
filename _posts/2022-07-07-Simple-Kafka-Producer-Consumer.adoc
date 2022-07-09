@@ -276,7 +276,7 @@ I personally prefer to use curl.
 
 [source, bash]
 ----
-curl localhost:8080/message
+curl localhost:8080/kafka/send
 ----
 
 Finally, we need to add a few properties.
