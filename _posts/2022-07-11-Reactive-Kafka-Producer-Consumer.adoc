@@ -1,16 +1,17 @@
-= Let's write a simple Kafka producer/consumer
+= Let's write a reactive Kafka producer/consumer
 :showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
-:date: 2022-07-07 7:00:00 -0500
+:date: 2022-07-11 7:00:00 -0500
 :layout: post
 //:title: Man must explore, r sand this is exploration at its greatest
-:page-subtitle: "Let's write a simple Kafka producer/consumer"
+:page-subtitle: "Let's write a reactive Kafka producer/consumer"
 :page-background: /img/posts/2022-07-07-SpringBoot-Kafka.png
 
 == 1. Purpose of this blog post
 
-We are gonna implement a producer and a consumer for Kafka.
+Last time we wrote http://xavierbouclet.com/2022/07/07/Simple-Kafka-Producer-Consumer.html[a simple Kafka producer/consumer using Spring Boot].
+This time, we are gonna implement ones using the Spring Boot reactive stack Webflux.
 It should take less than 1 hour.
 
 == 2. Setup a Kafka environment
@@ -192,12 +193,12 @@ To create the project, you can use the https://start.spring.io/[Initializr].
 
 Choose the following options :
 
-* Artifact : kafka-producer (it should change the name as well)
+* Artifact : kafka-webflux-producer (it should change the name as well)
 * Language : Kotlin
 * Dependencies :
 ** Spring For Apache kafka
 ** Spring For Apache kafka Streams
-** Spring Web
+** Spring Reactive Web
 
 Let's dive in the code.
 The pom.xml should contain the following dependencies :
@@ -208,7 +209,11 @@ The pom.xml should contain the following dependencies :
 ....
     <dependency>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
+        <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.projectreactor.kotlin</groupId>
+        <artifactId>reactor-kotlin-extensions</artifactId>
     </dependency>
     <dependency>
         <groupId>org.apache.kafka</groupId>
@@ -222,51 +227,105 @@ The pom.xml should contain the following dependencies :
 <dependencies>
 ----
 
-Let's see the main generated main class *KafkaProducerApplication* and add some configuration.
+To allow us to use Kafka in a reactive way, we need to add this dependency :
+
+[source, xml]
+----
+<dependencies>
+....
+    <dependency>
+        <groupId>io.projectreactor.kotlin</groupId>
+        <artifactId>reactor-kafka</artifactId>
+        <version>1.3.11</version>
+    </dependency>
+....
+<dependencies>
+----
+
+Let's see the main generated main class *KafkaWebfluxProducerApplication*.
 
 [source, kotlin]
 ----
-@EnableKafka # <1>
 @SpringBootApplication
-class KafkaProducerApplication
+class KafkaWebfluxProducerApplication
 
 fun main(args: Array<String>) {
     runApplication<KafkaProducerApplication>(*args)
 }
 ----
-<1> Allow Spring Boot to trigger the autoconfiguration to communicate with Kafka.
 
-To send a message, we are gonna use a bean provided by Spring *KafkaTemplate*.
+We don't need to modify it.
+
+To send a message, we are gonna use a bean provided by Spring *ReactiveKafkaProducerTemplate*.
 
 [source, kotlin]
 ----
 @Service
-class TopicProducer(@Value("\${topic.name.producer}")
-    private val topicName: String,
-    val kafkaTemplate: KafkaTemplate<String, String>) {
+class TopicProducer(
+    @Value("\${topic.name.producer}") private val topicName: String,
+    val kafkaTemplate: ReactiveKafkaProducerTemplate<String, String>
+) {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(TopicProducer::class.java)
     }
 
-    fun send( message:String) {
-        LOGGER.info("Payload sent: {}", message)
-        kafkaTemplate.send(topicName, message) # <1>
+    fun send( message:String): Mono<SenderResult<Void>> {
+        LOGGER.info("Payload sent: {} to {}", message, topicName)
+        return kafkaTemplate.send(topicName, message) # <1>
     }
 }
 ----
 <1> Send the message to the topic corresponding to the property *topic.name.producer*.
 
-Let's write a controller *KafkaController* to interact with our producer *TopicProducer*.
+Contrary to a standard *KafkaTemplate*, there is no autoconfiguration available, so we need to write a bit of configuration to make the *ReactiveKafkaProducerTemplate* available.
 
 [source, kotlin]
 ----
-@RestController
-@RequestMapping(value = ["kafka"])
-class KafkaController(val topicProducer: TopicProducer) {
-    @GetMapping(value = ["send"])
-    fun send(@RequestParam(name = "message") message: String?) {
-        topicProducer.send(message ?: "Test message sent to topic")
+@Configuration
+class ReactiveKafkaProducerConfig {
+    @Bean
+    fun reactiveKafkaProducerTemplate(properties: KafkaProperties) =
+        ReactiveKafkaProducerTemplate<String, String>(SenderOptions.create(properties.buildProducerProperties()))
+
+}
+----
+
+When I, usually, develop a Webflux application, I prefer to use the RouterFunctions, so we are gonna add a router and a handler to our app.
+Let's write our *MessageHandler* to interact with our producer *TopicProducer*.
+
+[source, kotlin]
+----
+@Component
+class MessageHandler(private val producer: TopicProducer) {
+
+    fun send(request: ServerRequest): Mono<ServerResponse> {
+        val message = when {
+            request.queryParam("message").isPresent -> {
+                request.queryParam("message").get()
+            }
+            else -> "default message"
+        }
+
+        return producer.send(message).map { ServerResponse.ok().build() }.flatMap{it}
+    }
+}
+----
+
+Now, we need to add the router *ApplicationRouter* to be able to interact with our application.
+
+[source, kotlin]
+----
+@Configuration
+class ApplicationRouter(val messageHandler: MessageHandler) {
+
+    @Bean
+    fun route() = router {
+        "/kafka".nest {
+            "/send".nest {
+                GET("", messageHandler::send)
+            }
+        }
     }
 }
 ----
@@ -303,7 +362,7 @@ If the topic isn't created, you can use the following command.
 docker exec broker kafka-topics --bootstrap-server broker:9092 --create --topic quickstart
 ----
 
-Finally, to run your application you can use the main class *KafkaProducerApplication* or use the command.
+Finally, to run your application you can use the main class *KafkaWebfluxProducerApplication* or use the command.
 
 [source, bash]
 ----
@@ -322,30 +381,25 @@ The console should show something similar to :
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.1)
 
-2022-07-07 21:06:04.968  INFO 13187 --- [           main] c.x.k.KafkaProducerApplicationKt         : Starting KafkaProducerApplicationKt using Java 17.0.3 on host with PID 13187 (/Users/xavierbouclet/Sources/kafka-demo/kafka-producer/target/classes started by xavierbouclet in /Users/xavierbouclet/Sources/kafka-demo)
-2022-07-07 21:06:04.969  INFO 13187 --- [           main] c.x.k.KafkaProducerApplicationKt         : No active profile set, falling back to 1 default profile: "default"
-2022-07-07 21:06:05.503  INFO 13187 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2022-07-07 21:06:05.508  INFO 13187 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2022-07-07 21:06:05.508  INFO 13187 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
-2022-07-07 21:06:05.551  INFO 13187 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2022-07-07 21:06:05.551  INFO 13187 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 542 ms
-2022-07-07 21:06:05.766  INFO 13187 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2022-07-07 21:06:05.773  INFO 13187 --- [           main] c.x.k.KafkaProducerApplicationKt         : Started KafkaProducerApplicationKt in 0.991 seconds (JVM running for 1.311)
+2022-07-09 15:24:43.713  INFO 38989 --- [           main] c.x.k.KafkaWebfluxProducerApplicationKt  : Starting KafkaWebfluxProducerApplicationKt using Java 17.0.3 on localhost with PID 38989 (/Users/xavierbouclet/Sources/kafka-demo/kafka-webflux-producer/target/classes started by xavierbouclet in /Users/xavierbouclet/Sources/kafka-demo)
+2022-07-09 15:24:43.714  INFO 38989 --- [           main] c.x.k.KafkaWebfluxProducerApplicationKt  : No active profile set, falling back to 1 default profile: "default"
+2022-07-09 15:24:44.233  INFO 38989 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080
+2022-07-09 15:24:44.239  INFO 38989 --- [           main] c.x.k.KafkaWebfluxProducerApplicationKt  : Started KafkaWebfluxProducerApplicationKt in 0.641 seconds (JVM running for 0.827)
 ----
 
-We can now interact with our producer with curl or postman.
+We can call our producer with curl or postman.
 I personally prefer to use curl.
 
 [source, bash]
 ----
-curl localhost:8080/kafka/send
+curl localhost:8080/kafka/send\?message=test1
 ----
 
-Now let's write a consumer to listen our topic and see the messages sent.
+Now let's write a reactive consumer to listen our topic and see the messages sent.
 
 == 3. Write a consumer
 
-To create the consumer, you can use the https://start.spring.io/[Initializr].
+To create the reactive kafka consumer, you can use the https://start.spring.io/[Initializr].
 
 Choose the following options :
 
@@ -354,7 +408,7 @@ Choose the following options :
 * Dependencies :
 ** Spring For Apache kafka
 ** Spring For Apache kafka Streams
-** Spring Web
+** Spring Reactive Web
 
 Like the producer, the pom.xml should contain :
 
@@ -364,7 +418,11 @@ Like the producer, the pom.xml should contain :
 ....
     <dependency>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
+        <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.projectreactor.kotlin</groupId>
+        <artifactId>reactor-kotlin-extensions</artifactId>
     </dependency>
     <dependency>
         <groupId>org.apache.kafka</groupId>
@@ -378,16 +436,30 @@ Like the producer, the pom.xml should contain :
 <dependencies>
 ----
 
-As for the producer, we need to add the *@EnableKafka* annotation to tell Spring Boot to create all the configuration needed to interact with Kafka.
+To allow us to consume Kafka in a reactive way, we need to add this dependency :
+
+[source, xml]
+----
+<dependencies>
+....
+    <dependency>
+        <groupId>io.projectreactor.kotlin</groupId>
+        <artifactId>reactor-kafka</artifactId>
+        <version>1.3.11</version>
+    </dependency>
+....
+<dependencies>
+----
+
+We don't need to modify anything in the main class *KafkaWebfluxConsumerApplication*.
 
 [source, kotlin]
 ----
-@EnableKafka
 @SpringBootApplication
-class KafkaConsumerApplication
+class KafkaWebfluxConsumerApplication
 
 fun main(args: Array<String>) {
-    runApplication<KafkaConsumerApplication>(*args)
+    runApplication<KafkaWebfluxConsumerApplication>(*args)
 }
 ----
 
@@ -396,20 +468,67 @@ In our consumer, we need a *TopicListener* to listen the Kafka topic "quickstart
 [source, kotlin]
 ----
 @Service
-class TopicListener(@Value("\${topic.name.consumer}")
-    private val topicName: String) {
+class TopicListener(
+    private val reactiveKafkaConsumerTemplate: ReactiveKafkaConsumerTemplate<String, String>
+) {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(TopicListener::class.java)
     }
 
-    @KafkaListener(topics = ["\${topic.name.consumer}"], groupId = "group_id")
-    fun consume(payload: ConsumerRecord<String?, String?>) {
-        LOGGER.info("Topic: {}", topicName)
-        LOGGER.info("key: {}", payload.key())
-        LOGGER.info("Headers: {}", payload.headers())
-        LOGGER.info("Partion: {}", payload.partition())
-        LOGGER.info("Order: {}", payload.value())
+    fun consumeTopic(): Flux<String> {
+        return reactiveKafkaConsumerTemplate
+            .receiveAutoAck()
+            .doOnNext {
+                LOGGER.info(
+                    "received key={}, value={} from topic={}, offset={}, partition={}, headers={}",
+                    it.key(),
+                    it.value(),
+                    it.topic(),
+                    it.offset(),
+                    it.partition(),
+                    it.headers()
+                )
+            }
+            .map { it.value() }
+            .doOnNext { LOGGER.info("successfully consumed {}={}", String::class.java.simpleName, it) }
+            .doOnError { LOGGER.error("something bad happened while consuming : {}", it.message) }
+    }
+
+}
+----
+
+The *TopicListener* leverage *ReactiveKafkaConsumerTemplate* but in order to use it, we need to configure it.
+
+[source, kotlin]
+----
+@Configuration
+class ReactiveKafkaConsumerConfig {
+
+    @Bean
+    fun kafkaReceiverOptions(@Value(value = "\${topic.name.consumer}") topic: String, kafkaProperties: KafkaProperties): ReceiverOptions<String?, String> {
+        val basicReceiverOptions: ReceiverOptions<String, String> = ReceiverOptions.create(kafkaProperties.buildConsumerProperties())
+        return basicReceiverOptions.subscription(Collections.singletonList(topic))
+    }
+
+    @Bean
+    fun reactiveKafkaConsumerTemplate(kafkaReceiverOptions: ReceiverOptions<String, String>) =
+        ReactiveKafkaConsumerTemplate(kafkaReceiverOptions)
+
+}
+----
+
+Our application needs a component to start listening our kafka topic : quickstart.
+So we need to add the *KafkaListener*.
+
+[source, kotlin]
+----
+@Component
+class KafkaListener(val topicListener: TopicListener) {
+
+    @EventListener(ContextRefreshedEvent::class)
+    fun contextRefreshedEvent() {
+       topicListener.consumeTopic().subscribe()
     }
 }
 ----
@@ -425,17 +544,19 @@ spring:
             bootstrap-servers: 127.0.0.1:9092
             key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
             value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            group-id: group_id # <1>
 server:
-    port: 8081 # <1>
+    port: 8081 # <2>
 
 topic:
     name:
-        consumer: quickstart # <2>
+        consumer: quickstart # <3>
 ----
-<1>  The Spring Boot port need to be changed to avoid the conflict with the producer.
-<2>  Topic listened by our consumer.
+<1>  The consumer Kafka group-id.
+<2>  The Spring Boot port needs to be changed to avoid the conflict with the producer.
+<3>  Topic listened by our consumer.
 
-Finally, to run your application you can use the main class *KafkaConsumerApplication* or use the command.
+Finally, to run your application you can use the main class *KafkaWebfluxConsumerApplication* or use the command.
 
 [source, bash]
 ----
@@ -454,14 +575,10 @@ The console should show something similar to :
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.1)
 
-2022-07-07 21:17:23.516  INFO 14157 --- [           main] c.x.k.KafkaConsumerApplicationKt         : Starting KafkaConsumerApplicationKt using Java 17.0.3 on ip-10-0-0-192.ca-central-1.compute.internal with PID 14157 (/Users/xavierbouclet/Sources/kafka-demo/kafka-consumer/target/classes started by xavierbouclet in /Users/xavierbouclet/Sources/kafka-demo)
-2022-07-07 21:17:23.517  INFO 14157 --- [           main] c.x.k.KafkaConsumerApplicationKt         : No active profile set, falling back to 1 default profile: "default"
-2022-07-07 21:17:23.917  INFO 14157 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
-2022-07-07 21:17:23.923  INFO 14157 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2022-07-07 21:17:23.923  INFO 14157 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
-2022-07-07 21:17:23.964  INFO 14157 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2022-07-07 21:17:23.964  INFO 14157 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 425 ms
-2022-07-07 21:17:24.169  INFO 14157 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values:
+2022-07-09 15:37:48.429  INFO 40117 --- [           main] c.x.k.KafkaWebfluxConsumerApplicationKt  : Starting KafkaWebfluxConsumerApplicationKt using Java 17.0.3 on localhost with PID 40117 (/Users/xavierbouclet/Sources/kafka-demo/kafka-webflux-consumer/target/classes started by xavierbouclet in /Users/xavierbouclet/Sources/kafka-demo)
+2022-07-09 15:37:48.430  INFO 40117 --- [           main] c.x.k.KafkaWebfluxConsumerApplicationKt  : No active profile set, falling back to 1 default profile: "default"
+2022-07-09 15:37:49.618  INFO 40117 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8081
+2022-07-09 15:37:49.642  INFO 40117 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values:
 	allow.auto.create.topics = true
 	auto.commit.interval.ms = 5000
 	auto.offset.reset = earliest
@@ -554,17 +671,22 @@ The console should show something similar to :
 	ssl.truststore.type = JKS
 	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
 
-2022-07-07 21:17:24.206  INFO 14157 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.1.1
-2022-07-07 21:17:24.206  INFO 14157 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 97671528ba54a138
-2022-07-07 21:17:24.206  INFO 14157 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1657243044205
-2022-07-07 21:17:24.207  INFO 14157 --- [           main] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-group_id-1, groupId=group_id] Subscribed to topic(s): quickstart
-2022-07-07 21:17:24.224  INFO 14157 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
-2022-07-07 21:17:24.230  INFO 14157 --- [           main] c.x.k.KafkaConsumerApplicationKt         : Started KafkaConsumerApplicationKt in 0.875 seconds (JVM running for 1.199)
+2022-07-09 15:37:49.683  INFO 40117 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.1.1
+2022-07-09 15:37:49.683  INFO 40117 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 97671528ba54a138
+2022-07-09 15:37:49.683  INFO 40117 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1657395469682
+2022-07-09 15:37:49.701  INFO 40117 --- [afka-group_id-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-group_id-1, groupId=group_id] Subscribed to topic(s): quickstart
+2022-07-09 15:37:49.715  INFO 40117 --- [           main] c.x.k.KafkaWebfluxConsumerApplicationKt  : Started KafkaWebfluxConsumerApplicationKt in 1.507 seconds (JVM running for 1.836)
+2022-07-09 15:37:49.860  INFO 40117 --- [afka-group_id-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-group_id-1, groupId=group_id] Resetting the last seen epoch of partition quickstart-0 to 0 since the associated topicId changed from null to q5xnD2sbSAewfdlj6w4QCQ
+2022-07-09 15:37:49.861  INFO 40117 --- [afka-group_id-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-group_id-1, groupId=group_id] Cluster ID: _JHkNBaBRNG5evp-o1-x_A
+2022-07-09 15:37:49.861  INFO 40117 --- [afka-group_id-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-group_id-1, groupId=group_id] Discovered group coordinator localhost:9092 (id: 2147483646 rack: null)
+2022-07-09 15:37:49.862  INFO 40117 --- [afka-group_id-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-group_id-1, groupId=group_id] (Re-)joining group
+2022-07-09 15:37:49.868  INFO 40117 --- [afka-group_id-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-group_id-1, groupId=group_id] Request joining group due to: need to re-join with the given member-id
+2022-07-09 15:37:49.868  INFO 40117 --- [afka-group_id-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-group_id-1, groupId=group_id] (Re-)joining group
 ----
 
 == 3. Play with the producer and the consumer
 
-Our producer and our consumer are not related, and so we can start our producer *KafkaProducerApplication* and stop the consumer.
+Our producer and our consumer are not related, and so we can start our producer *KafkaWebfluxProducerApplication* and stop the consumer.
 
 Let's send a few curl commands (or postman).
 
@@ -583,46 +705,29 @@ curl localhost:8080/kafka/send\?message=test5
 curl localhost:8080/kafka/send\?message=test6
 ----
 
-Now let's start our consumer *KafkaConsumerApplication*.
+Now let's start our consumer *KafkaWebfluxConsumerApplication*.
 
 You should see something similar to the following output :
 
 [source, bash]
 ----
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : key: null
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Headers: RecordHeaders(headers = [], isReadOnly = false)
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Partion: 0
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Order: test1
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Topic: quickstart
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : key: null
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Headers: RecordHeaders(headers = [], isReadOnly = false)
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Partion: 0
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Order: test2
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Topic: quickstart
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : key: null
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Headers: RecordHeaders(headers = [], isReadOnly = false)
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Partion: 0
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Order: test3
-2022-07-07 21:24:25.876  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Topic: quickstart
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : key: null
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Headers: RecordHeaders(headers = [], isReadOnly = false)
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Partion: 0
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Order: test4
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Topic: quickstart
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : key: null
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Headers: RecordHeaders(headers = [], isReadOnly = false)
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Partion: 0
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Order: test5
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Topic: quickstart
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : key: null
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Headers: RecordHeaders(headers = [], isReadOnly = false)
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Partion: 0
-2022-07-07 21:24:25.877  INFO 14738 --- [ntainer#0-0-C-1] c.x.kafkaconsumer.TopicListener          : Order: test6
+2022-07-09 15:41:04.779  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : received key=null, value=test1 from topic=quickstart, offset=68, partition=0, headers=RecordHeaders(headers = [], isReadOnly = false)
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : successfully consumed String=test1
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : received key=null, value=test2 from topic=quickstart, offset=69, partition=0, headers=RecordHeaders(headers = [], isReadOnly = false)
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : successfully consumed String=test2
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : received key=null, value=test3 from topic=quickstart, offset=70, partition=0, headers=RecordHeaders(headers = [], isReadOnly = false)
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : successfully consumed String=test3
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : received key=null, value=test4 from topic=quickstart, offset=71, partition=0, headers=RecordHeaders(headers = [], isReadOnly = false)
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : successfully consumed String=test4
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : received key=null, value=test5 from topic=quickstart, offset=72, partition=0, headers=RecordHeaders(headers = [], isReadOnly = false)
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : successfully consumed String=test5
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : received key=null, value=test6 from topic=quickstart, offset=73, partition=0, headers=RecordHeaders(headers = [], isReadOnly = false)
+2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : successfully consumed String=test6
 ----
 
 == 4. Conclusion
 
-We now have seen how to implement a simple producer/consumer for our Kafka.
+We now have seen how to implement a reactive producer/consumer for our Kafka.
 You can find the code on my Github repository https://github.com/mikrethor/kafka-demo[kafka-demo].
 
 
