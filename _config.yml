@@ -32,7 +32,7 @@ asciidoctor:
   safe: unsafe
   attributes:
     - idseparator=_
-    - source-highlighter=coderay
+    - source-highlighter=rouge
     - icons=font
 
 collections:
