@@ -187,7 +187,7 @@ And voilà, you should see something similar to :
  ⠿ Container ksql-datagen     Started                                          5.7s
 ----
 
-== 2. Write a producer
+== 3. Write a producer
 
 To create the project, you can use the https://start.spring.io/[Initializr].
 
@@ -397,7 +397,7 @@ curl localhost:8080/kafka/send\?message=test1
 
 Now let's write a reactive consumer to listen our topic and see the messages sent.
 
-== 3. Write a consumer
+== 4. Write a consumer
 
 To create the reactive kafka consumer, you can use the https://start.spring.io/[Initializr].
 
@@ -684,7 +684,7 @@ The console should show something similar to :
 2022-07-09 15:37:49.868  INFO 40117 --- [afka-group_id-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-group_id-1, groupId=group_id] (Re-)joining group
 ----
 
-== 3. Play with the producer and the consumer
+== 5. Play with the producer and the consumer
 
 Our producer and our consumer are not related, and so we can start our producer *KafkaWebfluxProducerApplication* and stop the consumer.
 
@@ -725,7 +725,7 @@ You should see something similar to the following output :
 2022-07-09 15:41:04.780  INFO 40415 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : successfully consumed String=test6
 ----
 
-== 4. Conclusion
+== 6. Conclusion
 
 We now have seen how to implement a reactive producer/consumer for our Kafka.
 You can find the code on my Github repository https://github.com/mikrethor/kafka-demo[kafka-demo].
