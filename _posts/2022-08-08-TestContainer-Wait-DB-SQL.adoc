@@ -1,0 +1,187 @@
+= Properly wait for TestContainers PostgresSQL
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2022-08-08 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Properly wait for TestContainers PostgresSQL"
+:page-background: /img/posts/2022-08-08-SpringBoot-TestContainers-PostgresSQL.png
+
+== 1. Purpose of this blog post
+
+In our projects we tend to use https://www.testcontainers.org[TestContainers] more and more, and I wanted to describe the recipe that we put in place in order to be sure that our PostgresSQL was up and running before our tests even began.
+
+== 2. The default wait strategy
+
+To trigger testcontainers, we use the Junit 5 interfaces *BeforeAllCallback* and *AfterAllCallback* to respectively start and stop our PostgresSQL container.
+At first, we used the default wait strategy and from time to time our tests were failing.
+
+[source,java]
+----
+@Slf4j
+public class PostgresSQLExtension implements BeforeAllCallback, AfterAllCallback {
+
+    private static final PostgreSQLContainer<?> postgresSQLServerPrimary = new PostgreSQLContainer<>("postgres:14.1")
+        .waitingFor(Wait.defaultWaitStrategy());
+
+    @Override
+    public void beforeAll(ExtensionContext extensionContext) {
+        postgresSQLServerPrimary.start();
+    }
+    
+    @Override
+    public void afterAll(ExtensionContext extensionContext) {
+        postgresSQLServerPrimary.stop();
+    }
+
+    @DynamicPropertySource
+    private static void properties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.driver-class-name", () -> "org.postgresql.Driver");
+        registry.add("spring.datasource.url", postgresSQLServerPrimary.getJdbcUrl());
+        registry.add("spring.datasource.username", () -> postgresSQLServerPrimary.getUsername());
+        registry.add("spring.datasource.password", () -> postgresSQLServerPrimary.getPassword());
+        registry.add("spring.primary.datasource.driver-class-name", () -> "org.postgresql.Driver");
+        registry.add("spring.primary.datasource.url", postgresSQLServerPrimary.getJdbcUrl());
+        registry.add("spring.primary.datasource.username", () -> postgresSQLServerPrimary.getUsername());
+        registry.add("spring.primary.datasource.password", () -> postgresSQLServerPrimary.getPassword());
+        registry.add("spring.replica.datasource.driver-class-name", () -> "org.postgresql.Driver");
+        registry.add("spring.replica.datasource.url", postgresSQLServerPrimary.getJdbcUrl());
+        registry.add("spring.replica.datasource.username", () -> postgresSQLServerPrimary.getUsername());
+        registry.add("spring.replica.datasource.password", () -> postgresSQLServerPrimary.getPassword());
+    }
+}
+----
+
+The default wait strategy try to listen the exposed port and when it is, it indicates that we can use the container.
+
+[source, java]
+----
+/**
+* Convenience class with logic for building common {@link WaitStrategy} instances.
+*
+*/
+public class Wait {
+
+    /**
+     * Convenience method to return the default WaitStrategy.
+     *
+     * @return a WaitStrategy
+     */
+    public static WaitStrategy defaultWaitStrategy() {
+        return forListeningPort();
+    }
+....
+----
+
+Meaning, our container may be up but our database could be unavailable.
+Obviously, we could do better.
+
+We need a new wait strategy that will try to query the database using SQL.
+
+== 2. The SQL wait strategy
+
+In order to implement our new wait strategy, we need to extend the class *AbstractWaitStrategy* and override the method *waitUntilReady*.
+
+[source,java]
+----
+public class TestContainerPostgresSQLWaitStrategy extends AbstractWaitStrategy {
+    private static final String SELECT_VERSION_QUERY = "SELECT 666";
+    private static final String TIMEOUT_ERROR = "Timed out waiting for PostgresSQL to be accessible for query execution";
+
+    @Override
+    protected void waitUntilReady() {
+        // execute select version query until success or timeout
+        try {
+            retryUntilSuccess((int) startupTimeout.getSeconds(), TimeUnit.SECONDS, () -> {
+                getRateLimiter().doWhenReady(() -> {
+                    try (DatabaseDelegate databaseDelegate = getDatabaseDelegate()) {
+                        databaseDelegate.execute(SELECT_VERSION_QUERY, "", 1, false, false);
+                    }
+                });
+                return true;
+            });
+        } catch (Exception e) {
+            throw new ContainerLaunchException(TIMEOUT_ERROR);
+        }
+    }
+
+    private DatabaseDelegate getDatabaseDelegate() {
+        return new TestContainerPostgresSQLDelegate(waitStrategyTarget);
+    }
+}
+----
+
+Our wait strategy uses an *AbstractDatabaseDelegate* to execute the SQL query to the PostgresSQL database.
+We need to implement ours as well : *TestContainerPostgresSQLDelegate*.
+An *AbstractDatabaseDelegate* takes a generics as CONNECTION.
+In our case, it is a good old *java.sql.Connection* but in your case, it could be a nosql connection or anything you use to connect to something.
+
+Our *TestContainerPostgresSQLDelegate* has to override three methods :
+
+* createNewConnection - to create the connection to the db
+* execute - used in *TestContainerPostgresSQLWaitStrategy* to execute the SQL query
+* closeConnectionQuietly - to close the connection used
+
+
+[source,java]
+----
+@Slf4j
+@RequiredArgsConstructor
+public class TestContainerPostgresSQLDelegate extends AbstractDatabaseDelegate<Connection> {
+
+    private final ContainerState container;
+
+    @Override
+    protected Connection createNewConnection() {
+        try {
+            Properties connectionProps = new Properties();
+            connectionProps.put("user", "test"); # <1>
+            connectionProps.put("password", "test"); # <2>
+            return DriverManager.getConnection(
+                    String.format("jdbc:postgresql://localhost:%s/test", container.getFirstMappedPort()),
+                    connectionProps); # <3>
+        } catch (Exception e) {
+            log.error("Could not obtain PostgresSQL connection");
+            throw new ConnectionCreationException("Could not obtain PostgresSQL connection", e);
+        }
+    }
+
+    @Override
+    public void execute(String statement, String scriptPath, int lineNumber, boolean continueOnError, boolean ignoreFailedDrops) {
+        try {
+            ResultSet result = getConnection().prepareStatement(statement).executeQuery();
+            result.next();
+            if (result.getObject(1, Integer.class).equals(666)) { # <4>
+                log.debug("Statement {} was applied", statement);
+            } else {
+                throw new ScriptUtils.ScriptStatementFailedException(statement, lineNumber, scriptPath);
+            }
+        } catch (Exception e) {
+            throw new ScriptUtils.ScriptStatementFailedException(statement, lineNumber, scriptPath, e);
+        }
+    }
+
+    @Override
+    protected void closeConnectionQuietly(Connection connection) {
+        try {
+            connection.close();
+        } catch (Exception e) {
+            log.error("Could not close PostgresSQL connection", e);
+        }
+    }
+}
+----
+<1> The user used to conect to the db.
+<2> The password used by the user.
+<3> The jdbc url of the db.
+<4> A test corresponding to the query SELECT_VERSION_QUERY in *TestContainerPostgresSQLWaitStrategy*.
+
+And voilà, now you have a wait strategy that make sure that any SQL query is executable before allowing us to run our integration tests.
+
+== 6. Conclusion
+
+We now have seen how to properly implement a proper wait strategy to any sql database used through Testcontainers.
+
+
+
