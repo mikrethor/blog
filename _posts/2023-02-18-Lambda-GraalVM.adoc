@@ -1,0 +1,248 @@
+= AWS Lambda with GraalVM
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2023-02-18 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "AWS Lambda with GraalVM"
+:page-background: /img/posts/2023-02-18-Lambda-GraalVM.png
+
+== 1. Purpose of this blog post
+
+In the https://maxday.github.io/lambda-perf/[Lambda Cold Starts analysis by maxday] page, we could see that Java on Lambda is really slow compared to :
+
+- Rust
+- Go
+- Python
+- NodeJS
+
+image::../../../img/posts/2023-02-18-Lambda-Perf-Analysis.png[Lambda Cold Starts analysis 2023-02-18]
+
+I am a big fan of https://www.graalvm.org[GraalVM], so I thought we could do better.
+To avoid you the need of reading a lot about GraalVM, I am going to give a small description.
+
+GraalVM is a JVM created by Oracle in order to improve performance of languages that run on the JVM.
+It provides also the 'native-image' tool that transforms JVM applications into native executable.
+
+That's how we are going to improve the performance of the Java based lambda.
+
+Important fact, GraalVM removes unused code and sometimes because of reflection it removes too much code.
+
+== 2. Problem with GraalVM on a Lambda
+
+Contrary to a Java Lambda that only need a class that implements *com.amazonaws.services.lambda.runtime.RequestHandler*, GraalVM needs  an entry point. Meaning a main function to start the lambda.
+
+It's complicated to call directly the *handleRequest* method of our *RequestHandler* class because we don't have access to *com.amazonaws.services.lambda.runtime.Context*.
+
+== 3. The implementation
+
+Fortunately for us, there is already a library to facilitate us the implementation of that : https://github.com/formkiq/lambda-runtime-graalvm[lambda Runtime GraalVM].
+
+For our example, the handler is pretty simple and just return "ok".
+
+The code is as follows :
+
+[source, java]
+----
+package com.xavierbouclet;
+
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+
+public class OkHandler implements RequestHandler<String ,String>{
+
+    static {
+        System.setProperty("software.amazon.awssdk.http.service.impl",
+                "software.amazon.awssdk.http.urlconnection.UrlConnectionSdkHttpService");
+    }
+
+    @Override
+    public String handleRequest(String s, Context context) {
+        return "ok";
+    }
+}
+----
+
+And that's it  for tha Java code. The magic happens in the *pom.xml* file.
+
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.xavierbouclet</groupId>
+    <artifactId>graalvm-java17</artifactId>
+    ...
+
+    <dependencies>
+        ...
+        <dependency>
+            <groupId>com.formkiq</groupId>
+            <artifactId>lambda-runtime-graalvm</artifactId>
+            <version>2.0</version>
+        </dependency>
+    </dependencies>
+    ...
+
+<profiles>
+        <profile>
+            <id>native</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>${graalvm.native.maven.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <imageName>graalvm-java17</imageName>
+                            <mainClass>com.formkiq.lambda.runtime.graalvm.LambdaRuntime</mainClass>
+                            <buildArgs combine.children="append">
+                                <!-- BouncyCastleAlpn issue tracked in https://github.com/netty/netty/issues/11369 -->
+                                <buildArgs>
+                                    --verbose
+                                    --no-fallback
+                                    --initialize-at-build-time=org.slf4j
+                                    --initialize-at-run-time=io.netty.handler.ssl.BouncyCastleAlpnSslUtils
+                                    --enable-url-protocols=http
+                                    -H:ReflectionConfigurationFiles=${project.basedir}/src/main/resources/reflect.json
+                                </buildArgs>
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
+----
+
+Like I said, we need to have a main class.
+
+[source, xml]
+----
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>${graalvm.native.maven.plugin.version}</version>
+                       ...
+                        <configuration>
+                            ...
+                            <mainClass>com.formkiq.lambda.runtime.graalvm.LambdaRuntime</mainClass>
+...
+                        </configuration>
+                    </plugin>
+                </plugins>
+----
+
+The LambdaRuntime gives a main class *com.formkiq.lambda.runtime.graalvm.LambdaRuntime* that invokes everything we need to trigger our Lambda.
+
+But using that we need to indicate to GraalVM that our *OkHandler* needs to stay in our final code.
+In order dto do that, we need to add a *reflect.json* that contains.
+
+[source, json]
+----
+[
+  {
+    "name": "com.xavierbouclet.OkHandler",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  }
+]
+----
+
+And we need to indicate to GraalVM where to find the *reflect.json* file.
+
+[source, xml]
+----
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>${graalvm.native.maven.plugin.version}</version>
+                       ...
+                        <configuration>
+...
+                            <buildArgs combine.children="append">
+                                <!-- BouncyCastleAlpn issue tracked in https://github.com/netty/netty/issues/11369 -->
+                                <buildArgs>
+                                    --verbose
+                                    --no-fallback
+                                    --initialize-at-build-time=org.slf4j
+                                    --initialize-at-run-time=io.netty.handler.ssl.BouncyCastleAlpnSslUtils
+                                    --enable-url-protocols=http
+                                    -H:ReflectionConfigurationFiles=${project.basedir}/src/main/resources/reflect.json
+                                </buildArgs>
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+----
+
+The build argument to indicate where to find the *reflect"json* file is *H:ReflectionConfigurationFiles=${project.basedir}/src/main/resources/reflect.json*.
+
+To build our lambda, we need a *Dockerfile* :
+
+[bash, xml]
+----
+FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.3-java17 AS builder
+RUN curl https://dlcdn.apache.org/maven/maven-3/3.9.0/binaries/apache-maven-3.9.0-bin.tar.gz --output apache-maven-3.9.0-bin.tar.gz
+RUN tar xzf apache-maven-3.9.0-bin.tar.gz
+COPY src ./src
+COPY pom.xml .
+RUN ./apache-maven-3.9.0/bin/mvn package -Pnative
+
+# strip the binary
+FROM ubuntu as stripper
+RUN apt-get update -y
+RUN apt-get install -y binutils
+COPY --from=builder /project/target/graalvm-java17 /tmp
+RUN strip /tmp/graalvm-java17
+
+# zip the extension
+FROM ubuntu:latest as compresser
+RUN apt-get update
+RUN apt-get install -y zip
+RUN mkdir /package
+WORKDIR /package
+COPY --from=stripper /tmp/graalvm-java17 /package/bootstrap
+RUN zip -j code.zip /package/bootstrap
+
+FROM scratch
+COPY --from=compresser /package/code.zip /
+ENTRYPOINT ["/code.zip"]
+----
+
+
+
+== 4. Conclusion
+
+image::../../../img/posts/2023-02-18-Lambda-java-perf.png[Lambda Java performance - 2023-02-18]
+
+Our implementation with GraalVM gives better results than nodejs runtimes and python runtimes except the runtime *python39*.
+So it becomes a viable option if you want to keep Java code, but you still need performance.
+This lambda is really basic and doesn't do anything, but it still gives us an interesting comparison of what performance we can have on AWS Lambda depending the runtime used.
+
+In a future blog post, I will remove the library to control all the code added in the GraalVM executable.
+
+If you want to check the https://github.com/maxday/lambda-perf[code] on GitHub.
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
