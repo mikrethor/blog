@@ -79,7 +79,7 @@ Obviously, we could do better.
 
 We need a new wait strategy that will try to query the database using SQL.
 
-== 2. The SQL wait strategy
+== 3. The SQL wait strategy
 
 In order to implement our new wait strategy, we need to extend the class *AbstractWaitStrategy* and override the method *waitUntilReady*.
 
@@ -179,7 +179,7 @@ public class TestContainerPostgresSQLDelegate extends AbstractDatabaseDelegate<C
 
 And voilà, now you have a wait strategy that make sure that any SQL query is executable before allowing us to run our integration tests.
 
-== 6. Conclusion
+== 4. Conclusion
 
 We now have seen how to properly implement a proper wait strategy to any sql database used through Testcontainers.
 
