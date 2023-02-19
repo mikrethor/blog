@@ -6,15 +6,31 @@ on:
       - master
 
 jobs:
-  github-pages:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/jekyll-build-pages@v1.0.7
         env:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
-      - uses: actions/deploy-pages@v1.2.4
-        pages: write      # to deploy to Pages
-        id-token: write   # to verify the deployment originates from an appropriate source
-        env:
-          token: ${{ secrets.MY_GITHUB_TOKEN }}
+
+  deploy:
+    # Add a dependency to the build job
+    needs: build
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1.2.4
