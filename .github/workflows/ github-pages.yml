@@ -27,7 +27,7 @@ jobs:
     # Deploy to the github-pages environment
     environment:
       name: github-pages
-      url: https://mikrethor.github.io/blog
+      url: ${{steps.deployment.outputs.page_url}}
 
 
     # Specify runner + deployment step
