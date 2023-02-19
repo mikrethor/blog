@@ -1,14 +1,13 @@
 source "https://rubygems.org"
 
-gem "jekyll", ">= 3.8.5"
+gem "jekyll", ">= 4.3.1"
 
 gem 'rouge', '~> 3.29'
 
 group :jekyll_plugins do
-  gem "jekyll-feed", ">= 0.6"
+  gem "jekyll-feed", ">= 0.17"
   gem "jekyll-paginate", ">= 1.1.0"
   gem "jekyll-sitemap"
-  gem "jekyll-twitter-plugin"
   gem 'jekyll-asciidoc', '>= 3.0.0'
 end
 
@@ -18,4 +17,4 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Performance-booster for watching directories on Windows
 gem "wdm", ">= 0.1.0" if Gem.win_platform?
 
-gem "webrick", ">= 1.7"
+gem "webrick", ">= 1.8.1"
