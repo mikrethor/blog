@@ -14,3 +14,5 @@ jobs:
         env:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
       - uses: actions/deploy-pages@v1.2.4
+        env:
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
