@@ -34,7 +34,3 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
-        artifact_name:
-          description: 'Name of the artifact to deploy'
-          required: true
-          default: 'github-pages'
