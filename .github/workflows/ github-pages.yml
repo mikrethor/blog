@@ -13,3 +13,4 @@ jobs:
       - uses: actions/jekyll-build-pages@v1.0.7
         env:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - uses: actions/deploy-pages@v1.2.4
