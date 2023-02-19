@@ -27,7 +27,7 @@ jobs:
     # Deploy to the github-pages environment
     environment:
       name: github-pages
-      url: ${{ PAGE_URL }}
+      url: ${{ env.PAGE_URL }}
 
 
     # Specify runner + deployment step
