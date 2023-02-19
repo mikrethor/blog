@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: helaili/jekyll-action@2.5.0
+      - uses: actions/jekyll-build-pages@1.0.7
         env:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
