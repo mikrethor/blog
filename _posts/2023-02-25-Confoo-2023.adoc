@@ -19,11 +19,11 @@ Je vais donc vous parler ici de ce que j'ai pu vivre lors de mes 2 présentation
 
 == 2. Ne subissez plus la dette technique
 
-=== 2.1. Description pour les spectateurs
+=== 2.1. Abstract
 
 Vous livrez des bugs dès que vous touchez au code ? Vous êtes stressés lorsque vous livrez en production ? Vous subissez certainement votre dette technique. Mais qu'est-ce que la dette technique ? Quels en sont les impacts ? Comment l'éviter et minimiser le temps à investir dessus ? Vous découvrirez des clefs pour mieux gérer votre dette technique. Avec notamment des outils comme Renovate ou OpenRewrite.
 
-=== 3.2. Prestation
+=== 2.2. Prestation
 
 La présentation se déroulait dans une grande salle avec 2 écrans et pouvait contenir beaucoup plus de gens que ce que j'ai l'habitude de faire.
 J'ai réussi à tenir les délais et à survivre à 2 démos qui ont mal fonctionné. Une que j'ai réussi à rattraper et une où j'ai demandé de me faire confiance.
@@ -65,7 +65,7 @@ L'effet démo, comme on dit. Sur ce point, je peux tout de même me dire de pré
 
 == 3. Devriez-vous migrer à Spring Boot 3 ?
 
-=== 3.1. Sujet
+=== 3.1. Abstract
 
 8 ans après la première release de Spring Boot il était temps pour une mise à jour. Spring Boot 3 qui est sorti en 2022 est la nouvelle mouture du framework le plus utilisé par les développeurs Java. Qu'apporte la version 3 ? La réponse de Spring Boot est-elle à la hauteur des concurrents Quarkus et Micronaut? Nous le verrons lors de cette présentation ?
 
@@ -94,7 +94,7 @@ Lors de cette session, j'ai eu la chance d'avoir 17 retours sur 45 spectateurs.
 1*^|4.88
 |===
 
-Je pense que pour cette session, j'étais plus dans ma zonne de confort et mieux préparé.
+Je pense que pour cette session, j'étais plus dans ma zone de confort et mieux préparé.
 
 Les retours me confortent dans ma préférence pour le live coding même si je dois améliorer la prestation pour que ça soit plus sympa à regarder.
 
@@ -113,7 +113,7 @@ Même si j'avais l'impression d'être conscient de ce que peuvent subir les cont
 
 == 5. Conclusion
 
-J'ai bien apprécié cette session Confoo 2023, et je vous incite à essayer de présenter. Ça permet d'échanger sur les sujets qui nous passionnent et d'en devenir meilleur.
+J'ai bien apprécié cette session Confoo 2023, et je vous incite à essayer de présenter. Ça permet d'échanger sur les sujets qui nous passionnent et de devenir meilleur.
 
 == Me suivre
 
