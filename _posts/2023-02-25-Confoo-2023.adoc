@@ -1,0 +1,124 @@
+= Confoo 2023
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2023-02-25 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Confoo 2023"
+:page-background: /img/posts/2023-02-25-Confoo-2023.png
+
+== 1. But de ce post
+
+Lors de mon passage à Confoo 2020, en tant que spectateur, je m'étais donné l'objectif vaincre mon syndrome de l'imposteur et de présenter en présentiel à la session 2021. Malheureusement, le destin en a décidé autrement. J'ai bien pu présenter aux sessions 2021 et 2022, mais en distanciel. Je suis donc très content d'avoir pu vivre cette session en personne et d'avoir pu y présenter :
+
+- Ne subissez plus la dette technique
+- Devriez-vous migrer à Spring Boot 3
+
+Je vais donc vous parler ici de ce que j'ai pu vivre lors de mes 2 présentations et aussi les présentations intéressantes auxquelles j'ai pu assister.
+
+== 2. Ne subissez plus la dette technique
+
+=== 2.1. Description pour les spectateurs
+
+Vous livrez des bugs dès que vous touchez au code ? Vous êtes stressés lorsque vous livrez en production ? Vous subissez certainement votre dette technique. Mais qu'est-ce que la dette technique ? Quels en sont les impacts ? Comment l'éviter et minimiser le temps à investir dessus ? Vous découvrirez des clefs pour mieux gérer votre dette technique. Avec notamment des outils comme Renovate ou OpenRewrite.
+
+=== 3.2. Prestation
+
+La présentation se déroulait dans une grande salle avec 2 écrans et pouvait contenir beaucoup plus de gens que ce que j'ai l'habitude de faire.
+J'ai réussi à tenir les délais et à survivre à 2 démos qui ont mal fonctionné. Une que j'ai réussi à rattraper et une où j'ai demandé de me faire confiance.
+
+=== 3.3. Feedback
+
+Environ 1h après la présentation, nous recevons par courriel le retour des spectateurs qui ont bien voulu nous évaluer.
+
+image::../../../img/posts/2023-02-25-bad-feedback.png[Mauvais Feedback 2023-02-23, 600, 400]
+
+Lors de cette session, j'ai eu la chance d'avoir 30 retours sur 80 spectateurs.
+
+Et les notes globales ne sont pas mauvaises.
+
+[cols="1,1",frame=ends]
+|===
+1*^|Connaissance :
+1*^|4.3
+
+1*^|Présentation :
+1*^|3.7
+
+1*^|Support :
+1*^|3.96
+|===
+
+Pourtant, j'ai eu du mal à ne pas focaliser sur l'évaluation que vous avez pu voir plus haut. Je ne peux même pas déterminer les éléments qui ont amené cette note. J'ai fini par me dire qu'il fallait plus regarder les commentaires constructifs qui eux me permettent de m'améliorer.
+
+Certains commentaires étaient liés au titre générique "Ne subissez plus la dette technique". J'avais pourtant mis les outils dont j'allais parler, mais j'aurais certainement dû préciser que les démonstrations se feraient avec des exemples de code en Java.
+
+Les éléments que je peux prendre pour plus tard :
+
+- Préparer des vidéos en cas de problème sur les démos
+- Répéter les questions reçues pour que toute l'audience entende
+
+Fun fact, un papier indiquait de préparer les démonstrations avant de les donner. J'ai pourtant pratiqué les démonstrations quelques dizaines de fois avant de les donner.
+
+L'effet démo, comme on dit. Sur ce point, je peux tout de même me dire de préparer un scénario détaillé de la présentation pour pouvoir me rattraper en cas de coup dur.
+
+== 3. Devriez-vous migrer à Spring Boot 3 ?
+
+=== 3.1. Sujet
+
+8 ans après la première release de Spring Boot il était temps pour une mise à jour. Spring Boot 3 qui est sorti en 2022 est la nouvelle mouture du framework le plus utilisé par les développeurs Java. Qu'apporte la version 3 ? La réponse de Spring Boot est-elle à la hauteur des concurrents Quarkus et Micronaut? Nous le verrons lors de cette présentation ?
+
+=== 3.2. Prestation
+
+La présentation se déroulait dans une salle avec 1 écran avec une capacité plus proche de ce que j'ai l'habitude d'avoir.
+J'étais un peu tendu sur l'horaire qui était le dernier slot de présentation, soit 15h le Vendredi.
+
+J'ai là aussi réussi à tenir les délais et j'ai eu une erreur que je n'avais jamais vue bien qu'ayant répété les démonstrations plusieurs fois et une fois devant un public.
+
+En demandant un retour là-dessus, après la présentation, aux gens que je connaissais, j'ai pu apprendre que ça ne s'était pas vu, car j'ai continué et pu déterminer la cause de l'erreur en continuant. Pour ceux qui pensent que je ne répète pas mes démonstrations, l'erreur était dûe à un espace dans un fichier de configuration.
+
+=== 3.3. Feedback
+
+Lors de cette session, j'ai eu la chance d'avoir 17 retours sur 45 spectateurs.
+
+[cols="1,1",frame=ends]
+|===
+1*^|Connaissance :
+1*^|4.94
+
+1*^|Présentation :
+1*^|4.82
+
+1*^|Support :
+1*^|4.88
+|===
+
+Je pense que pour cette session, j'étais plus dans ma zonne de confort et mieux préparé.
+
+Les retours me confortent dans ma préférence pour le live coding même si je dois améliorer la prestation pour que ça soit plus sympa à regarder.
+
+Ça me motive à continuer à présenter et m'améliorer.
+
+== 4. Les sessions intéressantes auxquelles j'ai pu assister
+
+=== 4.1. Performance Testing Java Applications by Pratik Patel
+
+Ce que j'ai retenu, c'est la recommendation de faire les tests de charge en production et quand ce n'est pas possible dans un environnement similaire. Anecdote, Pratik a fait le budget pour dupliquer l'environnement de production dans une compagnie en pensant qu'il les convaincrait de le laisser tester en production. Prix à plusieurs millions et il a eu le GO. Comme quoi en tant que développeur, nous ne devons pas nous cacher derrière les refus business.
+
+
+=== 4.2. Managing expectations for open source by Marcus Bointon
+
+Même si j'avais l'impression d'être conscient de ce que peuvent subir les contributeurs opensource, j'ai appris quelques trucs comme éviter le +1 sur une issue GitHub pour éviter le bruit pour les contributeurs.
+
+== 5. Conclusion
+
+J'ai bien apprécié cette session Confoo 2023, et je vous incite à essayer de présenter. Ça permet d'échanger sur les sujets qui nous passionnent et d'en devenir meilleur.
+
+== Me suivre
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
