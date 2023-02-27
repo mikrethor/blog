@@ -35,6 +35,6 @@ asciidoctor:
     - icons=font
 
 collections:
-  books:
+  conferences:
     output: true
-    permalink: /books/:title
+    permalink: /conferences/:title
