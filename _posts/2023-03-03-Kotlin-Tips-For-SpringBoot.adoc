@@ -1,0 +1,627 @@
+= Convert a Java Spring Boot app to Kotlin
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2023-03-03 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Kotlin Tips"
+:page-background: /img/posts/2023-03-04-kotlin-plus-springboot.png
+
+== 1. Purpose of this blog post
+
+During Confoo 2023, I presented some new features about Spring Boot 3.
+The API I prepared is in Java 17 and I wanted to convert it to Kotlin.
+This post is about what is required to convert a Java,Maven, Spring Boot to Kotlin.
+I use the following https://github.com/mikrethor/whiskies-api/tree/springboot[Java code] and turn it into a Kotlin project
+
+See the structure :
+
+image::../../../img/posts/2023-03-04-code-tree.png[Java Code tree]
+
+
+== 2. Adapt your pom file
+
+In order for Maven to recognize the kotlin source folders, you can add the following.
+
+[source, xml]
+----
+...
+<build>
+    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+....
+</build>
+----
+
+Unfortunately, if we do that, we can have only Kotlin source files.
+Often, especially during a migration phase, we need to have Kotlin and Java files in the project.
+So I prefer to use the *kotlin-maven-plugin* execution to indicate to the plugin to look for Java and Kotlin files.
+
+[source, xml]
+----
+<build>
+    <plugins>
+...
+        <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+             ...
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                                <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                                <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                </executions>
+               ...
+            </plugin>
+...
+    </plugins>
+</build>
+----
+
+We can add the kotlin version as a property in our pom file.
+
+[source, xml]
+----
+<properties>
+...
+    <kotlin.version>1.7.22</kotlin.version>
+...
+</properties>
+----
+
+We could use a more recent version, but it's not the purpose of this blog post.
+In our case, I prefer to use the one supported by Spring Boot.
+
+Let's add all the dependencies needed for Kotlin in our pom file.
+
+[source, xml]
+----
+<dependencies>
+...
+    <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-reflect</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib-jdk8</artifactId>
+    </dependency>
+</dependencies>
+----
+
+Kotlin needs a specific Maven plugin in order to work.
+
+[source, xml]
+----
+<build>
+    <plugins>
+...
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                    <args>
+                        <arg>-Xjsr305=strict</arg>
+                    </args>
+                    <compilerPlugins>
+                        <plugin>spring</plugin>
+                    </compilerPlugins>
+            </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-maven-allopen</artifactId>
+                    <version>${kotlin.version}</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+    ...
+    </plugins>
+</build>
+----
+
+Now, I can start to convert the Java files to Kotlin.
+I use IntelliJ so it's pretty straight forward.
+Right-click on the Java file and use "Convert Java File to Kotlin File".
+
+image::../../../img/posts/2023-03-04-convert-to-kotlin.png[Convert Java to Kotlin - 2023-02-04]
+
+Be careful, sometimes the code generated is not as good as it should. Let's say it's helpful, but you need to tune it a bit.
+
+== 3. The Main Class
+
+It's a demo API. So to facilitate the code.
+I put more stuff that I should in the main class.
+
+Some bean and the db init.
+
+The Java file :
+
+[source, java]
+----
+@SpringBootApplication
+@EnableConfigurationProperties(WhiskyClientProperties.class)
+public class WhiskyApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(WhiskyApplication.class, args);
+    }
+
+    @Bean # <1>
+    WebClient webClient(WhiskyClientProperties whiskyClientProperties) {
+        return  WebClient.builder().baseUrl(whiskyClientProperties.url())
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build();
+    }
+
+    @Bean # <2>
+    HttpServiceProxyFactory proxyFactory(WebClient client) {
+        return HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client)).build();
+    }
+
+    @Bean # <3>
+    WhiskyService whiskyService(HttpServiceProxyFactory factory) {
+        return factory.createClient(WhiskyService.class);
+    }
+
+    @Bean # <4>
+    CommandLineRunner commandLineRunner(WhiskyService service, WhiskyRepository repository, ObservationRegistry registry) {
+        return args -> {
+            var whiskies = Observation.createNotStarted("json-place-holder.load-whiskies", registry)
+                    .lowCardinalityKeyValue("some-value", "88")
+                    .observe(service::loadAll);
+
+            Observation.createNotStarted("whisky-repository.save-all", registry)
+                    .observe(() -> repository.saveAll(whiskies.stream().map(whisky -> new Whisky(UUID.nameUUIDFromBytes(whisky.bottle().getBytes()),
+                            whisky.bottle(),
+                            whisky.price(),
+                            whisky.rating(),
+                            whisky.region())).toList()));
+        };
+    }
+}
+----
+<1> : The webclient to use for the declarative REST client
+<2> : The proxy factory used to create the service from the interface (WhiskyService)
+<3> : The rest service created from the interface WhiskyService
+<4> : The command line runner to load the data from the client and save it in the db
+
+Let's convert it to Kotlin using the magic right-click.
+
+To compare the right-click version and the final version, I will only do piece of code comparison.
+
+[source, kotlin]
+----
+@Bean
+fun webClient(whiskyClientProperties: WhiskyClientProperties): WebClient {
+    return WebClient.builder().baseUrl(whiskyClientProperties.url)
+    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build()
+}
+----
+
+In Kotlin, the mantra is don't write what's not needed, so let's remove some stuff.
+
+[source, kotlin]
+----
+@Bean
+fun webClient(whiskyClientProperties: WhiskyClientProperties) =
+    WebClient.builder()
+        .baseUrl(whiskyClientProperties.url)
+        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .build()
+----
+
+The *build* returns a webclient so we can get rid of the return type and the brackets.
+
+[source, kotlin]
+----
+@Bean
+fun proxyFactory(client: WebClient?): HttpServiceProxyFactory {
+    return HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client!!)).build()
+}
+----
+
+Let's refactor that. We know that the webclient is defined so it can't be null, so we can get rid of !!
+
+[source, kotlin]
+----
+@Bean
+fun proxyFactory(client: WebClient) =
+    HttpServiceProxyFactory
+        .builder(WebClientAdapter.forClient(client))
+        .build()
+----
+
+[source, kotlin]
+----
+@Bean
+fun whiskyService(factory: HttpServiceProxyFactory): WhiskyService {
+    return factory.createClient(WhiskyService::class.java)
+}
+----
+
+Let's have a clearer code.
+
+[source, kotlin]
+----
+@Bean
+fun whiskyService(proxyFactory: HttpServiceProxyFactory) =
+    proxyFactory.createClient(WhiskyService::class.java)
+----
+
+Nothing fancy here. The hard part is in the command line runner bean.
+
+[source, kotlin]
+----
+@Bean
+fun commandLineRunner(service: WhiskyService, repository: WhiskyRepository, registry: ObservationRegistry?) : CommandLineRunner { # <1>
+        return CommandLineRunner { args: Array<String?>? ->  # <2>
+            val whiskies = Observation.createNotStarted("json-place-holder.load-whiskies", registry)
+                .lowCardinalityKeyValue("some-value", "88")
+                .observe<List<Whisky>> { service.loadAll() }
+            Observation.createNotStarted("whisky-repository.save-all", registry)
+                .observe(Supplier {
+                    repository.saveAll(whiskies.stream().map { whisky: Whisky -> # <3>
+                        Whisky(
+                            UUID.nameUUIDFromBytes(whisky.bottle().toByteArray()),
+                            whisky.bottle(),
+                            whisky.price(),
+                            whisky.rating(),
+                            whisky.region()
+                        )
+                    }.toList())
+                })
+        }
+}
+----
+1 : we can make the ObservationRegistry? not null by removing the ?
+2 : args is not used so we can replace it by _ and remove the ? on Array<String?>?
+3 : kotlin doesn't require stream sometime because some stuff are already built-in -> map
+
+[source, kotlin]
+----
+@Bean
+fun commandLineRunner(service: WhiskyService, repository: WhiskyRepository, registry: ObservationRegistry) =
+    CommandLineRunner { _: Array<String> ->
+        val whiskies = Observation.createNotStarted("json-place-holder.load-whiskies", registry)
+                .lowCardinalityKeyValue("some-value", "88")
+                .observe<List<Whisky>> { service.loadAll() }
+        Observation.createNotStarted("whisky-repository.save-all", registry)
+            .observe(Supplier {
+                    repository.saveAll(whiskies.map { whisky: Whisky ->
+                        Whisky(
+                            UUID.nameUUIDFromBytes(whisky.bottle().toByteArray()),
+                            whisky.bottle(),
+                            whisky.price(),
+                            whisky.rating(),
+                            whisky.region()
+                        )
+                    }.toList())
+            })
+    }
+----
+
+The conversion to Kotlin creates a companion object for the main method.
+
+[source, kotlin]
+----
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            SpringApplication.run(WhiskyApplication::class.java, *args)
+        }
+    }
+----
+
+Usually, we put the main method outside the class. So we can remove the companion object.
+
+[source, kotlin]
+----
+@SpringBootApplication
+@EnableConfigurationProperties(WhiskyClientProperties::class)
+class WhiskyApplication {
+...
+}
+fun main(args: Array<String>) {
+    SpringApplication.run(WhiskyApplication::class.java, *args)
+}
+----
+
+== 4. The controller Class
+
+[source, kotlin]
+----
+@RestController
+@RequestMapping("/api/whiskies")
+class WhiskyController(private val postRepository: WhiskyRepository) {
+    @GetMapping
+    fun findAll(): List<Whisky> {
+        return postRepository.findAll()
+    }
+
+    @GetMapping("/{id}")
+    fun findById(@PathVariable("id") id: UUID): Whisky {
+        return postRepository.findById(id).orElseThrow { ElementNotFoundException(id,"Not Found") }
+    }
+}
+----
+
+For once, we are gonna let the return type to avoid null handling in the code.
+
+The only change we have to do is in the *findById* method.
+
+Indeed, in Kotlin, we don't really need optionals because it's built-in in types (String vs String?)
+
+So instead of *findById* on CrudReporitory we need to use *findByIdOrNull*.
+
+[source, kotlin]
+----
+@GetMapping("/{id}")
+fun findById(@PathVariable("id") id: UUID): Whisky {
+    return postRepository.findByIdOrNull(id) ?: throw ElementNotFoundException(id,"Not Found")
+}
+----
+
+The method *findByIdOrNull* is added to the CrudRepository thanks to the CrudRepositoryExtension.
+The extension functions allow us to add methods on existing class.
+So it's a good way to add code only in Kotlin and avoid ClassUtil.
+We all have created StringUtil functions right?
+
+
+== 5. The Repository Interface
+
+[source, kotlin]
+----
+interface WhiskyRepository : ListPagingAndSortingRepository<Whisky, UUID?>, ListCrudRepository<Whisky?, UUID?>
+----
+
+[source, kotlin]
+----
+interface WhiskyRepository : ListPagingAndSortingRepository<Whisky, UUID>, ListCrudRepository<Whisky, UUID>
+----
+
+== 6. The Service Interface
+
+[source, kotlin]
+----
+interface WhiskyService {
+    @GetExchange("/whiskies")
+    fun loadAll(): List<Whisky?>?
+}
+----
+
+[source, kotlin]
+----
+interface WhiskyService {
+    @GetExchange("/whiskies")
+    fun loadAll(): List<Whisky>
+}
+----
+
+== 7. The Configuration Class
+
+[source, kotlin]
+----
+@Validated
+@ConfigurationProperties(prefix = "client.whisky.service")
+@JvmRecord
+data class WhiskyClientProperties(val url: @NotNull String?)
+----
+
+This time it doesn't compile, and we need to add the @field in order for validation to work.
+If we don't do that the String which cannot contain null will throw a NullPointerException.
+
+[source, kotlin]
+----
+@Validated
+@ConfigurationProperties(prefix = "client.whisky.service")
+data class WhiskyClientProperties(@field:NotBlank val url:  String)
+----
+
+== 8. The Model Class
+
+[source, kotlin]
+----
+@Entity
+class Whisky protected constructor() {
+    @Id
+    @JsonProperty("id")
+    private var id: UUID? = null
+
+    @JsonProperty("Bottle")
+    private var bottle: String? = null
+
+    @JsonProperty("Price")
+    private var price: String? = null
+
+    @JsonProperty("Rating")
+    private var rating: String? = null
+
+    @JsonProperty("Region")
+    private var region: String? = null
+
+    constructor(id: UUID?, bottle: String?, price: String?, rating: String?, region: String?) : this() {
+        this.id = id
+        this.bottle = bottle
+        this.price = price
+        this.rating = rating
+        this.region = region
+    }
+
+    fun id(): UUID? {
+        return id
+    }
+
+    fun id(id: UUID?) {
+        this.id = id
+    }
+
+    fun bottle(): String? {
+        return bottle
+    }
+
+    fun bottle(bottle: String?) {
+        this.bottle = bottle
+    }
+
+    fun price(): String? {
+        return price
+    }
+
+    fun price(price: String?) {
+        this.price = price
+    }
+
+    fun rating(): String? {
+        return rating
+    }
+
+    fun rating(rating: String?) {
+        this.rating = rating
+    }
+
+    fun region(): String? {
+        return region
+    }
+
+    fun region(region: String?) {
+        this.region = region
+    }
+}
+----
+
+We can use a data class to avoid extra code.
+The id has to be a var because of jpa.
+On the other fields, we can use val with a default value.
+
+[source, kotlin]
+----
+@Entity
+data class Whisky(
+    @Id
+    @JsonProperty("id")
+    var id: UUID?=null,
+
+    @JsonProperty("Bottle")
+    val bottle: String="",
+
+    @JsonProperty("Price")
+    val price: String="",
+
+    @JsonProperty("Rating")
+    val rating: String="",
+
+    @JsonProperty("Region")
+    val region: String=""
+)
+----
+
+With this refactor model, we can modify our main class to use the property names in teh construtor to avoid mistakes.
+
+[source, kotlin]
+----
+...
+repository.saveAll(whiskies.map { whisky: Whisky ->
+                        Whisky(
+                            id=UUID.nameUUIDFromBytes(whisky.bottle.toByteArray()),
+                            bottle=whisky.bottle,
+                            price=whisky.price,
+                            rating=whisky.rating,
+                            region=whisky.region
+                        )
+                    }.toList())
+...
+----
+
+== 9. The Exception Handling Classes
+
+=== 9.1. The Exception class
+
+[source, kotlin]
+----
+@ResponseStatus(HttpStatus.NOT_FOUND)
+class ElementNotFoundException(@JvmField val id: UUID, message: String?) : RuntimeException(message)
+----
+
+The annotation *@JvmField* is not needed and we need to access id in the *ExceptionHandlerAdvice*.
+The message field can be not null and we indicate with the override keyword that it overrides the message in RuntimeException.
+
+[source, kotlin]
+----
+@ResponseStatus(HttpStatus.NOT_FOUND)
+class ElementNotFoundException(val id: UUID, override val message: String) : RuntimeException(message)
+----
+
+=== 9.1. The Exception Handler class
+
+[source, kotlin]
+----
+@RestControllerAdvice
+class ExceptionHandlerAdvice {
+    @ExceptionHandler(ElementNotFoundException::class)
+    @Throws(URISyntaxException::class)
+    fun handlePostNotFoundException(exception: ElementNotFoundException): ProblemDetail {
+        val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.message!!)
+        problemDetail.setProperty("id", exception.id)
+        problemDetail.type = URI("http://localhost:8080/problems/post-not-found")
+        return problemDetail
+    }
+}
+----
+
+We can remove !! on exception.message because we made sure that exception.message cannot be null.
+
+[source, kotlin]
+----
+@RestControllerAdvice
+class ExceptionHandlerAdvice {
+    @ExceptionHandler(ElementNotFoundException::class)
+    @Throws(URISyntaxException::class)
+    fun handlePostNotFoundException(exception: ElementNotFoundException): ProblemDetail {
+        val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.message)
+        problemDetail.setProperty("id", exception.id)
+        problemDetail.type = URI("http://localhost:8080/problems/post-not-found")
+        return problemDetail
+    }
+}
+----
+
+== 10. Conclusion
+
+Our Kotlin implementation worked at each step and it was very smooth to go from Java to Kotlin.
+In my case, the project doesn't have any test but in a real project you should rewrite the test last in order to be sure that you don't change some behaviour in the code.
+
+I personally prefer to use Kotlin in a Spring Boot project and I suggest you give it a try.
+
+Don't hesitate to ping me if you have any question. Have fun!!
+
+If you want to check the https://github.com/mikrethor/whiskies-api/tree/springboot3-kotlin[code] on GitHub.
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
