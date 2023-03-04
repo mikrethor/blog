@@ -142,11 +142,15 @@ Kotlin needs a specific Maven plugin in order to work.
 </build>
 ----
 
+The *-Xjsr305=strict* is required to have null-safety taken in account in Kotlin types inferred from Spring API. See https://docs.spring.io/spring-boot/docs/2.0.x/reference/html/boot-features-kotlin.html#boot-features-kotlin-null-safety[Spring Boot Features Kotlin Null Safety] pour plus d'informations.
+
+The plugin *spring* helps kotlin to specify some annotations (@Component, @Async, @Transactional, @Cacheable, @SpringBootTest) in Kotlin..
+
 Now, I can start to convert the Java files to Kotlin.
 I use IntelliJ so it's pretty straight forward.
 Right-click on the Java file and use "Convert Java File to Kotlin File".
 
-image::../../../img/posts/2023-03-04-convert-to-kotlin.png[Convert Java to Kotlin - 2023-02-04]
+image::../../../img/posts/2023-03-04-convert-to-kotlin.png[Convert Java to Kotlin]
 
 Be careful, sometimes the code generated is not as good as it should. Let's say it's helpful, but you need to tune it a bit.
 
