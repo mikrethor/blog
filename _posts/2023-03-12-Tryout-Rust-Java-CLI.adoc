@@ -1,0 +1,166 @@
+= Tryout Rust, Java on a CLI
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2023-03-12 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "A Java and Rust comparison"
+:page-background: /img/posts/2023-03-12-rust-graalvm.png
+
+== 1. Purpose of this blog post
+
+I wanted to try a bit of Rust for a while and I thought a cli would give me the will to try it.
+
+The first use case I thought about was to call an API and I chose to get some UUID from a website in order to avoid doing it manually through a web browser.
+The url https://www.uuidtools.com/api/generate/vUUIDVERSION/count/COUNT generates a number of UUID with a specific version.
+The parameters of the executable are :
+
+- VERSION : version of the UUID (1,2, 4)
+- COUNT : number of uuid to request
+
+If you want to try out the code, you can check the project on https://github.com/mikrethor/uuid[GITHUB].
+
+The results (compile time, execution time) have been obtained on a MacBook Pro (2021) M1 Max.
+
+After, the Rust example, I tried the same thing with a Java executable compiled with GraalVM.
+
+== 2. uuid-rust
+
+The code consists of a main file. The important the thing is that I use the reqwest and tokio libraries. I am pretty new to Rust code. So don't hesitate to help me improve it.
+
+[source, rust]
+----
+use clap::Parser;
+
+#[derive(Parser)]
+struct Cli {
+    /// version of the uuid to generate 1,2,4
+    version: u32,
+    /// numbers of uuid to request
+    count: u32,
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args = Cli::parse();
+    let client = reqwest::Client::new();
+    let url = format!("https://www.uuidtools.com/api/generate/v{}/count/{}", args.version, args.count);
+    let uuids = client.get(url)
+        .header("Content-Type", "application/json")
+        .send()
+        .await?
+        .json::<Vec<String>>()
+        .await?;
+
+    uuids.iter().for_each(|uuid| println!("{}", uuid));
+
+    Ok(())
+}
+----
+
+The following table summarizes the results about compile time, sieze of the executable and average execution time to request 5 version 4 uuids.
+
+[cols="1,1",frame=ends]
+|===
+1*^|Compile time (s):
+1*^|22.821
+
+1*^|Size (Mo):
+1*^|2.5
+
+1*^|Average execution time (s) for 5 UUID :
+1*^|0.212
+|===
+
+After achieving the Rust executable, I decided to try out the same thing with Java compiled with Graal VM and I was a bit surprised with the results I got.
+
+== 3. uuid-java
+
+The code consists of a main class. The important the thing is that I use the Jackson library to deserialize my response into a list of UUID.
+
+[source, java]
+----
+package com.xavierbouclet;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.net.ProxySelector;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.UUID;
+
+public class App {
+
+    public static void main(String[] args) throws Exception {
+        var version = args[0];
+        var count = args[1];
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI("https://www.uuidtools.com/api/generate/v%s/count/%s".formatted(version, count)))
+                .GET()
+                .build();
+
+        var response = HttpClient
+                .newBuilder()
+                .proxy(ProxySelector.getDefault())
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString())
+                .body();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        UUID[] uuids = objectMapper.readValue(response, UUID[].class);
+        for (UUID uuid : uuids) {
+            System.out.println(uuid);
+        }
+    }
+}
+----
+
+The following table summarizes the results.
+
+[cols="1,1",frame=ends]
+|===
+1*^|Compile time (s):
+1*^|33.906
+
+1*^|Size (Mo):
+1*^|32
+
+1*^|Average execution time (s) for 5 UUID :
+1*^|0.129
+|===
+
+From a standard Java compilation, we can see that GraalVM takes more time to compile our code to a native executable but it improves the start time. Which is perfect for my use case.
+Be careful, depending on the use case it won't improve your execution times.
+It depends on what you want to achieve. A standard Java code on a JVM can be faster on your use case.
+
+We could improve the executable size with [https://upx.github.io/]upx.
+Unfortunately, upx breaks the executable on my M1 see https://github.com/upx/upx/issues/424[issue-424].
+
+For the ones, on other processor architectures, feel free to try the command and don't hesitate to share the results.
+
+[source, sh]
+----
+upx -7 target/uuid-java
+----
+
+== 10. Conclusion
+
+To conclude, I am not saying that Java is better than Rust.
+I find interesting that on my use case and my laptop, an executable compiled with Graal VM does slightly better than an executable compiled with Rust.
+
+I am perfectly aware that on other use cases Rust performs better.
+I contributed the Graal VM runtime on that https://maxday.github.io/lambda-perf/[project] that shows AWS lambda execution times depending on the runtime used.
+And, Rust is not slightly better but way better.
+
+If you want to check the https://github.com/mikrethor/uuid[code] on GitHub.
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
