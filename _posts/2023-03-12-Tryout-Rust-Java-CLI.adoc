@@ -27,7 +27,7 @@ After, the Rust example, I tried the same thing with a Java executable compiled 
 
 == 2. uuid-rust
 
-The code consists of a main file. The important the thing is that I use the reqwest and tokio libraries. I am pretty new to Rust code. So don't hesitate to help me improve it.
+The code consists of a main file. The important thing is that I use the reqwest and tokio libraries. I am pretty new to Rust code. So don't hesitate to help me improve it.
 
 [source, rust]
 ----
@@ -77,7 +77,7 @@ After achieving the Rust executable, I decided to try out the same thing with Ja
 
 == 3. uuid-java
 
-The code consists of a main class. The important the thing is that I use the Jackson library to deserialize my response into a list of UUID.
+The code consists of a main class. The important thing is that I use the Jackson library to deserialize my response into a list of UUID.
 
 [source, java]
 ----
