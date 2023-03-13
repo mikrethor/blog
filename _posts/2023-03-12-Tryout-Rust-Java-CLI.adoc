@@ -139,7 +139,7 @@ It depends on what you want to achieve. A standard Java code on a JVM can be fas
 We could improve the executable size with [https://upx.github.io/]upx.
 Unfortunately, upx breaks the executable on my M1 see https://github.com/upx/upx/issues/424[issue-424].
 
-For the ones, on other processor architectures, feel free to try the command and don't hesitate to share the results.
+For the ones on other processor architectures, feel free to try the command and don't hesitate to share the results.
 
 [source, sh]
 ----
