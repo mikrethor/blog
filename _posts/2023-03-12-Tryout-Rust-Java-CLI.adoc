@@ -19,7 +19,7 @@ The parameters of the executable are :
 - VERSION : version of the UUID (1,2, 4)
 - COUNT : number of uuid to request
 
-If you want to try out the code, you can check the project on https://github.com/mikrethor/uuid[GITHUB].
+If you want to try out the code, you can check the project on https://github.com/mikrethor/uuid/tree/first-blog[GITHUB].
 
 The results (compile time, execution time) have been obtained on a MacBook Pro (2021) M1 Max.
 
@@ -146,7 +146,7 @@ For the ones on other processor architectures, feel free to try the command and 
 upx -7 target/uuid-java
 ----
 
-== 10. Conclusion
+== 4. Conclusion
 
 To conclude, I am not saying that Java is better than Rust.
 I find interesting that on my use case and my laptop, an executable compiled with Graal VM does slightly better than an executable compiled with Rust.
@@ -155,7 +155,7 @@ I am perfectly aware that on other use cases Rust performs better.
 I contributed the Graal VM runtime on that https://maxday.github.io/lambda-perf/[project] that shows AWS lambda execution times depending on the runtime used.
 And, Rust is not slightly better but way better.
 
-If you want to check the https://github.com/mikrethor/uuid[code] on GitHub.
+If you want to check the https://github.com/mikrethor/uuid/tree/first-blog[code] on GitHub.
 
 == Follow Me
 

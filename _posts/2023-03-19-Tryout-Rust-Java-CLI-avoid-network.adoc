@@ -1,0 +1,300 @@
+= Tryout Rust, Java on a CLI (no network)
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2023-03-19 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "A Java and Rust comparison part 2"
+:page-background: /img/posts/2023-03-12-rust-graalvm.png
+
+== 1. Purpose of this blog post
+
+When I published https://www.xavierbouclet.com/2023/03/12/Tryout-Rust-Java-CLI.html[my last blog post], I got some feedback to improve the Rust version and I decided to remove the network factor.
+
+Instead of calling an API to get some UUID, we will indicate a file and iterate through it to look for the first N items.
+
+The parameters of the executable are :
+
+- PATH : path of the file containing the uuid
+- COUNT : number of uuid to request
+
+If you want to try out the code, you can check the project on https://github.com/mikrethor/uuid[GITHUB].
+
+The results (compile time, execution time) have been obtained on a MacBook Pro (2021) M1 Max.
+
+I will do a Graal VM version to compare.
+
+== 2. Contribution on uuid-rust (the sync version)
+
+First I want to say, that I got a contribution from Francis Lalonde on the code from last post to add a sync version equivalent to the rust code. If you want to check the https://github.com/mikrethor/uuid/pull/2[pull request].
+
+And thanks to this contribution, I discovered https://github.com/sharkdp/hyperfine[a command-line benchmarking tool : hyperfine].
+
+The code consists of a main file.
+
+[source, rust]
+----
+use std::str::FromStr;
+
+fn main() -> Result<(), anyhow::Error> {
+    let args: Vec<String> = std::env::args().collect();
+    let version = u32::from_str(&args[1])?;
+    let count = u32::from_str(&args[2])?;
+
+    let url = format!("https://www.uuidtools.com/api/generate/v{}/count/{}", version, count);
+    let uuids: Vec<String> = ureq::get(&url)
+        .call()?
+        .into_json()?;
+
+    uuids.iter().for_each(|uuid| println!("{}", uuid));
+    Ok(())
+}
+----
+
+The sync Rust version is slightly better compared to the Java native executable.
+
+* Rust
+
+[source, sh]
+----
+uuid/uuid-rust-sync [🌱 master][📦 v0.1.0][ v1.68.0]
+❯ hyperfine --runs 50 './target/release/uuid-rust-sync 4 5'
+
+Benchmark 1: ./target/release/uuid-rust-sync 4 5
+Time (mean ± σ):     132.7 ms ±  16.4 ms    [User: 4.0 ms, System: 4.4 ms]
+Range (min … max):   109.4 ms … 218.9 ms    50 runs
+----
+
+* Graal VM
+
+[source, sh]
+----
+❯ hyperfine --runs 50 './target/uuid-java 4 5'
+
+Benchmark 1: ./target/uuid-java 4 5
+  Time (mean ± σ):     136.8 ms ±  10.0 ms    [User: 14.1 ms, System: 9.5 ms]
+  Range (min … max):   112.9 ms … 154.4 ms    50 runs
+----
+
+So let's try to remove the network factor and open a file to look for a number of uuid in a file.
+
+== 3. uuid-rust
+
+The code consists of a main file. The important thing is that I use serde for deserialization.
+
+[source, rust]
+----
+use std::fs;
+use std::str::FromStr;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args: Vec<String> = std::env::args().collect();
+    let file_path = &args[1];
+    let count = usize::from_str(&args[2])?;
+
+    let content = fs::read_to_string(file_path);
+
+    let uuids: Vec<String> = serde_json::from_str(&content?)?;
+
+    uuids.iter().take(count).for_each(|uuid| println!("{}", uuid));
+
+    Ok(())
+}
+----
+
+== 4. uuid-java
+
+The code consists of a main class. The important thing is that I use the Jackson library to deserialize my response into a list of UUID.
+
+[source, java]
+----
+package com.xavierbouclet;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+public class App {
+
+    public static void main(String[] args) throws Exception {
+        var filepath = args[0];
+        var count = Long.parseLong(args[1]);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        objectMapper.readValue(Files.readString(Paths.get(filepath)), new TypeReference<List<UUID>>() {
+        }).stream().limit(count).forEach(
+                System.out::println
+        );
+    }
+}
+----
+
+== 5 Let's run some tests
+
+The tests consist of calling our executable with a json file and requesting a number of uuids in it.
+
+Example of file :
+
+[source, json]
+----
+[
+  "40aef568-bca6-4b15-a367-f15964cab651",
+  "6e3f166c-eff4-41b4-8b3d-c72116bf6f2d",
+  "07fd7a9e-0e1e-45fc-a202-72ed73902b56",
+  "e96128f9-1ec0-490f-85eb-9e6e9e07f47f",
+  "5d5c9320-d610-42fc-8cf9-710158669749"
+]
+----
+
+The file uuids.json contains 100 uuids and the files uuids2.json contains 83162 uuids.
+
+Let's run some tests.
+
+* Rust
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids.json" 5'
+
+Benchmark 1: ./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids.json" 5
+Time (mean ± σ):       0.6 ms ±   0.5 ms    [User: 0.5 ms, System: 0.3 ms]
+Range (min … max):     0.1 ms …   2.6 ms    100 runs
+----
+
+** 5 items 83k file
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 5'
+
+Benchmark 1: ./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 5
+Time (mean ± σ):       7.9 ms ±   1.2 ms    [User: 6.0 ms, System: 1.7 ms]
+Range (min … max):     6.8 ms …  13.9 ms    100 runs
+----
+
+** 1000 items 83k file
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 1000'
+Benchmark 1: ./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 1000
+Time (mean ± σ):       8.9 ms ±   0.4 ms    [User: 6.2 ms, System: 2.2 ms]
+Range (min … max):     8.3 ms …  11.3 ms    100 runs
+----
+
+** 10000 items 83k file
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 10000'
+Benchmark 1: ./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 10000
+  Time (mean ± σ):      14.2 ms ±   0.7 ms    [User: 8.1 ms, System: 5.6 ms]
+  Range (min … max):    13.5 ms …  18.8 ms    100 runs
+----
+
+** 40000 items 83k file
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 40000'
+Benchmark 1: ./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 40000
+Time (mean ± σ):      31.6 ms ±   0.6 ms    [User: 14.2 ms, System: 16.8 ms]
+Range (min … max):    30.9 ms …  33.8 ms    100 runs
+----
+
+** 80000 items 83k file
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 80000'
+Benchmark 1: ./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 80000
+Time (mean ± σ):      54.7 ms ±   0.8 ms    [User: 22.3 ms, System: 31.7 ms]
+Range (min … max):    53.0 ms …  59.1 ms    100 runs
+----
+
+* Graal VM
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids.json" 5'
+
+Benchmark 1: ./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids.json" 5
+Time (mean ± σ):      10.3 ms ±   1.1 ms    [User: 4.0 ms, System: 3.5 ms]
+Range (min … max):     9.0 ms …  13.7 ms    100 runs
+----
+
+** 5 items 83k file
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 5'
+
+Benchmark 1: ./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 5
+Time (mean ± σ):      39.1 ms ±   2.2 ms    [User: 29.7 ms, System: 6.0 ms]
+Range (min … max):    36.6 ms …  45.7 ms    100 runs
+----
+
+** 1000 items 83k file
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 1000'
+Benchmark 1: ./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 1000
+  Time (mean ± σ):      40.0 ms ±   1.0 ms    [User: 30.2 ms, System: 6.1 ms]
+  Range (min … max):    38.8 ms …  43.6 ms    100 runs
+----
+
+** 10000 items 83k file
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 10000'
+Benchmark 1: ./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 10000
+Time (mean ± σ):      49.9 ms ±   1.2 ms    [User: 36.2 ms, System: 9.8 ms]
+Range (min … max):    48.5 ms …  53.2 ms    100 runs
+----
+
+** 40000 items 83k file
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 40000'
+Benchmark 1: ./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 40000
+Time (mean ± σ):      81.9 ms ±   1.4 ms    [User: 55.8 ms, System: 22.0 ms]
+Range (min … max):    79.8 ms …  86.2 ms    100 runs
+----
+
+** 80000 items 83k file
+
+[source, sh]
+----
+hyperfine --runs 100  './uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 80000'
+Benchmark 1: ./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 80000
+Time (mean ± σ):     123.2 ms ±   1.5 ms    [User: 81.7 ms, System: 37.6 ms]
+Range (min … max):   121.3 ms … 131.7 ms    100 runs
+----
+
+We can see on the following graph that Rust is more performant than Java with Graal VM.
+
+image::../../../img/posts/2023-03-19-rust-vs-java.png[Rust compared to GraalVM]
+
+== 6. Conclusion
+
+Rust overall is more performant than Java with Graal VM.
+And we can see, that more item we output it says consistant.
+
+If you want to check the https://github.com/mikrethor/uuid[code] on GitHub.
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
