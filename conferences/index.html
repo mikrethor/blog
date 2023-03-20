@@ -4,27 +4,21 @@ title: Talks
 background: '/img/bg-conferences.jpg'
 ---
 
-{% for conference in site.conferences %}
+{% for conference in site.conferences reversed %}
 
 <article class="conference-preview">
 
     <div>
-        <img src="{{ conference.background }}" height="150px" width="100px" border="1px" style="float: right;">
         <a href="{{ conference.url | prepend: site.baseurl | replace: '//', '/' }}">
             <h2 class="conference-title">{{ conference.title }}</h2>
             {% if conference.author %}
-            <h3 class="conference-subtitle">Written by {{ conference.writter }}</h3>
+            <h3 class="conference-subtitle">{{ conference.author }}</h3>
             {% else %}
             <h3 class="conference-subtitle">{{ conference.excerpt | strip_html | truncatewords: 15 }}</h3>
             {% endif %}
         </a>
-        <p class="conference-meta">Posted by
-            {% if conference.author %}
-            {{ conference.author }}
-            {% else %}
-            {{ site.author }}
-            {% endif %}
-            on {{ conference.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=conference.content %}
+        <p class="conference-meta">
+            {{ conference.date | date: '%B %d, %Y' }}
         </p>
     </div>
 </article>

@@ -1,0 +1,51 @@
+= Ne subissez plus votre dette technique
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2023-02-23 7:00:00 -0500
+:layout: conference
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Renovate et Open Rewrite"
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: fr
+
+== 1. Abstract
+
+Vous livrez des bugs dès que vous touchez au code? Vous êtes stressés lorsque vous livrez en production? Vous subissez certainement votre dette technique. Mais qu'est-ce que la dette technique? Quels en sont les impacts? Comment l'éviter et minimiser le temps à investir dessus? Vous découvrirez des clefs pour mieux gérer votre dette technique. Avec notamment des outils comme Renovate ou Openrewrite.
+
+== 2. Slides
+
+Extraction PDF des slides de la conférence http://xavier.bouclet.com/conferences/2023-02-23-How-to-be-ahead-of-legacy.pdf[ici].
+
+== 3. Code
+
+Code du du projet sous Renovate https://github.com/mikrethor/its-magic.
+
+Code de la recette Open Rewrite https://github.com/mikrethor/my-recipe.
+
+== 4. Feedback & Links
+
+Lors de cette session, j'ai eu la chance d'avoir 30 retours sur 80 spectateurs.
+
+[cols="1,1",frame=ends]
+|===
+1*^|Connaissance :
+1*^|4.3
+
+1*^|Présentation :
+1*^|3.7
+
+1*^|Support :
+1*^|3.96
+|===
+
+Lien sur le site de la conférence https://confoo.ca/en/speaker/xavier-bouclet-1.
+
+== Me suivre
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+

@@ -1,5 +1,5 @@
-// Styling for the book page
-.book-preview {
+// Styling for the conference page
+.conference-preview {
   > div {
     > a {
       color: $gray-900;
@@ -10,19 +10,19 @@
         color: $primary;
       }
 
-      > .book-title {
+      > .conference-title {
         font-size: 30px;
         margin-top: 30px;
         margin-bottom: 10px;
       }
 
-      > .book-subtitle {
+      > .conference-subtitle {
         font-weight: 300;
         margin: 0 0 10px;
       }
     }
 
-    > .book-meta {
+    > .conference-meta {
       font-size: 18px;
       font-style: italic;
       margin-top: 0;
@@ -42,7 +42,7 @@
 
     @media only screen and (min-width: 768px) {
       > a {
-        > .book-title {
+        > .conference-title {
           font-size: 36px;
         }
       }

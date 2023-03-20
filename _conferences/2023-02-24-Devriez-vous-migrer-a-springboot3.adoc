@@ -1,0 +1,49 @@
+= Devriez-vous migrer à Spring Boot 3
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2023-02-24 7:00:00 -0500
+:layout: conference
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Declarative client, Compilation Native, Bonnes pratiques"
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: fr
+
+== 1. Abstract
+
+8 ans après la première release de Spring Boot il était temps pour une mise à jour. Spring Boot 3 sorti en 2022 est la nouvelle mouture du framework le plus utilisé par les développeurs Java. Qu'apporte la version 3 ? La réponse de Spring Boot est-elle à la hauteur des concurrents Quarkus et Micronaut? Nous le verrons lors de cette présentation ?
+
+== 2. Slides
+
+Extraction PDF des slides de la conférence http://xavier.bouclet.com/conferences/2023-02-23-How-to-be-ahead-of-legacy.pdf[ici].
+
+== 3. Code
+
+https://github.com/mikrethor/whiskies-api
+
+== 4. Feedback & Links
+
+Lors de cette session, j'ai eu la chance d'avoir 17 retours sur 45 spectateurs.
+
+[cols="1,1",frame=ends]
+|===
+1*^|Connaissance :
+1*^|4.94
+
+1*^|Présentation :
+1*^|4.82
+
+1*^|Support :
+1*^|4.88
+|===
+
+Lien sur le site de la conférence https://confoo.ca/en/speaker/xavier-bouclet-1.
+
+== Me suivre
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+

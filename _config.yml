@@ -37,4 +37,4 @@ asciidoctor:
 collections:
   conferences:
     output: true
-    permalink: /conferences/:title
+    permalink: /conferences/:year/:month/:day/:title
