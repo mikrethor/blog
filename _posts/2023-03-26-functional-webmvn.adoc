@@ -1,0 +1,218 @@
+= Functional Routing in Spring MVC
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2023-03-26 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Router Functions and Handler Functions"
+:page-background: /img/road-1303617_1920.jpg
+
+== 1. Purpose of this blog post
+
+I don't understand why spring developers king using RestControllers when a nicer way exists.
+May be you haven't heard about Router Functions and Handler Functions, but they exist since the release of Spring Framework 5.0 in 2017 for Webflux and since Spring Framework 5.2 in 2019 for Spring MVC.
+
+I personally prefer to use Router Functions and Handler Functions instead of the rest controllers that have been around for while now.
+
+This blog post is to present to you Router Functions and Handler Functions.
+
+I am gonna start from a RestController and migrate it to RouterFunctions and HandlerFunctions.
+
+The starting point is available on https://github.com/mikrethor/whiskies-api[GITHUB].
+
+== 2. This is the (RestController) way!
+
+Let's see an example of RestController.
+
+[source, java]
+----
+@RestController
+@RequestMapping("/api/whiskies")
+public class WhiskyController {
+
+    private final WhiskyRepository postRepository;
+
+    public WhiskyController(WhiskyRepository postRepository) {
+        this.postRepository = postRepository;
+    }
+
+    @GetMapping
+    public List<Whisky> findAll() {
+        return postRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Whisky findById(@PathVariable("id") UUID id) {
+        return postRepository.findById(id).orElseThrow(()->new ElementNotFoundException(id));
+    }
+}
+----
+
+This controller defines 2 GET endpoints :
+
+* /api/whiskies -> that returns all the whiskies available
+* /api/whiskies/c31f148e-e202-3e82-8ea8-2cb305c49322 -> that returns the whisky corresponding to the id : c31f148e-e202-3e82-8ea8-2cb305c49322
+
+Let's see the *RestControllerAdvice* that handles the errors.
+
+[source, java]
+----
+
+@RestControllerAdvice
+public class ExceptionHandlerAdvice {
+
+    @ExceptionHandler(ElementNotFoundException.class)
+    public ProblemDetail handlePostNotFoundException(ElementNotFoundException exception) throws URISyntaxException {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
+        problemDetail.setProperty("id", exception.getId());
+        problemDetail.setType(new URI("http://localhost:8080/problems/post-not-found"));
+        return problemDetail;
+
+    }
+}
+----
+
+When an *ElementNotFound* is thrown the controller advice intercepts the exception and allows us to return a proper response.
+
+Many of us are used to that king of Spring Programming but there is a better way *Router function*.
+
+We need to define a *RouterFunction* bean to define our routes.
+
+[source, java]
+----
+@Configuration(proxyBeanMethods = false)
+public class RouterConfiguration {
+
+    @Bean
+    public RouterFunction<ServerResponse> whiskiesRouter(WhiskyRepository wr) {
+        return route()
+                .GET("/api/whiskies", req -> ok().body(wr.findAll()))
+                .GET("/api/whiskies/{id}", req -> {
+                    var id = UUID.fromString(req.pathVariable("id"));
+                    return ok().body(wr.findById(id).orElseThrow(() -> new ElementNotFoundException(id)));
+                })
+                .onError(ElementNotFoundException.class,
+                        (e, req) -> {
+                            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+                            problemDetail.setProperty("id", ((ElementNotFoundException) e).getId());
+                            try {
+                                problemDetail.setType(new URI("http://localhost:8080/problems/post-not-found"));
+                                problemDetail.setInstance(new URI(req.requestPath().toString()));
+                            } catch (URISyntaxException ex) {
+                                throw new RuntimeException(ex);
+                            }
+
+                            return EntityResponse.fromObject(problemDetail)
+                                    .status(HttpStatus.NOT_FOUND)
+                                    .build();
+                        })
+                .build();
+    }
+}
+----
+
+The *RouterFunction* takes a *ServerRequest* and returns a *ServerResponse*.
+It's a much nicer way to the all the routes especially when there are many controller.
+
+But still, something is missing, we need to define handler functions to avoid too much code in the definition of our routes.
+
+Let's define 2 handlers :
+
+* WhiskyHandler -> build the response of our /api/whiskies endpoints
+
+[source, java]
+----
+@Component
+public class WhiskyHandler {
+
+    private final WhiskyRepository whiskyRepository;
+
+    public WhiskyHandler(WhiskyRepository whiskyRepository) {
+        this.whiskyRepository = whiskyRepository;
+    }
+
+    public ServerResponse getWhiskies(ServerRequest serverRequest) {
+        return ServerResponse
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(whiskyRepository.findAll());
+    }
+
+    public ServerResponse getAWhiskyById(ServerRequest serverRequest) {
+        var id = UUID.fromString(serverRequest.pathVariable("id"));
+        return ServerResponse
+                .ok()
+                .body(whiskyRepository.findById(id)
+                        .orElseThrow(() -> new ElementNotFoundException(id)));
+    }
+}
+----
+
+It's pretty straight forward and similar to the code from the RestController we started with. The thing missing is the api routes.
+And that the thing I like. The code building the response and the routes are not in the same place, so we can have a single piece of code to see all the routes.
+
+* ErrorHandler -> build our error response when an error occurs
+
+[source, java]
+----
+@Component
+public class ErrorHandler {
+
+    public ServerResponse elementNotFoundHandler(Throwable e, ServerRequest serverRequest) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problemDetail.setProperty("id", ((ElementNotFoundException) e).getId());
+        try {
+            problemDetail.setType(new URI("http://localhost:8080/problems/post-not-found"));
+            problemDetail.setInstance(new URI(serverRequest.requestPath().toString()));
+        } catch (URISyntaxException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return EntityResponse.fromObject(problemDetail)
+                .status(HttpStatus.NOT_FOUND)
+                .build();
+    }
+}
+----
+
+Let's rework the *RouterFunction* bean to properly use our handlers.
+
+[source, java]
+----
+@Configuration(proxyBeanMethods = false)
+public class RouterConfiguration {
+
+    @Bean
+    public RouterFunction<ServerResponse> whiskiesRouter(WhiskyHandler whiskyHandler, ErrorHandler errorHandler) {
+        return route()
+                .GET("/api/whiskies", whiskyHandler::getWhiskies)
+                .GET("/api/whiskies/{id}", whiskyHandler::getAWhiskyById)
+                .onError(ElementNotFoundException.class,errorHandler::elementNotFoundHandler)
+                .build();
+    }
+}
+----
+
+Compared to the *RestController* way, we can really see what are the routes of our api.
+
+== 3. Going further
+
+- https://www.baeldung.com/spring-mvc-functional-controllers
+- https://www.youtube.com/watch?v=TtA0_MEEjlM
+
+== 4. Conclusion
+
+In my point of view, *RouterFunction* is a nicest way to declare endpoints.
+It has been around for a while now so don't hesitate to use them.
+
+If you want to check the final https://github.com/mikrethor/whiskies-api/tree/router-function[code] on GitHub.
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
