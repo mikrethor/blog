@@ -149,7 +149,7 @@ public class WhiskyHandler {
 }
 ----
 
-It's pretty straight forward and similar to the code from the RestController we started with. The thing missing is the api routes.
+It's pretty straightforward and similar to the code from the RestController we started with. The thing missing is the api routes.
 And that the thing I like. The code building the response and the routes are not in the same place, so we can have a single piece of code to see all the routes.
 
 * ErrorHandler -> build our error response when an error occurs

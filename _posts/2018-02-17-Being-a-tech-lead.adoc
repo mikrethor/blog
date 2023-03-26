@@ -37,7 +37,7 @@ Improving the feedback loop had a good impact on the webapp quality and the deve
 
 All these victories helped me work on improving the development speed and quality by putting in place proper unit testing.
 Exhorting the team member to use unit tests instead of locally deploy the webapp and test it by hand was quite a challenge.
-I thought it was pretty straight forward for a developer to understand that doing unit test reduce development time.
+I thought it was pretty straightforward for a developer to understand that doing unit test reduce development time.
 Especially when deploying the webapp locally takes a few minutes but it seems that some old habits die hard.
 
 So we had to change some team members. In fact, I don't know if we can speak about team member in such case because they didn't really followed the team guidelines.

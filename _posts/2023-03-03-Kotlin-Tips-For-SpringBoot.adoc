@@ -147,7 +147,7 @@ The *-Xjsr305=strict* is required to have null-safety taken in account in Kotlin
 The plugin *spring* helps kotlin to specify some annotations (@Component, @Async, @Transactional, @Cacheable, @SpringBootTest) in Kotlin..
 
 Now, I can start to convert the Java files to Kotlin.
-I use IntelliJ so it's pretty straight forward.
+I use IntelliJ so it's pretty straightforward.
 Right-click on the Java file and use "Convert Java File to Kotlin File".
 
 image::../../../img/posts/2023-03-04-convert-to-kotlin.png[Convert Java to Kotlin]
