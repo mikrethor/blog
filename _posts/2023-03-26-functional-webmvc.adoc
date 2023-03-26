@@ -113,7 +113,7 @@ public class RouterConfiguration {
 ----
 
 The *RouterFunction* takes a *ServerRequest* and returns a *ServerResponse*.
-It's a much nicer way to the all the routes especially when there are many controller.
+It's a much nicer way to the all the routes especially when there are many controllers.
 
 But still, something is missing, we need to define handler functions to avoid too much code in the definition of our routes.
 
