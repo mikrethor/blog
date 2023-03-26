@@ -10,7 +10,7 @@
 
 == 1. Purpose of this blog post
 
-I don't understand why spring developers king using RestControllers when a nicer way exists.
+I don't understand why spring developers keep using RestControllers when a nicer way exists.
 May be you haven't heard about Router Functions and Handler Functions, but they exist since the release of Spring Framework 5.0 in 2017 for Webflux and since Spring Framework 5.2 in 2019 for Spring MVC.
 
 I personally prefer to use Router Functions and Handler Functions instead of the rest controllers that have been around for while now.
