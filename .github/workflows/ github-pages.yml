@@ -9,10 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.1.1
 #      - uses: actions/jekyll-build-pages@v1.0.7
       - uses: jerryjvl/jekyll-build-action@v1
-      - uses: actions/upload-pages-artifact@v1.0.7
+      - uses: actions/upload-pages-artifact@v3.0.1
         env:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
   deploy:
