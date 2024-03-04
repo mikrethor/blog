@@ -2,7 +2,7 @@
 :showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
-:date: 2024-02-05 7:00:00 -0500
+:date: 2024-02-04 7:00:00 -0500
 :layout: post
 //:title: Man must explore, r sand this is exploration at its greatest
 :page-subtitle: "Spring Framework 6"
