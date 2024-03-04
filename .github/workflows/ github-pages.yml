@@ -10,29 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
-#      - uses: actions/jekyll-build-pages@v1.0.7
-      - uses: jerryjvl/jekyll-build-action@v1
-      - uses: actions/upload-pages-artifact@v3.0.1
-        env:
-          token: ${{ secrets.MY_GITHUB_TOKEN }}
-  deploy:
-    # Add a dependency to the build job
-    needs: build
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    if: github.ref == 'refs/heads/master'
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-
-    # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ env.PAGE_URL }}
-
-
-    # Specify runner + deployment step
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+      - uses: jeffreytse/jekyll-deploy-action@v0.5.1
+          with:
+            provider: 'github'         # Default is github
+            token: ${{ secrets.GITHUB_TOKEN }} # It's your Personal Access Token(PAT)
+            ssh_private_key: ''        # It's your SSH private key (SSH approach)
+            repository: ''             # Default is current repository
+            branch: 'gh-pages'         # Default is gh-pages for github provider
+            jekyll_src: './'           # Default is root directory
+            jekyll_cfg: '_config.yml'  # Default is _config.yml
+            jekyll_baseurl: ''         # Default is according to _config.yml
+            bundler_ver: ''            # Default is compatible bundler version (~>2.4.0)
+            cname: ''                  # Default is to not use a cname
+            actor: ''                  # Default is the GITHUB_ACTOR
+            pre_build_commands: ''     # Installing additional dependencies (Arch Linux)
