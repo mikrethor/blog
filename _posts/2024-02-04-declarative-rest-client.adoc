@@ -24,7 +24,7 @@ TODO => code
 
 == 2. Creating a declarative REST client
 
-Let's use the https://start.spring.io/#!type=maven-project[Spring Initialzr] to create the Sprong Boot project.
+Let's use the https://start.spring.io/#!type=maven-project[Spring Initialzr] to create the Spring Boot project.
 
 * Group : com.xavierbouclet
 * Artifact : whiskies-api

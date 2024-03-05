@@ -1,0 +1,298 @@
+= Integrate Open AI API to your Spring Boot application
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2024-03-04 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Open AI API"
+:page-background: /img/2024-03-05-open-api.webp
+
+== 1. Purpose of this blog post
+
+At the moment, we are all trying to find the best way to integrate our system to Open AI.
+In this blog post, I will show you how to integrate Open AI API to your Spring Boot application.
+
+== 2. Creating a Open API integration with Spring Boot
+
+Let's use the https://start.spring.io/[Spring Initialzr] to create the Spring Boot project.
+
+* Group : com.xavierbouclet
+* Artifact : spring-ai
+* Project : Gradle - Kotlin
+* Language : Kotlin
+* Java : 17
+* Dependencies :
+** Spring Web
+** OpenAI
+** GraalVM
+
+The `build.gradle.kts` file should look like this:
+
+[source, kts]
+----
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+	id("org.springframework.boot") version "3.2.3"
+	id("io.spring.dependency-management") version "1.1.4"
+	id("org.graalvm.buildtools.native") version "0.9.28"
+	kotlin("jvm") version "1.9.22"
+	kotlin("plugin.spring") version "1.9.22"
+}
+
+group = "com.xavierbouclet"
+version = "0.0.1-SNAPSHOT"
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+	mavenCentral()
+	maven { url = uri("https://repo.spring.io/milestone") }
+}
+
+extra["springAiVersion"] = "0.8.0"
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.ai:spring-ai-bom:${property("springAiVersion")}")
+	}
+}
+
+tasks.withType<KotlinCompile> {
+	kotlinOptions {
+		freeCompilerArgs += "-Xjsr305=strict"
+		jvmTarget = "17"
+	}
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform()
+}
+----
+
+Let's create a simple configuration file with a router.
+
+[source, kotlin]
+----
+import org.springframework.ai.chat.messages.UserMessage
+import org.springframework.ai.chat.prompt.Prompt
+import org.springframework.ai.openai.OpenAiChatClient
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.web.servlet.function.ServerResponse
+import org.springframework.web.servlet.function.router
+
+@Configuration(proxyBeanMethods = false)
+class RouterConfiguration {
+
+    @Bean
+    fun aiRouter(chatClient: OpenAiChatClient) = router {
+        GET("/api/ai/generate") { request ->
+            ServerResponse
+                .ok()
+                .body(
+                    chatClient.call(
+                        request
+                            .param("message")
+                            .orElse("Tell me a chuck norris fact")
+                    )
+                )
+        }
+        GET("/api/ai/generateStream") { request ->
+            ServerResponse
+                .ok()
+                .body(chatClient.stream(
+                    Prompt(
+                        UserMessage(
+                            request
+                                .param("message")
+                                .orElse("Tell me a chuck norris fact")
+                        )
+                    )
+                ).mapNotNull { chatResp -> chatResp?.result?.output?.content }
+                    .toStream()
+                    .toList()
+                )
+        }
+    }
+}
+----
+
+To use the Open AI API, you need to create an account on Open AI and get an API key.
+Then, you can use the following configuration to set the API key.
+
+[source, yaml]
+----
+spring:
+  ai:
+    openai:
+      api-key: ${OPEN_AI_KEY}
+      chat:
+        options:
+          model: gpt-3.5-turbo
+          temperature: 0.7
+----
+
+[source, bash]
+----
+export OPEN_AI_KEY=your-open-ai-key
+----
+
+To build your application, you can use the following Gradle command:
+
+[source, sh]
+----
+./gradlew bootJar
+----
+
+To execute the jar you can use the following command:
+
+[source, sh]
+----
+java -jar build/libs/spring-ai-0.0.1-SNAPSHOT.jar
+----
+
+To test your API you can try the following command:
+
+[source, bash]
+----
+$ curl localhost:8080/api/ai/generate
+
+Chuck Norris doesn't do push-ups. He pushes the Earth down.%
+----
+
+Because, the generate witout parameter will use the default message "Tell me a chuck norris fact".
+We can specify a message by adding a specific message in the URL.
+
+[source, bash]
+----
+curl "localhost:8080/api/ai/generate?message=explain%20me%20spring%20boot"
+----
+
+We could also you the generateStream endpoint to get a stream of messages.
+
+[source, bash]
+----
+curl "localhost:8080/api/ai/generateStream?message=explain%20me%20spring%20boot"
+----
+
+The answer should look like this :
+
+[source,bash]
+----
+["","Spring"," Boot"," is"," an"," open","-source"," Java","-based"," framework"," that"," is"," used"," to"," create"," stand","-alone",","," production","-grade"," Spring","-based"," applications","."," It"," provides"," a"," pre","-config","ured"," set"," of"," tools"," and"," libraries"," to"," simplify"," the"," process"," of"," building"," and"," deploying"," applications","."," \n\n","Spring"," Boot"," aims"," to"," streamline"," the"," development"," process"," by"," providing"," a"," convention","-over","-","configuration"," approach",","," meaning"," that"," developers"," can"," quickly"," set"," up"," a"," project"," without"," having"," to"," spend"," time"," on"," configuring"," various"," components","."," It"," also"," includes"," embedded"," servers",","," such"," as"," Tom","cat",","," Jet","ty",","," or"," Undert","ow",","," allowing"," applications"," to"," be"," run"," as"," standalone"," J","AR"," files"," without"," the"," need"," for"," a"," separate"," server"," installation",".\n\n","Additionally",","," Spring"," Boot"," offers"," built","-in"," support"," for"," aspects"," such"," as"," security",","," logging",","," monitoring",","," and"," testing",","," making"," it"," easier"," for"," developers"," to"," create"," robust"," and"," scalable"," applications","."," It"," also"," integrates"," seamlessly"," with"," other"," Spring"," projects",","," such"," as"," Spring"," Framework",","," Spring"," Data",","," and"," Spring"," Security",","," allowing"," developers"," to"," leverage"," the"," full"," power"," of"," the"," Spring"," ecosystem",".\n\n","Overall",","," Spring"," Boot"," is"," a"," powerful"," framework"," that"," simpl","ifies"," the"," development"," process"," and"," helps"," developers"," create"," high","-quality",","," production","-ready"," applications"," quickly"," and"," efficiently","."]%
+----
+
+== 3. Open AI with GraalVM
+
+The purpose of this blog post is not to explain how to use GraalVM, but to show you how to use it with Spring Boot. So if you need to install it please refer to the https://www.graalvm.org/22.0/docs/getting-started/[official documentation].
+
+To build a native image, you can use the following command:
+
+[source, bash]
+----
+./gradlew bootBuildImage
+----
+
+If like me, you are on a MAC and an ARM64 architecture, you need to use the following task in your gradle build file:
+
+[source, kotlin]
+----
+tasks.withType<BootBuildImage> {
+	val osName = System.getProperty("os.name").lowercase()
+	val arch = System.getProperty("os.arch")
+
+	val runningOnM1Mac = "mac" in osName && arch == "aarch64"
+	if (runningOnM1Mac) {
+		builder.set("dashaun/builder:tiny")
+		environment.set(mapOf("BP_NATIVE_IMAGE" to "true"))
+	}
+}
+----
+
+The bootBuildImage command should end with a success message.
+
+[source, bash]
+----
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.5/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 6m 13s
+10 actionable tasks: 2 executed, 8 up-to-date
+----
+
+To find the container, you can use the following command:
+
+[source, bash]
+----
+$ docker images | grep spring-ai
+spring-ai                                           0.0.1-SNAPSHOT         d66dd3be8bb9   44 years ago    130MB
+----
+
+To start the container, you can use the following command:
+
+[source,bash]
+----
+docker run -e OPEN_AI_KEY=$OPEN_AI_KEY -p 8080:8080 spring-ai:0.0.1-SNAPSHOT
+----
+
+The *OPEN_AI_KEY=$OPEN_AI_KEY* is used to pass the environment variable to the container.
+
+[source, bash]
+----
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+2024-03-05T01:51:52.610Z  INFO 1 --- [           main] c.x.springai.SpringAiApplicationKt       : Starting AOT-processed SpringAiApplicationKt using Java 17.0.10 with PID 1 (/workspace/com.xavierbouclet.springai.SpringAiApplicationKt started by cnb in /workspace)
+2024-03-05T01:51:52.610Z  INFO 1 --- [           main] c.x.springai.SpringAiApplicationKt       : No active profile set, falling back to 1 default profile: "default"
+2024-03-05T01:51:52.617Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-03-05T01:51:52.618Z  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-03-05T01:51:52.618Z  INFO 1 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-05T01:51:52.622Z  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-03-05T01:51:52.622Z  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 12 ms
+2024-03-05T01:51:52.646Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-03-05T01:51:52.661Z  INFO 1 --- [           main] c.x.springai.SpringAiApplicationKt       : Started SpringAiApplicationKt in 0.057 seconds (process running for 0.059)
+----
+
+The app starts in *0.057 seconds* and that's pretty fast and could be a could candidate for a serverless application or a cli. The container size is *44MB* which is low for a Spring Boot application.
+
+You can use the curl commands given previously to test the docker flavour of the application.
+
+== 4. Conclusion
+
+In my point of view, *Spring AI* is a nice way to integrate Open AI to your Spring Boot APP.
+
+If you want to check the final https://github.com/mikrethor/spring-ai[code] on GitHub.
+
+== Resources
+
+- https://stackoverflow.com/questions/75355506/springboot-3-graalvm-native-image-stuck-forever-mac-m1[Stackoverflow - SpringBoot 3 GraalVM native-image stuck forever (Mac M1)]
+- https://github.com/jamesburt-iw/Spring-AI-examples
+- https://docs.spring.io/spring-ai/reference/getting-started.html
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
