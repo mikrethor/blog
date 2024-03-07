@@ -1,0 +1,38 @@
+= Java est lent ? Vous êtes sûr ?
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2022-04-19 7:00:00 -0500
+:layout: conference
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Java, GraalVM, Spring Boot, Quarkus, Micronaut"
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: fr
+
+== 1. Abstract
+
+Java a la réputation d'être lent mais GraalVM permet de changer ça sans changer vos habitudes de développement.
+Lors de cette présentation, venez découvrir différentes alternatives (Quarkus, Spring Boot, Micronaut, ...) pour faire du Java natif avec GraalVM.
+Vous verrez le développement d'un endpoint dans l'alternative choisie lors de la présentation (live coding).
+Après cette présentation, vous ne regarderez plus Java comme avan
+
+== 2. Slides
+
+https://github.com/mikrethor/java-slow-slides[Slide sur Github].
+
+== 3. Code
+
+https://github.com/mikrethor/native-apis[Code de la présentation]
+
+== 4. Talk
+
+https://www.montreal-jug.org/meetup/java-lent/[Site du Montréal JUG]
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+

@@ -1,0 +1,35 @@
+= Réaliser une API avec Kotlin et Spring Boot
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2022-02-24 7:00:00 -0500
+:layout: conference
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Kotlin, Coroutine, Webflux, Spring Boot"
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: fr
+
+== 1. Abstract
+
+Vous en avez marre de développer en Java?
+Kotlin a maintenant plus de 10 ans et n'est pas seulement destiné à la plateforme Android.
+Lors de cette présentation, venez découvrir comment développer et tester une API Kotlin avec Spring Boot.
+Quelles sont les pièges à éviter?
+Les bonnes pratiques à mettre en place.
+
+== 2. Slides
+
+https://github.com/mikrethor/kotlin-spring-boot-api[Slide sur Github]
+
+== 3. Talk
+
+https://confoo.ca/en/2022/session/realiser-une-api-avec-kotlin-et-spring-boot[Lien Confoo]
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
