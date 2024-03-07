@@ -16,7 +16,7 @@
 
 == 2. Slides
 
-Extraction PDF des slides de la conférence http://xavier.bouclet.com/conferences/2023-02-23-How-to-be-ahead-of-legacy.pdf[ici].
+Extraction PDF des slides de la conférence http://xavier.bouclet.com/conferences/2023-02-24-Spring-Boot-3.pdf[ici].
 
 == 3. Code
 

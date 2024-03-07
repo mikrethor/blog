@@ -1,0 +1,31 @@
+= Spring Boot 3 Migration, worth it - Ottawa JUG?
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2023-02-24 7:00:00 -0500
+:layout: conference
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Sprint Boot 3x, Migration, Open Rewrite"
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: en
+
+== 1. Abstract
+
+8 years after the first release of Spring Boot, it was time for an update. Spring Boot 3, released in 2022, is the new version of the most widely used Java framework. What does version 3 bring? Is Spring Boot's response up to par with competitors Quarkus and Micronaut? We will see in this presentation.
+
+== 2. Slides
+
+PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2023-02-24-Spring-Boot-3-eng.pdf[ici].
+
+== 3. Code
+
+https://github.com/mikrethor/whiskies-api[Source code] of this talk.
+
+== Me suivre
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
