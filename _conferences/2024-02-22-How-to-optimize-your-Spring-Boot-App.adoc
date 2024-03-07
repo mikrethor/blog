@@ -16,7 +16,7 @@ Elevate your Spring Boot application performances! Join me for an insightful pre
 
 == 2. Slides
 
-PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2024-02-24-How-to-Optimize-Spring-Boot.pdf[ici].
+PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2024-02-24-How-to-Optimize-Spring-Boot.pdf[here].
 
 == 3. Code
 

@@ -16,7 +16,7 @@
 
 == 2. Slides
 
-PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2023-02-24-Spring-Boot-3-eng.pdf[ici].
+PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2023-02-24-Spring-Boot-3-eng.pdf[here].
 
 == 3. Code
 

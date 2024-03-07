@@ -17,7 +17,7 @@ This presentation is about Fast API and how it’s revolutionizing API creation 
 
 == 2. Slides
 
-PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2024-02-23-Develop-your-first-Api-with-Python-with-fastAPI.pdf[ici].
+PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2024-02-23-Develop-your-first-Api-with-Python-with-fastAPI.pdf[here].
 
 == 3. Feedback & Links
 
