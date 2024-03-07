@@ -1,3 +1,6 @@
+---
+lang: fr
+---
 = Réaliser une API avec Kotlin et Spring Boot
 :showtitle:
 //:page-excerpt: Excerpt goes here.
@@ -8,7 +11,6 @@
 :page-subtitle: "Kotlin, Coroutine, Webflux, Spring Boot"
 // :page-background: /img/2023-profil-pic-conference.png
 :author: "Xavier Bouclet"
-:lang: fr
 
 == 1. Abstract
 

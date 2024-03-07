@@ -1,3 +1,6 @@
+---
+lang: fr
+---
 = Ne subissez plus votre dette technique
 :showtitle:
 //:page-excerpt: Excerpt goes here.
@@ -8,7 +11,6 @@
 :page-subtitle: "Renovate et Open Rewrite"
 // :page-background: /img/2023-profil-pic-conference.png
 :author: "Xavier Bouclet"
-:lang: fr
 
 == 1. Abstract
 

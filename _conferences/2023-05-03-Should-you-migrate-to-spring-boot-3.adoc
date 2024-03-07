@@ -1,3 +1,6 @@
+---
+lang: en
+---
 = Should you migrate to Spring Boot 3?
 
 :showtitle:
@@ -9,7 +12,6 @@
 :page-subtitle: "Sprint Boot 3x, Migration"
 // :page-background: /img/2023-profil-pic-conference.png
 :author: "Xavier Bouclet"
-:lang: en
 
 == 1. Abstract
 

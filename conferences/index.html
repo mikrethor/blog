@@ -10,7 +10,20 @@ background: '/img/bg-conference.jpg'
 
     <div>
         <a href="{{ conference.url | prepend: site.baseurl | replace: '//', '/' }}">
-            <h2 class="conference-title">{{ conference.title }}</h2>
+            <h2 class="conference-title">
+                {% if conference.lang == "en" %}
+                <!-- Contenu en anglais -->
+                🇬🇧
+                {% elsif conference.lang == "fr" %}
+                <!-- Contenu en français -->
+                🇫🇷
+                {% elsif conference.lang == "es" %}
+                <!-- Contenu en espagnol -->
+                {% else %}
+                <!-- Contenu par défaut si aucune des options ci-dessus n'est vraie -->
+                {% endif %}
+                {{ conference.title }}
+            </h2>
             {% if conference.author %}
             <h3 class="conference-subtitle">{{ conference.author }}</h3>
             {% else %}

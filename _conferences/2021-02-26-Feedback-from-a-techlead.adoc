@@ -1,14 +1,12 @@
+---
+lang: en
+---
 = Feedback from a techlead!
 :showtitle:
-//:page-excerpt: Excerpt goes here.
-//:page-root: ../../../
 :date: 2021-02-26 7:00:00 -0500
 :layout: conference
-//:title: Man must explore, r sand this is exploration at its greatest
 :page-subtitle: "Techlead"
-// :page-background: /img/2023-profil-pic-conference.png
 :author: "Xavier Bouclet"
-:lang: en
 
 == 1. Abstract
 

@@ -1,3 +1,6 @@
+---
+lang: en
+---
 = How to optimize your Spring Boot App
 :showtitle:
 //:page-excerpt: Excerpt goes here.
@@ -8,7 +11,6 @@
 :page-subtitle: "Spring Boot, Optimization, GraalVM, Crac"
 // :page-background: /img/2023-profil-pic-conference.png
 :author: "Xavier Bouclet"
-:lang: en
 
 == 1. Abstract
 

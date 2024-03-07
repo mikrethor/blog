@@ -1,3 +1,6 @@
+---
+lang: en
+---
 = Spring Boot 3 Migration, worth it - Ottawa JUG?
 :showtitle:
 //:page-excerpt: Excerpt goes here.
@@ -8,7 +11,7 @@
 :page-subtitle: "Sprint Boot 3x, Migration, Open Rewrite"
 // :page-background: /img/2023-profil-pic-conference.png
 :author: "Xavier Bouclet"
-:lang: en
+
 
 == 1. Abstract
 
