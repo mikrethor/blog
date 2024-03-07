@@ -1,0 +1,31 @@
+= Feedback from a techlead!
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2021-02-26 7:00:00 -0500
+:layout: conference
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Techlead"
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: en
+
+== 1. Abstract
+
+What is a techlead? What are the common mistakes of a techlead? How to avoid them? How to build a dream team? You will see these different points during this feedback.
+
+== 2. Slides
+
+https://github.com/mikrethor/techlead-slides[Slides on Github]
+
+== 4. Talk
+
+https://confoo.ca/en/yul2021/session/feedback-from-a-techlead[Remote talk] for Confoo 2021
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
