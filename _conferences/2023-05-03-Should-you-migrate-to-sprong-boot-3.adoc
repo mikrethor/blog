@@ -1,11 +1,12 @@
-= Spring Boot 3 Migration, worth it - Ottawa JUG?
+= Should you migrate to Spring Boot 3?
+
 :showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
-:date: 2023-06-14 7:00:00 -0500
+:date: 2023-05-03 7:00:00 -0500
 :layout: conference
 //:title: Man must explore, r sand this is exploration at its greatest
-:page-subtitle: "Sprint Boot 3x, Migration, Open Rewrite"
+:page-subtitle: "Sprint Boot 3x, Migration"
 // :page-background: /img/2023-profil-pic-conference.png
 :author: "Xavier Bouclet"
 :lang: en
@@ -22,10 +23,9 @@ PDF extraction of the conference slides http://xavier.bouclet.com/conferences/20
 
 https://github.com/mikrethor/whiskies-api[Source code] of this talk.
 
-== 4. Conference
+== 4 Conference
 
-This conference was given at the Ottawa JUG on June 14, 2023.
-https://www.meetup.com/ottawa-java-user-group/events/293727754/[Meetup link]
+https://2023.jconftoronto.dev/session?id=Should%20you%20migrate%20to%20Spring%20Boot%203%3F[Conference JConf Toronto 2023]
 
 == Me suivre
 
