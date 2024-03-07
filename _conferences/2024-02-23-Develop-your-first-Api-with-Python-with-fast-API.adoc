@@ -1,0 +1,46 @@
+= Develop your first Api with Python with fast API
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2024-02-23 7:00:00 -0500
+:layout: conference
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Python, Fast API
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: en
+
+== 1. Abstract
+
+As a Java developer, I heard a lot about Python and I thought to give it a try.
+This presentation is about Fast API and how it’s revolutionizing API creation with speed and simplicity.
+
+== 2. Slides
+
+PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2024-02-23-Develop-your-first-Api-with-Python-with-fastAPI.pdf[ici].
+
+== 3. Feedback & Links
+
+During this session, I got the feedback below:
+
+[cols="1,1",frame=ends]
+|===
+1*^|Knowledge :
+1*^|4.33
+
+1*^|Delivery :
+1*^|4.66
+
+1*^|Supporting materials  :
+1*^|4.83
+|===
+
+Link to the conference website : https://confoo.ca/en/speaker/xavier-bouclet-1.
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+

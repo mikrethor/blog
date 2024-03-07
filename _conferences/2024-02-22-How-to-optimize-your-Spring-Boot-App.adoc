@@ -1,0 +1,49 @@
+= How to optimize your Spring Boot App
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2024-02-22 7:00:00 -0500
+:layout: conference
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Spring Boot, Optimization, GraalVM, Crac"
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: en
+
+== 1. Abstract
+
+Elevate your Spring Boot application performances! Join me for an insightful presentation on performance enhancement tips. Don't miss this opportunity to optimize your Spring Boot apps for peak performance. Reserve your spot today!
+
+== 2. Slides
+
+PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2024-02-24-How-to-Optimize-Spring-Boot.pdf[ici].
+
+== 3. Code
+
+https://github.com/mikrethor/fastapi-whiskies-api[Source code] of this talk.
+
+== 4. Feedback & Links
+
+During this session, I got the feedback below:
+
+[cols="1,1",frame=ends]
+|===
+1*^|Knowledge :
+1*^|4.82
+
+1*^|Delivery :
+1*^|4.18
+
+1*^|Supporting materials  :
+1*^|4.45
+|===
+
+Link to the conference website : https://confoo.ca/en/speaker/xavier-bouclet-1.
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
