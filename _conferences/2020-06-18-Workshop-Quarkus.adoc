@@ -1,0 +1,30 @@
+= Workshop Quarkus
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2020-06-18 7:00:00 -0500
+:layout: conference
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Quarkus, GraalVM"
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: fr
+
+== 1. Abstract
+
+Workshop Quarkus
+- API Rest
+- Testing
+- Native Compilation
+
+== 2. Code
+
+https://github.com/montrealjug/quarkus-workshop[Source code] de cette présentation.
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
