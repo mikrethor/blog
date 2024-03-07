@@ -21,6 +21,10 @@ Workshop Quarkus
 
 https://github.com/montrealjug/quarkus-workshop[Source code] de cette présentation.
 
+== 3. Talk
+
+Ce workshop a été donnée au https://www.montreal-jug.org/meetup/workshop-quarkus/[Montreal Java User Group] le 18 juin 2020.
+
 == Follow Me
 
 - https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
