@@ -1,0 +1,134 @@
+= Integrate Open AI API to your Spring Boot application - part 2
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2024-03-10 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Open AI API"
+:page-background: /img/2024-03-05-open-api.webp
+
+== 1. Purpose of this blog post
+
+At the moment, we are all trying to find the best way to integrate our system to Open AI.
+In this blog post, I will show you how to integrate Open AI API in your Spring Boot application to generate an image. This blog post is the second part of the series. In link:../04/spring-ai-integration[the first part], I showed you how to integrate Open AI API in your Spring Boot application to generate a text.
+
+== 2. Adapt the existing app to add an image endpoint
+
+First we need to add a new endpoint to our application. We will use the same approach as in the previous blog post.
+
+[source, kotlin]
+----
+ @Bean
+    fun aiRouter(chatClient: OpenAiChatClient, imageClient: OpenAiImageClient) = router {
+        ...
+		GET("/api/ai/generateImage") { request ->
+            ServerResponse
+                .ok()
+                .contentType(MediaType.parseMediaType("application/zip"))
+                .body(
+                    imageResponse(imageClient, request
+                        .param("message")
+                        .orElse("A photo of a cat"))
+                )
+        }
+        ...
+    }
+----
+The ... means that I removed some code to focus on the important part.
+
+As we can see, we now use an *OpenAiImageClient* to generate the image.
+The imageResponse method is used to call this client and download the generated the image.
+
+[source, kotlin]
+----
+@Configuration(proxyBeanMethods = false)
+class RouterConfiguration {
+    ...
+    private fun imageResponse(imageClient: OpenAiImageClient): ByteArray {
+
+        val imageResponse = imageClient.call(
+			ImagePrompt(
+                instruction
+            )
+        )
+        val imageInBase64 = imageResponse.result.output.b64Json
+
+
+        val files = imageResponse.results.asSequence().withIndex().map {
+            val test = imageInBase64.decodeFromBase64(it.value.output.b64Json)
+            Pair("${it.index}.png", test)
+        }.toMap()
+
+        return ZipUtilities.createZipFile(files)
+    }
+}
+----
+The ... means that I removed some code to focus on the important part.
+
+Spring AI would be able to download more than one image but the Open AI API only returns one image. The code could handle more than one image if the API returns more than one image.
+Because Spring AI support other API to generate images such as https://stability.ai/news/api-platform-for-stability-ai[Stability API].
+The *ZipUtilities* and its *createZipFile* method are used to create a zip file from with as many image as the map contains.
+
+[source, kotlin]
+----
+object ZipUtilities {
+    fun createZipFile(pngFiles: Map<String, ByteArray>): ByteArray {
+        ByteArrayOutputStream().use { baos ->
+            ZipOutputStream(baos).use { zos ->
+                pngFiles.forEach { (fileName, fileContent) ->
+                    val entry = ZipEntry(fileName)
+                    zos.putNextEntry(entry)
+                    zos.write(fileContent)
+                    zos.closeEntry()
+                }
+            }
+            return baos.toByteArray()
+        }
+    }
+
+}
+----
+
+To try our endpoint we can use the following curl command:
+
+[source, bash]
+----
+curl "localhost:8080/api/ai/generateImage" -o image.zip
+----
+
+The image.zip file should contain a photo of a cat.
+
+----
+image.zip
+	|- 0.png
+----
+
+0 is the index of the image in the return result.
+
+If you want to adapt the message to personalize the image, you can use the following command:
+
+[source, bash]
+----
+curl "localhost:8080/api/ai/generateImage?message=a%20photo%20of%20a%20dog" -o image.zip
+----
+
+== 4. Conclusion
+
+In my point of view, *Spring AI* is a nice way to integrate Open AI to your Spring Boot APP.
+
+If you want to check the final https://github.com/mikrethor/spring-ai[code] on GitHub.
+
+== Resources
+
+- https://stackoverflow.com/questions/75355506/springboot-3-graalvm-native-image-stuck-forever-mac-m1[Stackoverflow - SpringBoot 3 GraalVM native-image stuck forever (Mac M1)]
+- https://github.com/jamesburt-iw/Spring-AI-examples
+- https://docs.spring.io/spring-ai/reference/getting-started.html
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
