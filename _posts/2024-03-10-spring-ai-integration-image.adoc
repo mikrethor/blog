@@ -113,7 +113,7 @@ If you want to adapt the message to personalize the image, you can use the follo
 curl "localhost:8080/api/ai/generateImage?message=a%20photo%20of%20a%20dog" -o image.zip
 ----
 
-== 4. Conclusion
+== 3. Conclusion
 
 In my point of view, *Spring AI* is a nice way to integrate Open AI to your Spring Boot APP.
 
