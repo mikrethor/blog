@@ -10,13 +10,28 @@
 
 == 1. Purpose of this blog post
 
-In this blog post, I will show you how to install Ollama on your machine to use some AI models locally.
+In this blog post, I will show you how to use AI models locally without the need of Open AI API or other cloud-based AI services.
 
 == 2. What is Ollama
 
-Ollama is a tool that allows you to run open source LLMs locally. It is a great way to use AI models without the need of paying any AI provider.
+Ollama is a tool designed for running open-source large language models (LLMs) like Llama 2 and Code Llama directly on a user's device. It packages model weights, configurations, and data into a single unit managed by a Modelfile, optimizing for efficient GPU use. This makes Ollama an ideal platform for developers and AI enthusiasts for deploying language models in various applications, such as chatbots, summarization tools, and creative writing aids. The platform is extensible, supports privacy, and is free to use, offering easy integration for macOS, Linux and Windows.
 
-== 3. Install Ollama
+== 3. Why should you use Ollama
+
+With Ollama, You can easily use powerful AI models such as llama2, mistral and many others.
+The advantage is that you don't share your data with a third party, and you can use the models offline.
+This make it perfect for an entreprise use case where your data can't be shared with others.
+
+Some models available on Ollama:
+
+- llama2 : to generate human-like text based on the input prompt.
+- openchat : to build a tchat like chatGPT (it's supposed to be more powerful on some benchmark).
+- llava : to generate images like DALL-E or MidJourney
+- ...
+
+It is also extensible and you can add your own trained models. It will be the topic of a future blog post.
+
+== 4. Install Ollama
 
 Go to https://ollama.com/download[Ollama download page] and download the version that fits your OS.
 
@@ -46,7 +61,7 @@ image::../../../img/posts/2024-03-16-move-ollama-to-application.png[Move the Oll
 
 Et voilà, Ollama is installed on your machine.
 
-== 4. Run Ollama
+== 5. Run Ollama
 
 To run *Ollama*, click on the app in the Applications folder.
 And go to a terminal and type `ollama list`.
@@ -121,7 +136,7 @@ It will be the topic of my next blog post.
 
 image::../../../img/posts/2024-03-16-server.png[Ollama server]
 
-== 5. Download models
+== 6. Download models
 
 To download models, you can use the following *ollama* command line.
 
@@ -187,13 +202,14 @@ These facts are meant to be humorous and are not based in reality. But isn't it 
 legend and an action movie icon!
 ----
 
-== 6. Conclusion
+== 7. Conclusion
 
 In my point of view, *Ollama* is a nice way to play with some AI models locally.
 
 == Resources
 
 - https://ollama.com/models[Ollama models page]
+- https://www.perplexity.ai/search/What-is-Ollama-QvOLa4flSWSA_hagsRwf6A[What is Ollama?]
 
 == Follow Me
 
