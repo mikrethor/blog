@@ -1,4 +1,4 @@
-= Use AI model on your computer
+= Use AI models on your computer with Ollama
 :showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
