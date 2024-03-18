@@ -26,7 +26,7 @@ Some models available on Ollama:
 
 - llama2 : to generate human-like text based on the input prompt.
 - openchat : to build a tchat like chatGPT (it's supposed to be more powerful on some benchmark).
-- llava : to generate images like DALL-E or MidJourney
+- llava : to describe images
 - ...
 
 It is also extensible and you can add your own trained models. It will be the topic of a future blog post.
