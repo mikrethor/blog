@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  schedule:
+    # Runs at 7:30 AM Montreal time (Daylight Saving Time, UTC-4)
+    - cron: '30 8 * * *'
 
 jobs:
   build_and_deploy:
