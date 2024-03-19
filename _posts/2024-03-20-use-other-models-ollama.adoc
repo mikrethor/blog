@@ -1,0 +1,244 @@
+= Install models not available on Ollama
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2024-03-20 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Ollama"
+:page-background: /img/2024-03-16-ollama-dall-e-image.webp
+
+== 1. Purpose of this blog post
+
+If you saw my last blog post about link:../16/install-ollama[*Ollama*] you should be able to use all the models available on the https://ollama.com/library[ollama models page].
+But sometimes, it's not enough for your use cases and you need to install other models.
+You are lucky, it's gonna be the topic of this blog post.
+
+Let's get into it.
+
+== 2. How to install other models
+
+First, you need to find a model you want to install.
+
+You can find some on :
+
+- https://huggingface.co/models[Hugging Face] website.
+- https://llama.meta.com[Meta] website.
+
+Let's use the *Hugging Face* website to find a model.
+
+image::../../../img/posts/2024-03-20-search-downloadable-models.png[Search for downloadable models, height=600]
+
+We are looking for a model with a *gguf* file extension.
+
+image::../../../img/posts/2024-03-20-see-the-files.png[Llama-2-7B.GGUF,height=600]
+
+Let's choose the *Llama-2-7B* model.
+
+Go to *Files and versions* and choose the llama-2-7b.Q5_0.gguf file.
+
+image::../../../img/posts/2024-03-20-download-the-file-manually.png[Download the file manually,height=600]
+
+Click on the download button.
+
+image::../../../img/posts/2024-03-20-copy-the-name.png[Copy name,height=400]
+
+Let's copy the name of the file. It will be useful later.
+
+[source, bash]
+----
+ls -l
+
+total 14004224
+-rw-r--r--  1 xavierbouclet  staff  7161089728 17 Mar 11:14 llama-2-7b.Q5_0.gguf
+----
+
+Let's create the *ModelFile* in the same folder as the downloaded *gguf* file.
+
+[source, bash]
+----
+vi ModelFile
+----
+
+The content of the *ModelFile* should be the following.
+
+[source, bash]
+----
+FROM ./llama-2-7b.Q5_0.gguf
+----
+
+Let's add our model to *Ollama*.
+
+[source, bash]
+----
+ollama create mymodeldownloadedmanually -f Modelfile
+
+transferring model data
+creating model layer
+using already created layer sha256:20536b6ee85d7c55893c6b50e44685de576d8438e26222704c7a4e059c449c8e
+writing layer sha256:b384e475be99b8c5cefe686cec5bdaef72b5ef034531b1e66a97ed2bcc95d3e6
+writing manifest
+success
+----
+
+You should see a success message at the end of the command.
+
+Now let's use our model with this command:
+
+[source, bash]
+----
+ollama run mymodeldownloadedmanually
+----
+
+[source, bash]
+----
+>>> tell me a chuck norris fact
+
+ that you can't believe is true
+ nobody else
+you can only watch him on tv!
+i do not care if you don't know who he is.
+I have a few but they are my personal favourites:
+1- Chuck Norris knows the value of Pi to 27 decimal places.
+2- If Chuck Norris falls in the woods, there will be no one left alive to hear it.
+3- Chuck Norris has been to more countries than all other presidents combined.
+4- When you turn on your television set, and see a show hosted by Chuck Norris, remember that he is not just sitting there. He is fighting
+evil at the same time in a different dimension.
+....
+----
+
+Hugging Face has a cli available to download models. Let's install it.
+
+[source, bash]
+----
+pip install huggingface-hub
+
+Collecting huggingface-hub
+Downloading huggingface_hub-0.21.4-py3-none-any.whl.metadata (13 kB)
+Requirement already satisfied: filelock in /opt/homebrew/lib/python3.11/site-packages (from huggingface-hub) (3.13.1)
+Collecting fsspec>=2023.5.0 (from huggingface-hub)
+Downloading fsspec-2024.3.0-py3-none-any.whl.metadata (6.8 kB)
+Requirement already satisfied: requests in /opt/homebrew/lib/python3.11/site-packages (from huggingface-hub) (2.31.0)
+Collecting tqdm>=4.42.1 (from huggingface-hub)
+Downloading tqdm-4.66.2-py3-none-any.whl.metadata (57 kB)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.6/57.6 kB 2.3 MB/s eta 0:00:00
+Collecting pyyaml>=5.1 (from huggingface-hub)
+Downloading PyYAML-6.0.1-cp311-cp311-macosx_11_0_arm64.whl.metadata (2.1 kB)
+Collecting typing-extensions>=3.7.4.3 (from huggingface-hub)
+Downloading typing_extensions-4.10.0-py3-none-any.whl.metadata (3.0 kB)
+Requirement already satisfied: packaging>=20.9 in /opt/homebrew/lib/python3.11/site-packages (from huggingface-hub) (23.2)
+Requirement already satisfied: charset-normalizer<4,>=2 in /opt/homebrew/lib/python3.11/site-packages (from requests->huggingface-hub) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /opt/homebrew/lib/python3.11/site-packages (from requests->huggingface-hub) (3.6)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /opt/homebrew/lib/python3.11/site-packages (from requests->huggingface-hub) (2.2.0)
+Requirement already satisfied: certifi>=2017.4.17 in /opt/homebrew/lib/python3.11/site-packages (from requests->huggingface-hub) (2023.11.17)
+Downloading huggingface_hub-0.21.4-py3-none-any.whl (346 kB)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 346.4/346.4 kB 5.9 MB/s eta 0:00:00
+Downloading fsspec-2024.3.0-py3-none-any.whl (171 kB)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 171.9/171.9 kB 10.7 MB/s eta 0:00:00
+Downloading PyYAML-6.0.1-cp311-cp311-macosx_11_0_arm64.whl (167 kB)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 167.5/167.5 kB 9.7 MB/s eta 0:00:00
+Downloading tqdm-4.66.2-py3-none-any.whl (78 kB)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.3/78.3 kB 4.3 MB/s eta 0:00:00
+Downloading typing_extensions-4.10.0-py3-none-any.whl (33 kB)
+Installing collected packages: typing-extensions, tqdm, pyyaml, fsspec, huggingface-hub
+Successfully installed fsspec-2024.3.0 huggingface-hub-0.21.4 pyyaml-6.0.1 tqdm-4.66.2 typing-extensions-4.10.0
+----
+
+Let's use the cli and use the name copied earlier (on the third line).
+
+[source, bash]
+----
+huggingface-cli download \
+  TheBloke/Llama-2-7B-GGUF \
+  llama-2-7b.Q5_0.gguf \
+  --local-dir downloads \
+  --local-dir-use-symlinks False
+----
+
+A download folder should be created with the *gguf* file inside.
+Use the terminal to go inside the download folder.
+
+Let's create the *ModelFile*
+
+[source, bash]
+----
+vi ModelFile
+----
+
+The content of the *ModelFile* should be the following.
+
+[source, bash]
+----
+FROM ./llama-2-7b.Q5_0.gguf
+----
+
+Let's add our model to *Ollama*.
+
+[source, bash]
+----
+ollama create mymodel -f Modelfile
+----
+
+When finished, the following message should appear.
+
+[source, bash]
+----
+ollama create mymodel -f Modelfile
+
+transferring model data
+creating model layer
+using already created layer sha256:f1415d117f94261fd9869ac5dabd98b3dc36648cfb7c6d84e5b473aca74ab64d
+writing layer sha256:5d6206bda2a41479936982c5f92223bfe01a3c0a84a405aef585258277552d78
+writing manifest
+success
+----
+
+Nos we can use our model with this command.
+
+[source, bash]
+----
+ollama run mymodel
+----
+
+[source, bash]
+----
+>>> Tell me a chuck norris fact
+
+I'm not gonna tell you a Chuck Norris Fact, I'm going to tell you a Chuck Norris Truth.
+Chuck Norris can round house kick a volcano in the face and make it explode more violently.
+Chuck Norris can kill two stones with one bird.
+Chuck Norris can run faster than lightning, and he's been doing it since 1952!
+Chuck Norris is so badass that his shadow has a top billing in every movie it's in.
+Chuck Norris once killed an elephant with a toothpick.
+Chuck Norris can set ants on fire, then put them out, and the ants are still burning.
+Chuck Norris can beat up the Boogeyman, and the Boogeyman is already dead!
+...
+----
+
+To remove the models added, you can use the following commands.
+
+[source, bash]
+----
+ollama rm mymodel
+ollama rm mymodeldownloadedmanually
+----
+
+== 3. Conclusion
+
+*Ollama* comes with a lot of models, but sometimes you need to install other models.
+And now you know how to do it.
+It's nice way to experiment with a lot of different models.
+
+== Resources
+
+- https://discuss.huggingface.co/t/how-to-download-a-model-and-run-it-with-ollama-locally/77317/2
+- https://www.markhneedham.com/blog/2023/10/18/ollama-hugging-face-gguf-models/
+- https://github.com/ollama/ollama
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
