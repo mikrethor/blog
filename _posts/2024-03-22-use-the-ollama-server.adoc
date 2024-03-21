@@ -1,0 +1,190 @@
+= Use Ollama as a server
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2024-03-22 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Ollama Server"
+:page-background: /img/2024-03-16-ollama-dall-e-image.webp
+
+== 1. Purpose of this blog post
+
+If you saw my last blog posts about link:../16/install-ollama[*Install Ollama*] and how to install  link:../20/use-other-models-ollama[*Specific Models*] on Ollama you should be able to address a lot of use cases.
+But in this post, we will see how to work with the *Ollama* server thanks to https://spring.io/projects/spring-ai[*Spring AI*].
+
+== 2. Ollama Server with Spring AI
+
+If *Ollama* is running you should check if the server is running.
+
+[source, bash]
+----
+curl http://localhost:11434
+Ollama is running%
+----
+
+To figure all the endpoints available, you can check the following links :
+
+- https://github.com/ollama/ollama/blob/main/docs/api.md[Ollama API Specification]
+- https://editor.swagger.io/?url=https://raw.githubusercontent.com/marscod/ollama/main/api/ollama_api_specification.json[Ollama API Specification in Open API]
+
+The second link seems not official but could be quite useful.
+
+Let's try to do some stuff with Spring AI. Ollama is supported by Spring AI through :
+
+[source, groovy]
+----
+dependencies {
+    implementation 'org.springframework.ai:spring-ai-ollama'
+}
+----
+
+Or with the Spring Boot starter :
+
+[source, groovy]
+----
+dependencies {
+    implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
+}
+----
+
+In the following example, we will use the *spring-ai-ollama* dependency.
+
+== 3. Create the project
+
+To create the project, you can use my last blog posts on *Spring AI* :
+
+- link:../04/spring-ai-integration[*Spring AI - Chat GPT*]
+- link:../10/spring-ai-integration-image[*Spring AI - Dall-E*]
+
+Or clone the code from the following repository :
+
+[source, bash]
+----
+git clone git@github.com:mikrethor/spring-ai.git
+----
+
+Let's add the dependency to the *build.gradle.kts* file :
+
+[source, kotlin]
+----
+...
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
+	implementation("org.springframework.ai:spring-ai-ollama)
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+...
+----
+
+Let's modify our *RouterConfiguration* to add the *Ollama* endpoint to our API:
+
+[source, kotlin]
+----
+package com.xavierbouclet.springai
+
+...
+
+@Configuration(proxyBeanMethods = false)
+class RouterConfiguration {
+
+   ...
+
+    @Bean
+    fun aiRouter(chatClient: OpenAiChatClient,
+                 imageClient: OpenAiImageClient,
+                 ollamaChatClient: OllamaChatClient) = router {
+        GET("/api/ollama/generate") { request ->
+            ServerResponse
+                .ok()
+                .body(
+                    ollamaChatClient.call(
+                        request
+                            .param("message")
+                            .orElse("Tell me a Chuck Norris fact")
+                    )
+                )
+        }
+        GET("/api/ollama/generateStream") { request ->
+            ServerResponse
+                .ok()
+                .body(ollamaChatClient.stream(
+                    Prompt(
+                        UserMessage(
+                            request
+                                .param("message")
+                                .orElse("Tell me a Chuck Norris fact")
+                        )
+                    )
+                ).mapNotNull { chatResp -> chatResp?.result?.output?.content }
+                    .toStream()
+                    .toList()
+                )
+        }
+        ...
+}
+----
+
+So to interact with the *Ollama* server, we will use the *OllamaChatClient* and use the following endpoints :
+
+- /api/ollama/generate
+- /api/ollama/generateStream
+
+To configure the *OllamaChatClient* we will use the following properties :
+
+[source, yaml]
+----
+spring:
+  ai:
+      ...
+      ollama:
+        base-url: http://localhost:11434
+        chat:
+          model: mistral
+          options:
+            temperature: 0.7
+----
+
+As you can see we will use the *mistral* model with a temperature of 0.7. It means that a mistral model conservative with a creativity touch.
+
+Let's run the application. And call the endpoint /api/ollama/generate :
+
+[source, bash]
+----
+curl http://localhost:8080/api/ollama/generate
+
+ Chuck Norris does not sleep. He stays up all nights, preventing us from having bad dreams and ensuring that sunrise comes every morning. This is just one of the many humorous legends surrounding the martial artist and actor. In reality, Chuck Norris is a highly skilled martial artist who has won numerous championships and starred in many action movies. He holds a 9th-degree black belt in South Korean Tang Soo Do Moo Sool Kwan Haeng Il as well as a 2nd-degree black belt in Brazilian Jiu-Jitsu. He also served in the United States Air Force as an air policeman.%
+----
+
+We can also call the endpoint /api/ollama/generateStream :
+
+[source, bash]
+----
+curl http://localhost:8080/api/ollama/generateStream
+[" Chuck"," Nor","ris"," does"," not"," sleep","."," He"," stays"," up"," all"," nights",","," preventing"," evil"," do","ers"," from"," causing"," chaos"," around"," the"," world","."," His"," lack"," of"," sleep"," is"," what"," gives"," him"," super","human"," strength"," and"," abilities",".","\n","\n","Or"," how"," about"," this"," one",":"," Chuck"," Nor","ris"," can"," divide"," by"," zero","."," He"," doesn","'","t"," need"," to"," follow"," the"," rules"," that"," the"," rest"," of"," us"," mort","als"," are"," bound"," by",".",""]%
+----
+
+By using a reactive type we could generate a *Chat GTP* response like. It could be a future improvement.
+
+Et voilà, you can now use the *Ollama* server with *Spring AI*.
+Let's see some https://llava-vl.github.io/[*Llava*] use case in my next blog post.
+
+== 4. Conclusion
+
+*Ollama* and its server are a nice way to try some Spring AI code and try some use cases.
+It could also be a non prod solution to test some models without any cost.
+
+== Resources
+
+- https://www.reddit.com/r/ollama/comments/1b608mf/ollama_api/[Ollama API]
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
