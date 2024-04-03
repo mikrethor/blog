@@ -1,0 +1,155 @@
+= Bridging Visions and Words with LLava
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2024-04-03 7:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Llava 34B                                  "
+:page-background: /img/2024-04-02-llava.webp
+
+== 1. Purpose of this blog post
+
+If you saw my last blog posts about link:../16/install-ollama[*Install Ollama*] and how to install  link:../20/use-other-models-ollama[*Specific Models*] on Ollama you should be able to address a lot of use cases.
+But in this post, we will see how to work with the *Ollama* and https://llava-vl.github.io[*Llava*].
+
+*Llava* is a *LLM* that can recognise images provided to it and generate a textual description of the image.
+
+== 2. Install Llava on Ollama
+
+To add *Llava* to *Ollama* you ne to install the *Llava* through the command line.
+
+[source, bash]
+----
+ollama pull llava:34b
+----
+
+I use the *34B* version of *Llava* in this example to have better results.
+You could just remove the version but the version would be the 7B and the results would be less accurate.
+The B corresponds to the size of the model, the bigger the model the better the results but the slower is the model.
+
+== 3. Use Llava with Ollama
+
+Let's try it with the following image :
+
+image::../../../img/posts/2024-04-02-landscape.jpg[Landscape]
+
+Now let's ask *Llava 34B* to describe the image :
+
+[source, bash]
+----
+ollama run llava:34B "tell me what do you see in this picture? ./landscape.jpg"
+----
+
+I execute the command from the folder where the image is located.
+
+And this is the answer I got :
+
+----
+The image depicts a serene sunset scene. The sky is painted with hues of orange, pink,
+and purple as the sun sets or rises on the horizon. Reflections from the light play
+across the calm surface of what appears to be a lake or sea. In the foreground, there's
+a beautiful display of wildflowers with vibrant colors that match the sunset tones.
+These flowers, possibly lupines given their shape and coloration, add a natural beauty
+to the scene. The tranquility of the water and the peacefulness of the flowers create a
+harmonious and picturesque setting.
+----
+
+Pretty nice, isn't it?
+
+Let's see how we could find a use case more useful in our daily life.
+
+== 4. Handwritten Text Recognition
+
+I wrote a note on a piece of paper :
+
+image::../../../img/posts/2024-04-03-text-recognition.jpg[Handwritten Text, 50%]
+
+[source, bash]
+----
+ollama run llava:34B "Determine the hand written text in this image? ./note.jpg"
+----
+
+And this is the answer I got :
+
+----
+The handwritten text in the image reads "Hello Generative AI Meetup."
+----
+
+Really cool result, isn't it?
+
+Let's try to improve the prompting to get just what's written on the note :
+
+[source, bash]
+----
+ollama run llava:34B "Determine the hand written text in this image and just write this hand written text as the output nothing else  ./note.jpg"
+----
+
+Let's see the result :
+
+----
+"Hello Generative AI Meetup."
+----
+
+Way better! But we need to have that through an API to use it in an applications.
+
+== 5. Use Llava with the Ollama API
+
+The *Ollama* server comes with an API that you can use to interact with the server.
+
+We need to use the url http://localhost:11434/api/generate to interact with the generate endpoint.
+
+[source, json]
+----
+{
+    "model": "llava:34B",
+    "prompt": "Determine the hand written text in this image and just write this hand written text as the output nothing else",
+    "stream": false,
+    "images": ["content of the file in Base 64"]}
+----
+
+We need to convert the image in Base64 to sent it to the server using json.
+
+For this conversion I used https://base64.guru/converter/encode/image[Base64 Guru] and copy paste the result in the json.
+
+And this is the result I got :
+
+[source, json]
+----
+{
+    "model": "llava:34B",
+    "created_at": "2024-04-03T01:38:43.681199Z",
+    "response": "Hello Generative AI Meetup",
+    "done": true,
+    "context": [
+        6,
+        ...
+        674
+    ],
+    "total_duration": 16199642125,
+    "load_duration": 23168000,
+    "prompt_eval_duration": 14991832000,
+    "eval_count": 7,
+    "eval_duration": 1075909000
+}
+----
+
+Next time we will see how to use Spring AI to have a nicer way for this use case.
+
+== 6. Conclusion
+
+*Llava* is a pretty cool *LLM* that can be used to describe images and recognise handwritten text.
+
+== Resources
+
+- https://www.reddit.com/r/ollama/comments/1b608mf/ollama_api/[Ollama API]
+- https://ollama.com/blog/vision-models[Ollama Vision models]
+- https://llava-vl.github.io/[Llava]
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
