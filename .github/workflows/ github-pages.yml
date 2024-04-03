@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2147483647
 
       # Use GitHub Actions' cache to cache dependencies on servers
       - uses: actions/cache@v4.0.1
