@@ -10,7 +10,7 @@
 
 == 1. Purpose of this blog post
 
-If you saw my last blog posts about link:../16/install-ollama[*Install Ollama*] and how to install  link:../20/use-other-models-ollama[*Specific Models*] on Ollama you should be able to address a lot of use cases.
+If you saw my last blog posts about link:../../03/16/install-ollama[*Install Ollama*] and how to install  link:../../03/20/use-other-models-ollama[*Specific Models*] on Ollama you should be able to address a lot of use cases.
 But in this post, we will see how to work with the *Ollama* and https://llava-vl.github.io[*Llava*].
 
 *Llava* is a *LLM* that can recognise images provided to it and generate a textual description of the image.
