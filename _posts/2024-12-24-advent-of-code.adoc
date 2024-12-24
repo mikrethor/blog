@@ -111,11 +111,11 @@ If you want to discover the videos one by one :
 1*^|Communicate with another API - the RestClient
 1*^|https://youtu.be/qyZeYxwWfyw
 
-1*^|22th december
+1*^|22nd december
 1*^|Communicate with another API - the Http Interface
 1*^|https://youtu.be/fIp_-TMIjvE
 
-1*^|23th december
+1*^|23rd december
 1*^|Improve UX with caching
 1*^|https://youtu.be/jA6d1mz1sHk
 
