@@ -1,0 +1,143 @@
+= Advent of Spring Boot
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2024-12-24 0:00:00 -0500
+:layout: post
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Spring Boot"
+:page-background: /img/posts/2024-12-advent-of-code.png
+
+== 1. Purpose of this blog post
+
+This month, I took the challenge of doing one video per day to help you discover (or rediscover) Spring Boot.
+On this blog post, you can check all the videos.
+
+== 2 Channel
+
+See the the channel on https://www.youtube.com/playlist?list=PLdZmLZuiangA-j6dAhYNGa1wB43tmGlVO[Youtube].
+
+== 3. Vidéos
+
+If you want to discover the videos one by one :
+
+[cols="1,2,2"]
+|===
+1*^|Date
+1*^|Topic
+1*^|Link to the video
+
+1*^|1st december
+1*^|Create a Spring Boot app
+1*^|https://youtu.be/4wXbgwXbpLI
+
+1*^|2nd december
+1*^|Add endpoints
+1*^|https://youtu.be/qeO1jQ1NxkM
+
+1*^|3rd december
+1*^|Handle http code response
+1*^|https://youtube.com/live/J1xApH7iWE8
+
+1*^|4th december
+1*^|Use RouterFunction instead of RestController
+1*^|https://youtube.com/live/aMnop_HB91g
+
+1*^|5th december
+1*^|Error handling
+1*^|https://youtu.be/bLJbBKwXMY4
+
+1*^|6th december
+1*^|Customize error payload with ProblemDetail
+1*^|https://youtu.be/sRoYsksX-2Y
+
+1*^|7th december
+1*^|Add a real db (PostgreSQL)
+1*^|https://youtu.be/HzsifEcrGPA
+
+1*^|8th december
+1*^|Unit testing with Mockito
+1*^|https://youtu.be/rmybE5tcObM
+
+1*^|9th december
+1*^|Integration test with MockMvc
+1*^|https://youtu.be/poQKwapvd4U
+
+1*^|10th december
+1*^|Integration test with RestAssured
+1*^|https://youtu.be/_GiHWgPSfs0
+
+1*^|11th december
+1*^|Integration test with TestContainers
+1*^|https://youtu.be/tf1gJ2sa5GQ
+
+1*^|12th december
+1*^|Document your API with Swagger Doc
+1*^|https://youtu.be/i03wRCSlpR0
+
+1*^|13th december
+1*^|Document your API with Spring Rest Doc & eDocs
+1*^|https://youtu.be/_4CFuV1IlTc
+
+1*^|14th december
+1*^|Properties Configuration with record
+1*^|https://youtu.be/7tGodZHWGfI
+
+1*^|15th december
+1*^|Fields Validation
+1*^|https://youtu.be/wn8xJkdCrss
+
+1*^|16th december
+1*^|Build your API with a Dockerfile
+1*^|https://youtu.be/-iRWutNq3qA
+
+1*^|17th december
+1*^|Build your API with buildpacks
+1*^|https://youtu.be/UWB8Sm9U2zg
+
+1*^|18th december
+1*^|Build your API with buildpacks & GraalVM
+1*^|https://youtu.be/WLtA_nfZrzk
+
+1*^|19th december
+1*^|Monitor your api with actuator
+1*^|https://youtu.be/5T8rEbIrih4
+
+1*^|20th december
+1*^|Custom metrics with avtiuator and Micrometer
+1*^|https://youtu.be/wpva1Cgz5wo
+
+1*^|21th december
+1*^|Communicate with another API - the RestClient
+1*^|https://youtu.be/qyZeYxwWfyw
+
+1*^|22th december
+1*^|Communicate with another API - the Http Interface
+1*^|https://youtu.be/fIp_-TMIjvE
+
+1*^|23th december
+1*^|Improve UX with caching
+1*^|https://youtu.be/jA6d1mz1sHk
+
+1*^|24th december
+1*^|Supercharge your API with Spring AI - RAG
+1*^|https://youtu.be/WdZb0GinMNU
+|===
+
+== 4. Source code
+
+The source code is on https://github.com/mikrethor/adventofcode2024[Github].
+
+== 5. Conclusion
+
+*Spring Boot* is a pretty cool to start fast. I hope, you enjoy the videos as well.
+
+Stay tuned for more content.
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+
+
