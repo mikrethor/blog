@@ -131,6 +131,7 @@ The source code is on https://github.com/mikrethor/adventofcode2024[Github].
 == 5. Conclusion
 
 *Spring Boot* is a pretty cool to start fast. I hope, you enjoy the videos as well.
+For me, it was a nice journey and doing an advent of code is not something easy to do.
 
 Stay tuned for more content.
 
