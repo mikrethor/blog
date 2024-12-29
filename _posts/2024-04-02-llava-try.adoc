@@ -151,5 +151,6 @@ Next time we will see how to use Spring AI to have a nicer way for this use case
 - https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
 - https://twitter.com/XavierBOUCLET[Twitter]
 - https://www.xavierbouclet.com/[Blog]
+- https://www.youtube.com/@xavierbouclet[Youtube]
 
 
