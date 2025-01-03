@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Advent of Spring Boot - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Advent of Spring Boot 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2024/12/24/advent-of-code.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2024-12-advent-of-code.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Advent of Spring Boot</h1>
+            
+            <h2 class="subheading">Spring Boot</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on December 24, 2024 &middot; <span class="reading-time" title="Estimated read time">
+  
+   6 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Advent of Spring Boot</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This month, I took the challenge of doing one video per day to help you discover (or rediscover) Spring Boot.
+On this blog post, you can check all the videos.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_channel">2 Channel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See the the channel on <a href="https://www.youtube.com/playlist?list=PLdZmLZuiangA-j6dAhYNGa1wB43tmGlVO">Youtube</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_vidéos">3. Vidéos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you want to discover the videos one by one :</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Date</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Topic</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Link to the video</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1st december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Create a Spring Boot app</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/4wXbgwXbpLI" class="bare">https://youtu.be/4wXbgwXbpLI</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2nd december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Add endpoints</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/qeO1jQ1NxkM" class="bare">https://youtu.be/qeO1jQ1NxkM</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">3rd december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Handle http code response</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtube.com/live/J1xApH7iWE8" class="bare">https://youtube.com/live/J1xApH7iWE8</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">4th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Use RouterFunction instead of RestController</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtube.com/live/aMnop_HB91g" class="bare">https://youtube.com/live/aMnop_HB91g</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">5th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Error handling</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/bLJbBKwXMY4" class="bare">https://youtu.be/bLJbBKwXMY4</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">6th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Customize error payload with ProblemDetail</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/sRoYsksX-2Y" class="bare">https://youtu.be/sRoYsksX-2Y</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">7th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Add a real db (PostgreSQL)</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/HzsifEcrGPA" class="bare">https://youtu.be/HzsifEcrGPA</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">8th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Unit testing with Mockito</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/rmybE5tcObM" class="bare">https://youtu.be/rmybE5tcObM</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">9th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Integration test with MockMvc</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/poQKwapvd4U" class="bare">https://youtu.be/poQKwapvd4U</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">10th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Integration test with RestAssured</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/_GiHWgPSfs0" class="bare">https://youtu.be/_GiHWgPSfs0</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">11th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Integration test with TestContainers</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/tf1gJ2sa5GQ" class="bare">https://youtu.be/tf1gJ2sa5GQ</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">12th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Document your API with Swagger Doc</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/i03wRCSlpR0" class="bare">https://youtu.be/i03wRCSlpR0</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">13th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Document your API with Spring Rest Doc &amp; eDocs</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/_4CFuV1IlTc" class="bare">https://youtu.be/_4CFuV1IlTc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">14th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Properties Configuration with record</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/7tGodZHWGfI" class="bare">https://youtu.be/7tGodZHWGfI</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">15th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Fields Validation</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/wn8xJkdCrss" class="bare">https://youtu.be/wn8xJkdCrss</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">16th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Build your API with a Dockerfile</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/-iRWutNq3qA" class="bare">https://youtu.be/-iRWutNq3qA</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">17th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Build your API with buildpacks</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/UWB8Sm9U2zg" class="bare">https://youtu.be/UWB8Sm9U2zg</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">18th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Build your API with buildpacks &amp; GraalVM</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/WLtA_nfZrzk" class="bare">https://youtu.be/WLtA_nfZrzk</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">19th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Monitor your api with actuator</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/5T8rEbIrih4" class="bare">https://youtu.be/5T8rEbIrih4</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">20th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Custom metrics with avtiuator and Micrometer</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/wpva1Cgz5wo" class="bare">https://youtu.be/wpva1Cgz5wo</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">21th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Communicate with another API - the RestClient</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/qyZeYxwWfyw" class="bare">https://youtu.be/qyZeYxwWfyw</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">22nd december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Communicate with another API - the Http Interface</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/fIp_-TMIjvE" class="bare">https://youtu.be/fIp_-TMIjvE</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">23rd december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Improve UX with caching</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/jA6d1mz1sHk" class="bare">https://youtu.be/jA6d1mz1sHk</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">24th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Supercharge your API with Spring AI - RAG</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/WdZb0GinMNU" class="bare">https://youtu.be/WdZb0GinMNU</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_source_code">4. Source code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The source code is on <a href="https://github.com/mikrethor/adventofcode2024">Github</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="5_conclusion">5. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Spring Boot</strong> is a pretty cool to start fast. I hope, you enjoy the videos as well.
+For me, it was a nice journey and doing an advent of code is not something easy to do.</p>
+</div>
+<div class="paragraph">
+<p>Stay tuned for more content.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2024/04/02/llava-try.html" data-toggle="tooltip" data-placement="top" title="Bridging Visions and Words with LLava">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

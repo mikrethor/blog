@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Which alternatives could be used to make an api with GraalVM - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Which alternatives could be used to make an api with GraalVM This blog post is the first of many on native compilation of Java API.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2021/01/10/Which-alternatives-to-go-native-for-an-api-with-java.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2021-01-11-GraalVM-going-native.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Which alternatives could be used to make an api with GraalVM</h1>
+            
+            <h2 class="subheading">Which alternatives could be used to make an api with GraalVM</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on January 10, 2021 &middot; <span class="reading-time" title="Estimated read time">
+  
+   6 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Which alternatives could be used to make an api with GraalVM</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This blog post is the first of many on native compilation of Java API.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="container_density_problem">Container density problem</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the first place, why would we want to use GraalVM to develop an API with Java.
+It&#8217;s simple, we love Java. It has been here for 25 years and it still evolves to meet enterprise needs.
+But in comparison with other languages, Java need a JVM to run so in addition to our program we need to add this JVM in our
+container.
+So the container density problem arises.
+Indeed, the main Java competitors are lighter than Java and a standard JVM.
+What does it mean? It means that with the same resources we can&#8217;t deploy as many Java microservices as we could with Go or NodeJs microservices.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2021-01-11-container-density-without-graalvm.svg" alt="Container density problem">
+</div>
+</div>
+<div class="paragraph">
+<p>So, we can&#8217;t have as many Java microservices as we would have with Go or NodeJS microservices.</p>
+</div>
+<div class="paragraph">
+<p>What should we do? Move our development using non-JVM based languages, which eventually will require a shift in development skills. One could take this approach
+if losing productivity is not an issue along with a shift in the development paradigm but fortunately for JVM lovers, we have GraalVm to the rescue.
+GraalVM allows us to compile our code specifically to the destination container and remove as much unnecessary code as possible.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the_solution_using_java_graalvm">The solution using Java : GraalVM</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2021-01-11-container-density-with-graalvm.svg" alt="Container density java solution">
+</div>
+</div>
+<div class="paragraph">
+<p>GraalVM is a VM and a JDK based on OpenJDK. The first production-ready version (19.0) was released in May 2019.
+It can be used for other languages such as Javascript, Ruby C and C++ but for our use case we are gonna stick with Java only.</p>
+</div>
+<div class="paragraph">
+<p>With Ahead Of Time (AOT) compilation, our executable is gonna be removed of the code that we don&#8217;t need in our executable.
+Meaning the code in the frameworks and the JDK that is not needed in our final executable.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/native-executable-process.png" alt="GraalVM AOT">
+</div>
+</div>
+<div class="paragraph">
+<p>Does it mean we don&#8217;t use any VM for our native executable.
+It does not, our final executable contains the SubstrateVM a small JVM without all the optimization that we have in a standard JVM.</p>
+</div>
+<div class="paragraph">
+<p>So the AOT compilation is not magical, it does come at a price :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dynamic classloading &#8658; not supported</p>
+</li>
+<li>
+<p>JVMTI, JMX and other VM interfaces (no agent) &#8658; not supported</p>
+</li>
+<li>
+<p>Reflection &#8658; partially supported</p>
+</li>
+<li>
+<p>No JVM optimization</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>More details on the <a href="https://github.com/oracle/graal/blob/master/substratevm/Limitations.md">SubstrateVM limitations</a></p>
+</div>
+<div class="paragraph">
+<p>To compile an executable with GraalVM it can be complicated to parameter.
+By example, GraalVM can&#8217;t detect the code called using reflection.</p>
+</div>
+<div class="paragraph">
+<p>So in order to use the power of GraalVM with all the frameworks which help us to be productive with Java,
+we need use tools which are already GraalVM ready.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tools_at_our_disposal">Tools at our disposal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A rapid search on the web gives us a list of five :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://helidon.io/">Helidon</a></p>
+</li>
+<li>
+<p><a href="https://quarkus.io">Quarkus</a></p>
+</li>
+<li>
+<p><a href="https://micronaut.io">Micronaut</a></p>
+</li>
+<li>
+<p><a href="https://projects.eclipse.org/projects/technology.microprofile">Microprofile</a></p>
+</li>
+<li>
+<p><a href="https://spring.io/projects/spring-boot">Spring Boot</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="helidon">Helidon</h3>
+<div class="paragraph">
+<p>Helidon was an internal Oracle project (J4C &#8658; Java for cloud) which implement the Microprofile specification.
+The first version was released in February 2019.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://helidon.io/docs/latest/#/mp/guides/02_quickstart">To generate a Helidon project</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="quarkus">Quarkus</h3>
+<div class="paragraph">
+<p>Quarkus is a Red Hat project released in March 2019 which implement the Microprofile specification.
+There has been lot of traction on Quarkus since the beginning.</p>
+</div>
+<div class="paragraph">
+<p>I had the chance to make a talk on Quarkus inside <a href="https://www.nbc.ca">NBC</a> in April 2020
+following by a workshop for the <a href="https://github.com/montrealjug/quarkus-workshop">Montréal Jug</a> in June 2020.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://quarkus.io">To generate a Quarkus project</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="micronaut">Micronaut</h3>
+<div class="paragraph">
+<p>Micronaut is a project released in May 2018.
+It seems to have a foundation behind it and is pretty active.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://micronaut.io">To generate a Micronaut project</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="microprofile">Microprofile</h3>
+<div class="paragraph">
+<p>Micro Profile is more a specification and the starter can generate the project for a specific runtime :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Quarkus</p>
+</li>
+<li>
+<p>Helidon</p>
+</li>
+<li>
+<p>Open Liberty</p>
+</li>
+<li>
+<p>Payara Micro</p>
+</li>
+<li>
+<p>Thorntail V2</p>
+</li>
+<li>
+<p>Wildfly</p>
+</li>
+<li>
+<p>KumuluzEE</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It&#8217;s backed by the Eclipse Foundation.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://start.microprofile.io">To generate a Micro Profile project</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring_boot">Spring Boot</h3>
+<div class="paragraph">
+<p>Spring Boot is the most ancient (released in April 2014) and yet the one of the less mature to be used with native compilation,
+but it seems to progress really fast on that end.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://spring.io/projects/spring-boot">To generate a Spring Boot project</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have many options. I will write about some of them in my next blog posts.
+In my next blog posts, I will develop a Java API using Quarkus, Micronaut or Spring Boot with a PostgreSQL database behind it.</p>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2020/08/02/Moving-blog-to-Jekyll.html" data-toggle="tooltip" data-placement="top" title="Moving my blog to Jekyll">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2021/01/24/Native-java-api-with-PostgreSQL.html" data-toggle="tooltip" data-placement="top" title="Movie API a concrete example for a CRUD GraalVM API">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Functional Routing in Spring MVC - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Functional Routing in Spring MVC 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2023/03/26/functional-webmvc.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/road-1303617_1920.jpg')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Functional Routing in Spring MVC</h1>
+            
+            <h2 class="subheading">Router Functions and Handler Functions</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on March 26, 2023 &middot; <span class="reading-time" title="Estimated read time">
+  
+   10 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Functional Routing in Spring MVC</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I don&#8217;t understand why spring developers keep using RestControllers when a nicer way exists.
+May be you haven&#8217;t heard about Router Functions and Handler Functions, but they exist since the release of Spring Framework 5.0 in 2017 for Webflux and since Spring Framework 5.2 in 2019 for Spring MVC.</p>
+</div>
+<div class="paragraph">
+<p>I personally prefer to use Router Functions and Handler Functions instead of the rest controllers that have been around for while now.</p>
+</div>
+<div class="paragraph">
+<p>This blog post is to present to you Router Functions and Handler Functions.</p>
+</div>
+<div class="paragraph">
+<p>I am gonna start from a RestController and migrate it to RouterFunctions and HandlerFunctions.</p>
+</div>
+<div class="paragraph">
+<p>The starting point is available on <a href="https://github.com/mikrethor/whiskies-api">GITHUB</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_this_is_the_restcontroller_way">2. This is the (RestController) way!</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s see an example of RestController.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/api/whiskies"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WhiskyController</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">WhiskyRepository</span> <span class="n">postRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">WhiskyController</span><span class="o">(</span><span class="nc">WhiskyRepository</span> <span class="n">postRepository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">postRepository</span> <span class="o">=</span> <span class="n">postRepository</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Whisky</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">postRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Whisky</span> <span class="nf">findById</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="no">UUID</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">postRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">).</span><span class="na">orElseThrow</span><span class="o">(()-&gt;</span><span class="k">new</span> <span class="nc">ElementNotFoundException</span><span class="o">(</span><span class="n">id</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This controller defines 2 GET endpoints :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>/api/whiskies &#8594; that returns all the whiskies available</p>
+</li>
+<li>
+<p>/api/whiskies/c31f148e-e202-3e82-8ea8-2cb305c49322 &#8594; that returns the whisky corresponding to the id : c31f148e-e202-3e82-8ea8-2cb305c49322</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see the <strong>RestControllerAdvice</strong> that handles the errors.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@RestControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionHandlerAdvice</span> <span class="o">{</span>
+
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">ElementNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ProblemDetail</span> <span class="nf">handlePostNotFoundException</span><span class="o">(</span><span class="nc">ElementNotFoundException</span> <span class="n">exception</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">URISyntaxException</span> <span class="o">{</span>
+        <span class="nc">ProblemDetail</span> <span class="n">problemDetail</span> <span class="o">=</span> <span class="nc">ProblemDetail</span><span class="o">.</span><span class="na">forStatusAndDetail</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">,</span> <span class="n">exception</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="n">problemDetail</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="n">exception</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+        <span class="n">problemDetail</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="s">"http://localhost:8080/problems/post-not-found"</span><span class="o">));</span>
+        <span class="k">return</span> <span class="n">problemDetail</span><span class="o">;</span>
+
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When an <strong>ElementNotFound</strong> is thrown the controller advice intercepts the exception and allows us to return a proper response.</p>
+</div>
+<div class="paragraph">
+<p>Many of us are used to that king of Spring Programming but there is a better way <strong>Router function</strong>.</p>
+</div>
+<div class="paragraph">
+<p>We need to define a <strong>RouterFunction</strong> bean to define our routes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Configuration</span><span class="o">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RouterConfiguration</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">RouterFunction</span><span class="o">&lt;</span><span class="nc">ServerResponse</span><span class="o">&gt;</span> <span class="nf">whiskiesRouter</span><span class="o">(</span><span class="nc">WhiskyRepository</span> <span class="n">wr</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">route</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">GET</span><span class="o">(</span><span class="s">"/api/whiskies"</span><span class="o">,</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">wr</span><span class="o">.</span><span class="na">findAll</span><span class="o">()))</span>
+                <span class="o">.</span><span class="na">GET</span><span class="o">(</span><span class="s">"/api/whiskies/{id}"</span><span class="o">,</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                    <span class="kt">var</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">fromString</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">pathVariable</span><span class="o">(</span><span class="s">"id"</span><span class="o">));</span>
+                    <span class="k">return</span> <span class="nf">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">wr</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">).</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">ElementNotFoundException</span><span class="o">(</span><span class="n">id</span><span class="o">)));</span>
+                <span class="o">})</span>
+                <span class="o">.</span><span class="na">onError</span><span class="o">(</span><span class="nc">ElementNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+                        <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">req</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                            <span class="nc">ProblemDetail</span> <span class="n">problemDetail</span> <span class="o">=</span> <span class="nc">ProblemDetail</span><span class="o">.</span><span class="na">forStatusAndDetail</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+                            <span class="n">problemDetail</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="o">((</span><span class="nc">ElementNotFoundException</span><span class="o">)</span> <span class="n">e</span><span class="o">).</span><span class="na">getId</span><span class="o">());</span>
+                            <span class="k">try</span> <span class="o">{</span>
+                                <span class="n">problemDetail</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="s">"http://localhost:8080/problems/post-not-found"</span><span class="o">));</span>
+                                <span class="n">problemDetail</span><span class="o">.</span><span class="na">setInstance</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">requestPath</span><span class="o">().</span><span class="na">toString</span><span class="o">()));</span>
+                            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">URISyntaxException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+                                <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
+                            <span class="o">}</span>
+
+                            <span class="k">return</span> <span class="nc">EntityResponse</span><span class="o">.</span><span class="na">fromObject</span><span class="o">(</span><span class="n">problemDetail</span><span class="o">)</span>
+                                    <span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">)</span>
+                                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+                        <span class="o">})</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <strong>RouterFunction</strong> takes a <strong>ServerRequest</strong> and returns a <strong>ServerResponse</strong>.
+It&#8217;s a much nicer way to the all the routes especially when there are many controllers.</p>
+</div>
+<div class="paragraph">
+<p>But still, something is missing, we need to define handler functions to avoid too much code in the definition of our routes.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s define 2 handlers :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>WhiskyHandler &#8594; build the response of our /api/whiskies endpoints</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WhiskyHandler</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">WhiskyRepository</span> <span class="n">whiskyRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">WhiskyHandler</span><span class="o">(</span><span class="nc">WhiskyRepository</span> <span class="n">whiskyRepository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">whiskyRepository</span> <span class="o">=</span> <span class="n">whiskyRepository</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">ServerResponse</span> <span class="nf">getWhiskies</span><span class="o">(</span><span class="nc">ServerRequest</span> <span class="n">serverRequest</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">ServerResponse</span>
+                <span class="o">.</span><span class="na">ok</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">whiskyRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">ServerResponse</span> <span class="nf">getAWhiskyById</span><span class="o">(</span><span class="nc">ServerRequest</span> <span class="n">serverRequest</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">var</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">fromString</span><span class="o">(</span><span class="n">serverRequest</span><span class="o">.</span><span class="na">pathVariable</span><span class="o">(</span><span class="s">"id"</span><span class="o">));</span>
+        <span class="k">return</span> <span class="nc">ServerResponse</span>
+                <span class="o">.</span><span class="na">ok</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">whiskyRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">ElementNotFoundException</span><span class="o">(</span><span class="n">id</span><span class="o">)));</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It&#8217;s pretty straightforward and similar to the code from the RestController we started with. The thing missing is the api routes.
+And that the thing I like. The code building the response and the routes are not in the same place, so we can have a single piece of code to see all the routes.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ErrorHandler &#8594; build our error response when an error occurs</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ErrorHandler</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nc">ServerResponse</span> <span class="nf">elementNotFoundHandler</span><span class="o">(</span><span class="nc">Throwable</span> <span class="n">e</span><span class="o">,</span> <span class="nc">ServerRequest</span> <span class="n">serverRequest</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nc">ProblemDetail</span> <span class="n">problemDetail</span> <span class="o">=</span> <span class="nc">ProblemDetail</span><span class="o">.</span><span class="na">forStatusAndDetail</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="n">problemDetail</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="o">((</span><span class="nc">ElementNotFoundException</span><span class="o">)</span> <span class="n">e</span><span class="o">).</span><span class="na">getId</span><span class="o">());</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">problemDetail</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="s">"http://localhost:8080/problems/post-not-found"</span><span class="o">));</span>
+            <span class="n">problemDetail</span><span class="o">.</span><span class="na">setInstance</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="n">serverRequest</span><span class="o">.</span><span class="na">requestPath</span><span class="o">().</span><span class="na">toString</span><span class="o">()));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">URISyntaxException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="nc">EntityResponse</span><span class="o">.</span><span class="na">fromObject</span><span class="o">(</span><span class="n">problemDetail</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s rework the <strong>RouterFunction</strong> bean to properly use our handlers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Configuration</span><span class="o">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RouterConfiguration</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">RouterFunction</span><span class="o">&lt;</span><span class="nc">ServerResponse</span><span class="o">&gt;</span> <span class="nf">whiskiesRouter</span><span class="o">(</span><span class="nc">WhiskyHandler</span> <span class="n">whiskyHandler</span><span class="o">,</span> <span class="nc">ErrorHandler</span> <span class="n">errorHandler</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">route</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">GET</span><span class="o">(</span><span class="s">"/api/whiskies"</span><span class="o">,</span> <span class="nl">whiskyHandler:</span><span class="o">:</span><span class="n">getWhiskies</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">GET</span><span class="o">(</span><span class="s">"/api/whiskies/{id}"</span><span class="o">,</span> <span class="nl">whiskyHandler:</span><span class="o">:</span><span class="n">getAWhiskyById</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">onError</span><span class="o">(</span><span class="nc">ElementNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="nl">errorHandler:</span><span class="o">:</span><span class="n">elementNotFoundHandler</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Compared to the <strong>RestController</strong> way, we can really see what are the routes of our api.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_going_further">3. Going further</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.baeldung.com/spring-mvc-functional-controllers" class="bare">https://www.baeldung.com/spring-mvc-functional-controllers</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=TtA0_MEEjlM" class="bare">https://www.youtube.com/watch?v=TtA0_MEEjlM</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In my point of view, <strong>RouterFunction</strong> is a nicest way to declare endpoints.
+It has been around for a while now so don&#8217;t hesitate to use them.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the final <a href="https://github.com/mikrethor/whiskies-api/tree/router-function">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2023/03/19/Tryout-Rust-Java-CLI-avoid-network.html" data-toggle="tooltip" data-placement="top" title="Tryout Rust, Java on a CLI (no network)">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2024/02/04/declarative-rest-client.html" data-toggle="tooltip" data-placement="top" title="Declarative REST client">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>
