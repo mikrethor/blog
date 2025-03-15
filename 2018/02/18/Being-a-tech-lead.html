@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Being a tech lead - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Almost one year ago, my client needed a Tech Lead in one of it&amp;#8217;s development team. In fact they needed someone that would help to get their regulatory ...">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2018/02/18/Being-a-tech-lead.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+  <header class="masthead">
+    
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Being a tech lead</h1>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier BOUCLET</a>
+              on February 18, 2018 &middot; <span class="reading-time" title="Estimated read time">
+  
+   7 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Almost one year ago, my client needed a Tech Lead in one of it&#8217;s development team.
+In fact they needed someone that would help to get their regulatory project back on the right track.</p>
+</div>
+<div class="paragraph">
+<p>It was not easy at first but what an achievement the team has done from this moment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the_project">The project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When I arrived in the team, the status was the following :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The team used scrum but was not able to deliver an increment</p>
+</li>
+<li>
+<p>The team was not in the same place</p>
+</li>
+<li>
+<p>Some team member were angry at each other</p>
+</li>
+<li>
+<p>Every developer deployed in test environment without pulling the code from the VCS</p>
+</li>
+<li>
+<p>There was no unit test, all the testing was made by hand</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>First thing first, I talked to each team member to clearly identify all the problems in the team.
+It could seem not important but it&#8217;s something that had to be done to help team member to move on.</p>
+</div>
+<div class="paragraph">
+<p>From that point, we had to get some quick win to help team member to get back their confidence in them and in the project.</p>
+</div>
+<div class="paragraph">
+<p>In order to do that, I helped the team to kill some bad habits by using the CI server to help us deploy our webapp directly from the VCS.
+It helped us to be sure that the code deployed was the one in the VCS.</p>
+</div>
+<div class="paragraph">
+<p>After that, we started to use pull requests to review each line of code being commit to the development branch.
+Being peer reviewed took some time but is now part of our daily routine.</p>
+</div>
+<div class="paragraph">
+<p>Fortunately for us, those few moves helped the QA tester to properly and rapidly test.
+Improving the feedback loop had a good impact on the webapp quality and the development team started to deliver the increment.</p>
+</div>
+<div class="paragraph">
+<p>All these victories helped me work on improving the development speed and quality by putting in place proper unit testing.
+Exhorting the team member to use unit tests instead of locally deploy the webapp and test it by hand was quite a challenge.
+I thought it was pretty straightforward for a developer to understand that doing unit test reduce development time.
+Especially when deploying the webapp locally takes a few minutes but it seems that some old habits die hard.</p>
+</div>
+<div class="paragraph">
+<p>So we had to change some team members. In fact, I don&#8217;t know if we can speak about team member in such case because they didn&#8217;t really followed the team guidelines.</p>
+</div>
+<div class="paragraph">
+<p>In such conditions, we managed to succeed the first webapp delivery to production with an acceptable quality.</p>
+</div>
+<div class="paragraph">
+<p>My job has become a lot easier since then.
+I have focused on improving team efficiency and some team member have taken good habits.
+We have managed to improve the code coverage from 0 to 50%.
+And with this the team has the proper tools and the confidence to refactor the code when needed.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s quite an achievement from our starting point and I am proud of what the team has achieved.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the_role">The role</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For me a Tech Lead is a developer who is in charge of leading the development team.
+It&#8217;s really important that the Tech Lead develops because without that it&#8217;s not possible to have the team confidence.</p>
+</div>
+<div class="paragraph">
+<p>To be good in the job, a Tech Lead has to divide his time between :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>coding</p>
+</li>
+<li>
+<p>motivating the team</p>
+</li>
+<li>
+<p>supporting/organizing the team</p>
+</li>
+<li>
+<p>innovation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The balance is sometimes hard to achieve. But when you move away from this repartition, don&#8217;t forget to get back to these ratios
+ as soon as possible or you will do a poor job as a Tech Lead.</p>
+</div>
+<div class="paragraph">
+<p>On my current project, I was too much in the code and it prevented me to see some member problem soon enough.</p>
+</div>
+<div class="sect2">
+<h3 id="coding">Coding</h3>
+<div class="paragraph">
+<p>A Tech Lead who doesn&#8217;t code can&#8217;t be a Teach Lead because he won&#8217;t identify what the team is going through.
+I mean a Tech Lead has to understand the team context and improve this context to facilitate the team work.</p>
+</div>
+<div class="paragraph">
+<p>Usually, it represents 30% of my time.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="motivating_the_team">Motivating the team</h3>
+<div class="paragraph">
+<p>Motivating the team means helping the team to be motivated.
+It means :
+- removing the problem
+- reducing the development difficulties
+- helping having a good atmosphere</p>
+</div>
+<div class="paragraph">
+<p>It takes approximately 30% of my time.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="supporting_organizing_the_team">Supporting / organizing the team</h3>
+<div class="paragraph">
+<p>Supporting and organizing the team is the same in this case because the goal is to encourage team members to discuss among themselves.
+It helps improving knowledge and collaboration.</p>
+</div>
+<div class="paragraph">
+<p>It also takes approximately 30% of my time.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="innovation">Innovation</h3>
+<div class="paragraph">
+<p>Innovation could seem irrelevant but it&#8217;s a part of team motivation because without innovation the team will
+ loose motivation to improve things and innovation is a way to improve development time and quality.</p>
+</div>
+<div class="paragraph">
+<p>I guess you have already found that it takes me 10% of my time.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="one_last_thing">One last thing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A take lead can&#8217;t do his job properly, without having a team ready to listen. My job on this project would have been a
+ lot harder if no one had listen and started to embrace the change.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.thekua.com/atwork/2014/11/the-definition-of-a-tech-lead/">Reference1</a></p>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2018/01/17/Ngx-Logger-to-Kibana.html" data-toggle="tooltip" data-placement="top" title="NgxLogger to Kibana">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2018/02/25/Start-a-search-engine.html" data-toggle="tooltip" data-placement="top" title="Start a search engine">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>
