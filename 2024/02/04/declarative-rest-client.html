@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Declarative REST client - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Declarative REST client 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2024/02/04/declarative-rest-client.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/road-1303617_1920.jpg')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Declarative REST client</h1>
+            
+            <h2 class="subheading">Spring Framework 6</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on February 04, 2024 &middot; <span class="reading-time" title="Estimated read time">
+  
+   4 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Declarative REST client</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To create a REST client easily with Spring, we often use <a href="https://github.com/OpenFeign/feign">feign</a>.
+For Spring Boot, we can use :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>org.springframework.cloud:spring-cloud-starter-openfeign for webmvc</p>
+</li>
+<li>
+<p>com.playtika.reactivefeign:feign-reactor-spring-cloud-starter for webflux</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There is no unified way of creating a feign client, at least prior to Spring Framework 6.</p>
+</div>
+<div class="paragraph">
+<p>Now, with Spring Framework 6 (or Spring Boot 3), we can leverage the declarative REST client.</p>
+</div>
+<div class="paragraph">
+<p>TODO &#8658; code</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_creating_a_declarative_rest_client">2. Creating a declarative REST client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s use the <a href="https://start.spring.io/#!type=maven-project">Spring Initialzr</a> to create the Spring Boot project.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Group : com.xavierbouclet</p>
+</li>
+<li>
+<p>Artifact : whiskies-api</p>
+</li>
+<li>
+<p>Project : Maven</p>
+</li>
+<li>
+<p>Language : Java</p>
+</li>
+<li>
+<p>Java : 17</p>
+</li>
+<li>
+<p>Dependencies :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Spring Web</p>
+</li>
+<li>
+<p>Spring Reactive Web</p>
+</li>
+<li>
+<p>Validation</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         <span class="na">xsi:schemaLocation=</span><span class="s">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+    <span class="nt">&lt;parent&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>3.0.5<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;relativePath/&gt;</span> <span class="c">&lt;!-- lookup parent from repository --&gt;</span>
+    <span class="nt">&lt;/parent&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.xavierbouclet<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>whiskies-api<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;name&gt;</span>whiskies-api<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;description&gt;</span>whiskies-api<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;properties&gt;</span>
+        <span class="nt">&lt;java.version&gt;</span>17<span class="nt">&lt;/java.version&gt;</span>
+    <span class="nt">&lt;/properties&gt;</span>
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-webflux<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-validation<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+
+    <span class="nt">&lt;build&gt;</span>
+        <span class="nt">&lt;plugins&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/build&gt;</span>
+<span class="nt">&lt;/project&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create an interface for our REST client.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">WhiskyService</span> <span class="o">{</span>
+
+    <span class="nd">@GetExchange</span><span class="o">(</span><span class="s">"/whiskies"</span><span class="o">)</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Whisky</span><span class="o">&gt;</span> <span class="nf">loadAll</span><span class="o">();</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">client</span><span class="pi">:</span>
+  <span class="na">whisky</span><span class="pi">:</span>
+    <span class="na">service</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">https://my-json-server.typicode.com/mikrethor/whiskies</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">import</span> <span class="nn">jakarta.validation.constraints.NotNull</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.validation.annotation.Validated</span><span class="o">;</span>
+
+<span class="nd">@Validated</span>
+<span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"client.whisky.service"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">record</span> <span class="nf">WhiskyClientProperties</span><span class="o">(</span><span class="nd">@NotNull</span> <span class="nc">String</span> <span class="n">url</span><span class="o">)</span> <span class="o">{</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">    <span class="nd">@Bean</span>
+    <span class="nc">WebClient</span> <span class="nf">webClient</span><span class="o">(</span><span class="nc">WhiskyClientProperties</span> <span class="n">whiskyClientProperties</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span>  <span class="nc">WebClient</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">baseUrl</span><span class="o">(</span><span class="n">whiskyClientProperties</span><span class="o">.</span><span class="na">url</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">defaultHeader</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">CONTENT_TYPE</span><span class="o">,</span> <span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nc">HttpServiceProxyFactory</span> <span class="nf">proxyFactory</span><span class="o">(</span><span class="nc">WebClient</span> <span class="n">client</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">HttpServiceProxyFactory</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="nc">WebClientAdapter</span><span class="o">.</span><span class="na">forClient</span><span class="o">(</span><span class="n">client</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nc">WhiskyService</span> <span class="nf">whiskyService</span><span class="o">(</span><span class="nc">HttpServiceProxyFactory</span> <span class="n">factory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="na">createClient</span><span class="o">(</span><span class="nc">WhiskyService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_adapt_the_client_for_webflux">3. Adapt the client for Webflux</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">WhiskyService</span> <span class="o">{</span>
+
+    <span class="nd">@GetExchange</span><span class="o">(</span><span class="s">"/whiskies"</span><span class="o">)</span>
+    <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">Whisky</span><span class="o">&gt;</span> <span class="nf">loadAll</span><span class="o">();</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In my point of view, <strong>Declarative REST client</strong> is a nicer way to declare REST client than Feign.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the final <a href="https://github.com/mikrethor/whiskies-api/tree/router-function">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2023/03/26/functional-webmvc.html" data-toggle="tooltip" data-placement="top" title="Functional Routing in Spring MVC">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2024/03/04/spring-ai-integration.html" data-toggle="tooltip" data-placement="top" title="Integrate Open AI API to your Spring Boot application">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

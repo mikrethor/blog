@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Use Ollama as a server - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Use Ollama as a server 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2024/03/22/use-the-ollama-server.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/2024-03-16-ollama-dall-e-image.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Use Ollama as a server</h1>
+            
+            <h2 class="subheading">Ollama Server</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on March 22, 2024 &middot; <span class="reading-time" title="Estimated read time">
+  
+   8 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Use Ollama as a server</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you saw my last blog posts about <a href="../16/install-ollama"><strong>Install Ollama</strong></a> and how to install  <a href="../20/use-other-models-ollama"><strong>Specific Models</strong></a> on Ollama you should be able to address a lot of use cases.
+But in this post, we will see how to work with the <strong>Ollama</strong> server thanks to <a href="https://spring.io/projects/spring-ai"><strong>Spring AI</strong></a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_ollama_server_with_spring_ai">2. Ollama Server with Spring AI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If <strong>Ollama</strong> is running you should check if the server is running.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl http://localhost:11434
+Ollama is running%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To figure all the endpoints available, you can check the following links :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/ollama/ollama/blob/main/docs/api.md">Ollama API Specification</a></p>
+</li>
+<li>
+<p><a href="https://editor.swagger.io/?url=https://raw.githubusercontent.com/marscod/ollama/main/api/ollama_api_specification.json">Ollama API Specification in Open API</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The second link seems not official but could be quite useful.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s try to do some stuff with Spring AI. Ollama is supported by Spring AI through :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="groovy"><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s1">'org.springframework.ai:spring-ai-ollama'</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or with the Spring Boot starter :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="groovy"><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s1">'org.springframework.ai:spring-ai-ollama-spring-boot-starter'</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the following example, we will use the <strong>spring-ai-ollama</strong> dependency.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_create_the_project">3. Create the project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To create the project, you can use my last blog posts on <strong>Spring AI</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../04/spring-ai-integration"><strong>Spring AI - Chat GPT</strong></a></p>
+</li>
+<li>
+<p><a href="../10/spring-ai-integration-image"><strong>Spring AI - Dall-E</strong></a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Or clone the code from the following repository :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git clone git@github.com:mikrethor/spring-ai.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s add the dependency to the <strong>build.gradle.kts</strong> file :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="o">..</span><span class="p">.</span>
+<span class="nf">dependencies</span> <span class="p">{</span>
+	<span class="nf">implementation</span><span class="p">(</span><span class="s">"org.springframework.boot:spring-boot-starter-web"</span><span class="p">)</span>
+	<span class="nf">implementation</span><span class="p">(</span><span class="s">"com.fasterxml.jackson.module:jackson-module-kotlin"</span><span class="p">)</span>
+	<span class="nf">implementation</span><span class="p">(</span><span class="s">"org.jetbrains.kotlin:kotlin-reflect"</span><span class="p">)</span>
+	<span class="nf">implementation</span><span class="p">(</span><span class="s">"org.springframework.ai:spring-ai-openai-spring-boot-starter"</span><span class="p">)</span>
+	<span class="nf">implementation</span><span class="p">(</span><span class="s">"org.springframework.ai:spring-ai-ollama)
+</span>	<span class="nf">testImplementation</span><span class="p">(</span><span class="s">"org.springframework.boot:spring-boot-starter-test"</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="o">..</span><span class="p">.</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s modify our <strong>RouterConfiguration</strong> to add the <strong>Ollama</strong> endpoint to our API:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="k">package</span> <span class="nn">com.xavierbouclet.springai</span>
+
+<span class="o">..</span><span class="p">.</span>
+
+<span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">RouterConfiguration</span> <span class="p">{</span>
+
+   <span class="o">..</span><span class="p">.</span>
+
+    <span class="nd">@Bean</span>
+    <span class="k">fun</span> <span class="nf">aiRouter</span><span class="p">(</span><span class="n">chatClient</span><span class="p">:</span> <span class="nc">OpenAiChatClient</span><span class="p">,</span>
+                 <span class="n">imageClient</span><span class="p">:</span> <span class="nc">OpenAiImageClient</span><span class="p">,</span>
+                 <span class="n">ollamaChatClient</span><span class="p">:</span> <span class="nc">OllamaChatClient</span><span class="p">)</span> <span class="p">=</span> <span class="nf">router</span> <span class="p">{</span>
+        <span class="nc">GET</span><span class="p">(</span><span class="s">"/api/ollama/generate"</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="nc">ServerResponse</span>
+                <span class="p">.</span><span class="nf">ok</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">body</span><span class="p">(</span>
+                    <span class="n">ollamaChatClient</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
+                        <span class="n">request</span>
+                            <span class="p">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+                            <span class="p">.</span><span class="nf">orElse</span><span class="p">(</span><span class="s">"Tell me a Chuck Norris fact"</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nc">GET</span><span class="p">(</span><span class="s">"/api/ollama/generateStream"</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="nc">ServerResponse</span>
+                <span class="p">.</span><span class="nf">ok</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">body</span><span class="p">(</span><span class="n">ollamaChatClient</span><span class="p">.</span><span class="nf">stream</span><span class="p">(</span>
+                    <span class="nc">Prompt</span><span class="p">(</span>
+                        <span class="nc">UserMessage</span><span class="p">(</span>
+                            <span class="n">request</span>
+                                <span class="p">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+                                <span class="p">.</span><span class="nf">orElse</span><span class="p">(</span><span class="s">"Tell me a Chuck Norris fact"</span><span class="p">)</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">).</span><span class="nf">mapNotNull</span> <span class="p">{</span> <span class="n">chatResp</span> <span class="p">-&gt;</span> <span class="n">chatResp</span><span class="o">?.</span><span class="n">result</span><span class="o">?.</span><span class="n">output</span><span class="o">?.</span><span class="n">content</span> <span class="p">}</span>
+                    <span class="p">.</span><span class="nf">toStream</span><span class="p">()</span>
+                    <span class="p">.</span><span class="nf">toList</span><span class="p">()</span>
+                <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="o">..</span><span class="p">.</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So to interact with the <strong>Ollama</strong> server, we will use the <strong>OllamaChatClient</strong> and use the following endpoints :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>/api/ollama/generate</p>
+</li>
+<li>
+<p>/api/ollama/generateStream</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To configure the <strong>OllamaChatClient</strong> we will use the following properties :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">ai</span><span class="pi">:</span>
+      <span class="s">...</span>
+      <span class="s">ollama</span><span class="err">:</span>
+        <span class="na">base-url</span><span class="pi">:</span> <span class="s">http://localhost:11434</span>
+        <span class="na">chat</span><span class="pi">:</span>
+          <span class="na">model</span><span class="pi">:</span> <span class="s">mistral</span>
+          <span class="na">options</span><span class="pi">:</span>
+            <span class="na">temperature</span><span class="pi">:</span> <span class="s">0.7</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see we will use the <strong>mistral</strong> model with a temperature of 0.7. It means that a mistral model conservative with a creativity touch.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s run the application. And call the endpoint /api/ollama/generate :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl http://localhost:8080/api/ollama/generate
+
+ Chuck Norris does not sleep. He stays up all nights, preventing us from having bad dreams and ensuring that sunrise comes every morning. This is just one of the many humorous legends surrounding the martial artist and actor. In reality, Chuck Norris is a highly skilled martial artist <span class="nb">who </span>has won numerous championships and starred <span class="k">in </span>many action movies. He holds a 9th-degree black belt <span class="k">in </span>South Korean Tang Soo Do Moo Sool Kwan Haeng Il as well as a 2nd-degree black belt <span class="k">in </span>Brazilian Jiu-Jitsu. He also served <span class="k">in </span>the United States Air Force as an air policeman.%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can also call the endpoint /api/ollama/generateStream :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl http://localhost:8080/api/ollama/generateStream
+<span class="o">[</span><span class="s2">" Chuck"</span>,<span class="s2">" Nor"</span>,<span class="s2">"ris"</span>,<span class="s2">" does"</span>,<span class="s2">" not"</span>,<span class="s2">" sleep"</span>,<span class="s2">"."</span>,<span class="s2">" He"</span>,<span class="s2">" stays"</span>,<span class="s2">" up"</span>,<span class="s2">" all"</span>,<span class="s2">" nights"</span>,<span class="s2">","</span>,<span class="s2">" preventing"</span>,<span class="s2">" evil"</span>,<span class="s2">" do"</span>,<span class="s2">"ers"</span>,<span class="s2">" from"</span>,<span class="s2">" causing"</span>,<span class="s2">" chaos"</span>,<span class="s2">" around"</span>,<span class="s2">" the"</span>,<span class="s2">" world"</span>,<span class="s2">"."</span>,<span class="s2">" His"</span>,<span class="s2">" lack"</span>,<span class="s2">" of"</span>,<span class="s2">" sleep"</span>,<span class="s2">" is"</span>,<span class="s2">" what"</span>,<span class="s2">" gives"</span>,<span class="s2">" him"</span>,<span class="s2">" super"</span>,<span class="s2">"human"</span>,<span class="s2">" strength"</span>,<span class="s2">" and"</span>,<span class="s2">" abilities"</span>,<span class="s2">"."</span>,<span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>,<span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>,<span class="s2">"Or"</span>,<span class="s2">" how"</span>,<span class="s2">" about"</span>,<span class="s2">" this"</span>,<span class="s2">" one"</span>,<span class="s2">":"</span>,<span class="s2">" Chuck"</span>,<span class="s2">" Nor"</span>,<span class="s2">"ris"</span>,<span class="s2">" can"</span>,<span class="s2">" divide"</span>,<span class="s2">" by"</span>,<span class="s2">" zero"</span>,<span class="s2">"."</span>,<span class="s2">" He"</span>,<span class="s2">" doesn"</span>,<span class="s2">"'"</span>,<span class="s2">"t"</span>,<span class="s2">" need"</span>,<span class="s2">" to"</span>,<span class="s2">" follow"</span>,<span class="s2">" the"</span>,<span class="s2">" rules"</span>,<span class="s2">" that"</span>,<span class="s2">" the"</span>,<span class="s2">" rest"</span>,<span class="s2">" of"</span>,<span class="s2">" us"</span>,<span class="s2">" mort"</span>,<span class="s2">"als"</span>,<span class="s2">" are"</span>,<span class="s2">" bound"</span>,<span class="s2">" by"</span>,<span class="s2">"."</span>,<span class="s2">""</span><span class="o">]</span>%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By using a reactive type we could generate a <strong>Chat GTP</strong> response like. It could be a future improvement.</p>
+</div>
+<div class="paragraph">
+<p>Et voilà, you can now use the <strong>Ollama</strong> server with <strong>Spring AI</strong>.
+Let&#8217;s see some <a href="https://llava-vl.github.io/"><strong>Llava</strong></a> use case in my next blog post.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Ollama</strong> and its server are a nice way to try some Spring AI code and try some use cases.
+It could also be a non prod solution to test some models without any cost.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.reddit.com/r/ollama/comments/1b608mf/ollama_api/">Ollama API</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2024/03/20/use-other-models-ollama.html" data-toggle="tooltip" data-placement="top" title="Install models not available on Ollama">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2024/04/02/llava-try.html" data-toggle="tooltip" data-placement="top" title="Bridging Visions and Words with LLava">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Json Serialization with Kafka - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Json Serialization with Kafka 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2022/07/17/Kafka-Json-Serialization.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2022-07-07-SpringBoot-Kafka.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Json Serialization with Kafka</h1>
+            
+            <h2 class="subheading">Json Serialization with Kafka</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on July 17, 2022 &middot; <span class="reading-time" title="Estimated read time">
+  
+   21 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Json Serialization with Kafka</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Last time we wrote <a href="http://xavierbouclet.com/2022/07/09/Reactive-Kafka-Producer-Consumer.html">a reactive Kafka producer/consumer using Spring Boot</a> with a simple String serializer.
+This time, we are gonna use a Json serializer using the Spring Boot reactive stack Webflux.
+If you have never implemented a producer/consumer, I advise you to read my 2 last posts :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://xavierbouclet.com/2022/07/07/Simple-Kafka-Producer-Consumer.html">A simple Kafka producer/consumer using Spring Boot</a></p>
+</li>
+<li>
+<p><a href="http://xavierbouclet.com/2022/07/09/Reactive-Kafka-Producer-Consumer.html">A reactive Kafka producer/consumer using Spring Boot</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_setup_a_kafka_environment">2. Setup a Kafka environment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To setup a Kafka environment, you need create a docker-compose.yml file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">zookeeper</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">confluentinc/cp-zookeeper:7.1.2</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">zookeeper</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">zookeeper</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">2181:2181"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">ZOOKEEPER_CLIENT_PORT</span><span class="pi">:</span> <span class="m">2181</span>
+      <span class="na">ZOOKEEPER_TICK_TIME</span><span class="pi">:</span> <span class="m">2000</span>
+
+  <span class="na">broker</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">confluentinc/cp-kafka:7.1.2</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">broker</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">broker</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">zookeeper</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">29092:29092"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">9092:9092"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">9101:9101"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">KAFKA_BROKER_ID</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">KAFKA_ZOOKEEPER_CONNECT</span><span class="pi">:</span> <span class="s1">'</span><span class="s">zookeeper:2181'</span>
+      <span class="na">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP</span><span class="pi">:</span> <span class="s">PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT</span>
+      <span class="na">KAFKA_ADVERTISED_LISTENERS</span><span class="pi">:</span> <span class="s">PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092</span>
+      <span class="na">KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">KAFKA_TRANSACTION_STATE_LOG_MIN_ISR</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">KAFKA_JMX_PORT</span><span class="pi">:</span> <span class="m">9101</span>
+      <span class="na">KAFKA_JMX_HOSTNAME</span><span class="pi">:</span> <span class="s">localhost</span>
+
+  <span class="na">schema-registry</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">confluentinc/cp-schema-registry:7.1.2</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">schema-registry</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">schema-registry</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">broker</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8081:8081"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">SCHEMA_REGISTRY_HOST_NAME</span><span class="pi">:</span> <span class="s">schema-registry</span>
+      <span class="na">SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS</span><span class="pi">:</span> <span class="s1">'</span><span class="s">broker:29092'</span>
+      <span class="na">SCHEMA_REGISTRY_LISTENERS</span><span class="pi">:</span> <span class="s">http://0.0.0.0:8081</span>
+
+  <span class="na">connect</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">cnfldemos/kafka-connect-datagen:0.5.3-7.1.0</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">connect</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">connect</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">broker</span>
+      <span class="pi">-</span> <span class="s">schema-registry</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8083:8083"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">CONNECT_BOOTSTRAP_SERVERS</span><span class="pi">:</span> <span class="s1">'</span><span class="s">broker:29092'</span>
+      <span class="na">CONNECT_REST_ADVERTISED_HOST_NAME</span><span class="pi">:</span> <span class="s">connect</span>
+      <span class="na">CONNECT_GROUP_ID</span><span class="pi">:</span> <span class="s">compose-connect-group</span>
+      <span class="na">CONNECT_CONFIG_STORAGE_TOPIC</span><span class="pi">:</span> <span class="s">docker-connect-configs</span>
+      <span class="na">CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">CONNECT_OFFSET_FLUSH_INTERVAL_MS</span><span class="pi">:</span> <span class="m">10000</span>
+      <span class="na">CONNECT_OFFSET_STORAGE_TOPIC</span><span class="pi">:</span> <span class="s">docker-connect-offsets</span>
+      <span class="na">CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">CONNECT_STATUS_STORAGE_TOPIC</span><span class="pi">:</span> <span class="s">docker-connect-status</span>
+      <span class="na">CONNECT_STATUS_STORAGE_REPLICATION_FACTOR</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">CONNECT_KEY_CONVERTER</span><span class="pi">:</span> <span class="s">org.apache.kafka.connect.storage.StringConverter</span>
+      <span class="na">CONNECT_VALUE_CONVERTER</span><span class="pi">:</span> <span class="s">io.confluent.connect.avro.AvroConverter</span>
+      <span class="na">CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL</span><span class="pi">:</span> <span class="s">http://schema-registry:8081</span>
+      <span class="na">CONNECT_PLUGIN_PATH</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/usr/share/java,/usr/share/confluent-hub-components"</span>
+      <span class="na">CONNECT_LOG4J_LOGGERS</span><span class="pi">:</span> <span class="s">org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR</span>
+
+  <span class="na">ksqldb-server</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">confluentinc/cp-ksqldb-server:7.1.2</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">ksqldb-server</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">ksqldb-server</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">broker</span>
+      <span class="pi">-</span> <span class="s">connect</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8088:8088"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">KSQL_CONFIG_DIR</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/etc/ksql"</span>
+      <span class="na">KSQL_BOOTSTRAP_SERVERS</span><span class="pi">:</span> <span class="s2">"</span><span class="s">broker:29092"</span>
+      <span class="na">KSQL_HOST_NAME</span><span class="pi">:</span> <span class="s">ksqldb-server</span>
+      <span class="na">KSQL_LISTENERS</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://0.0.0.0:8088"</span>
+      <span class="na">KSQL_CACHE_MAX_BYTES_BUFFERING</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">KSQL_KSQL_SCHEMA_REGISTRY_URL</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://schema-registry:8081"</span>
+      <span class="na">KSQL_PRODUCER_INTERCEPTOR_CLASSES</span><span class="pi">:</span> <span class="s2">"</span><span class="s">io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"</span>
+      <span class="na">KSQL_CONSUMER_INTERCEPTOR_CLASSES</span><span class="pi">:</span> <span class="s2">"</span><span class="s">io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"</span>
+      <span class="na">KSQL_KSQL_CONNECT_URL</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://connect:8083"</span>
+      <span class="na">KSQL_KSQL_LOGGING_PROCESSING_TOPIC_REPLICATION_FACTOR</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE</span><span class="pi">:</span> <span class="s1">'</span><span class="s">true'</span>
+      <span class="na">KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE</span><span class="pi">:</span> <span class="s1">'</span><span class="s">true'</span>
+
+  <span class="na">ksqldb-cli</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">confluentinc/cp-ksqldb-cli:7.1.2</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">ksqldb-cli</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">broker</span>
+      <span class="pi">-</span> <span class="s">connect</span>
+      <span class="pi">-</span> <span class="s">ksqldb-server</span>
+    <span class="na">entrypoint</span><span class="pi">:</span> <span class="s">/bin/sh</span>
+    <span class="na">tty</span><span class="pi">:</span> <span class="no">true</span>
+
+  <span class="na">ksql-datagen</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">confluentinc/ksqldb-examples:7.1.2</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">ksql-datagen</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">ksql-datagen</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">ksqldb-server</span>
+      <span class="pi">-</span> <span class="s">broker</span>
+      <span class="pi">-</span> <span class="s">schema-registry</span>
+      <span class="pi">-</span> <span class="s">connect</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s2">"</span><span class="s">bash</span><span class="nv"> </span><span class="s">-c</span><span class="nv"> </span><span class="s">'echo</span><span class="nv"> </span><span class="s">Waiting</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">Kafka</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">ready...</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="se">\
+</span>                       <span class="s">cub</span><span class="nv"> </span><span class="s">kafka-ready</span><span class="nv"> </span><span class="s">-b</span><span class="nv"> </span><span class="s">broker:29092</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">40</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="se">\
+</span>                       <span class="s">echo</span><span class="nv"> </span><span class="s">Waiting</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">Confluent</span><span class="nv"> </span><span class="s">Schema</span><span class="nv"> </span><span class="s">Registry</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">ready...</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="se">\
+</span>                       <span class="s">cub</span><span class="nv"> </span><span class="s">sr-ready</span><span class="nv"> </span><span class="s">schema-registry</span><span class="nv"> </span><span class="s">8081</span><span class="nv"> </span><span class="s">40</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="se">\
+</span>                       <span class="s">echo</span><span class="nv"> </span><span class="s">Waiting</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">few</span><span class="nv"> </span><span class="s">seconds</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">topic</span><span class="nv"> </span><span class="s">creation</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">finish...</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="se">\
+</span>                       <span class="s">sleep</span><span class="nv"> </span><span class="s">11</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="se">\
+</span>                       <span class="s">tail</span><span class="nv"> </span><span class="s">-f</span><span class="nv"> </span><span class="s">/dev/null'"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">KSQL_CONFIG_DIR</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/etc/ksql"</span>
+      <span class="na">STREAMS_BOOTSTRAP_SERVERS</span><span class="pi">:</span> <span class="s">broker:29092</span>
+      <span class="na">STREAMS_SCHEMA_REGISTRY_HOST</span><span class="pi">:</span> <span class="s">schema-registry</span>
+      <span class="na">STREAMS_SCHEMA_REGISTRY_PORT</span><span class="pi">:</span> <span class="m">8081</span>
+
+  <span class="na">rest-proxy</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">confluentinc/cp-kafka-rest:7.1.2</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">broker</span>
+      <span class="pi">-</span> <span class="s">schema-registry</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">8082:8082</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">rest-proxy</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">rest-proxy</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">KAFKA_REST_HOST_NAME</span><span class="pi">:</span> <span class="s">rest-proxy</span>
+      <span class="na">KAFKA_REST_BOOTSTRAP_SERVERS</span><span class="pi">:</span> <span class="s1">'</span><span class="s">broker:29092'</span>
+      <span class="na">KAFKA_REST_LISTENERS</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://0.0.0.0:8082"</span>
+      <span class="na">KAFKA_REST_SCHEMA_REGISTRY_URL</span><span class="pi">:</span> <span class="s1">'</span><span class="s">http://schema-registry:8081'</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This docker-compose.yml can be found on <a href="https://github.com/confluentinc/cp-all-in-one/blob/7.1.2-post/cp-all-in-one-community/docker-compose.yml">Confluent Github</a></p>
+</div>
+<div class="paragraph">
+<p>Next, we need to run the following command where the docker-compose.yml file is located.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">docker compose up <span class="nt">-d</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And voilà, you should see something similar to :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">[</span>+] Running 8/8
+ ⠿ Container zookeeper        Started                                         0.9s
+ ⠿ Container broker           Started                                          1.6s
+ ⠿ Container schema-registry  Started                                          2.4s
+ ⠿ Container rest-proxy       Started                                          3.7s
+ ⠿ Container connect          Started                                          3.7s
+ ⠿ Container ksqldb-server    Started                                          4.7s
+ ⠿ Container ksql-datagen     Started                                          5.7s</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_kafka_serializersdeserializers">3 Kafka Serializers/Deserializers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When we use a JVM based language with Kafka, we have a few serializers/deserializers available in the <strong>org.apache.kafka:kafka-clients</strong> library.
+They are located in the package <strong>org.apache.kafka.common.serialization</strong>.</p>
+</div>
+<div class="paragraph">
+<p>This is a list of the types available to serialization/deserialization within the Kafka client.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ByteArray</p>
+</li>
+<li>
+<p>ByteBuffer</p>
+</li>
+<li>
+<p>Bytes</p>
+</li>
+<li>
+<p>Double</p>
+</li>
+<li>
+<p>Float</p>
+</li>
+<li>
+<p>Integer</p>
+</li>
+<li>
+<p>List</p>
+</li>
+<li>
+<p>Long</p>
+</li>
+<li>
+<p>Short</p>
+</li>
+<li>
+<p>String</p>
+</li>
+<li>
+<p>UUID</p>
+</li>
+<li>
+<p>Void</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Just add Serializer or Deserializer after the type.</p>
+</div>
+<div class="paragraph">
+<p>Example for the String type :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>org.apache.kafka.common.serialization.StringSerializer</p>
+</li>
+<li>
+<p>org.apache.kafka.common.serialization.StringDeserializer</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Fortunately for us, <strong>SpringBoot</strong> already has a solution to use Json to use as a serializer/deserializer in a Kafka message :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>org.springframework.kafka.support.serializer.JsonSerializer</p>
+</li>
+<li>
+<p>org.springframework.kafka.support.serializer.JsonDeserializer</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The important thing is that they implement the Kafka interfaces for serialization/deserialization :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>org.apache.kafka.common.serialization.Serializer</p>
+</li>
+<li>
+<p>org.apache.kafka.common.serialization.Deserializer</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you want to implement your own serializer/deserializer, you can do the same.
+It will be the subject of a future blog post.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_serialization_in_the_producer">4. Serialization in the producer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In our last post we used the following properties to configure the producer :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">kafka</span><span class="pi">:</span>
+    <span class="na">producer</span><span class="pi">:</span>
+      <span class="na">bootstrap-servers</span><span class="pi">:</span> <span class="s">127.0.0.1:9092</span>
+      <span class="na">key-serializer</span><span class="pi">:</span> <span class="s">org.apache.kafka.common.serialization.StringSerializer</span>
+      <span class="na">value-serializer</span><span class="pi">:</span> <span class="s">org.apache.kafka.common.serialization.StringSerializer</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use the <strong>JsonSerializer</strong>, we need to change the value-serializer to the following :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml">      <span class="na">value-serializer</span><span class="pi">:</span> <span class="s">org.springframework.kafka.support.serializer.JsonSerializer</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To serialize an object, we need to create a type more complex than a String.
+For example, we can write a class <strong>Message</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="kd">data class</span> <span class="nc">Message</span><span class="p">(</span><span class="kd">val</span> <span class="py">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">?=</span><span class="k">null</span><span class="p">,</span>
+                   <span class="kd">val</span> <span class="py">message</span><span class="p">:</span> <span class="nc">String</span><span class="p">=</span><span class="s">""</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Our <strong>ReactiveKafkaProducerTemplate</strong> uses String sor we need to add one which uses <strong>Message</strong>.<strong>ReactiveKafkaProducerConfig</strong> to take a message.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Configuration</span>
+<span class="kd">class</span> <span class="nc">ReactiveKafkaProducerConfig</span> <span class="p">{</span>
+
+<span class="o">..</span><span class="p">.</span>
+    <span class="nd">@Bean</span>
+    <span class="k">fun</span> <span class="nf">reactiveKafkaProducerJsonTemplate</span><span class="p">(</span><span class="n">properties</span><span class="p">:</span> <span class="nc">KafkaProperties</span><span class="p">)</span> <span class="p">=</span>
+        <span class="nc">ReactiveKafkaProducerTemplate</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="nc">Message</span><span class="p">&gt;(</span><span class="nc">SenderOptions</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="nf">buildProducerProperties</span><span class="p">()))</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>ReactiveKafkaProducerTemplate&lt;String, Message&gt; take a <strong>Message</strong> as value.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>We can modify our <strong>TopicProducer</strong> to add our <strong>reactiveKafkaProducerJsonTemplate</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Service</span>
+<span class="kd">class</span> <span class="nc">TopicProducer</span><span class="p">(</span>
+    <span class="nd">@Value</span><span class="p">(</span><span class="s">"\${topic.name.producer}"</span><span class="p">)</span> <span class="k">private</span> <span class="kd">val</span> <span class="py">topicName</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="py">reactiveKafkaProducerTemplate</span><span class="p">:</span> <span class="nc">ReactiveKafkaProducerTemplate</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="nc">String</span><span class="p">&gt;,</span>
+    <span class="kd">val</span> <span class="py">reactiveKafkaProducerJsonTemplate</span><span class="p">:</span> <span class="nc">ReactiveKafkaProducerTemplate</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="nc">Message</span><span class="p">&gt;</span>
+<span class="p">)</span> <span class="p">{</span>
+
+<span class="o">..</span><span class="p">.</span>
+
+    <span class="k">fun</span> <span class="nf">send</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nc">Message</span><span class="p">):</span> <span class="nc">Mono</span><span class="p">&lt;</span><span class="nc">SenderResult</span><span class="p">&lt;</span><span class="nc">Void</span><span class="p">&gt;&gt;</span> <span class="p">{</span>
+        <span class="nc">LOGGER</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s">"Payload sent: {} to {}"</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">topicName</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">reactiveKafkaProducerJsonTemplate</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="n">topicName</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>We can pass the message directly as a parameter of the function.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To interact with the <strong>Topicproducer</strong>, we can reuse our <strong>MessageHandler</strong> and pass directly the Json received by our <strong>ApplicationRouter</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Component</span>
+<span class="kd">class</span> <span class="nc">MessageHandler</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">producer</span><span class="p">:</span> <span class="nc">TopicProducer</span><span class="p">)</span> <span class="p">{</span>
+<span class="o">..</span><span class="p">.</span>
+    <span class="k">fun</span> <span class="nf">sendJson</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="nc">ServerRequest</span><span class="p">):</span> <span class="nc">Mono</span><span class="p">&lt;</span><span class="nc">ServerResponse</span><span class="p">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">request</span><span class="p">.</span><span class="nf">bodyToMono</span><span class="p">(</span><span class="nc">Message</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">)</span>
+            <span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="n">producer</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="p">}</span>
+            <span class="p">.</span><span class="nf">flatMap</span> <span class="p">{</span> <span class="n">it</span> <span class="p">}</span>
+            <span class="p">.</span><span class="nf">map</span> <span class="p">{</span>
+                <span class="nc">ServerResponse</span>
+                    <span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nc">HttpStatus</span><span class="p">.</span><span class="nc">CREATED</span><span class="p">)</span>
+                    <span class="p">.</span><span class="nf">contentType</span><span class="p">(</span><span class="nc">MediaType</span><span class="p">.</span><span class="nc">APPLICATION_JSON</span><span class="p">)</span>
+                    <span class="p">.</span><span class="nf">build</span><span class="p">()</span>
+            <span class="p">}.</span><span class="nf">flatMap</span> <span class="p">{</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We need to add the route to send the Json : /kafka/json.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Configuration</span>
+<span class="kd">class</span> <span class="nc">ApplicationRouter</span><span class="p">(</span><span class="kd">val</span> <span class="py">messageHandler</span><span class="p">:</span> <span class="nc">MessageHandler</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="k">fun</span> <span class="nf">route</span><span class="p">()</span> <span class="p">=</span> <span class="nf">router</span> <span class="p">{</span>
+        <span class="s">"/kafka"</span><span class="p">.</span><span class="nf">nest</span> <span class="p">{</span>
+            <span class="s">"/send"</span><span class="p">.</span><span class="nf">nest</span> <span class="p">{</span>
+                <span class="nc">GET</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="n">messageHandler</span><span class="o">::</span><span class="n">send</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="s">"/json"</span><span class="p">.</span><span class="nf">nest</span> <span class="p">{</span>
+                <span class="nc">POST</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="n">messageHandler</span><span class="o">::</span><span class="n">sendJson</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can run our producer using the command :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nv">$ </span>./mvnw spring-boot:run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And then use curl to send messages to our producer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl <span class="nt">-X</span> POST <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-d</span> <span class="s1">'{"id" : "ca0a7833-f0b8-4a54-a824-04e5f1dcae7e", "message":"GG"}'</span> localhost:8080/kafka/json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the following in the producer logs.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">2022-07-17 21:13:20.703 DEBUG 87709 <span class="nt">---</span> <span class="o">[</span>ctor-http-nio-4] o.s.w.r.f.s.s.RouterFunctionMapping      : <span class="o">[</span>4b0e2a93-3] Mapped to org.springframework.web.reactive.function.server.RouterFunctionDsl<span class="nv">$POST$2</span>@743e66f7
+2022-07-17 21:13:20.703 DEBUG 87709 <span class="nt">---</span> <span class="o">[</span>ctor-http-nio-4] reactor.netty.channel.FluxReceive        : <span class="o">[</span>4b0e2a93-1, L:/[0:0:0:0:0:0:0:1]:8080 - R:/[0:0:0:0:0:0:0:1]:62666] FluxReceive<span class="o">{</span><span class="nv">pending</span><span class="o">=</span>0, <span class="nv">cancelled</span><span class="o">=</span><span class="nb">false</span>, <span class="nv">inboundDone</span><span class="o">=</span><span class="nb">false</span>, <span class="nv">inboundError</span><span class="o">=</span>null<span class="o">}</span>: subscribing inbound receiver
+2022-07-17 21:13:20.705 DEBUG 87709 <span class="nt">---</span> <span class="o">[</span>ctor-http-nio-4] o.s.http.codec.json.Jackson2JsonDecoder  : <span class="o">[</span>4b0e2a93-3] Decoded <span class="o">[</span>Message<span class="o">(</span><span class="nb">id</span><span class="o">=</span>ca0a7833-f0b8-4a54-a824-04e5f1dcae7e, <span class="nv">message</span><span class="o">=</span>GG<span class="o">)]</span>
+2022-07-17 21:13:20.705  INFO 87709 <span class="nt">---</span> <span class="o">[</span>ctor-http-nio-4] c.xavierbouclet.kafkademo.TopicProducer  : Payload sent: Message<span class="o">(</span><span class="nb">id</span><span class="o">=</span>ca0a7833-f0b8-4a54-a824-04e5f1dcae7e, <span class="nv">message</span><span class="o">=</span>GG<span class="o">)</span> to quickstart
+2022-07-17 21:13:20.708 DEBUG 87709 <span class="nt">---</span> <span class="o">[</span>ctor-http-nio-4] o.s.w.s.adapter.HttpWebHandlerAdapter    : <span class="o">[</span>4b0e2a93-3] Completed 201 CREATED</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now that we have achieved the serialization in the producer, we can deal with the deserializtion in the consumer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="5_deserialization_in_the_consumer">5. Deserialization in the  consumer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We can reuse the consumer developed in the last blog post as a starting point.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">spring</span><span class="pi">:</span>
+    <span class="na">kafka</span><span class="pi">:</span>
+        <span class="na">consumer</span><span class="pi">:</span>
+            <span class="na">auto-offset-reset</span><span class="pi">:</span> <span class="s">earliest</span>
+            <span class="na">bootstrap-servers</span><span class="pi">:</span> <span class="s">127.0.0.1:9092</span>
+            <span class="na">key-deserializer</span><span class="pi">:</span> <span class="s">org.apache.kafka.common.serialization.StringDeserializer</span>
+            <span class="na">value-deserializer</span><span class="pi">:</span> <span class="s">org.apache.kafka.common.serialization.StringDeserializer</span>
+            <span class="na">group-id</span><span class="pi">:</span> <span class="s">group_id</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use the <strong>JsonDeserializer</strong>, we need to change the value-deserializer to the following :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml">      <span class="na">value-deserializer</span><span class="pi">:</span> <span class="s">org.springframework.kafka.support.serializer.JsonDeserializer</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Contrary to the producer, that&#8217;s not the only thing we need to do.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">spring</span><span class="pi">:</span>
+    <span class="na">kafka</span><span class="pi">:</span>
+        <span class="na">consumer</span><span class="pi">:</span>
+            <span class="na">auto-offset-reset</span><span class="pi">:</span> <span class="s">earliest</span>
+            <span class="na">bootstrap-servers</span><span class="pi">:</span> <span class="s">127.0.0.1:9092</span>
+            <span class="na">key-deserializer</span><span class="pi">:</span> <span class="s">org.apache.kafka.common.serialization.StringDeserializer</span>
+            <span class="na">value-deserializer</span><span class="pi">:</span> <span class="s">org.springframework.kafka.support.serializer.JsonDeserializer</span>
+            <span class="na">group-id</span><span class="pi">:</span> <span class="s">group_id</span>
+            <span class="na">properties</span><span class="pi">:</span>
+                <span class="na">spring</span><span class="pi">:</span>
+                    <span class="na">json</span><span class="pi">:</span>
+                        <span class="na">use</span><span class="pi">:</span>
+                            <span class="na">type</span><span class="pi">:</span>
+                                <span class="na">headers</span><span class="pi">:</span> <span class="no">false</span>
+                        <span class="na">value</span><span class="pi">:</span>
+                            <span class="na">default</span><span class="pi">:</span>
+                                <span class="na">type</span><span class="pi">:</span> <span class="s">com.xavierbouclet.kafkaconsumer.Message</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="na">properties</span><span class="pi">:</span>
+        <span class="na">spring</span><span class="pi">:</span>
+            <span class="na">json</span><span class="pi">:</span>
+                <span class="na">trusted</span><span class="pi">:</span>
+                    <span class="na">packages</span><span class="pi">:</span> <span class="s1">'</span><span class="s">*'</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The corresponding class Message.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>To indicate that we trust allow our class Message to be deserialized.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>We need to write the class <strong>com.xavierbouclet.kafkaconsumer.Message</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="k">package</span> <span class="nn">com.xavierbouclet.kafkaconsumer</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+<span class="k">import</span> <span class="nn">java.util.*</span>
+
+<span class="kd">data class</span> <span class="nc">Message</span><span class="p">(</span><span class="kd">val</span> <span class="py">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">?=</span><span class="k">null</span><span class="p">,</span> <span class="kd">val</span> <span class="py">message</span><span class="p">:</span> <span class="nc">String</span><span class="p">=</span><span class="s">""</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The package need to be the one defined in the application.yml.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To read a message with an objaect <strong>Message</strong>, we need to add a corresponding <strong>ReactiveKafkaConsumerTemplate</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Configuration</span>
+<span class="kd">class</span> <span class="nc">ReactiveKafkaConsumerConfig</span> <span class="p">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="k">fun</span> <span class="nf">kafkaReceiverOptions</span><span class="p">(</span><span class="nd">@Value</span><span class="p">(</span><span class="n">value</span> <span class="p">=</span> <span class="s">"\${topic.name.consumer}"</span><span class="p">)</span> <span class="n">topic</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span> <span class="n">kafkaProperties</span><span class="p">:</span> <span class="nc">KafkaProperties</span><span class="p">):</span> <span class="nc">ReceiverOptions</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">?,</span> <span class="nc">Message</span><span class="p">&gt;</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">basicReceiverOptions</span><span class="p">:</span> <span class="nc">ReceiverOptions</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="nc">Message</span><span class="p">&gt;</span> <span class="p">=</span> <span class="nc">ReceiverOptions</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="n">kafkaProperties</span><span class="p">.</span><span class="nf">buildConsumerProperties</span><span class="p">())</span> <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="k">return</span> <span class="n">basicReceiverOptions</span><span class="p">.</span><span class="nf">subscription</span><span class="p">(</span><span class="nc">Collections</span><span class="p">.</span><span class="nf">singletonList</span><span class="p">(</span><span class="n">topic</span><span class="p">))</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="k">fun</span> <span class="nf">reactiveKafkaConsumerTemplate</span><span class="p">(</span><span class="n">kafkaReceiverOptions</span><span class="p">:</span> <span class="nc">ReceiverOptions</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="nc">Message</span><span class="p">&gt;)</span> <span class="p">=</span>     <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="nc">ReactiveKafkaConsumerTemplate</span><span class="p">(</span><span class="n">kafkaReceiverOptions</span><span class="p">)</span>
+
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>In our case, only the <strong>ReceiverOptions&lt;String, Message&gt;</strong> has changed.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <strong>TopicListener</strong> takes the *ReactiveKafkaConsumerTemplate&lt;String, Message&gt; as a parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Service</span>
+<span class="kd">class</span> <span class="nc">TopicListener</span><span class="p">(</span>
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">reactiveKafkaConsumerTemplate</span><span class="p">:</span> <span class="nc">ReactiveKafkaConsumerTemplate</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="nc">Message</span><span class="p">&gt;</span>
+<span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">companion</span> <span class="k">object</span> <span class="p">{</span>
+        <span class="k">private</span> <span class="kd">val</span> <span class="py">LOGGER</span> <span class="p">=</span> <span class="nc">LoggerFactory</span><span class="p">.</span><span class="nf">getLogger</span><span class="p">(</span><span class="nc">TopicListener</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">consumeTopic</span><span class="p">():</span> <span class="nc">Flux</span><span class="p">&lt;</span><span class="nc">Message</span><span class="p">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">reactiveKafkaConsumerTemplate</span>
+            <span class="p">.</span><span class="nf">receiveAutoAck</span><span class="p">()</span>
+            <span class="p">.</span><span class="nf">doOnNext</span> <span class="p">{</span>
+                <span class="nc">LOGGER</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span>
+                    <span class="s">"received key={}, value={} from topic={}, offset={}, partition={}, headers={}"</span><span class="p">,</span>
+                    <span class="n">it</span><span class="p">.</span><span class="nf">key</span><span class="p">(),</span>
+                    <span class="n">it</span><span class="p">.</span><span class="nf">value</span><span class="p">(),</span>
+                    <span class="n">it</span><span class="p">.</span><span class="nf">topic</span><span class="p">(),</span>
+                    <span class="n">it</span><span class="p">.</span><span class="nf">offset</span><span class="p">(),</span>
+                    <span class="n">it</span><span class="p">.</span><span class="nf">partition</span><span class="p">(),</span>
+                    <span class="n">it</span><span class="p">.</span><span class="nf">headers</span><span class="p">()</span>
+                <span class="p">)</span>
+            <span class="p">}</span>
+            <span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="nf">value</span><span class="p">()</span> <span class="p">}</span>
+            <span class="p">.</span><span class="nf">doOnNext</span> <span class="p">{</span> <span class="nc">LOGGER</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s">"successfully consumed {}={}"</span><span class="p">,</span> <span class="nc">Message</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">.</span><span class="n">simpleName</span><span class="p">,</span> <span class="n">it</span><span class="p">)</span> <span class="p">}</span>
+            <span class="p">.</span><span class="nf">doOnError</span> <span class="p">{</span> <span class="nc">LOGGER</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="s">"something bad happened while consuming : {}"</span><span class="p">,</span> <span class="n">it</span><span class="p">.</span><span class="n">message</span><span class="p">)</span> <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can run the producer and the consumer using the command :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nv">$ </span>./mvnw spring-boot:run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And send data to the producer using a curl command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nv">$ </span>curl <span class="nt">-X</span> POST <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-d</span> <span class="s1">'{"id" : "58e5c738-6829-4609-8c6f-bebd1cfd2f97", "message":"GG"}'</span> localhost:8080/kafka/json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see something similar to the following :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>2022-07-17 22:43:14.424  INFO 91446 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : received key=null, value=Message(id=58e5c738-6829-4609-8c6f-bebd1cfd2f97, message=GG) from topic=quickstart, offset=17, partition=0, headers=RecordHeaders(headers = [], isReadOnly = false)
+2022-07-17 22:43:14.424  INFO 91446 --- [afka-group_id-1] c.x.kafkaconsumer.TopicListener          : successfully consumed Message=Message(id=58e5c738-6829-4609-8c6f-bebd1cfd2f97, message=GG)</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="6_conclusion">6. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We now have seen how to implement a json de/serialization within for our Kafka consumer/producer using Spring Boot.
+You can find the code on my Github repository <a href="https://github.com/mikrethor/kafka-demo">kafka-demo</a>.</p>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2022/07/09/Reactive-Kafka-Producer-Consumer.html" data-toggle="tooltip" data-placement="top" title="Let&#8217;s write a reactive Kafka producer/consumer">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2022/08/08/TestContainer-Wait-DB-SQL.html" data-toggle="tooltip" data-placement="top" title="Properly wait for TestContainers PostgresSQL">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>
