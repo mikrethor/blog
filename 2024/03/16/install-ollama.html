@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Use AI models on your computer with Ollama - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Use AI models on your computer with Ollama 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2024/03/16/install-ollama.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/2024-03-16-ollama-dall-e-image.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Use AI models on your computer with Ollama</h1>
+            
+            <h2 class="subheading">Ollama</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on March 16, 2024 &middot; <span class="reading-time" title="Estimated read time">
+  
+   8 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Use AI models on your computer with Ollama</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this blog post, I will show you how to use AI models locally without the need of Open AI API or other cloud-based AI services.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_what_is_ollama">2. What is Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ollama is a tool designed for running open-source large language models (LLMs) like Llama 2 and Code Llama directly on a user&#8217;s device. It packages model weights, configurations, and data into a single unit managed by a Modelfile, optimizing for efficient GPU use. This makes Ollama an ideal platform for developers and AI enthusiasts for deploying language models in various applications, such as chatbots, summarization tools, and creative writing aids. The platform is extensible, supports privacy, and is free to use, offering easy integration for macOS, Linux and Windows.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_why_should_you_use_ollama">3. Why should you use Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With Ollama, You can easily use powerful AI models such as llama2, mistral and many others.
+The advantage is that you don&#8217;t share your data with a third party, and you can use the models offline.
+This make it perfect for an entreprise use case where your data can&#8217;t be shared with others.</p>
+</div>
+<div class="paragraph">
+<p>Some models available on Ollama:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>llama2 : to generate human-like text based on the input prompt.</p>
+</li>
+<li>
+<p>openchat : to build a tchat like chatGPT (it&#8217;s supposed to be more powerful on some benchmark).</p>
+</li>
+<li>
+<p>llava : to describe images</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is also extensible and you can add your own trained models. It will be the topic of a future blog post.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_install_ollama">4. Install Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Go to <a href="https://ollama.com/download">Ollama download page</a> and download the version that fits your OS.</p>
+</div>
+<div class="paragraph">
+<p>For me, it&#8217;s the Mac OS version.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s click on the <strong>Download for macOS</strong> button.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-ollama-download.png" alt="Ollama download page">
+</div>
+</div>
+<div class="paragraph">
+<p>Wait for the download to finish.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-ollama-downloading.png" alt="Ollama downloading">
+</div>
+</div>
+<div class="paragraph">
+<p>Unzip the zip file <strong>Ollama-darwin.zip</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-ollama-unzip.png" alt="Ollama unzip">
+</div>
+</div>
+<div class="paragraph">
+<p>It contains the <strong>Ollama</strong> application.</p>
+</div>
+<div class="paragraph">
+<p>Click on it and authorize the app.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-authorize-the-ollama-application.png" alt="Authorize the Ollama app">
+</div>
+</div>
+<div class="paragraph">
+<p>Move the app to the Applications folder.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-move-ollama-to-application.png" alt="Move the Ollama app to Applications">
+</div>
+</div>
+<div class="paragraph">
+<p>Et voilà, Ollama is installed on your machine.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="5_run_ollama">5. Run Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To run <strong>Ollama</strong>, click on the app in the Applications folder.
+And go to a terminal and type <code>ollama list</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama list
+
+NAME          	ID          	SIZE  	MODIFIED
+llama2:latest 	78e26419b446	3.8 GB	5 days ago</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the installed models. In my case, I have two models installed: <strong>llama2</strong> and <strong>mistral</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s run the <strong>llama2</strong> model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run llama2
+<span class="o">&gt;&gt;&gt;</span> Send a message <span class="o">(</span>/? <span class="k">for </span><span class="nb">help</span><span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see the available commands.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> /?
+Available Commands:
+  /set            Set session variables
+  /show           Show model information
+  /load &lt;model&gt;   Load a session or model
+  /save &lt;model&gt;   Save your current session
+  /bye            Exit
+  /?, /help       Help <span class="k">for </span>a <span class="nb">command</span>
+  /? shortcuts    Help <span class="k">for </span>keyboard shortcuts
+
+Use <span class="s2">""" to begin a multi-line message.
+
+&gt;&gt;&gt; Send a message (/? for help)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s try the command show</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> /show
+Available Commands:
+  /show info         Show details <span class="k">for </span>this model
+  /show license      Show model license
+  /show modelfile    Show Modelfile <span class="k">for </span>this model
+  /show parameters   Show parameters <span class="k">for </span>this model
+  /show system       Show system message
+  /show template     Show prompt template
+
+<span class="o">&gt;&gt;&gt;</span> /show info
+Model details:
+Family              llama
+Parameter Size      7B
+Quantization Level  Q4_0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s quit the <strong>ollama</strong> command line.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> /bye</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Evan though, we leave the <strong>ollama</strong> command line, the server is still running and could be used with a REST client.
+It will be the topic of my next blog post.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-server.png" alt="Ollama server">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="6_download_models">6. Download models</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To download models, you can use the following <strong>ollama</strong> command line.</p>
+</div>
+<div class="paragraph">
+<p>By example, let&#8217;s download the <strong>mistral</strong> model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama pull mistral:latest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we should have it on the list of models available.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama list
+
+NAME          	ID          	SIZE  	MODIFIED
+llama2:latest 	78e26419b446	3.8 GB	5 days ago
+mistral:latest	61e88e884507	4.1 GB	6 seconds ago</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To find other models to play with you can go to the <a href="https://ollama.com/models">Ollama models page</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-ollama-models.png" alt="Ollama models page" width="900" height="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use the <strong>mistral</strong> model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run mistral</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To check that the model is the one we want, we can use the <strong>show</strong> command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> /show modelfile
+
+<span class="c"># Modelfile generated by "ollama show"</span>
+<span class="c"># To build a new Modelfile based on this one, replace the FROM line with:</span>
+<span class="c"># FROM mistral:latest</span>
+
+FROM /Users/xavierbouclet/.ollama/models/blobs/sha256:e8a35b5937a5e6d5c35d1f2a15f161e07eefe5e5bb0a3cdd42998ee79b057730
+TEMPLATE <span class="s2">"""[INST] {{ .System }} {{ .Prompt }} [/INST]"""</span>
+PARAMETER stop <span class="s2">"[INST]"</span>
+PARAMETER stop <span class="s2">"[/INST]"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Last but not list, you can ask question to your model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> Tell me a chuck norris fact
+ Sure thing! Here<span class="s1">'s a classic Chuck Norris fact:
+
+Chuck Norris doesn'</span>t <span class="nb">read </span>books. He stares them down <span class="k">until </span>they speak to him.
+
+Or how about this one:
+
+When the Boogeyman goes to <span class="nb">sleep </span>every night, he checks his closet <span class="k">for </span>Chuck Norris.
+
+These facts are meant to be humorous and are not based <span class="k">in </span>reality. But isn<span class="s1">'t it fun to imagine that Chuck Norris has superhuman abilities? After all, the man is a martial arts
+legend and an action movie icon!</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="7_conclusion">7. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In my point of view, <strong>Ollama</strong> is a nice way to play with some AI models locally.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://ollama.com/models">Ollama models page</a></p>
+</li>
+<li>
+<p><a href="https://www.perplexity.ai/search/What-is-Ollama-QvOLa4flSWSA_hagsRwf6A">What is Ollama?</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2024/03/10/spring-ai-integration-image.html" data-toggle="tooltip" data-placement="top" title="Integrate Open AI API to your Spring Boot application - part 2">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2024/03/20/use-other-models-ollama.html" data-toggle="tooltip" data-placement="top" title="Install models not available on Ollama">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

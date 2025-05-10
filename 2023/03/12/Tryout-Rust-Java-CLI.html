@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Tryout Rust, Java on a CLI - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Tryout Rust, Java on a CLI 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2023/03/12/Tryout-Rust-Java-CLI.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2023-03-12-rust-graalvm.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Tryout Rust, Java on a CLI</h1>
+            
+            <h2 class="subheading">A Java and Rust comparison</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on March 12, 2023 &middot; <span class="reading-time" title="Estimated read time">
+  
+   8 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Tryout Rust, Java on a CLI</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I wanted to try a bit of Rust for a while and I thought a cli would give me the will to try it.</p>
+</div>
+<div class="paragraph">
+<p>The first use case I thought about was to call an API and I chose to get some UUID from a website in order to avoid doing it manually through a web browser.
+The url <a href="https://www.uuidtools.com/api/generate/vUUIDVERSION/count/COUNT" class="bare">https://www.uuidtools.com/api/generate/vUUIDVERSION/count/COUNT</a> generates a number of UUID with a specific version.
+The parameters of the executable are :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>VERSION : version of the UUID (1,2, 4)</p>
+</li>
+<li>
+<p>COUNT : number of uuid to request</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you want to try out the code, you can check the project on <a href="https://github.com/mikrethor/uuid/tree/first-blog">GITHUB</a>.</p>
+</div>
+<div class="paragraph">
+<p>The results (compile time, execution time) have been obtained on a MacBook Pro (2021) M1 Max.</p>
+</div>
+<div class="paragraph">
+<p>After, the Rust example, I tried the same thing with a Java executable compiled with GraalVM.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_uuid_rust">2. uuid-rust</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The code consists of a main file. The important thing is that I use the reqwest and tokio libraries. I am pretty new to Rust code. So don&#8217;t hesitate to help me improve it.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="rust"><span class="k">use</span> <span class="nn">clap</span><span class="p">::</span><span class="n">Parser</span><span class="p">;</span>
+
+<span class="nd">#[derive(Parser)]</span>
+<span class="k">struct</span> <span class="n">Cli</span> <span class="p">{</span>
+    <span class="cd">/// version of the uuid to generate 1,2,4</span>
+    <span class="n">version</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+    <span class="cd">/// numbers of uuid to request</span>
+    <span class="n">count</span><span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nd">#[tokio::main]</span>
+<span class="k">async</span> <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span> <span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span> <span class="nn">std</span><span class="p">::</span><span class="nn">error</span><span class="p">::</span><span class="n">Error</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">args</span> <span class="o">=</span> <span class="nn">Cli</span><span class="p">::</span><span class="nf">parse</span><span class="p">();</span>
+    <span class="k">let</span> <span class="n">client</span> <span class="o">=</span> <span class="nn">reqwest</span><span class="p">::</span><span class="nn">Client</span><span class="p">::</span><span class="nf">new</span><span class="p">();</span>
+    <span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="nd">format!</span><span class="p">(</span><span class="s">"https://www.uuidtools.com/api/generate/v{}/count/{}"</span><span class="p">,</span> <span class="n">args</span><span class="py">.version</span><span class="p">,</span> <span class="n">args</span><span class="py">.count</span><span class="p">);</span>
+    <span class="k">let</span> <span class="n">uuids</span> <span class="o">=</span> <span class="n">client</span><span class="nf">.get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="nf">.header</span><span class="p">(</span><span class="s">"Content-Type"</span><span class="p">,</span> <span class="s">"application/json"</span><span class="p">)</span>
+        <span class="nf">.send</span><span class="p">()</span>
+        <span class="k">.await</span><span class="o">?</span>
+        <span class="py">.json</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;&gt;</span><span class="p">()</span>
+        <span class="k">.await</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="n">uuids</span><span class="nf">.iter</span><span class="p">()</span><span class="nf">.for_each</span><span class="p">(|</span><span class="n">uuid</span><span class="p">|</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">uuid</span><span class="p">));</span>
+
+    <span class="nf">Ok</span><span class="p">(())</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following table summarizes the results about compile time, sieze of the executable and average execution time to request 5 version 4 uuids.</p>
+</div>
+<table class="tableblock frame-ends grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Compile time (s):</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">22.821</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Size (Mo):</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2.5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Average execution time (s) for 5 UUID :</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0.212</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>After achieving the Rust executable, I decided to try out the same thing with Java compiled with Graal VM and I was a bit surprised with the results I got.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_uuid_java">3. uuid-java</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The code consists of a main class. The important thing is that I use the Jackson library to deserialize my response into a list of UUID.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="nn">com.xavierbouclet</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.net.ProxySelector</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="kt">var</span> <span class="n">version</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="kt">var</span> <span class="n">count</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+        <span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="s">"https://www.uuidtools.com/api/generate/v%s/count/%s"</span><span class="o">.</span><span class="na">formatted</span><span class="o">(</span><span class="n">version</span><span class="o">,</span> <span class="n">count</span><span class="o">)))</span>
+                <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="kt">var</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">HttpClient</span>
+                <span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">proxy</span><span class="o">(</span><span class="nc">ProxySelector</span><span class="o">.</span><span class="na">getDefault</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">body</span><span class="o">();</span>
+
+        <span class="nc">ObjectMapper</span> <span class="n">objectMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectMapper</span><span class="o">();</span>
+        <span class="no">UUID</span><span class="o">[]</span> <span class="n">uuids</span> <span class="o">=</span> <span class="n">objectMapper</span><span class="o">.</span><span class="na">readValue</span><span class="o">(</span><span class="n">response</span><span class="o">,</span> <span class="no">UUID</span><span class="o">[].</span><span class="na">class</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="no">UUID</span> <span class="n">uuid</span> <span class="o">:</span> <span class="n">uuids</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">uuid</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following table summarizes the results.</p>
+</div>
+<table class="tableblock frame-ends grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Compile time (s):</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">33.906</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Size (Mo):</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Average execution time (s) for 5 UUID :</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0.129</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>From a standard Java compilation, we can see that GraalVM takes more time to compile our code to a native executable but it improves the start time. Which is perfect for my use case.
+Be careful, depending on the use case it won&#8217;t improve your execution times.
+It depends on what you want to achieve. A standard Java code on a JVM can be faster on your use case.</p>
+</div>
+<div class="paragraph">
+<p>We could improve the executable size with [<a href="https://upx.github.io/" class="bare">https://upx.github.io/</a>]upx.
+Unfortunately, upx breaks the executable on my M1 see <a href="https://github.com/upx/upx/issues/424">issue-424</a>.</p>
+</div>
+<div class="paragraph">
+<p>For the ones on other processor architectures, feel free to try the command and don&#8217;t hesitate to share the results.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">upx <span class="nt">-7</span> target/uuid-java</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To conclude, I am not saying that Java is better than Rust.
+I find interesting that on my use case and my laptop, an executable compiled with Graal VM does slightly better than an executable compiled with Rust.</p>
+</div>
+<div class="paragraph">
+<p>I am perfectly aware that on other use cases Rust performs better.
+I contributed the Graal VM runtime on that <a href="https://maxday.github.io/lambda-perf/">project</a> that shows AWS lambda execution times depending on the runtime used.
+And, Rust is not slightly better but way better.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the <a href="https://github.com/mikrethor/uuid/tree/first-blog">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2023/03/03/Kotlin-Tips-For-SpringBoot.html" data-toggle="tooltip" data-placement="top" title="Convert a Java Spring Boot app to Kotlin">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2023/03/19/Tryout-Rust-Java-CLI-avoid-network.html" data-toggle="tooltip" data-placement="top" title="Tryout Rust, Java on a CLI (no network)">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>
