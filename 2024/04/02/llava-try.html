@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Bridging Visions and Words with LLava - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Bridging Visions and Words with LLava 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2024/04/02/llava-try.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/2024-04-02-llava.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Bridging Visions and Words with LLava</h1>
+            
+            <h2 class="subheading">Llava 34B                                  </h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on April 02, 2024 &middot; <span class="reading-time" title="Estimated read time">
+  
+   7 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Bridging Visions and Words with LLava</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you saw my last blog posts about <a href="../../03/16/install-ollama"><strong>Install Ollama</strong></a> and how to install  <a href="../../03/20/use-other-models-ollama"><strong>Specific Models</strong></a> on Ollama you should be able to address a lot of use cases.
+But in this post, we will see how to work with the <strong>Ollama</strong> and <a href="https://llava-vl.github.io"><strong>Llava</strong></a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Llava</strong> is a <strong>LLM</strong> that can recognise images provided to it and generate a textual description of the image.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_install_llava_on_ollama">2. Install Llava on Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To add <strong>Llava</strong> to <strong>Ollama</strong> you ne to install the <strong>Llava</strong> through the command line.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama pull llava:34b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I use the <strong>34B</strong> version of <strong>Llava</strong> in this example to have better results.
+You could just remove the version but the version would be the 7B and the results would be less accurate.
+The B corresponds to the size of the model, the bigger the model the better the results but the slower is the model.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_use_llava_with_ollama">3. Use Llava with Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s try it with the following image :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-04-02-landscape.jpg" alt="Landscape">
+</div>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s ask <strong>Llava 34B</strong> to describe the image :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run llava:34B <span class="s2">"tell me what do you see in this picture? ./landscape.jpg"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I execute the command from the folder where the image is located.</p>
+</div>
+<div class="paragraph">
+<p>And this is the answer I got :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>The image depicts a serene sunset scene. The sky is painted with hues of orange, pink,
+and purple as the sun sets or rises on the horizon. Reflections from the light play
+across the calm surface of what appears to be a lake or sea. In the foreground, there's
+a beautiful display of wildflowers with vibrant colors that match the sunset tones.
+These flowers, possibly lupines given their shape and coloration, add a natural beauty
+to the scene. The tranquility of the water and the peacefulness of the flowers create a
+harmonious and picturesque setting.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pretty nice, isn&#8217;t it?</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see how we could find a use case more useful in our daily life.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_handwritten_text_recognition">4. Handwritten Text Recognition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I wrote a note on a piece of paper :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-04-03-text-recognition.jpg" alt="Handwritten Text" width="50%">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run llava:34B <span class="s2">"Determine the hand written text in this image? ./note.jpg"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And this is the answer I got :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>The handwritten text in the image reads "Hello Generative AI Meetup."</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Really cool result, isn&#8217;t it?</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s try to improve the prompting to get just what&#8217;s written on the note :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run llava:34B <span class="s2">"Determine the hand written text in this image and just write this hand written text as the output nothing else  ./note.jpg"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see the result :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>"Hello Generative AI Meetup."</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Way better! But we need to have that through an API to use it in an applications.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="5_use_llava_with_the_ollama_api">5. Use Llava with the Ollama API</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>Ollama</strong> server comes with an API that you can use to interact with the server.</p>
+</div>
+<div class="paragraph">
+<p>We need to use the url <a href="http://localhost:11434/api/generate" class="bare">http://localhost:11434/api/generate</a> to interact with the generate endpoint.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"llava:34B"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prompt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Determine the hand written text in this image and just write this hand written text as the output nothing else"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stream"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"images"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"content of the file in Base 64"</span><span class="p">]}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We need to convert the image in Base64 to sent it to the server using json.</p>
+</div>
+<div class="paragraph">
+<p>For this conversion I used <a href="https://base64.guru/converter/encode/image">Base64 Guru</a> and copy paste the result in the json.</p>
+</div>
+<div class="paragraph">
+<p>And this is the result I got :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"llava:34B"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-04-03T01:38:43.681199Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello Generative AI Meetup"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="mi">6</span><span class="p">,</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+        </span><span class="mi">674</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"total_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">16199642125</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"load_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">23168000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prompt_eval_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">14991832000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"eval_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"eval_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1075909000</span><span class="w">
+</span><span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next time we will see how to use Spring AI to have a nicer way for this use case.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="6_conclusion">6. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Llava</strong> is a pretty cool <strong>LLM</strong> that can be used to describe images and recognise handwritten text.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.reddit.com/r/ollama/comments/1b608mf/ollama_api/">Ollama API</a></p>
+</li>
+<li>
+<p><a href="https://ollama.com/blog/vision-models">Ollama Vision models</a></p>
+</li>
+<li>
+<p><a href="https://llava-vl.github.io/">Llava</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2024/03/22/use-the-ollama-server.html" data-toggle="tooltip" data-placement="top" title="Use Ollama as a server">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2024/12/24/advent-of-code.html" data-toggle="tooltip" data-placement="top" title="Advent of Spring Boot">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>
