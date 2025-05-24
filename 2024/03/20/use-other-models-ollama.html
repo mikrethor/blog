@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Install models not available on Ollama - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Install models not available on Ollama 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2024/03/20/use-other-models-ollama.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/2024-03-16-ollama-dall-e-image.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Install models not available on Ollama</h1>
+            
+            <h2 class="subheading">Ollama</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on March 20, 2024 &middot; <span class="reading-time" title="Estimated read time">
+  
+   9 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Install models not available on Ollama</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you saw my last blog post about <a href="../16/install-ollama"><strong>Ollama</strong></a> you should be able to use all the models available on the <a href="https://ollama.com/library">ollama models page</a>.
+But sometimes, it&#8217;s not enough for your use cases and you need to install other models.
+You are lucky, it&#8217;s gonna be the topic of this blog post.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s get into it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_how_to_install_other_models">2. How to install other models</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, you need to find a model you want to install.</p>
+</div>
+<div class="paragraph">
+<p>You can find some on :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://huggingface.co/models">Hugging Face</a> website.</p>
+</li>
+<li>
+<p><a href="https://llama.meta.com">Meta</a> website.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use the <strong>Hugging Face</strong> website to find a model.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-20-search-downloadable-models.png" alt="Search for downloadable models" height="600">
+</div>
+</div>
+<div class="paragraph">
+<p>We are looking for a model with a <strong>gguf</strong> file extension.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-20-see-the-files.png" alt="Llama-2-7B.GGUF" height="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s choose the <strong>Llama-2-7B</strong> model.</p>
+</div>
+<div class="paragraph">
+<p>Go to <strong>Files and versions</strong> and choose the llama-2-7b.Q5_0.gguf file.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-20-download-the-file-manually.png" alt="Download the file manually" height="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Click on the download button.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-20-copy-the-name.png" alt="Copy name" height="400">
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s copy the name of the file. It will be useful later.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nb">ls</span> <span class="nt">-l</span>
+
+total 14004224
+<span class="nt">-rw-r--r--</span>  1 xavierbouclet  staff  7161089728 17 Mar 11:14 llama-2-7b.Q5_0.gguf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create the <strong>ModelFile</strong> in the same folder as the downloaded <strong>gguf</strong> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">vi ModelFile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The content of the <strong>ModelFile</strong> should be the following.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">FROM ./llama-2-7b.Q5_0.gguf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s add our model to <strong>Ollama</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama create mymodeldownloadedmanually <span class="nt">-f</span> Modelfile
+
+transferring model data
+creating model layer
+using already created layer sha256:20536b6ee85d7c55893c6b50e44685de576d8438e26222704c7a4e059c449c8e
+writing layer sha256:b384e475be99b8c5cefe686cec5bdaef72b5ef034531b1e66a97ed2bcc95d3e6
+writing manifest
+success</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see a success message at the end of the command.</p>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s use our model with this command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run mymodeldownloadedmanually</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> tell me a chuck norris fact
+
+ that you can<span class="s1">'t believe is true
+ nobody else
+you can only watch him on tv!
+i do not care if you don'</span>t know <span class="nb">who </span>he is.
+I have a few but they are my personal favourites:
+1- Chuck Norris knows the value of Pi to 27 decimal places.
+2- If Chuck Norris falls <span class="k">in </span>the woods, there will be no one left alive to hear it.
+3- Chuck Norris has been to more countries than all other presidents combined.
+4- When you turn on your television <span class="nb">set</span>, and see a show hosted by Chuck Norris, remember that he is not just sitting there. He is fighting
+evil at the same <span class="nb">time </span><span class="k">in </span>a different dimension.
+....</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hugging Face has a cli available to download models. Let&#8217;s install it.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">pip <span class="nb">install </span>huggingface-hub
+
+Collecting huggingface-hub
+Downloading huggingface_hub-0.21.4-py3-none-any.whl.metadata <span class="o">(</span>13 kB<span class="o">)</span>
+Requirement already satisfied: filelock <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from huggingface-hub<span class="o">)</span> <span class="o">(</span>3.13.1<span class="o">)</span>
+Collecting fsspec&gt;<span class="o">=</span>2023.5.0 <span class="o">(</span>from huggingface-hub<span class="o">)</span>
+Downloading fsspec-2024.3.0-py3-none-any.whl.metadata <span class="o">(</span>6.8 kB<span class="o">)</span>
+Requirement already satisfied: requests <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from huggingface-hub<span class="o">)</span> <span class="o">(</span>2.31.0<span class="o">)</span>
+Collecting tqdm&gt;<span class="o">=</span>4.42.1 <span class="o">(</span>from huggingface-hub<span class="o">)</span>
+Downloading tqdm-4.66.2-py3-none-any.whl.metadata <span class="o">(</span>57 kB<span class="o">)</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.6/57.6 kB 2.3 MB/s eta 0:00:00
+Collecting pyyaml&gt;<span class="o">=</span>5.1 <span class="o">(</span>from huggingface-hub<span class="o">)</span>
+Downloading PyYAML-6.0.1-cp311-cp311-macosx_11_0_arm64.whl.metadata <span class="o">(</span>2.1 kB<span class="o">)</span>
+Collecting typing-extensions&gt;<span class="o">=</span>3.7.4.3 <span class="o">(</span>from huggingface-hub<span class="o">)</span>
+Downloading typing_extensions-4.10.0-py3-none-any.whl.metadata <span class="o">(</span>3.0 kB<span class="o">)</span>
+Requirement already satisfied: packaging&gt;<span class="o">=</span>20.9 <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from huggingface-hub<span class="o">)</span> <span class="o">(</span>23.2<span class="o">)</span>
+Requirement already satisfied: charset-normalizer&lt;4,&gt;<span class="o">=</span>2 <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from requests-&gt;huggingface-hub<span class="o">)</span> <span class="o">(</span>3.3.2<span class="o">)</span>
+Requirement already satisfied: idna&lt;4,&gt;<span class="o">=</span>2.5 <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from requests-&gt;huggingface-hub<span class="o">)</span> <span class="o">(</span>3.6<span class="o">)</span>
+Requirement already satisfied: urllib3&lt;3,&gt;<span class="o">=</span>1.21.1 <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from requests-&gt;huggingface-hub<span class="o">)</span> <span class="o">(</span>2.2.0<span class="o">)</span>
+Requirement already satisfied: certifi&gt;<span class="o">=</span>2017.4.17 <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from requests-&gt;huggingface-hub<span class="o">)</span> <span class="o">(</span>2023.11.17<span class="o">)</span>
+Downloading huggingface_hub-0.21.4-py3-none-any.whl <span class="o">(</span>346 kB<span class="o">)</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 346.4/346.4 kB 5.9 MB/s eta 0:00:00
+Downloading fsspec-2024.3.0-py3-none-any.whl <span class="o">(</span>171 kB<span class="o">)</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 171.9/171.9 kB 10.7 MB/s eta 0:00:00
+Downloading PyYAML-6.0.1-cp311-cp311-macosx_11_0_arm64.whl <span class="o">(</span>167 kB<span class="o">)</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 167.5/167.5 kB 9.7 MB/s eta 0:00:00
+Downloading tqdm-4.66.2-py3-none-any.whl <span class="o">(</span>78 kB<span class="o">)</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.3/78.3 kB 4.3 MB/s eta 0:00:00
+Downloading typing_extensions-4.10.0-py3-none-any.whl <span class="o">(</span>33 kB<span class="o">)</span>
+Installing collected packages: typing-extensions, tqdm, pyyaml, fsspec, huggingface-hub
+Successfully installed fsspec-2024.3.0 huggingface-hub-0.21.4 pyyaml-6.0.1 tqdm-4.66.2 typing-extensions-4.10.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use the cli and use the name copied earlier (on the third line).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">huggingface-cli download <span class="se">\</span>
+  TheBloke/Llama-2-7B-GGUF <span class="se">\</span>
+  llama-2-7b.Q5_0.gguf <span class="se">\</span>
+  <span class="nt">--local-dir</span> downloads <span class="se">\</span>
+  <span class="nt">--local-dir-use-symlinks</span> False</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A download folder should be created with the <strong>gguf</strong> file inside.
+Use the terminal to go inside the download folder.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create the <strong>ModelFile</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">vi ModelFile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The content of the <strong>ModelFile</strong> should be the following.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">FROM ./llama-2-7b.Q5_0.gguf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s add our model to <strong>Ollama</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama create mymodel <span class="nt">-f</span> Modelfile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When finished, the following message should appear.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama create mymodel <span class="nt">-f</span> Modelfile
+
+transferring model data
+creating model layer
+using already created layer sha256:f1415d117f94261fd9869ac5dabd98b3dc36648cfb7c6d84e5b473aca74ab64d
+writing layer sha256:5d6206bda2a41479936982c5f92223bfe01a3c0a84a405aef585258277552d78
+writing manifest
+success</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nos we can use our model with this command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run mymodel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> Tell me a chuck norris fact
+
+I<span class="s1">'m not gonna tell you a Chuck Norris Fact, I'</span>m going to tell you a Chuck Norris Truth.
+Chuck Norris can round house kick a volcano <span class="k">in </span>the face and make it explode more violently.
+Chuck Norris can <span class="nb">kill </span>two stones with one bird.
+Chuck Norris can run faster than lightning, and he<span class="s1">'s been doing it since 1952!
+Chuck Norris is so badass that his shadow has a top billing in every movie it'</span>s <span class="k">in</span><span class="nb">.</span>
+Chuck Norris once killed an elephant with a toothpick.
+Chuck Norris can <span class="nb">set </span>ants on fire, <span class="k">then </span>put them out, and the ants are still burning.
+Chuck Norris can beat up the Boogeyman, and the Boogeyman is already dead!
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To remove the models added, you can use the following commands.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama <span class="nb">rm </span>mymodel
+ollama <span class="nb">rm </span>mymodeldownloadedmanually</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_conclusion">3. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Ollama</strong> comes with a lot of models, but sometimes you need to install other models.
+And now you know how to do it.
+It&#8217;s nice way to experiment with a lot of different models.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://discuss.huggingface.co/t/how-to-download-a-model-and-run-it-with-ollama-locally/77317/2" class="bare">https://discuss.huggingface.co/t/how-to-download-a-model-and-run-it-with-ollama-locally/77317/2</a></p>
+</li>
+<li>
+<p><a href="https://www.markhneedham.com/blog/2023/10/18/ollama-hugging-face-gguf-models/" class="bare">https://www.markhneedham.com/blog/2023/10/18/ollama-hugging-face-gguf-models/</a></p>
+</li>
+<li>
+<p><a href="https://github.com/ollama/ollama" class="bare">https://github.com/ollama/ollama</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2024/03/16/install-ollama.html" data-toggle="tooltip" data-placement="top" title="Use AI models on your computer with Ollama">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2024/03/22/use-the-ollama-server.html" data-toggle="tooltip" data-placement="top" title="Use Ollama as a server">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>
