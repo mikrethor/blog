@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Maven Polyglot - Forget about pom.xml - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Fed up of pom xml files when you use Maven? Here is the solution : Maven Polyglot. Maven Polyglot is out there since over 5 years now and can be used to writ...">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2017/04/02/Maven-Polyglot-Forget-about-pomxml.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+  <header class="masthead">
+    
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Maven Polyglot - Forget about pom.xml</h1>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on April 02, 2017 &middot; <span class="reading-time" title="Estimated read time">
+  
+   10 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <div class="paragraph">
+<p>Fed up of pom xml files when you use Maven? Here is the solution : <a href="https://github.com/takari/polyglot-maven">Maven Polyglot</a>.
+Maven Polyglot is out there since over 5 years now and can be used to write pom file in other languages such as :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Atom</p>
+</li>
+<li>
+<p>Groovy</p>
+</li>
+<li>
+<p>Clojure</p>
+</li>
+<li>
+<p>Ruby</p>
+</li>
+<li>
+<p>Scala</p>
+</li>
+<li>
+<p>YAML</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To give it a try with an existing project, we have to use the following command line in the project :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mvn io.takari.polyglot:polyglot-translate-plugin:translate -Dinput=pom.xml -Doutput=pom.{format}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Where {format} is the file extension of the target format.
+In my case I tried with YAML format so I replaced {format} with yml.</p>
+</div>
+<div class="paragraph">
+<p>This the pom.xml I tried out :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="nt">&lt;project</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span>
+         <span class="na">xsi:schemaLocation=</span><span class="s">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>fr.ablx.yml<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>backend<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+
+    <span class="nt">&lt;properties&gt;</span>
+        <span class="c">&lt;!-- Project Properties --&gt;</span>
+        <span class="nt">&lt;dataBaseSchema&gt;</span>DATABASE<span class="nt">&lt;/dataBaseSchema&gt;</span>
+        <span class="c">&lt;!-- Build properties --&gt;</span>
+        <span class="nt">&lt;java.version&gt;</span>1.8<span class="nt">&lt;/java.version&gt;</span>
+        <span class="nt">&lt;maven.compiler.source&gt;</span>${java.version}<span class="nt">&lt;/maven.compiler.source&gt;</span>
+        <span class="nt">&lt;maven.compiler.target&gt;</span>${java.version}<span class="nt">&lt;/maven.compiler.target&gt;</span>
+        <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
+
+        <span class="nt">&lt;spring.boot.version&gt;</span>1.4.2.RELEASE<span class="nt">&lt;/spring.boot.version&gt;</span>
+        <span class="nt">&lt;spring.loaded.version&gt;</span>1.2.6.RELEASE<span class="nt">&lt;/spring.loaded.version&gt;</span>
+        <span class="nt">&lt;lombok.version&gt;</span>1.16.10<span class="nt">&lt;/lombok.version&gt;</span>
+        <span class="nt">&lt;jsonpath.version&gt;</span>2.2.0<span class="nt">&lt;/jsonpath.version&gt;</span>
+        <span class="c">&lt;!-- Report properties --&gt;</span>
+        <span class="nt">&lt;maven.site.version&gt;</span>3.4<span class="nt">&lt;/maven.site.version&gt;</span>
+        <span class="nt">&lt;asciidoctor.version&gt;</span>1.5.3<span class="nt">&lt;/asciidoctor.version&gt;</span>
+
+        <span class="nt">&lt;debug&gt;</span>true<span class="nt">&lt;/debug&gt;</span>
+    <span class="nt">&lt;/properties&gt;</span>
+
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>${spring.boot.version}<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>${spring.boot.version}<span class="nt">&lt;/version&gt;</span>
+            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>${spring.boot.version}<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>com.jayway.jsonpath<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>json-path<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.2.0<span class="nt">&lt;/version&gt;</span>
+            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="c">&lt;!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>${lombok.version}<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="c">&lt;!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.hsqldb<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>hsqldb<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.3.4<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="c">&lt;!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>commons-dbcp<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>commons-dbcp<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>1.4<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="c">&lt;!-- https://mvnrepository.com/artifact/com.google.code.gson/gson --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>com.google.code.gson<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>gson<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.8.0<span class="nt">&lt;/version&gt;</span>
+            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="c">&lt;!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.apache.commons<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>commons-lang3<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>3.5<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+
+    <span class="nt">&lt;/dependencies&gt;</span>
+
+    <span class="nt">&lt;build&gt;</span>
+        <span class="nt">&lt;resources&gt;</span>
+            <span class="nt">&lt;resource&gt;</span>
+                <span class="nt">&lt;filtering&gt;</span>true<span class="nt">&lt;/filtering&gt;</span>
+                <span class="nt">&lt;directory&gt;</span>${project.build.sourceDirectory}\..\resources<span class="nt">&lt;/directory&gt;</span>
+            <span class="nt">&lt;/resource&gt;</span>
+        <span class="nt">&lt;/resources&gt;</span>
+        <span class="nt">&lt;testResources&gt;</span>
+            <span class="nt">&lt;testResource&gt;</span>
+                <span class="nt">&lt;filtering&gt;</span>true<span class="nt">&lt;/filtering&gt;</span>
+                <span class="nt">&lt;directory&gt;</span>${project.build.testSourceDirectory}\..\resources<span class="nt">&lt;/directory&gt;</span>
+            <span class="nt">&lt;/testResource&gt;</span>
+        <span class="nt">&lt;/testResources&gt;</span>
+        <span class="nt">&lt;finalName&gt;</span>mysample-web<span class="nt">&lt;/finalName&gt;</span>
+        <span class="nt">&lt;plugins&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;version&gt;</span>${spring.boot.version}<span class="nt">&lt;/version&gt;</span>
+                <span class="c">&lt;!-- &lt;configuration&gt; &lt;fork&gt;true&lt;/fork&gt; &lt;jvmArguments&gt; -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+                    &lt;/jvmArguments&gt; &lt;/configuration&gt; --&gt;</span>
+                <span class="nt">&lt;dependencies&gt;</span>
+                    <span class="nt">&lt;dependency&gt;</span>
+                        <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+                        <span class="nt">&lt;artifactId&gt;</span>springloaded<span class="nt">&lt;/artifactId&gt;</span>
+                        <span class="nt">&lt;version&gt;</span>${spring.loaded.version}<span class="nt">&lt;/version&gt;</span>
+                    <span class="nt">&lt;/dependency&gt;</span>
+                <span class="nt">&lt;/dependencies&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>maven-site-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;version&gt;</span>${maven.site.version}<span class="nt">&lt;/version&gt;</span>
+                <span class="nt">&lt;dependencies&gt;</span>
+                    <span class="nt">&lt;dependency&gt;</span>
+                        <span class="nt">&lt;groupId&gt;</span>org.asciidoctor<span class="nt">&lt;/groupId&gt;</span>
+                        <span class="nt">&lt;artifactId&gt;</span>asciidoctor-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                        <span class="nt">&lt;version&gt;</span>1.5.3<span class="nt">&lt;/version&gt;</span>
+                    <span class="nt">&lt;/dependency&gt;</span>
+                <span class="nt">&lt;/dependencies&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/build&gt;</span>
+
+    <span class="nt">&lt;repositories&gt;</span>
+        <span class="nt">&lt;repository&gt;</span>
+            <span class="nt">&lt;id&gt;</span>spring-snapshots<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;url&gt;</span>http://repo.spring.io/libs-snapshot<span class="nt">&lt;/url&gt;</span>
+            <span class="nt">&lt;snapshots&gt;</span>
+                <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+            <span class="nt">&lt;/snapshots&gt;</span>
+        <span class="nt">&lt;/repository&gt;</span>
+        <span class="nt">&lt;repository&gt;</span>
+            <span class="nt">&lt;id&gt;</span>central<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;url&gt;</span>https://repo1.maven.org/maven2<span class="nt">&lt;/url&gt;</span>
+            <span class="nt">&lt;releases&gt;</span>
+                <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+            <span class="nt">&lt;/releases&gt;</span>
+        <span class="nt">&lt;/repository&gt;</span>
+    <span class="nt">&lt;/repositories&gt;</span>
+
+    <span class="nt">&lt;pluginRepositories&gt;</span>
+        <span class="nt">&lt;pluginRepository&gt;</span>
+            <span class="nt">&lt;id&gt;</span>spring-snapshots<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;url&gt;</span>http://repo.spring.io/libs-snapshot<span class="nt">&lt;/url&gt;</span>
+            <span class="nt">&lt;snapshots&gt;</span>
+                <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+            <span class="nt">&lt;/snapshots&gt;</span>
+        <span class="nt">&lt;/pluginRepository&gt;</span>
+        <span class="nt">&lt;pluginRepository&gt;</span>
+            <span class="nt">&lt;id&gt;</span>central<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;url&gt;</span>https://repo1.maven.org/maven2<span class="nt">&lt;/url&gt;</span>
+            <span class="nt">&lt;releases&gt;</span>
+                <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+            <span class="nt">&lt;/releases&gt;</span>
+        <span class="nt">&lt;/pluginRepository&gt;</span>
+    <span class="nt">&lt;/pluginRepositories&gt;</span>
+<span class="nt">&lt;/project&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the pom.yml file I obtained ;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yml"><span class="na">modelVersion</span><span class="pi">:</span> <span class="s">4.0.0</span>
+<span class="na">groupId</span><span class="pi">:</span> <span class="s">fr.ablx.yml</span>
+<span class="na">artifactId</span><span class="pi">:</span> <span class="s">backend</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1-SNAPSHOT</span>
+<span class="na">packaging</span><span class="pi">:</span> <span class="s">jar</span>
+<span class="na">properties</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">debug</span><span class="pi">:</span> <span class="nv">true</span><span class="pi">,</span> <span class="nv">asciidoctor.version</span><span class="pi">:</span> <span class="nv">1.5.3</span><span class="pi">,</span> <span class="nv">lombok.version</span><span class="pi">:</span> <span class="nv">1.16.10</span><span class="pi">,</span> <span class="nv">dataBaseSchema</span><span class="pi">:</span> <span class="nv">DATABASE</span><span class="pi">,</span>
+  <span class="nv">maven.site.version</span><span class="pi">:</span> <span class="nv">3.4</span><span class="pi">,</span> <span class="nv">java.version</span><span class="pi">:</span> <span class="nv">1.8</span><span class="pi">,</span> <span class="nv">maven.compiler.target</span><span class="pi">:</span> <span class="s1">'</span><span class="s">${java.version}'</span><span class="pi">,</span>
+  <span class="nv">spring.loaded.version</span><span class="pi">:</span> <span class="nv">1.2.6.RELEASE</span><span class="pi">,</span> <span class="nv">project.build.sourceEncoding</span><span class="pi">:</span> <span class="nv">UTF-8</span><span class="pi">,</span> <span class="nv">jsonpath.version</span><span class="pi">:</span> <span class="nv">2.2.0</span><span class="pi">,</span>
+  <span class="nv">spring.boot.version</span><span class="pi">:</span> <span class="nv">1.4.2.RELEASE</span><span class="pi">,</span> <span class="nv">maven.compiler.source</span><span class="pi">:</span> <span class="s1">'</span><span class="s">${java.version}'</span><span class="pi">}</span>
+<span class="na">dependencies</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">spring-boot-starter-web</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">org.springframework.boot</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">${spring.boot.version}'</span><span class="pi">}</span>
+<span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">spring-boot-starter-test</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">org.springframework.boot</span><span class="pi">,</span> <span class="nv">scope</span><span class="pi">:</span> <span class="nv">test</span><span class="pi">,</span>
+  <span class="nv">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">${spring.boot.version}'</span><span class="pi">}</span>
+<span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">spring-boot-starter-data-jpa</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">org.springframework.boot</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">${spring.boot.version}'</span><span class="pi">}</span>
+<span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">json-path</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">com.jayway.jsonpath</span><span class="pi">,</span> <span class="nv">scope</span><span class="pi">:</span> <span class="nv">test</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="nv">2.2.0</span><span class="pi">}</span>
+<span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">lombok</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">org.projectlombok</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">${lombok.version}'</span><span class="pi">}</span>
+<span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">hsqldb</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">org.hsqldb</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="nv">2.3.4</span><span class="pi">}</span>
+<span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">commons-dbcp</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">commons-dbcp</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="nv">1.4</span><span class="pi">}</span>
+<span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">gson</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">com.google.code.gson</span><span class="pi">,</span> <span class="nv">scope</span><span class="pi">:</span> <span class="nv">test</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="nv">2.8.0</span><span class="pi">}</span>
+<span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">commons-lang3</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">org.apache.commons</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="nv">3.5</span><span class="pi">}</span>
+<span class="na">build</span><span class="pi">:</span>
+  <span class="na">finalName</span><span class="pi">:</span> <span class="s">mysample-web</span>
+  <span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">groupId</span><span class="pi">:</span> <span class="s">org.springframework.boot</span>
+    <span class="na">artifactId</span><span class="pi">:</span> <span class="s">spring-boot-maven-plugin</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s">${spring.boot.version}</span>
+    <span class="na">dependencies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">springloaded</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">org.springframework</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">${spring.loaded.version}'</span><span class="pi">}</span>
+  <span class="pi">-</span> <span class="na">groupId</span><span class="pi">:</span> <span class="s">org.apache.maven.plugins</span>
+    <span class="na">artifactId</span><span class="pi">:</span> <span class="s">maven-site-plugin</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s">${maven.site.version}</span>
+    <span class="na">dependencies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="pi">{</span><span class="nv">artifactId</span><span class="pi">:</span> <span class="nv">asciidoctor-maven-plugin</span><span class="pi">,</span> <span class="nv">groupId</span><span class="pi">:</span> <span class="nv">org.asciidoctor</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="nv">1.5.3</span><span class="pi">}</span>
+  <span class="na">resources</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="pi">{</span><span class="nv">directory</span><span class="pi">:</span> <span class="s1">'</span><span class="s">${project.build.sourceDirectory}\..\resources'</span><span class="pi">,</span> <span class="nv">filtering</span><span class="pi">:</span> <span class="nv">true</span><span class="pi">}</span>
+  <span class="na">testResources</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="pi">{</span><span class="nv">directory</span><span class="pi">:</span> <span class="s1">'</span><span class="s">${project.build.testSourceDirectory}\..\resources'</span><span class="pi">,</span> <span class="nv">filtering</span><span class="pi">:</span> <span class="nv">true</span><span class="pi">}</span>
+<span class="na">pluginRepositories</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">spring-snapshots</span>
+  <span class="na">layout</span><span class="pi">:</span> <span class="s">default</span>
+  <span class="na">snapshots</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">enabled</span><span class="pi">:</span> <span class="nv">true</span><span class="pi">}</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">http://repo.spring.io/libs-snapshot</span>
+<span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">central</span>
+  <span class="na">layout</span><span class="pi">:</span> <span class="s">default</span>
+  <span class="na">releases</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">enabled</span><span class="pi">:</span> <span class="nv">true</span><span class="pi">}</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">https://repo1.maven.org/maven2</span>
+<span class="na">pomFile</span><span class="pi">:</span> <span class="pi">{}</span>
+<span class="na">repositories</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">spring-snapshots</span>
+  <span class="na">layout</span><span class="pi">:</span> <span class="s">default</span>
+  <span class="na">snapshots</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">enabled</span><span class="pi">:</span> <span class="nv">true</span><span class="pi">}</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">http://repo.spring.io/libs-snapshot</span>
+<span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">central</span>
+  <span class="na">layout</span><span class="pi">:</span> <span class="s">default</span>
+  <span class="na">releases</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">enabled</span><span class="pi">:</span> <span class="nv">true</span><span class="pi">}</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">https://repo1.maven.org/maven2</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can see the pom.xml has been shrinked to a pom.yml with 56 line. A win of 100 lines.
+So big pom files become more readable.
+After the creation of the pom.yml, I had to add the following extensions.xml in my project :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;extensions&gt;</span>
+  <span class="nt">&lt;extension&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.takari.polyglot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>polyglot-yaml<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.1.19<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/extension&gt;</span>
+<span class="nt">&lt;/extensions&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Yes we can&#8217;t remove XML completely but this file is rather simple and may be one day we will be able to completely get rid of it.
+The extensions.xml has to be placed in the project folder in the folder .mvn.</p>
+</div>
+<div class="paragraph">
+<p>The pom.yml file went fine except for the line pomFile:{}.
+This line broke my build but when I removed it everything went back to normal.</p>
+</div>
+<div class="paragraph">
+<p>Now I am able to use my mvn command as before.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[INFO]
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ backend ---
+[INFO] Building jar: /home/thor/projets/sources/java/backendyml/target/mysample-web.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 7.960 s
+[INFO] Finished at: 2017-04-02T16:56:33-04:00
+[INFO] Final Memory: 20M/403M
+[INFO] ------------------------------------------------------------------------</pre>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2017/03/29/Why-I-use-asciidoc-to-take-my-notes.html" data-toggle="tooltip" data-placement="top" title="Why I use asciidoc to take my notes">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2017/04/11/Se-deconnecter-des-reseaux-sociaux.html" data-toggle="tooltip" data-placement="top" title="Se déconnecter des réseaux sociaux">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>
