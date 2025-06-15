@@ -1,0 +1,2767 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://startbootstrap.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://startbootstrap.github.io/" rel="alternate" type="text/html" /><updated>2025-06-15T08:47:33+00:00</updated><id>https://startbootstrap.github.io/feed.xml</id><title type="html">Xavier Bouclet</title><subtitle>My personal blog</subtitle><author><name>Xavier Bouclet</name></author><entry><title type="html">Advent of Spring Boot</title><link href="https://startbootstrap.github.io/2024/12/24/advent-of-code.html" rel="alternate" type="text/html" title="Advent of Spring Boot" /><published>2024-12-24T00:00:00+00:00</published><updated>2024-12-24T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2024/12/24/advent-of-code</id><content type="html" xml:base="https://startbootstrap.github.io/2024/12/24/advent-of-code.html"><![CDATA[<h1>Advent of Spring Boot</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This month, I took the challenge of doing one video per day to help you discover (or rediscover) Spring Boot.
+On this blog post, you can check all the videos.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_channel">2 Channel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See the the channel on <a href="https://www.youtube.com/playlist?list=PLdZmLZuiangA-j6dAhYNGa1wB43tmGlVO">Youtube</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_vidéos">3. Vidéos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you want to discover the videos one by one :</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Date</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Topic</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Link to the video</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1st december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Create a Spring Boot app</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/4wXbgwXbpLI" class="bare">https://youtu.be/4wXbgwXbpLI</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2nd december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Add endpoints</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/qeO1jQ1NxkM" class="bare">https://youtu.be/qeO1jQ1NxkM</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">3rd december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Handle http code response</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtube.com/live/J1xApH7iWE8" class="bare">https://youtube.com/live/J1xApH7iWE8</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">4th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Use RouterFunction instead of RestController</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtube.com/live/aMnop_HB91g" class="bare">https://youtube.com/live/aMnop_HB91g</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">5th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Error handling</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/bLJbBKwXMY4" class="bare">https://youtu.be/bLJbBKwXMY4</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">6th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Customize error payload with ProblemDetail</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/sRoYsksX-2Y" class="bare">https://youtu.be/sRoYsksX-2Y</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">7th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Add a real db (PostgreSQL)</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/HzsifEcrGPA" class="bare">https://youtu.be/HzsifEcrGPA</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">8th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Unit testing with Mockito</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/rmybE5tcObM" class="bare">https://youtu.be/rmybE5tcObM</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">9th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Integration test with MockMvc</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/poQKwapvd4U" class="bare">https://youtu.be/poQKwapvd4U</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">10th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Integration test with RestAssured</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/_GiHWgPSfs0" class="bare">https://youtu.be/_GiHWgPSfs0</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">11th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Integration test with TestContainers</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/tf1gJ2sa5GQ" class="bare">https://youtu.be/tf1gJ2sa5GQ</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">12th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Document your API with Swagger Doc</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/i03wRCSlpR0" class="bare">https://youtu.be/i03wRCSlpR0</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">13th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Document your API with Spring Rest Doc &amp; eDocs</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/_4CFuV1IlTc" class="bare">https://youtu.be/_4CFuV1IlTc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">14th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Properties Configuration with record</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/7tGodZHWGfI" class="bare">https://youtu.be/7tGodZHWGfI</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">15th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Fields Validation</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/wn8xJkdCrss" class="bare">https://youtu.be/wn8xJkdCrss</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">16th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Build your API with a Dockerfile</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/-iRWutNq3qA" class="bare">https://youtu.be/-iRWutNq3qA</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">17th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Build your API with buildpacks</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/UWB8Sm9U2zg" class="bare">https://youtu.be/UWB8Sm9U2zg</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">18th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Build your API with buildpacks &amp; GraalVM</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/WLtA_nfZrzk" class="bare">https://youtu.be/WLtA_nfZrzk</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">19th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Monitor your api with actuator</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/5T8rEbIrih4" class="bare">https://youtu.be/5T8rEbIrih4</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">20th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Custom metrics with avtiuator and Micrometer</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/wpva1Cgz5wo" class="bare">https://youtu.be/wpva1Cgz5wo</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">21th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Communicate with another API - the RestClient</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/qyZeYxwWfyw" class="bare">https://youtu.be/qyZeYxwWfyw</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">22nd december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Communicate with another API - the Http Interface</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/fIp_-TMIjvE" class="bare">https://youtu.be/fIp_-TMIjvE</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">23rd december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Improve UX with caching</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/jA6d1mz1sHk" class="bare">https://youtu.be/jA6d1mz1sHk</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">24th december</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Supercharge your API with Spring AI - RAG</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://youtu.be/WdZb0GinMNU" class="bare">https://youtu.be/WdZb0GinMNU</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_source_code">4. Source code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The source code is on <a href="https://github.com/mikrethor/adventofcode2024">Github</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="5_conclusion">5. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Spring Boot</strong> is a pretty cool to start fast. I hope, you enjoy the videos as well.
+For me, it was a nice journey and doing an advent of code is not something easy to do.</p>
+</div>
+<div class="paragraph">
+<p>Stay tuned for more content.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Xavier Bouclet</name></author><summary type="html"><![CDATA[Advent of Spring Boot 1. Purpose of this blog post]]></summary></entry><entry><title type="html">Bridging Visions and Words with LLava</title><link href="https://startbootstrap.github.io/2024/04/02/llava-try.html" rel="alternate" type="text/html" title="Bridging Visions and Words with LLava" /><published>2024-04-02T00:00:00+00:00</published><updated>2024-04-02T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2024/04/02/llava-try</id><content type="html" xml:base="https://startbootstrap.github.io/2024/04/02/llava-try.html"><![CDATA[<h1>Bridging Visions and Words with LLava</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you saw my last blog posts about <a href="../../03/16/install-ollama"><strong>Install Ollama</strong></a> and how to install  <a href="../../03/20/use-other-models-ollama"><strong>Specific Models</strong></a> on Ollama you should be able to address a lot of use cases.
+But in this post, we will see how to work with the <strong>Ollama</strong> and <a href="https://llava-vl.github.io"><strong>Llava</strong></a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Llava</strong> is a <strong>LLM</strong> that can recognise images provided to it and generate a textual description of the image.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_install_llava_on_ollama">2. Install Llava on Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To add <strong>Llava</strong> to <strong>Ollama</strong> you ne to install the <strong>Llava</strong> through the command line.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama pull llava:34b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I use the <strong>34B</strong> version of <strong>Llava</strong> in this example to have better results.
+You could just remove the version but the version would be the 7B and the results would be less accurate.
+The B corresponds to the size of the model, the bigger the model the better the results but the slower is the model.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_use_llava_with_ollama">3. Use Llava with Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s try it with the following image :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-04-02-landscape.jpg" alt="Landscape">
+</div>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s ask <strong>Llava 34B</strong> to describe the image :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run llava:34B <span class="s2">"tell me what do you see in this picture? ./landscape.jpg"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I execute the command from the folder where the image is located.</p>
+</div>
+<div class="paragraph">
+<p>And this is the answer I got :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>The image depicts a serene sunset scene. The sky is painted with hues of orange, pink,
+and purple as the sun sets or rises on the horizon. Reflections from the light play
+across the calm surface of what appears to be a lake or sea. In the foreground, there's
+a beautiful display of wildflowers with vibrant colors that match the sunset tones.
+These flowers, possibly lupines given their shape and coloration, add a natural beauty
+to the scene. The tranquility of the water and the peacefulness of the flowers create a
+harmonious and picturesque setting.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pretty nice, isn&#8217;t it?</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see how we could find a use case more useful in our daily life.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_handwritten_text_recognition">4. Handwritten Text Recognition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I wrote a note on a piece of paper :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-04-03-text-recognition.jpg" alt="Handwritten Text" width="50%">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run llava:34B <span class="s2">"Determine the hand written text in this image? ./note.jpg"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And this is the answer I got :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>The handwritten text in the image reads "Hello Generative AI Meetup."</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Really cool result, isn&#8217;t it?</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s try to improve the prompting to get just what&#8217;s written on the note :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run llava:34B <span class="s2">"Determine the hand written text in this image and just write this hand written text as the output nothing else  ./note.jpg"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see the result :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>"Hello Generative AI Meetup."</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Way better! But we need to have that through an API to use it in an applications.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="5_use_llava_with_the_ollama_api">5. Use Llava with the Ollama API</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>Ollama</strong> server comes with an API that you can use to interact with the server.</p>
+</div>
+<div class="paragraph">
+<p>We need to use the url <a href="http://localhost:11434/api/generate" class="bare">http://localhost:11434/api/generate</a> to interact with the generate endpoint.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"llava:34B"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prompt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Determine the hand written text in this image and just write this hand written text as the output nothing else"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stream"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"images"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"content of the file in Base 64"</span><span class="p">]}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We need to convert the image in Base64 to sent it to the server using json.</p>
+</div>
+<div class="paragraph">
+<p>For this conversion I used <a href="https://base64.guru/converter/encode/image">Base64 Guru</a> and copy paste the result in the json.</p>
+</div>
+<div class="paragraph">
+<p>And this is the result I got :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"llava:34B"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-04-03T01:38:43.681199Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello Generative AI Meetup"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"done"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="mi">6</span><span class="p">,</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+        </span><span class="mi">674</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"total_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">16199642125</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"load_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">23168000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prompt_eval_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">14991832000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"eval_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"eval_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1075909000</span><span class="w">
+</span><span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next time we will see how to use Spring AI to have a nicer way for this use case.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="6_conclusion">6. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Llava</strong> is a pretty cool <strong>LLM</strong> that can be used to describe images and recognise handwritten text.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.reddit.com/r/ollama/comments/1b608mf/ollama_api/">Ollama API</a></p>
+</li>
+<li>
+<p><a href="https://ollama.com/blog/vision-models">Ollama Vision models</a></p>
+</li>
+<li>
+<p><a href="https://llava-vl.github.io/">Llava</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Xavier Bouclet</name></author><summary type="html"><![CDATA[Bridging Visions and Words with LLava 1. Purpose of this blog post]]></summary></entry><entry><title type="html">Use Ollama as a server</title><link href="https://startbootstrap.github.io/2024/03/22/use-the-ollama-server.html" rel="alternate" type="text/html" title="Use Ollama as a server" /><published>2024-03-22T00:00:00+00:00</published><updated>2024-03-22T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2024/03/22/use-the-ollama-server</id><content type="html" xml:base="https://startbootstrap.github.io/2024/03/22/use-the-ollama-server.html"><![CDATA[<h1>Use Ollama as a server</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you saw my last blog posts about <a href="../16/install-ollama"><strong>Install Ollama</strong></a> and how to install  <a href="../20/use-other-models-ollama"><strong>Specific Models</strong></a> on Ollama you should be able to address a lot of use cases.
+But in this post, we will see how to work with the <strong>Ollama</strong> server thanks to <a href="https://spring.io/projects/spring-ai"><strong>Spring AI</strong></a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_ollama_server_with_spring_ai">2. Ollama Server with Spring AI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If <strong>Ollama</strong> is running you should check if the server is running.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl http://localhost:11434
+Ollama is running%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To figure all the endpoints available, you can check the following links :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/ollama/ollama/blob/main/docs/api.md">Ollama API Specification</a></p>
+</li>
+<li>
+<p><a href="https://editor.swagger.io/?url=https://raw.githubusercontent.com/marscod/ollama/main/api/ollama_api_specification.json">Ollama API Specification in Open API</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The second link seems not official but could be quite useful.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s try to do some stuff with Spring AI. Ollama is supported by Spring AI through :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="groovy"><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s1">'org.springframework.ai:spring-ai-ollama'</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or with the Spring Boot starter :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="groovy"><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s1">'org.springframework.ai:spring-ai-ollama-spring-boot-starter'</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the following example, we will use the <strong>spring-ai-ollama</strong> dependency.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_create_the_project">3. Create the project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To create the project, you can use my last blog posts on <strong>Spring AI</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../04/spring-ai-integration"><strong>Spring AI - Chat GPT</strong></a></p>
+</li>
+<li>
+<p><a href="../10/spring-ai-integration-image"><strong>Spring AI - Dall-E</strong></a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Or clone the code from the following repository :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git clone git@github.com:mikrethor/spring-ai.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s add the dependency to the <strong>build.gradle.kts</strong> file :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="o">..</span><span class="p">.</span>
+<span class="nf">dependencies</span> <span class="p">{</span>
+	<span class="nf">implementation</span><span class="p">(</span><span class="s">"org.springframework.boot:spring-boot-starter-web"</span><span class="p">)</span>
+	<span class="nf">implementation</span><span class="p">(</span><span class="s">"com.fasterxml.jackson.module:jackson-module-kotlin"</span><span class="p">)</span>
+	<span class="nf">implementation</span><span class="p">(</span><span class="s">"org.jetbrains.kotlin:kotlin-reflect"</span><span class="p">)</span>
+	<span class="nf">implementation</span><span class="p">(</span><span class="s">"org.springframework.ai:spring-ai-openai-spring-boot-starter"</span><span class="p">)</span>
+	<span class="nf">implementation</span><span class="p">(</span><span class="s">"org.springframework.ai:spring-ai-ollama)
+</span>	<span class="nf">testImplementation</span><span class="p">(</span><span class="s">"org.springframework.boot:spring-boot-starter-test"</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="o">..</span><span class="p">.</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s modify our <strong>RouterConfiguration</strong> to add the <strong>Ollama</strong> endpoint to our API:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="k">package</span> <span class="nn">com.xavierbouclet.springai</span>
+
+<span class="o">..</span><span class="p">.</span>
+
+<span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">RouterConfiguration</span> <span class="p">{</span>
+
+   <span class="o">..</span><span class="p">.</span>
+
+    <span class="nd">@Bean</span>
+    <span class="k">fun</span> <span class="nf">aiRouter</span><span class="p">(</span><span class="n">chatClient</span><span class="p">:</span> <span class="nc">OpenAiChatClient</span><span class="p">,</span>
+                 <span class="n">imageClient</span><span class="p">:</span> <span class="nc">OpenAiImageClient</span><span class="p">,</span>
+                 <span class="n">ollamaChatClient</span><span class="p">:</span> <span class="nc">OllamaChatClient</span><span class="p">)</span> <span class="p">=</span> <span class="nf">router</span> <span class="p">{</span>
+        <span class="nc">GET</span><span class="p">(</span><span class="s">"/api/ollama/generate"</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="nc">ServerResponse</span>
+                <span class="p">.</span><span class="nf">ok</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">body</span><span class="p">(</span>
+                    <span class="n">ollamaChatClient</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
+                        <span class="n">request</span>
+                            <span class="p">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+                            <span class="p">.</span><span class="nf">orElse</span><span class="p">(</span><span class="s">"Tell me a Chuck Norris fact"</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nc">GET</span><span class="p">(</span><span class="s">"/api/ollama/generateStream"</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="nc">ServerResponse</span>
+                <span class="p">.</span><span class="nf">ok</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">body</span><span class="p">(</span><span class="n">ollamaChatClient</span><span class="p">.</span><span class="nf">stream</span><span class="p">(</span>
+                    <span class="nc">Prompt</span><span class="p">(</span>
+                        <span class="nc">UserMessage</span><span class="p">(</span>
+                            <span class="n">request</span>
+                                <span class="p">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+                                <span class="p">.</span><span class="nf">orElse</span><span class="p">(</span><span class="s">"Tell me a Chuck Norris fact"</span><span class="p">)</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">).</span><span class="nf">mapNotNull</span> <span class="p">{</span> <span class="n">chatResp</span> <span class="p">-&gt;</span> <span class="n">chatResp</span><span class="o">?.</span><span class="n">result</span><span class="o">?.</span><span class="n">output</span><span class="o">?.</span><span class="n">content</span> <span class="p">}</span>
+                    <span class="p">.</span><span class="nf">toStream</span><span class="p">()</span>
+                    <span class="p">.</span><span class="nf">toList</span><span class="p">()</span>
+                <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="o">..</span><span class="p">.</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So to interact with the <strong>Ollama</strong> server, we will use the <strong>OllamaChatClient</strong> and use the following endpoints :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>/api/ollama/generate</p>
+</li>
+<li>
+<p>/api/ollama/generateStream</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To configure the <strong>OllamaChatClient</strong> we will use the following properties :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">ai</span><span class="pi">:</span>
+      <span class="s">...</span>
+      <span class="s">ollama</span><span class="err">:</span>
+        <span class="na">base-url</span><span class="pi">:</span> <span class="s">http://localhost:11434</span>
+        <span class="na">chat</span><span class="pi">:</span>
+          <span class="na">model</span><span class="pi">:</span> <span class="s">mistral</span>
+          <span class="na">options</span><span class="pi">:</span>
+            <span class="na">temperature</span><span class="pi">:</span> <span class="s">0.7</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see we will use the <strong>mistral</strong> model with a temperature of 0.7. It means that a mistral model conservative with a creativity touch.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s run the application. And call the endpoint /api/ollama/generate :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl http://localhost:8080/api/ollama/generate
+
+ Chuck Norris does not sleep. He stays up all nights, preventing us from having bad dreams and ensuring that sunrise comes every morning. This is just one of the many humorous legends surrounding the martial artist and actor. In reality, Chuck Norris is a highly skilled martial artist <span class="nb">who </span>has won numerous championships and starred <span class="k">in </span>many action movies. He holds a 9th-degree black belt <span class="k">in </span>South Korean Tang Soo Do Moo Sool Kwan Haeng Il as well as a 2nd-degree black belt <span class="k">in </span>Brazilian Jiu-Jitsu. He also served <span class="k">in </span>the United States Air Force as an air policeman.%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can also call the endpoint /api/ollama/generateStream :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl http://localhost:8080/api/ollama/generateStream
+<span class="o">[</span><span class="s2">" Chuck"</span>,<span class="s2">" Nor"</span>,<span class="s2">"ris"</span>,<span class="s2">" does"</span>,<span class="s2">" not"</span>,<span class="s2">" sleep"</span>,<span class="s2">"."</span>,<span class="s2">" He"</span>,<span class="s2">" stays"</span>,<span class="s2">" up"</span>,<span class="s2">" all"</span>,<span class="s2">" nights"</span>,<span class="s2">","</span>,<span class="s2">" preventing"</span>,<span class="s2">" evil"</span>,<span class="s2">" do"</span>,<span class="s2">"ers"</span>,<span class="s2">" from"</span>,<span class="s2">" causing"</span>,<span class="s2">" chaos"</span>,<span class="s2">" around"</span>,<span class="s2">" the"</span>,<span class="s2">" world"</span>,<span class="s2">"."</span>,<span class="s2">" His"</span>,<span class="s2">" lack"</span>,<span class="s2">" of"</span>,<span class="s2">" sleep"</span>,<span class="s2">" is"</span>,<span class="s2">" what"</span>,<span class="s2">" gives"</span>,<span class="s2">" him"</span>,<span class="s2">" super"</span>,<span class="s2">"human"</span>,<span class="s2">" strength"</span>,<span class="s2">" and"</span>,<span class="s2">" abilities"</span>,<span class="s2">"."</span>,<span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>,<span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>,<span class="s2">"Or"</span>,<span class="s2">" how"</span>,<span class="s2">" about"</span>,<span class="s2">" this"</span>,<span class="s2">" one"</span>,<span class="s2">":"</span>,<span class="s2">" Chuck"</span>,<span class="s2">" Nor"</span>,<span class="s2">"ris"</span>,<span class="s2">" can"</span>,<span class="s2">" divide"</span>,<span class="s2">" by"</span>,<span class="s2">" zero"</span>,<span class="s2">"."</span>,<span class="s2">" He"</span>,<span class="s2">" doesn"</span>,<span class="s2">"'"</span>,<span class="s2">"t"</span>,<span class="s2">" need"</span>,<span class="s2">" to"</span>,<span class="s2">" follow"</span>,<span class="s2">" the"</span>,<span class="s2">" rules"</span>,<span class="s2">" that"</span>,<span class="s2">" the"</span>,<span class="s2">" rest"</span>,<span class="s2">" of"</span>,<span class="s2">" us"</span>,<span class="s2">" mort"</span>,<span class="s2">"als"</span>,<span class="s2">" are"</span>,<span class="s2">" bound"</span>,<span class="s2">" by"</span>,<span class="s2">"."</span>,<span class="s2">""</span><span class="o">]</span>%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By using a reactive type we could generate a <strong>Chat GTP</strong> response like. It could be a future improvement.</p>
+</div>
+<div class="paragraph">
+<p>Et voilà, you can now use the <strong>Ollama</strong> server with <strong>Spring AI</strong>.
+Let&#8217;s see some <a href="https://llava-vl.github.io/"><strong>Llava</strong></a> use case in my next blog post.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Ollama</strong> and its server are a nice way to try some Spring AI code and try some use cases.
+It could also be a non prod solution to test some models without any cost.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.reddit.com/r/ollama/comments/1b608mf/ollama_api/">Ollama API</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Xavier Bouclet</name></author><summary type="html"><![CDATA[Use Ollama as a server 1. Purpose of this blog post]]></summary></entry><entry><title type="html">Install models not available on Ollama</title><link href="https://startbootstrap.github.io/2024/03/20/use-other-models-ollama.html" rel="alternate" type="text/html" title="Install models not available on Ollama" /><published>2024-03-20T00:00:00+00:00</published><updated>2024-03-20T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2024/03/20/use-other-models-ollama</id><content type="html" xml:base="https://startbootstrap.github.io/2024/03/20/use-other-models-ollama.html"><![CDATA[<h1>Install models not available on Ollama</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you saw my last blog post about <a href="../16/install-ollama"><strong>Ollama</strong></a> you should be able to use all the models available on the <a href="https://ollama.com/library">ollama models page</a>.
+But sometimes, it&#8217;s not enough for your use cases and you need to install other models.
+You are lucky, it&#8217;s gonna be the topic of this blog post.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s get into it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_how_to_install_other_models">2. How to install other models</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, you need to find a model you want to install.</p>
+</div>
+<div class="paragraph">
+<p>You can find some on :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://huggingface.co/models">Hugging Face</a> website.</p>
+</li>
+<li>
+<p><a href="https://llama.meta.com">Meta</a> website.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use the <strong>Hugging Face</strong> website to find a model.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-20-search-downloadable-models.png" alt="Search for downloadable models" height="600">
+</div>
+</div>
+<div class="paragraph">
+<p>We are looking for a model with a <strong>gguf</strong> file extension.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-20-see-the-files.png" alt="Llama-2-7B.GGUF" height="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s choose the <strong>Llama-2-7B</strong> model.</p>
+</div>
+<div class="paragraph">
+<p>Go to <strong>Files and versions</strong> and choose the llama-2-7b.Q5_0.gguf file.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-20-download-the-file-manually.png" alt="Download the file manually" height="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Click on the download button.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-20-copy-the-name.png" alt="Copy name" height="400">
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s copy the name of the file. It will be useful later.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nb">ls</span> <span class="nt">-l</span>
+
+total 14004224
+<span class="nt">-rw-r--r--</span>  1 xavierbouclet  staff  7161089728 17 Mar 11:14 llama-2-7b.Q5_0.gguf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create the <strong>ModelFile</strong> in the same folder as the downloaded <strong>gguf</strong> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">vi ModelFile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The content of the <strong>ModelFile</strong> should be the following.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">FROM ./llama-2-7b.Q5_0.gguf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s add our model to <strong>Ollama</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama create mymodeldownloadedmanually <span class="nt">-f</span> Modelfile
+
+transferring model data
+creating model layer
+using already created layer sha256:20536b6ee85d7c55893c6b50e44685de576d8438e26222704c7a4e059c449c8e
+writing layer sha256:b384e475be99b8c5cefe686cec5bdaef72b5ef034531b1e66a97ed2bcc95d3e6
+writing manifest
+success</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see a success message at the end of the command.</p>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s use our model with this command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run mymodeldownloadedmanually</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> tell me a chuck norris fact
+
+ that you can<span class="s1">'t believe is true
+ nobody else
+you can only watch him on tv!
+i do not care if you don'</span>t know <span class="nb">who </span>he is.
+I have a few but they are my personal favourites:
+1- Chuck Norris knows the value of Pi to 27 decimal places.
+2- If Chuck Norris falls <span class="k">in </span>the woods, there will be no one left alive to hear it.
+3- Chuck Norris has been to more countries than all other presidents combined.
+4- When you turn on your television <span class="nb">set</span>, and see a show hosted by Chuck Norris, remember that he is not just sitting there. He is fighting
+evil at the same <span class="nb">time </span><span class="k">in </span>a different dimension.
+....</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hugging Face has a cli available to download models. Let&#8217;s install it.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">pip <span class="nb">install </span>huggingface-hub
+
+Collecting huggingface-hub
+Downloading huggingface_hub-0.21.4-py3-none-any.whl.metadata <span class="o">(</span>13 kB<span class="o">)</span>
+Requirement already satisfied: filelock <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from huggingface-hub<span class="o">)</span> <span class="o">(</span>3.13.1<span class="o">)</span>
+Collecting fsspec&gt;<span class="o">=</span>2023.5.0 <span class="o">(</span>from huggingface-hub<span class="o">)</span>
+Downloading fsspec-2024.3.0-py3-none-any.whl.metadata <span class="o">(</span>6.8 kB<span class="o">)</span>
+Requirement already satisfied: requests <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from huggingface-hub<span class="o">)</span> <span class="o">(</span>2.31.0<span class="o">)</span>
+Collecting tqdm&gt;<span class="o">=</span>4.42.1 <span class="o">(</span>from huggingface-hub<span class="o">)</span>
+Downloading tqdm-4.66.2-py3-none-any.whl.metadata <span class="o">(</span>57 kB<span class="o">)</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.6/57.6 kB 2.3 MB/s eta 0:00:00
+Collecting pyyaml&gt;<span class="o">=</span>5.1 <span class="o">(</span>from huggingface-hub<span class="o">)</span>
+Downloading PyYAML-6.0.1-cp311-cp311-macosx_11_0_arm64.whl.metadata <span class="o">(</span>2.1 kB<span class="o">)</span>
+Collecting typing-extensions&gt;<span class="o">=</span>3.7.4.3 <span class="o">(</span>from huggingface-hub<span class="o">)</span>
+Downloading typing_extensions-4.10.0-py3-none-any.whl.metadata <span class="o">(</span>3.0 kB<span class="o">)</span>
+Requirement already satisfied: packaging&gt;<span class="o">=</span>20.9 <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from huggingface-hub<span class="o">)</span> <span class="o">(</span>23.2<span class="o">)</span>
+Requirement already satisfied: charset-normalizer&lt;4,&gt;<span class="o">=</span>2 <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from requests-&gt;huggingface-hub<span class="o">)</span> <span class="o">(</span>3.3.2<span class="o">)</span>
+Requirement already satisfied: idna&lt;4,&gt;<span class="o">=</span>2.5 <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from requests-&gt;huggingface-hub<span class="o">)</span> <span class="o">(</span>3.6<span class="o">)</span>
+Requirement already satisfied: urllib3&lt;3,&gt;<span class="o">=</span>1.21.1 <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from requests-&gt;huggingface-hub<span class="o">)</span> <span class="o">(</span>2.2.0<span class="o">)</span>
+Requirement already satisfied: certifi&gt;<span class="o">=</span>2017.4.17 <span class="k">in</span> /opt/homebrew/lib/python3.11/site-packages <span class="o">(</span>from requests-&gt;huggingface-hub<span class="o">)</span> <span class="o">(</span>2023.11.17<span class="o">)</span>
+Downloading huggingface_hub-0.21.4-py3-none-any.whl <span class="o">(</span>346 kB<span class="o">)</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 346.4/346.4 kB 5.9 MB/s eta 0:00:00
+Downloading fsspec-2024.3.0-py3-none-any.whl <span class="o">(</span>171 kB<span class="o">)</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 171.9/171.9 kB 10.7 MB/s eta 0:00:00
+Downloading PyYAML-6.0.1-cp311-cp311-macosx_11_0_arm64.whl <span class="o">(</span>167 kB<span class="o">)</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 167.5/167.5 kB 9.7 MB/s eta 0:00:00
+Downloading tqdm-4.66.2-py3-none-any.whl <span class="o">(</span>78 kB<span class="o">)</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.3/78.3 kB 4.3 MB/s eta 0:00:00
+Downloading typing_extensions-4.10.0-py3-none-any.whl <span class="o">(</span>33 kB<span class="o">)</span>
+Installing collected packages: typing-extensions, tqdm, pyyaml, fsspec, huggingface-hub
+Successfully installed fsspec-2024.3.0 huggingface-hub-0.21.4 pyyaml-6.0.1 tqdm-4.66.2 typing-extensions-4.10.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use the cli and use the name copied earlier (on the third line).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">huggingface-cli download <span class="se">\</span>
+  TheBloke/Llama-2-7B-GGUF <span class="se">\</span>
+  llama-2-7b.Q5_0.gguf <span class="se">\</span>
+  <span class="nt">--local-dir</span> downloads <span class="se">\</span>
+  <span class="nt">--local-dir-use-symlinks</span> False</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A download folder should be created with the <strong>gguf</strong> file inside.
+Use the terminal to go inside the download folder.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create the <strong>ModelFile</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">vi ModelFile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The content of the <strong>ModelFile</strong> should be the following.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">FROM ./llama-2-7b.Q5_0.gguf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s add our model to <strong>Ollama</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama create mymodel <span class="nt">-f</span> Modelfile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When finished, the following message should appear.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama create mymodel <span class="nt">-f</span> Modelfile
+
+transferring model data
+creating model layer
+using already created layer sha256:f1415d117f94261fd9869ac5dabd98b3dc36648cfb7c6d84e5b473aca74ab64d
+writing layer sha256:5d6206bda2a41479936982c5f92223bfe01a3c0a84a405aef585258277552d78
+writing manifest
+success</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nos we can use our model with this command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run mymodel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> Tell me a chuck norris fact
+
+I<span class="s1">'m not gonna tell you a Chuck Norris Fact, I'</span>m going to tell you a Chuck Norris Truth.
+Chuck Norris can round house kick a volcano <span class="k">in </span>the face and make it explode more violently.
+Chuck Norris can <span class="nb">kill </span>two stones with one bird.
+Chuck Norris can run faster than lightning, and he<span class="s1">'s been doing it since 1952!
+Chuck Norris is so badass that his shadow has a top billing in every movie it'</span>s <span class="k">in</span><span class="nb">.</span>
+Chuck Norris once killed an elephant with a toothpick.
+Chuck Norris can <span class="nb">set </span>ants on fire, <span class="k">then </span>put them out, and the ants are still burning.
+Chuck Norris can beat up the Boogeyman, and the Boogeyman is already dead!
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To remove the models added, you can use the following commands.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama <span class="nb">rm </span>mymodel
+ollama <span class="nb">rm </span>mymodeldownloadedmanually</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_conclusion">3. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Ollama</strong> comes with a lot of models, but sometimes you need to install other models.
+And now you know how to do it.
+It&#8217;s nice way to experiment with a lot of different models.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://discuss.huggingface.co/t/how-to-download-a-model-and-run-it-with-ollama-locally/77317/2" class="bare">https://discuss.huggingface.co/t/how-to-download-a-model-and-run-it-with-ollama-locally/77317/2</a></p>
+</li>
+<li>
+<p><a href="https://www.markhneedham.com/blog/2023/10/18/ollama-hugging-face-gguf-models/" class="bare">https://www.markhneedham.com/blog/2023/10/18/ollama-hugging-face-gguf-models/</a></p>
+</li>
+<li>
+<p><a href="https://github.com/ollama/ollama" class="bare">https://github.com/ollama/ollama</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Xavier Bouclet</name></author><summary type="html"><![CDATA[Install models not available on Ollama 1. Purpose of this blog post]]></summary></entry><entry><title type="html">Use AI models on your computer with Ollama</title><link href="https://startbootstrap.github.io/2024/03/16/install-ollama.html" rel="alternate" type="text/html" title="Use AI models on your computer with Ollama" /><published>2024-03-16T00:00:00+00:00</published><updated>2024-03-16T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2024/03/16/install-ollama</id><content type="html" xml:base="https://startbootstrap.github.io/2024/03/16/install-ollama.html"><![CDATA[<h1>Use AI models on your computer with Ollama</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this blog post, I will show you how to use AI models locally without the need of Open AI API or other cloud-based AI services.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_what_is_ollama">2. What is Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ollama is a tool designed for running open-source large language models (LLMs) like Llama 2 and Code Llama directly on a user&#8217;s device. It packages model weights, configurations, and data into a single unit managed by a Modelfile, optimizing for efficient GPU use. This makes Ollama an ideal platform for developers and AI enthusiasts for deploying language models in various applications, such as chatbots, summarization tools, and creative writing aids. The platform is extensible, supports privacy, and is free to use, offering easy integration for macOS, Linux and Windows.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_why_should_you_use_ollama">3. Why should you use Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With Ollama, You can easily use powerful AI models such as llama2, mistral and many others.
+The advantage is that you don&#8217;t share your data with a third party, and you can use the models offline.
+This make it perfect for an entreprise use case where your data can&#8217;t be shared with others.</p>
+</div>
+<div class="paragraph">
+<p>Some models available on Ollama:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>llama2 : to generate human-like text based on the input prompt.</p>
+</li>
+<li>
+<p>openchat : to build a tchat like chatGPT (it&#8217;s supposed to be more powerful on some benchmark).</p>
+</li>
+<li>
+<p>llava : to describe images</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is also extensible and you can add your own trained models. It will be the topic of a future blog post.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_install_ollama">4. Install Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Go to <a href="https://ollama.com/download">Ollama download page</a> and download the version that fits your OS.</p>
+</div>
+<div class="paragraph">
+<p>For me, it&#8217;s the Mac OS version.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s click on the <strong>Download for macOS</strong> button.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-ollama-download.png" alt="Ollama download page">
+</div>
+</div>
+<div class="paragraph">
+<p>Wait for the download to finish.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-ollama-downloading.png" alt="Ollama downloading">
+</div>
+</div>
+<div class="paragraph">
+<p>Unzip the zip file <strong>Ollama-darwin.zip</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-ollama-unzip.png" alt="Ollama unzip">
+</div>
+</div>
+<div class="paragraph">
+<p>It contains the <strong>Ollama</strong> application.</p>
+</div>
+<div class="paragraph">
+<p>Click on it and authorize the app.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-authorize-the-ollama-application.png" alt="Authorize the Ollama app">
+</div>
+</div>
+<div class="paragraph">
+<p>Move the app to the Applications folder.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-move-ollama-to-application.png" alt="Move the Ollama app to Applications">
+</div>
+</div>
+<div class="paragraph">
+<p>Et voilà, Ollama is installed on your machine.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="5_run_ollama">5. Run Ollama</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To run <strong>Ollama</strong>, click on the app in the Applications folder.
+And go to a terminal and type <code>ollama list</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama list
+
+NAME          	ID          	SIZE  	MODIFIED
+llama2:latest 	78e26419b446	3.8 GB	5 days ago</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the installed models. In my case, I have two models installed: <strong>llama2</strong> and <strong>mistral</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s run the <strong>llama2</strong> model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run llama2
+<span class="o">&gt;&gt;&gt;</span> Send a message <span class="o">(</span>/? <span class="k">for </span><span class="nb">help</span><span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see the available commands.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> /?
+Available Commands:
+  /set            Set session variables
+  /show           Show model information
+  /load &lt;model&gt;   Load a session or model
+  /save &lt;model&gt;   Save your current session
+  /bye            Exit
+  /?, /help       Help <span class="k">for </span>a <span class="nb">command</span>
+  /? shortcuts    Help <span class="k">for </span>keyboard shortcuts
+
+Use <span class="s2">""" to begin a multi-line message.
+
+&gt;&gt;&gt; Send a message (/? for help)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s try the command show</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> /show
+Available Commands:
+  /show info         Show details <span class="k">for </span>this model
+  /show license      Show model license
+  /show modelfile    Show Modelfile <span class="k">for </span>this model
+  /show parameters   Show parameters <span class="k">for </span>this model
+  /show system       Show system message
+  /show template     Show prompt template
+
+<span class="o">&gt;&gt;&gt;</span> /show info
+Model details:
+Family              llama
+Parameter Size      7B
+Quantization Level  Q4_0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s quit the <strong>ollama</strong> command line.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> /bye</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Evan though, we leave the <strong>ollama</strong> command line, the server is still running and could be used with a REST client.
+It will be the topic of my next blog post.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-server.png" alt="Ollama server">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="6_download_models">6. Download models</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To download models, you can use the following <strong>ollama</strong> command line.</p>
+</div>
+<div class="paragraph">
+<p>By example, let&#8217;s download the <strong>mistral</strong> model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama pull mistral:latest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we should have it on the list of models available.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama list
+
+NAME          	ID          	SIZE  	MODIFIED
+llama2:latest 	78e26419b446	3.8 GB	5 days ago
+mistral:latest	61e88e884507	4.1 GB	6 seconds ago</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To find other models to play with you can go to the <a href="https://ollama.com/models">Ollama models page</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2024-03-16-ollama-models.png" alt="Ollama models page" width="900" height="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use the <strong>mistral</strong> model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">ollama run mistral</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To check that the model is the one we want, we can use the <strong>show</strong> command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> /show modelfile
+
+<span class="c"># Modelfile generated by "ollama show"</span>
+<span class="c"># To build a new Modelfile based on this one, replace the FROM line with:</span>
+<span class="c"># FROM mistral:latest</span>
+
+FROM /Users/xavierbouclet/.ollama/models/blobs/sha256:e8a35b5937a5e6d5c35d1f2a15f161e07eefe5e5bb0a3cdd42998ee79b057730
+TEMPLATE <span class="s2">"""[INST] {{ .System }} {{ .Prompt }} [/INST]"""</span>
+PARAMETER stop <span class="s2">"[INST]"</span>
+PARAMETER stop <span class="s2">"[/INST]"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Last but not list, you can ask question to your model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> Tell me a chuck norris fact
+ Sure thing! Here<span class="s1">'s a classic Chuck Norris fact:
+
+Chuck Norris doesn'</span>t <span class="nb">read </span>books. He stares them down <span class="k">until </span>they speak to him.
+
+Or how about this one:
+
+When the Boogeyman goes to <span class="nb">sleep </span>every night, he checks his closet <span class="k">for </span>Chuck Norris.
+
+These facts are meant to be humorous and are not based <span class="k">in </span>reality. But isn<span class="s1">'t it fun to imagine that Chuck Norris has superhuman abilities? After all, the man is a martial arts
+legend and an action movie icon!</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="7_conclusion">7. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In my point of view, <strong>Ollama</strong> is a nice way to play with some AI models locally.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://ollama.com/models">Ollama models page</a></p>
+</li>
+<li>
+<p><a href="https://www.perplexity.ai/search/What-is-Ollama-QvOLa4flSWSA_hagsRwf6A">What is Ollama?</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Xavier Bouclet</name></author><summary type="html"><![CDATA[Use AI models on your computer with Ollama 1. Purpose of this blog post]]></summary></entry><entry><title type="html">Integrate Open AI API to your Spring Boot application - part 2</title><link href="https://startbootstrap.github.io/2024/03/10/spring-ai-integration-image.html" rel="alternate" type="text/html" title="Integrate Open AI API to your Spring Boot application - part 2" /><published>2024-03-10T00:00:00+00:00</published><updated>2024-03-10T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2024/03/10/spring-ai-integration-image</id><content type="html" xml:base="https://startbootstrap.github.io/2024/03/10/spring-ai-integration-image.html"><![CDATA[<h1>Integrate Open AI API to your Spring Boot application - part 2</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At the moment, we are all trying to find the best way to integrate our system to Open AI.
+In this blog post, I will show you how to integrate Open AI API in your Spring Boot application to generate an image. This blog post is the second part of the series. In <a href="../04/spring-ai-integration">the first part</a>, I showed you how to integrate Open AI API in your Spring Boot application to generate a text.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_adapt_the_existing_app_to_add_an_image_endpoint">2. Adapt the existing app to add an image endpoint</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First we need to add a new endpoint to our application. We will use the same approach as in the previous blog post.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"> <span class="nd">@Bean</span>
+    <span class="k">fun</span> <span class="nf">aiRouter</span><span class="p">(</span><span class="n">chatClient</span><span class="p">:</span> <span class="nc">OpenAiChatClient</span><span class="p">,</span> <span class="n">imageClient</span><span class="p">:</span> <span class="nc">OpenAiImageClient</span><span class="p">)</span> <span class="p">=</span> <span class="nf">router</span> <span class="p">{</span>
+        <span class="o">..</span><span class="p">.</span>
+		<span class="nc">GET</span><span class="p">(</span><span class="s">"/api/ai/generateImage"</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="nc">ServerResponse</span>
+                <span class="p">.</span><span class="nf">ok</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">contentType</span><span class="p">(</span><span class="nc">MediaType</span><span class="p">.</span><span class="nf">parseMediaType</span><span class="p">(</span><span class="s">"application/zip"</span><span class="p">))</span>
+                <span class="p">.</span><span class="nf">body</span><span class="p">(</span>
+                    <span class="nf">imageResponse</span><span class="p">(</span><span class="n">imageClient</span><span class="p">,</span> <span class="n">request</span>
+                        <span class="p">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+                        <span class="p">.</span><span class="nf">orElse</span><span class="p">(</span><span class="s">"A photo of a cat"</span><span class="p">))</span>
+                <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="o">..</span><span class="p">.</span>
+    <span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The &#8230;&#8203; means that I removed some code to focus on the important part.</p>
+</div>
+<div class="paragraph">
+<p>As we can see, we now use an <strong>OpenAiImageClient</strong> to generate the image.
+The imageResponse method is used to call this client and download the generated the image.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">RouterConfiguration</span> <span class="p">{</span>
+    <span class="o">..</span><span class="p">.</span>
+    <span class="k">private</span> <span class="k">fun</span> <span class="nf">imageResponse</span><span class="p">(</span><span class="n">imageClient</span><span class="p">:</span> <span class="nc">OpenAiImageClient</span><span class="p">):</span> <span class="nc">ByteArray</span> <span class="p">{</span>
+
+        <span class="kd">val</span> <span class="py">imageResponse</span> <span class="p">=</span> <span class="n">imageClient</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
+			<span class="nc">ImagePrompt</span><span class="p">(</span>
+                <span class="n">instruction</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="kd">val</span> <span class="py">imageInBase64</span> <span class="p">=</span> <span class="n">imageResponse</span><span class="p">.</span><span class="n">result</span><span class="p">.</span><span class="n">output</span><span class="p">.</span><span class="n">b64Json</span>
+
+
+        <span class="kd">val</span> <span class="py">files</span> <span class="p">=</span> <span class="n">imageResponse</span><span class="p">.</span><span class="n">results</span><span class="p">.</span><span class="nf">asSequence</span><span class="p">().</span><span class="nf">withIndex</span><span class="p">().</span><span class="nf">map</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">test</span> <span class="p">=</span> <span class="n">imageInBase64</span><span class="p">.</span><span class="nf">decodeFromBase64</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">output</span><span class="p">.</span><span class="n">b64Json</span><span class="p">)</span>
+            <span class="nc">Pair</span><span class="p">(</span><span class="s">"${it.index}.png"</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+        <span class="p">}.</span><span class="nf">toMap</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="nc">ZipUtilities</span><span class="p">.</span><span class="nf">createZipFile</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The &#8230;&#8203; means that I removed some code to focus on the important part.</p>
+</div>
+<div class="paragraph">
+<p>Spring AI would be able to download more than one image but the Open AI API only returns one image. The code could handle more than one image if the API returns more than one image.
+Because Spring AI support other API to generate images such as <a href="https://stability.ai/news/api-platform-for-stability-ai">Stability API</a>.
+The <strong>ZipUtilities</strong> and its <strong>createZipFile</strong> method are used to create a zip file from with as many image as the map contains.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="kd">object</span> <span class="nc">ZipUtilities</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nf">createZipFile</span><span class="p">(</span><span class="n">pngFiles</span><span class="p">:</span> <span class="nc">Map</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="nc">ByteArray</span><span class="p">&gt;):</span> <span class="nc">ByteArray</span> <span class="p">{</span>
+        <span class="nc">ByteArrayOutputStream</span><span class="p">().</span><span class="nf">use</span> <span class="p">{</span> <span class="n">baos</span> <span class="p">-&gt;</span>
+            <span class="nc">ZipOutputStream</span><span class="p">(</span><span class="n">baos</span><span class="p">).</span><span class="nf">use</span> <span class="p">{</span> <span class="n">zos</span> <span class="p">-&gt;</span>
+                <span class="n">pngFiles</span><span class="p">.</span><span class="nf">forEach</span> <span class="p">{</span> <span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="n">fileContent</span><span class="p">)</span> <span class="p">-&gt;</span>
+                    <span class="kd">val</span> <span class="py">entry</span> <span class="p">=</span> <span class="nc">ZipEntry</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
+                    <span class="n">zos</span><span class="p">.</span><span class="nf">putNextEntry</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+                    <span class="n">zos</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">fileContent</span><span class="p">)</span>
+                    <span class="n">zos</span><span class="p">.</span><span class="nf">closeEntry</span><span class="p">()</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">baos</span><span class="p">.</span><span class="nf">toByteArray</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To try our endpoint we can use the following curl command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl <span class="s2">"localhost:8080/api/ai/generateImage"</span> <span class="nt">-o</span> image.zip</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The image.zip file should contain a photo of a cat.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>image.zip
+	|- 0.png</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>0 is the index of the image in the return result.</p>
+</div>
+<div class="paragraph">
+<p>If you want to adapt the message to personalize the image, you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl <span class="s2">"localhost:8080/api/ai/generateImage?message=a%20photo%20of%20a%20dog"</span> <span class="nt">-o</span> image.zip</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_conclusion">3. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In my point of view, <strong>Spring AI</strong> is a nice way to integrate Open AI to your Spring Boot APP.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the final <a href="https://github.com/mikrethor/spring-ai">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/75355506/springboot-3-graalvm-native-image-stuck-forever-mac-m1">Stackoverflow - SpringBoot 3 GraalVM native-image stuck forever (Mac M1)</a></p>
+</li>
+<li>
+<p><a href="https://github.com/jamesburt-iw/Spring-AI-examples" class="bare">https://github.com/jamesburt-iw/Spring-AI-examples</a></p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-ai/reference/getting-started.html" class="bare">https://docs.spring.io/spring-ai/reference/getting-started.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Xavier Bouclet</name></author><summary type="html"><![CDATA[Integrate Open AI API to your Spring Boot application - part 2 1. Purpose of this blog post]]></summary></entry><entry><title type="html">Integrate Open AI API to your Spring Boot application</title><link href="https://startbootstrap.github.io/2024/03/04/spring-ai-integration.html" rel="alternate" type="text/html" title="Integrate Open AI API to your Spring Boot application" /><published>2024-03-04T00:00:00+00:00</published><updated>2024-03-04T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2024/03/04/spring-ai-integration</id><content type="html" xml:base="https://startbootstrap.github.io/2024/03/04/spring-ai-integration.html"><![CDATA[<h1>Integrate Open AI API to your Spring Boot application</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At the moment, we are all trying to find the best way to integrate our system to Open AI.
+In this blog post, I will show you how to integrate Open AI API to your Spring Boot application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_creating_a_open_api_integration_with_spring_boot">2. Creating a Open API integration with Spring Boot</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s use the <a href="https://start.spring.io/">Spring Initialzr</a> to create the Spring Boot project.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Group : com.xavierbouclet</p>
+</li>
+<li>
+<p>Artifact : spring-ai</p>
+</li>
+<li>
+<p>Project : Gradle - Kotlin</p>
+</li>
+<li>
+<p>Language : Kotlin</p>
+</li>
+<li>
+<p>Java : 17</p>
+</li>
+<li>
+<p>Dependencies :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Spring Web</p>
+</li>
+<li>
+<p>OpenAI</p>
+</li>
+<li>
+<p>GraalVM</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>build.gradle.kts</code> file should look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kts">import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+	id("org.springframework.boot") version "3.2.3"
+	id("io.spring.dependency-management") version "1.1.4"
+	id("org.graalvm.buildtools.native") version "0.9.28"
+	kotlin("jvm") version "1.9.22"
+	kotlin("plugin.spring") version "1.9.22"
+}
+
+group = "com.xavierbouclet"
+version = "0.0.1-SNAPSHOT"
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+	mavenCentral()
+	maven { url = uri("https://repo.spring.io/milestone") }
+}
+
+extra["springAiVersion"] = "0.8.0"
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.ai:spring-ai-bom:${property("springAiVersion")}")
+	}
+}
+
+tasks.withType&lt;KotlinCompile&gt; {
+	kotlinOptions {
+		freeCompilerArgs += "-Xjsr305=strict"
+		jvmTarget = "17"
+	}
+}
+
+tasks.withType&lt;Test&gt; {
+	useJUnitPlatform()
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create a simple configuration file with a router.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="k">import</span> <span class="nn">org.springframework.ai.chat.messages.UserMessage</span>
+<span class="k">import</span> <span class="nn">org.springframework.ai.chat.prompt.Prompt</span>
+<span class="k">import</span> <span class="nn">org.springframework.ai.openai.OpenAiChatClient</span>
+<span class="k">import</span> <span class="nn">org.springframework.context.annotation.Bean</span>
+<span class="k">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span>
+<span class="k">import</span> <span class="nn">org.springframework.web.servlet.function.ServerResponse</span>
+<span class="k">import</span> <span class="nn">org.springframework.web.servlet.function.router</span>
+
+<span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">RouterConfiguration</span> <span class="p">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="k">fun</span> <span class="nf">aiRouter</span><span class="p">(</span><span class="n">chatClient</span><span class="p">:</span> <span class="nc">OpenAiChatClient</span><span class="p">)</span> <span class="p">=</span> <span class="nf">router</span> <span class="p">{</span>
+        <span class="nc">GET</span><span class="p">(</span><span class="s">"/api/ai/generate"</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="nc">ServerResponse</span>
+                <span class="p">.</span><span class="nf">ok</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">body</span><span class="p">(</span>
+                    <span class="n">chatClient</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
+                        <span class="n">request</span>
+                            <span class="p">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+                            <span class="p">.</span><span class="nf">orElse</span><span class="p">(</span><span class="s">"Tell me a chuck norris fact"</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nc">GET</span><span class="p">(</span><span class="s">"/api/ai/generateStream"</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="nc">ServerResponse</span>
+                <span class="p">.</span><span class="nf">ok</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">body</span><span class="p">(</span><span class="n">chatClient</span><span class="p">.</span><span class="nf">stream</span><span class="p">(</span>
+                    <span class="nc">Prompt</span><span class="p">(</span>
+                        <span class="nc">UserMessage</span><span class="p">(</span>
+                            <span class="n">request</span>
+                                <span class="p">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+                                <span class="p">.</span><span class="nf">orElse</span><span class="p">(</span><span class="s">"Tell me a chuck norris fact"</span><span class="p">)</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">).</span><span class="nf">mapNotNull</span> <span class="p">{</span> <span class="n">chatResp</span> <span class="p">-&gt;</span> <span class="n">chatResp</span><span class="o">?.</span><span class="n">result</span><span class="o">?.</span><span class="n">output</span><span class="o">?.</span><span class="n">content</span> <span class="p">}</span>
+                    <span class="p">.</span><span class="nf">toStream</span><span class="p">()</span>
+                    <span class="p">.</span><span class="nf">toList</span><span class="p">()</span>
+                <span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use the Open AI API, you need to create an account on Open AI and get an API key.
+Then, you can use the following configuration to set the API key.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">ai</span><span class="pi">:</span>
+    <span class="na">openai</span><span class="pi">:</span>
+      <span class="na">api-key</span><span class="pi">:</span> <span class="s">${OPEN_AI_KEY}</span>
+      <span class="na">chat</span><span class="pi">:</span>
+        <span class="na">options</span><span class="pi">:</span>
+          <span class="na">model</span><span class="pi">:</span> <span class="s">gpt-3.5-turbo</span>
+          <span class="na">temperature</span><span class="pi">:</span> <span class="s">0.7</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nb">export </span><span class="nv">OPEN_AI_KEY</span><span class="o">=</span>your-open-ai-key</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To build your application, you can use the following Gradle command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">./gradlew bootJar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To execute the jar you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">java <span class="nt">-jar</span> build/libs/spring-ai-0.0.1-SNAPSHOT.jar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To test your API you can try the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nv">$ </span>curl localhost:8080/api/ai/generate
+
+Chuck Norris doesn<span class="s1">'t do push-ups. He pushes the Earth down.%</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Because, the generate witout parameter will use the default message "Tell me a chuck norris fact".
+We can specify a message by adding a specific message in the URL.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl <span class="s2">"localhost:8080/api/ai/generate?message=explain%20me%20spring%20boot"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We could also you the generateStream endpoint to get a stream of messages.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl <span class="s2">"localhost:8080/api/ai/generateStream?message=explain%20me%20spring%20boot"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The answer should look like this :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">[</span><span class="s2">""</span>,<span class="s2">"Spring"</span>,<span class="s2">" Boot"</span>,<span class="s2">" is"</span>,<span class="s2">" an"</span>,<span class="s2">" open"</span>,<span class="s2">"-source"</span>,<span class="s2">" Java"</span>,<span class="s2">"-based"</span>,<span class="s2">" framework"</span>,<span class="s2">" that"</span>,<span class="s2">" is"</span>,<span class="s2">" used"</span>,<span class="s2">" to"</span>,<span class="s2">" create"</span>,<span class="s2">" stand"</span>,<span class="s2">"-alone"</span>,<span class="s2">","</span>,<span class="s2">" production"</span>,<span class="s2">"-grade"</span>,<span class="s2">" Spring"</span>,<span class="s2">"-based"</span>,<span class="s2">" applications"</span>,<span class="s2">"."</span>,<span class="s2">" It"</span>,<span class="s2">" provides"</span>,<span class="s2">" a"</span>,<span class="s2">" pre"</span>,<span class="s2">"-config"</span>,<span class="s2">"ured"</span>,<span class="s2">" set"</span>,<span class="s2">" of"</span>,<span class="s2">" tools"</span>,<span class="s2">" and"</span>,<span class="s2">" libraries"</span>,<span class="s2">" to"</span>,<span class="s2">" simplify"</span>,<span class="s2">" the"</span>,<span class="s2">" process"</span>,<span class="s2">" of"</span>,<span class="s2">" building"</span>,<span class="s2">" and"</span>,<span class="s2">" deploying"</span>,<span class="s2">" applications"</span>,<span class="s2">"."</span>,<span class="s2">" </span><span class="se">\n\n</span><span class="s2">"</span>,<span class="s2">"Spring"</span>,<span class="s2">" Boot"</span>,<span class="s2">" aims"</span>,<span class="s2">" to"</span>,<span class="s2">" streamline"</span>,<span class="s2">" the"</span>,<span class="s2">" development"</span>,<span class="s2">" process"</span>,<span class="s2">" by"</span>,<span class="s2">" providing"</span>,<span class="s2">" a"</span>,<span class="s2">" convention"</span>,<span class="s2">"-over"</span>,<span class="s2">"-"</span>,<span class="s2">"configuration"</span>,<span class="s2">" approach"</span>,<span class="s2">","</span>,<span class="s2">" meaning"</span>,<span class="s2">" that"</span>,<span class="s2">" developers"</span>,<span class="s2">" can"</span>,<span class="s2">" quickly"</span>,<span class="s2">" set"</span>,<span class="s2">" up"</span>,<span class="s2">" a"</span>,<span class="s2">" project"</span>,<span class="s2">" without"</span>,<span class="s2">" having"</span>,<span class="s2">" to"</span>,<span class="s2">" spend"</span>,<span class="s2">" time"</span>,<span class="s2">" on"</span>,<span class="s2">" configuring"</span>,<span class="s2">" various"</span>,<span class="s2">" components"</span>,<span class="s2">"."</span>,<span class="s2">" It"</span>,<span class="s2">" also"</span>,<span class="s2">" includes"</span>,<span class="s2">" embedded"</span>,<span class="s2">" servers"</span>,<span class="s2">","</span>,<span class="s2">" such"</span>,<span class="s2">" as"</span>,<span class="s2">" Tom"</span>,<span class="s2">"cat"</span>,<span class="s2">","</span>,<span class="s2">" Jet"</span>,<span class="s2">"ty"</span>,<span class="s2">","</span>,<span class="s2">" or"</span>,<span class="s2">" Undert"</span>,<span class="s2">"ow"</span>,<span class="s2">","</span>,<span class="s2">" allowing"</span>,<span class="s2">" applications"</span>,<span class="s2">" to"</span>,<span class="s2">" be"</span>,<span class="s2">" run"</span>,<span class="s2">" as"</span>,<span class="s2">" standalone"</span>,<span class="s2">" J"</span>,<span class="s2">"AR"</span>,<span class="s2">" files"</span>,<span class="s2">" without"</span>,<span class="s2">" the"</span>,<span class="s2">" need"</span>,<span class="s2">" for"</span>,<span class="s2">" a"</span>,<span class="s2">" separate"</span>,<span class="s2">" server"</span>,<span class="s2">" installation"</span>,<span class="s2">".</span><span class="se">\n\n</span><span class="s2">"</span>,<span class="s2">"Additionally"</span>,<span class="s2">","</span>,<span class="s2">" Spring"</span>,<span class="s2">" Boot"</span>,<span class="s2">" offers"</span>,<span class="s2">" built"</span>,<span class="s2">"-in"</span>,<span class="s2">" support"</span>,<span class="s2">" for"</span>,<span class="s2">" aspects"</span>,<span class="s2">" such"</span>,<span class="s2">" as"</span>,<span class="s2">" security"</span>,<span class="s2">","</span>,<span class="s2">" logging"</span>,<span class="s2">","</span>,<span class="s2">" monitoring"</span>,<span class="s2">","</span>,<span class="s2">" and"</span>,<span class="s2">" testing"</span>,<span class="s2">","</span>,<span class="s2">" making"</span>,<span class="s2">" it"</span>,<span class="s2">" easier"</span>,<span class="s2">" for"</span>,<span class="s2">" developers"</span>,<span class="s2">" to"</span>,<span class="s2">" create"</span>,<span class="s2">" robust"</span>,<span class="s2">" and"</span>,<span class="s2">" scalable"</span>,<span class="s2">" applications"</span>,<span class="s2">"."</span>,<span class="s2">" It"</span>,<span class="s2">" also"</span>,<span class="s2">" integrates"</span>,<span class="s2">" seamlessly"</span>,<span class="s2">" with"</span>,<span class="s2">" other"</span>,<span class="s2">" Spring"</span>,<span class="s2">" projects"</span>,<span class="s2">","</span>,<span class="s2">" such"</span>,<span class="s2">" as"</span>,<span class="s2">" Spring"</span>,<span class="s2">" Framework"</span>,<span class="s2">","</span>,<span class="s2">" Spring"</span>,<span class="s2">" Data"</span>,<span class="s2">","</span>,<span class="s2">" and"</span>,<span class="s2">" Spring"</span>,<span class="s2">" Security"</span>,<span class="s2">","</span>,<span class="s2">" allowing"</span>,<span class="s2">" developers"</span>,<span class="s2">" to"</span>,<span class="s2">" leverage"</span>,<span class="s2">" the"</span>,<span class="s2">" full"</span>,<span class="s2">" power"</span>,<span class="s2">" of"</span>,<span class="s2">" the"</span>,<span class="s2">" Spring"</span>,<span class="s2">" ecosystem"</span>,<span class="s2">".</span><span class="se">\n\n</span><span class="s2">"</span>,<span class="s2">"Overall"</span>,<span class="s2">","</span>,<span class="s2">" Spring"</span>,<span class="s2">" Boot"</span>,<span class="s2">" is"</span>,<span class="s2">" a"</span>,<span class="s2">" powerful"</span>,<span class="s2">" framework"</span>,<span class="s2">" that"</span>,<span class="s2">" simpl"</span>,<span class="s2">"ifies"</span>,<span class="s2">" the"</span>,<span class="s2">" development"</span>,<span class="s2">" process"</span>,<span class="s2">" and"</span>,<span class="s2">" helps"</span>,<span class="s2">" developers"</span>,<span class="s2">" create"</span>,<span class="s2">" high"</span>,<span class="s2">"-quality"</span>,<span class="s2">","</span>,<span class="s2">" production"</span>,<span class="s2">"-ready"</span>,<span class="s2">" applications"</span>,<span class="s2">" quickly"</span>,<span class="s2">" and"</span>,<span class="s2">" efficiently"</span>,<span class="s2">"."</span><span class="o">]</span>%</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_open_ai_with_graalvm">3. Open AI with GraalVM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The purpose of this blog post is not to explain how to use GraalVM, but to show you how to use it with Spring Boot. So if you need to install it please refer to the <a href="https://www.graalvm.org/22.0/docs/getting-started/">official documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>To build a native image, you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">./gradlew bootBuildImage</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If like me, you are on a MAC and an ARM64 architecture, you need to use the following task in your gradle build file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="n">tasks</span><span class="p">.</span><span class="n">withType</span><span class="p">&lt;</span><span class="nc">BootBuildImage</span><span class="p">&gt;</span> <span class="p">{</span>
+	<span class="kd">val</span> <span class="py">osName</span> <span class="p">=</span> <span class="nc">System</span><span class="p">.</span><span class="nf">getProperty</span><span class="p">(</span><span class="s">"os.name"</span><span class="p">).</span><span class="nf">lowercase</span><span class="p">()</span>
+	<span class="kd">val</span> <span class="py">arch</span> <span class="p">=</span> <span class="nc">System</span><span class="p">.</span><span class="nf">getProperty</span><span class="p">(</span><span class="s">"os.arch"</span><span class="p">)</span>
+
+	<span class="kd">val</span> <span class="py">runningOnM1Mac</span> <span class="p">=</span> <span class="s">"mac"</span> <span class="k">in</span> <span class="n">osName</span> <span class="p">&amp;&amp;</span> <span class="n">arch</span> <span class="p">==</span> <span class="s">"aarch64"</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">runningOnM1Mac</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">builder</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="s">"dashaun/builder:tiny"</span><span class="p">)</span>
+		<span class="n">environment</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="nf">mapOf</span><span class="p">(</span><span class="s">"BP_NATIVE_IMAGE"</span> <span class="n">to</span> <span class="s">"true"</span><span class="p">))</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The bootBuildImage command should end with a success message.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">Deprecated Gradle features were used <span class="k">in </span>this build, making it incompatible with Gradle 9.0.
+
+You can use <span class="s1">'--warning-mode all'</span> to show the individual deprecation warnings and determine <span class="k">if </span>they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.5/userguide/command_line_interface.html#sec:command_line_warnings <span class="k">in </span>the Gradle documentation.
+
+BUILD SUCCESSFUL <span class="k">in </span>6m 13s
+10 actionable tasks: 2 executed, 8 up-to-date</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To find the container, you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nv">$ </span>docker images | <span class="nb">grep </span>spring-ai
+spring-ai                                           0.0.1-SNAPSHOT         d66dd3be8bb9   44 years ago    130MB</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To start the container, you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">docker run <span class="nt">-e</span> <span class="nv">OPEN_AI_KEY</span><span class="o">=</span><span class="nv">$OPEN_AI_KEY</span> <span class="nt">-p</span> 8080:8080 spring-ai:0.0.1-SNAPSHOT</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <strong>OPEN_AI_KEY=$OPEN_AI_KEY</strong> is used to pass the environment variable to the container.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">  <span class="nb">.</span>   ____          _            __ _ _
+ /<span class="se">\\</span> / ___<span class="s1">'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '</span>_ | <span class="s1">'_| | '</span>_ <span class="se">\/</span> _<span class="sb">`</span> | <span class="se">\ \ \ \</span>
+ <span class="se">\\</span>/  ___<span class="o">)</span>| |_<span class="o">)</span>| | | | | <span class="o">||</span> <span class="o">(</span>_| |  <span class="o">)</span> <span class="o">)</span> <span class="o">)</span> <span class="o">)</span>
+  <span class="s1">'  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+2024-03-05T01:51:52.610Z  INFO 1 --- [           main] c.x.springai.SpringAiApplicationKt       : Starting AOT-processed SpringAiApplicationKt using Java 17.0.10 with PID 1 (/workspace/com.xavierbouclet.springai.SpringAiApplicationKt started by cnb in /workspace)
+2024-03-05T01:51:52.610Z  INFO 1 --- [           main] c.x.springai.SpringAiApplicationKt       : No active profile set, falling back to 1 default profile: "default"
+2024-03-05T01:51:52.617Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-03-05T01:51:52.618Z  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-03-05T01:51:52.618Z  INFO 1 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-05T01:51:52.622Z  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-03-05T01:51:52.622Z  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 12 ms
+2024-03-05T01:51:52.646Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-03-05T01:51:52.661Z  INFO 1 --- [           main] c.x.springai.SpringAiApplicationKt       : Started SpringAiApplicationKt in 0.057 seconds (process running for 0.059)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The app starts in <strong>0.057 seconds</strong> and that&#8217;s pretty fast and could be a could candidate for a serverless application or a cli. The container size is <strong>44MB</strong> which is low for a Spring Boot application.</p>
+</div>
+<div class="paragraph">
+<p>You can use the curl commands given previously to test the docker flavour of the application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In my point of view, <strong>Spring AI</strong> is a nice way to integrate Open AI to your Spring Boot APP.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the final <a href="https://github.com/mikrethor/spring-ai">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/75355506/springboot-3-graalvm-native-image-stuck-forever-mac-m1">Stackoverflow - SpringBoot 3 GraalVM native-image stuck forever (Mac M1)</a></p>
+</li>
+<li>
+<p><a href="https://github.com/jamesburt-iw/Spring-AI-examples" class="bare">https://github.com/jamesburt-iw/Spring-AI-examples</a></p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-ai/reference/getting-started.html" class="bare">https://docs.spring.io/spring-ai/reference/getting-started.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Xavier Bouclet</name></author><summary type="html"><![CDATA[Integrate Open AI API to your Spring Boot application 1. Purpose of this blog post]]></summary></entry><entry><title type="html">Declarative REST client</title><link href="https://startbootstrap.github.io/2024/02/04/declarative-rest-client.html" rel="alternate" type="text/html" title="Declarative REST client" /><published>2024-02-04T00:00:00+00:00</published><updated>2024-02-04T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2024/02/04/declarative-rest-client</id><content type="html" xml:base="https://startbootstrap.github.io/2024/02/04/declarative-rest-client.html"><![CDATA[<h1>Declarative REST client</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To create a REST client easily with Spring, we often use <a href="https://github.com/OpenFeign/feign">feign</a>.
+For Spring Boot, we can use :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>org.springframework.cloud:spring-cloud-starter-openfeign for webmvc</p>
+</li>
+<li>
+<p>com.playtika.reactivefeign:feign-reactor-spring-cloud-starter for webflux</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There is no unified way of creating a feign client, at least prior to Spring Framework 6.</p>
+</div>
+<div class="paragraph">
+<p>Now, with Spring Framework 6 (or Spring Boot 3), we can leverage the declarative REST client.</p>
+</div>
+<div class="paragraph">
+<p>TODO &#8658; code</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_creating_a_declarative_rest_client">2. Creating a declarative REST client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s use the <a href="https://start.spring.io/#!type=maven-project">Spring Initialzr</a> to create the Spring Boot project.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Group : com.xavierbouclet</p>
+</li>
+<li>
+<p>Artifact : whiskies-api</p>
+</li>
+<li>
+<p>Project : Maven</p>
+</li>
+<li>
+<p>Language : Java</p>
+</li>
+<li>
+<p>Java : 17</p>
+</li>
+<li>
+<p>Dependencies :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Spring Web</p>
+</li>
+<li>
+<p>Spring Reactive Web</p>
+</li>
+<li>
+<p>Validation</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         <span class="na">xsi:schemaLocation=</span><span class="s">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+    <span class="nt">&lt;parent&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>3.0.5<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;relativePath/&gt;</span> <span class="c">&lt;!-- lookup parent from repository --&gt;</span>
+    <span class="nt">&lt;/parent&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.xavierbouclet<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>whiskies-api<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;name&gt;</span>whiskies-api<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;description&gt;</span>whiskies-api<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;properties&gt;</span>
+        <span class="nt">&lt;java.version&gt;</span>17<span class="nt">&lt;/java.version&gt;</span>
+    <span class="nt">&lt;/properties&gt;</span>
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-webflux<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-validation<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+
+    <span class="nt">&lt;build&gt;</span>
+        <span class="nt">&lt;plugins&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/build&gt;</span>
+<span class="nt">&lt;/project&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create an interface for our REST client.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">WhiskyService</span> <span class="o">{</span>
+
+    <span class="nd">@GetExchange</span><span class="o">(</span><span class="s">"/whiskies"</span><span class="o">)</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Whisky</span><span class="o">&gt;</span> <span class="nf">loadAll</span><span class="o">();</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">client</span><span class="pi">:</span>
+  <span class="na">whisky</span><span class="pi">:</span>
+    <span class="na">service</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">https://my-json-server.typicode.com/mikrethor/whiskies</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">import</span> <span class="nn">jakarta.validation.constraints.NotNull</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.validation.annotation.Validated</span><span class="o">;</span>
+
+<span class="nd">@Validated</span>
+<span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"client.whisky.service"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">record</span> <span class="nf">WhiskyClientProperties</span><span class="o">(</span><span class="nd">@NotNull</span> <span class="nc">String</span> <span class="n">url</span><span class="o">)</span> <span class="o">{</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">    <span class="nd">@Bean</span>
+    <span class="nc">WebClient</span> <span class="nf">webClient</span><span class="o">(</span><span class="nc">WhiskyClientProperties</span> <span class="n">whiskyClientProperties</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span>  <span class="nc">WebClient</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">baseUrl</span><span class="o">(</span><span class="n">whiskyClientProperties</span><span class="o">.</span><span class="na">url</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">defaultHeader</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">CONTENT_TYPE</span><span class="o">,</span> <span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nc">HttpServiceProxyFactory</span> <span class="nf">proxyFactory</span><span class="o">(</span><span class="nc">WebClient</span> <span class="n">client</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">HttpServiceProxyFactory</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="nc">WebClientAdapter</span><span class="o">.</span><span class="na">forClient</span><span class="o">(</span><span class="n">client</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nc">WhiskyService</span> <span class="nf">whiskyService</span><span class="o">(</span><span class="nc">HttpServiceProxyFactory</span> <span class="n">factory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="na">createClient</span><span class="o">(</span><span class="nc">WhiskyService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_adapt_the_client_for_webflux">3. Adapt the client for Webflux</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">WhiskyService</span> <span class="o">{</span>
+
+    <span class="nd">@GetExchange</span><span class="o">(</span><span class="s">"/whiskies"</span><span class="o">)</span>
+    <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">Whisky</span><span class="o">&gt;</span> <span class="nf">loadAll</span><span class="o">();</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In my point of view, <strong>Declarative REST client</strong> is a nicer way to declare REST client than Feign.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the final <a href="https://github.com/mikrethor/whiskies-api/tree/router-function">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Xavier Bouclet</name></author><summary type="html"><![CDATA[Declarative REST client 1. Purpose of this blog post]]></summary></entry><entry><title type="html">Functional Routing in Spring MVC</title><link href="https://startbootstrap.github.io/2023/03/26/functional-webmvc.html" rel="alternate" type="text/html" title="Functional Routing in Spring MVC" /><published>2023-03-26T00:00:00+00:00</published><updated>2023-03-26T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2023/03/26/functional-webmvc</id><content type="html" xml:base="https://startbootstrap.github.io/2023/03/26/functional-webmvc.html"><![CDATA[<h1>Functional Routing in Spring MVC</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I don&#8217;t understand why spring developers keep using RestControllers when a nicer way exists.
+May be you haven&#8217;t heard about Router Functions and Handler Functions, but they exist since the release of Spring Framework 5.0 in 2017 for Webflux and since Spring Framework 5.2 in 2019 for Spring MVC.</p>
+</div>
+<div class="paragraph">
+<p>I personally prefer to use Router Functions and Handler Functions instead of the rest controllers that have been around for while now.</p>
+</div>
+<div class="paragraph">
+<p>This blog post is to present to you Router Functions and Handler Functions.</p>
+</div>
+<div class="paragraph">
+<p>I am gonna start from a RestController and migrate it to RouterFunctions and HandlerFunctions.</p>
+</div>
+<div class="paragraph">
+<p>The starting point is available on <a href="https://github.com/mikrethor/whiskies-api">GITHUB</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_this_is_the_restcontroller_way">2. This is the (RestController) way!</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s see an example of RestController.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/api/whiskies"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WhiskyController</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">WhiskyRepository</span> <span class="n">postRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">WhiskyController</span><span class="o">(</span><span class="nc">WhiskyRepository</span> <span class="n">postRepository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">postRepository</span> <span class="o">=</span> <span class="n">postRepository</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Whisky</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">postRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Whisky</span> <span class="nf">findById</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="no">UUID</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">postRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">).</span><span class="na">orElseThrow</span><span class="o">(()-&gt;</span><span class="k">new</span> <span class="nc">ElementNotFoundException</span><span class="o">(</span><span class="n">id</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This controller defines 2 GET endpoints :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>/api/whiskies &#8594; that returns all the whiskies available</p>
+</li>
+<li>
+<p>/api/whiskies/c31f148e-e202-3e82-8ea8-2cb305c49322 &#8594; that returns the whisky corresponding to the id : c31f148e-e202-3e82-8ea8-2cb305c49322</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see the <strong>RestControllerAdvice</strong> that handles the errors.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@RestControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionHandlerAdvice</span> <span class="o">{</span>
+
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">ElementNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ProblemDetail</span> <span class="nf">handlePostNotFoundException</span><span class="o">(</span><span class="nc">ElementNotFoundException</span> <span class="n">exception</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">URISyntaxException</span> <span class="o">{</span>
+        <span class="nc">ProblemDetail</span> <span class="n">problemDetail</span> <span class="o">=</span> <span class="nc">ProblemDetail</span><span class="o">.</span><span class="na">forStatusAndDetail</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">,</span> <span class="n">exception</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="n">problemDetail</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="n">exception</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+        <span class="n">problemDetail</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="s">"http://localhost:8080/problems/post-not-found"</span><span class="o">));</span>
+        <span class="k">return</span> <span class="n">problemDetail</span><span class="o">;</span>
+
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When an <strong>ElementNotFound</strong> is thrown the controller advice intercepts the exception and allows us to return a proper response.</p>
+</div>
+<div class="paragraph">
+<p>Many of us are used to that king of Spring Programming but there is a better way <strong>Router function</strong>.</p>
+</div>
+<div class="paragraph">
+<p>We need to define a <strong>RouterFunction</strong> bean to define our routes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Configuration</span><span class="o">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RouterConfiguration</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">RouterFunction</span><span class="o">&lt;</span><span class="nc">ServerResponse</span><span class="o">&gt;</span> <span class="nf">whiskiesRouter</span><span class="o">(</span><span class="nc">WhiskyRepository</span> <span class="n">wr</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">route</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">GET</span><span class="o">(</span><span class="s">"/api/whiskies"</span><span class="o">,</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">wr</span><span class="o">.</span><span class="na">findAll</span><span class="o">()))</span>
+                <span class="o">.</span><span class="na">GET</span><span class="o">(</span><span class="s">"/api/whiskies/{id}"</span><span class="o">,</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                    <span class="kt">var</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">fromString</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">pathVariable</span><span class="o">(</span><span class="s">"id"</span><span class="o">));</span>
+                    <span class="k">return</span> <span class="nf">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">wr</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">).</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">ElementNotFoundException</span><span class="o">(</span><span class="n">id</span><span class="o">)));</span>
+                <span class="o">})</span>
+                <span class="o">.</span><span class="na">onError</span><span class="o">(</span><span class="nc">ElementNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+                        <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">req</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                            <span class="nc">ProblemDetail</span> <span class="n">problemDetail</span> <span class="o">=</span> <span class="nc">ProblemDetail</span><span class="o">.</span><span class="na">forStatusAndDetail</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+                            <span class="n">problemDetail</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="o">((</span><span class="nc">ElementNotFoundException</span><span class="o">)</span> <span class="n">e</span><span class="o">).</span><span class="na">getId</span><span class="o">());</span>
+                            <span class="k">try</span> <span class="o">{</span>
+                                <span class="n">problemDetail</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="s">"http://localhost:8080/problems/post-not-found"</span><span class="o">));</span>
+                                <span class="n">problemDetail</span><span class="o">.</span><span class="na">setInstance</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">requestPath</span><span class="o">().</span><span class="na">toString</span><span class="o">()));</span>
+                            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">URISyntaxException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+                                <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
+                            <span class="o">}</span>
+
+                            <span class="k">return</span> <span class="nc">EntityResponse</span><span class="o">.</span><span class="na">fromObject</span><span class="o">(</span><span class="n">problemDetail</span><span class="o">)</span>
+                                    <span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">)</span>
+                                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+                        <span class="o">})</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <strong>RouterFunction</strong> takes a <strong>ServerRequest</strong> and returns a <strong>ServerResponse</strong>.
+It&#8217;s a much nicer way to the all the routes especially when there are many controllers.</p>
+</div>
+<div class="paragraph">
+<p>But still, something is missing, we need to define handler functions to avoid too much code in the definition of our routes.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s define 2 handlers :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>WhiskyHandler &#8594; build the response of our /api/whiskies endpoints</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WhiskyHandler</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">WhiskyRepository</span> <span class="n">whiskyRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">WhiskyHandler</span><span class="o">(</span><span class="nc">WhiskyRepository</span> <span class="n">whiskyRepository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">whiskyRepository</span> <span class="o">=</span> <span class="n">whiskyRepository</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">ServerResponse</span> <span class="nf">getWhiskies</span><span class="o">(</span><span class="nc">ServerRequest</span> <span class="n">serverRequest</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">ServerResponse</span>
+                <span class="o">.</span><span class="na">ok</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">whiskyRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">ServerResponse</span> <span class="nf">getAWhiskyById</span><span class="o">(</span><span class="nc">ServerRequest</span> <span class="n">serverRequest</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">var</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">fromString</span><span class="o">(</span><span class="n">serverRequest</span><span class="o">.</span><span class="na">pathVariable</span><span class="o">(</span><span class="s">"id"</span><span class="o">));</span>
+        <span class="k">return</span> <span class="nc">ServerResponse</span>
+                <span class="o">.</span><span class="na">ok</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">whiskyRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">ElementNotFoundException</span><span class="o">(</span><span class="n">id</span><span class="o">)));</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It&#8217;s pretty straightforward and similar to the code from the RestController we started with. The thing missing is the api routes.
+And that the thing I like. The code building the response and the routes are not in the same place, so we can have a single piece of code to see all the routes.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ErrorHandler &#8594; build our error response when an error occurs</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ErrorHandler</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nc">ServerResponse</span> <span class="nf">elementNotFoundHandler</span><span class="o">(</span><span class="nc">Throwable</span> <span class="n">e</span><span class="o">,</span> <span class="nc">ServerRequest</span> <span class="n">serverRequest</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nc">ProblemDetail</span> <span class="n">problemDetail</span> <span class="o">=</span> <span class="nc">ProblemDetail</span><span class="o">.</span><span class="na">forStatusAndDetail</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="n">problemDetail</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="o">((</span><span class="nc">ElementNotFoundException</span><span class="o">)</span> <span class="n">e</span><span class="o">).</span><span class="na">getId</span><span class="o">());</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">problemDetail</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="s">"http://localhost:8080/problems/post-not-found"</span><span class="o">));</span>
+            <span class="n">problemDetail</span><span class="o">.</span><span class="na">setInstance</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="n">serverRequest</span><span class="o">.</span><span class="na">requestPath</span><span class="o">().</span><span class="na">toString</span><span class="o">()));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">URISyntaxException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="nc">EntityResponse</span><span class="o">.</span><span class="na">fromObject</span><span class="o">(</span><span class="n">problemDetail</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s rework the <strong>RouterFunction</strong> bean to properly use our handlers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Configuration</span><span class="o">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RouterConfiguration</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">RouterFunction</span><span class="o">&lt;</span><span class="nc">ServerResponse</span><span class="o">&gt;</span> <span class="nf">whiskiesRouter</span><span class="o">(</span><span class="nc">WhiskyHandler</span> <span class="n">whiskyHandler</span><span class="o">,</span> <span class="nc">ErrorHandler</span> <span class="n">errorHandler</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">route</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">GET</span><span class="o">(</span><span class="s">"/api/whiskies"</span><span class="o">,</span> <span class="nl">whiskyHandler:</span><span class="o">:</span><span class="n">getWhiskies</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">GET</span><span class="o">(</span><span class="s">"/api/whiskies/{id}"</span><span class="o">,</span> <span class="nl">whiskyHandler:</span><span class="o">:</span><span class="n">getAWhiskyById</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">onError</span><span class="o">(</span><span class="nc">ElementNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="nl">errorHandler:</span><span class="o">:</span><span class="n">elementNotFoundHandler</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Compared to the <strong>RestController</strong> way, we can really see what are the routes of our api.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_going_further">3. Going further</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.baeldung.com/spring-mvc-functional-controllers" class="bare">https://www.baeldung.com/spring-mvc-functional-controllers</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=TtA0_MEEjlM" class="bare">https://www.youtube.com/watch?v=TtA0_MEEjlM</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In my point of view, <strong>RouterFunction</strong> is a nicest way to declare endpoints.
+It has been around for a while now so don&#8217;t hesitate to use them.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the final <a href="https://github.com/mikrethor/whiskies-api/tree/router-function">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Xavier Bouclet</name></author><summary type="html"><![CDATA[Functional Routing in Spring MVC 1. Purpose of this blog post]]></summary></entry><entry><title type="html">Tryout Rust, Java on a CLI (no network)</title><link href="https://startbootstrap.github.io/2023/03/19/Tryout-Rust-Java-CLI-avoid-network.html" rel="alternate" type="text/html" title="Tryout Rust, Java on a CLI (no network)" /><published>2023-03-19T00:00:00+00:00</published><updated>2023-03-19T00:00:00+00:00</updated><id>https://startbootstrap.github.io/2023/03/19/Tryout-Rust-Java-CLI-avoid-network</id><content type="html" xml:base="https://startbootstrap.github.io/2023/03/19/Tryout-Rust-Java-CLI-avoid-network.html"><![CDATA[<h1>Tryout Rust, Java on a CLI (no network)</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When I published <a href="https://www.xavierbouclet.com/2023/03/12/Tryout-Rust-Java-CLI.html">my last blog post</a>, I got some feedback to improve the Rust version and I decided to remove the network factor.</p>
+</div>
+<div class="paragraph">
+<p>Instead of calling an API to get some UUID, we will indicate a file and iterate through it to look for the first N items.</p>
+</div>
+<div class="paragraph">
+<p>The parameters of the executable are :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PATH : path of the file containing the uuid</p>
+</li>
+<li>
+<p>COUNT : number of uuid to request</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you want to try out the code, you can check the project on <a href="https://github.com/mikrethor/uuid">GITHUB</a>.</p>
+</div>
+<div class="paragraph">
+<p>The results (compile time, execution time) have been obtained on a MacBook Pro (2021) M1 Max.</p>
+</div>
+<div class="paragraph">
+<p>I will do a Graal VM version to compare.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_contribution_on_uuid_rust_the_sync_version">2. Contribution on uuid-rust (the sync version)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First I want to say, that I got a contribution from Francis Lalonde on the code from last post to add a sync version equivalent to the rust code. If you want to check the <a href="https://github.com/mikrethor/uuid/pull/2">pull request</a>.</p>
+</div>
+<div class="paragraph">
+<p>And thanks to this contribution, I discovered <a href="https://github.com/sharkdp/hyperfine">a command-line benchmarking tool : hyperfine</a>.</p>
+</div>
+<div class="paragraph">
+<p>The code consists of a main file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="rust"><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">str</span><span class="p">::</span><span class="n">FromStr</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span> <span class="nn">anyhow</span><span class="p">::</span><span class="n">Error</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">args</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">std</span><span class="p">::</span><span class="nn">env</span><span class="p">::</span><span class="nf">args</span><span class="p">()</span><span class="nf">.collect</span><span class="p">();</span>
+    <span class="k">let</span> <span class="n">version</span> <span class="o">=</span> <span class="nn">u32</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">?</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">count</span> <span class="o">=</span> <span class="nn">u32</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="nd">format!</span><span class="p">(</span><span class="s">"https://www.uuidtools.com/api/generate/v{}/count/{}"</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+    <span class="k">let</span> <span class="n">uuids</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">ureq</span><span class="p">::</span><span class="nf">get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">url</span><span class="p">)</span>
+        <span class="nf">.call</span><span class="p">()</span><span class="o">?</span>
+        <span class="nf">.into_json</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="n">uuids</span><span class="nf">.iter</span><span class="p">()</span><span class="nf">.for_each</span><span class="p">(|</span><span class="n">uuid</span><span class="p">|</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">uuid</span><span class="p">));</span>
+    <span class="nf">Ok</span><span class="p">(())</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The sync Rust version is slightly better compared to the Java native executable.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rust</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">uuid/uuid-rust-sync <span class="o">[</span>🌱 master][📦 v0.1.0][ v1.68.0]
+❯ hyperfine <span class="nt">--runs</span> 50 <span class="s1">'./target/release/uuid-rust-sync 4 5'</span>
+
+Benchmark 1: ./target/release/uuid-rust-sync 4 5
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:     132.7 ms ±  16.4 ms    <span class="o">[</span>User: 4.0 ms, System: 4.4 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:   109.4 ms … 218.9 ms    50 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Graal VM</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">❯ hyperfine <span class="nt">--runs</span> 50 <span class="s1">'./target/uuid-java 4 5'</span>
+
+Benchmark 1: ./target/uuid-java 4 5
+  Time <span class="o">(</span>mean ± σ<span class="o">)</span>:     136.8 ms ±  10.0 ms    <span class="o">[</span>User: 14.1 ms, System: 9.5 ms]
+  Range <span class="o">(</span>min … max<span class="o">)</span>:   112.9 ms … 154.4 ms    50 runs</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So let&#8217;s try to remove the network factor and open a file to look for a number of uuid in a file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_uuid_rust">3. uuid-rust</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The code consists of a main file. The important thing is that I use serde for deserialization.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="rust"><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="n">fs</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">str</span><span class="p">::</span><span class="n">FromStr</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span> <span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span> <span class="nn">std</span><span class="p">::</span><span class="nn">error</span><span class="p">::</span><span class="n">Error</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">args</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">std</span><span class="p">::</span><span class="nn">env</span><span class="p">::</span><span class="nf">args</span><span class="p">()</span><span class="nf">.collect</span><span class="p">();</span>
+    <span class="k">let</span> <span class="n">file_path</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">let</span> <span class="n">count</span> <span class="o">=</span> <span class="nn">usize</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="k">let</span> <span class="n">content</span> <span class="o">=</span> <span class="nn">fs</span><span class="p">::</span><span class="nf">read_to_string</span><span class="p">(</span><span class="n">file_path</span><span class="p">);</span>
+
+    <span class="k">let</span> <span class="n">uuids</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">serde_json</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="o">&amp;</span><span class="n">content</span><span class="o">?</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="n">uuids</span><span class="nf">.iter</span><span class="p">()</span><span class="nf">.take</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="nf">.for_each</span><span class="p">(|</span><span class="n">uuid</span><span class="p">|</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">uuid</span><span class="p">));</span>
+
+    <span class="nf">Ok</span><span class="p">(())</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_uuid_java">4. uuid-java</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The code consists of a main class. The important thing is that I use the Jackson library to deserialize my response into a list of UUID.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="nn">com.xavierbouclet</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.core.type.TypeReference</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.file.Paths</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="kt">var</span> <span class="n">filepath</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="kt">var</span> <span class="n">count</span> <span class="o">=</span> <span class="nc">Long</span><span class="o">.</span><span class="na">parseLong</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+        <span class="nc">ObjectMapper</span> <span class="n">objectMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectMapper</span><span class="o">();</span>
+
+        <span class="n">objectMapper</span><span class="o">.</span><span class="na">readValue</span><span class="o">(</span><span class="nc">Files</span><span class="o">.</span><span class="na">readString</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">filepath</span><span class="o">)),</span> <span class="k">new</span> <span class="nc">TypeReference</span><span class="o">&lt;</span><span class="nc">List</span><span class="o">&lt;</span><span class="no">UUID</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
+        <span class="o">}).</span><span class="na">stream</span><span class="o">().</span><span class="na">limit</span><span class="o">(</span><span class="n">count</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span>
+        <span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="5_lets_run_some_tests">5 Let&#8217;s run some tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The tests consist of calling our executable with a json file and requesting a number of uuids in it.</p>
+</div>
+<div class="paragraph">
+<p>Example of file :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">[</span><span class="w">
+  </span><span class="s2">"40aef568-bca6-4b15-a367-f15964cab651"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"6e3f166c-eff4-41b4-8b3d-c72116bf6f2d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"07fd7a9e-0e1e-45fc-a202-72ed73902b56"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"e96128f9-1ec0-490f-85eb-9e6e9e07f47f"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"5d5c9320-d610-42fc-8cf9-710158669749"</span><span class="w">
+</span><span class="p">]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The file uuids.json contains 100 uuids and the files uuids2.json contains 83162 uuids.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s run some tests.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rust</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids.json" 5'</span>
+
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids.json"</span> 5
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:       0.6 ms ±   0.5 ms    <span class="o">[</span>User: 0.5 ms, System: 0.3 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:     0.1 ms …   2.6 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 5'</span>
+
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 5
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:       7.9 ms ±   1.2 ms    <span class="o">[</span>User: 6.0 ms, System: 1.7 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:     6.8 ms …  13.9 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 1000'</span>
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 1000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:       8.9 ms ±   0.4 ms    <span class="o">[</span>User: 6.2 ms, System: 2.2 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:     8.3 ms …  11.3 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>10000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 10000'</span>
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 10000
+  Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      14.2 ms ±   0.7 ms    <span class="o">[</span>User: 8.1 ms, System: 5.6 ms]
+  Range <span class="o">(</span>min … max<span class="o">)</span>:    13.5 ms …  18.8 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>40000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 40000'</span>
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 40000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      31.6 ms ±   0.6 ms    <span class="o">[</span>User: 14.2 ms, System: 16.8 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:    30.9 ms …  33.8 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>80000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 80000'</span>
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 80000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      54.7 ms ±   0.8 ms    <span class="o">[</span>User: 22.3 ms, System: 31.7 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:    53.0 ms …  59.1 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Graal VM</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids.json" 5'</span>
+
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids.json"</span> 5
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      10.3 ms ±   1.1 ms    <span class="o">[</span>User: 4.0 ms, System: 3.5 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:     9.0 ms …  13.7 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 5'</span>
+
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 5
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      39.1 ms ±   2.2 ms    <span class="o">[</span>User: 29.7 ms, System: 6.0 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:    36.6 ms …  45.7 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 1000'</span>
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 1000
+  Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      40.0 ms ±   1.0 ms    <span class="o">[</span>User: 30.2 ms, System: 6.1 ms]
+  Range <span class="o">(</span>min … max<span class="o">)</span>:    38.8 ms …  43.6 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>10000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 10000'</span>
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 10000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      49.9 ms ±   1.2 ms    <span class="o">[</span>User: 36.2 ms, System: 9.8 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:    48.5 ms …  53.2 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>40000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 40000'</span>
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 40000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      81.9 ms ±   1.4 ms    <span class="o">[</span>User: 55.8 ms, System: 22.0 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:    79.8 ms …  86.2 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>80000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 80000'</span>
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 80000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:     123.2 ms ±   1.5 ms    <span class="o">[</span>User: 81.7 ms, System: 37.6 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:   121.3 ms … 131.7 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can see on the following graph that Rust is more performant than Java with Graal VM.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2023-03-19-rust-vs-java.png" alt="Rust compared to GraalVM">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="6_conclusion">6. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rust overall is more performant than Java with Graal VM.
+And we can see, that more item we output it says consistant.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the <a href="https://github.com/mikrethor/uuid">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Xavier Bouclet</name></author><summary type="html"><![CDATA[Tryout Rust, Java on a CLI (no network) 1. Purpose of this blog post]]></summary></entry></feed>

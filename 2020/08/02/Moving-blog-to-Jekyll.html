@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Moving my blog to Jekyll - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Moving my blog to Jekyll Why moving away from Hubpress">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2020/08/02/Moving-blog-to-Jekyll.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2020-08-02-Jekyll.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Moving my blog to Jekyll</h1>
+            
+            <h2 class="subheading">Why moving away from Hubpress</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on August 02, 2020 &middot; <span class="reading-time" title="Estimated read time">
+  
+   4 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Moving my blog to Jekyll</h1>
+<div class="sect1">
+<h2 id="why_moving_away_from_hubpress">Why moving away from Hubpress</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A few weeks ago, I decided to move my blog from Hubpress to something else.
+Indeed, Hubpress is not maintained anymore and I wanted someting close enough to want I had.
+Meaning, asciidoc (or markdown) based, publishable easily on Github Pages and with the possibility to get feedback from my audience (who knows ?).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="solution_considered">Solution considered</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After a few minutes on the web, I decided to look more into <a href="https://gohugo.io">Hugo</a> and <a href="https://jekyllrb.com">Jekyll</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="hugo">Hugo</h3>
+<div class="paragraph">
+<p>Hugo is written in Go and is a static website generator.
+It&#8217;s possible to use Asciidoc or Markdown and it seems to be able to use Disqus which is the comment solution I already used with Hubpress.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jekyll">Jekyll</h3>
+<div class="paragraph">
+<p>I already use Jekyll because it&#8217;s the solution we use for the <a href="https://www.montreal-jug.org">Montreal Jug Website</a>.
+Same as Hugo, Jekyll is a static website generator. It&#8217;s possible to use Asciidoc or Markdown and Disqus.
+Instead of Hugo, it&#8217;s written in Ruby.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jbake">JBake</h3>
+<div class="paragraph">
+<p>For the ones considering JBake, I moved from <a href="https://www.montreal-jug.org">JBake</a> a long time ago as you can read in my <a href="../../../2017/10/29/From-J-Bke-to-Hubpress.html">post</a> on that.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="decision">Decision</h3>
+<div class="paragraph">
+<p>I decided to go with Jekyll as I am already familiar with it and I don&#8217;t care about performance.
+The ones who do should consider Hugo.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="theme">Theme</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I did some research on the web to start with a pre-existing theme and I went with <a href="https://startbootstrap.com/themes/clean-blog-jekyll/">Clean Blog</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="commenting">Commenting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As I said, I already use Disqus so I didn&#8217;t want to change.
+I would like a solution where the content doesn&#8217;t belong to me but at the moment I didn&#8217;t find any that meets my needs of owning my content.
+I am considering to move away from Disqus at some point for <a href="https://utteranc.es">utterances</a> that is based on Github Issues but I will be still not owning my content.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="blog_migration">Blog migration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I was already using asciidoc so I copied all my asciidoc files directly to the post folder in Jekyll.
+Everything went smoothly and all the posts where generated to HTML with all the informations needed.</p>
+</div>
+<div class="paragraph">
+<p>I add to adapt the images path with the new one in some asciidoc files contening pictures but a quick CMD+R helped me to change all the files in a nutshell.</p>
+</div>
+<div class="paragraph">
+<p>So I avoided having to develop a batch to process all my asciidoc to migrate but with a lot more content it would have been the solution I would have used.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="automate_the_deployment">Automate the deployment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I had never tried "Github Actions" before so I decided to give it a try and it was as easy as following this <a href="https://jekyllrb.com/docs/continuous-integration/github-actions/">procedure</a>.</p>
+</div>
+<div class="paragraph">
+<p>I took a few minutes to generate "et voilà !"</p>
+</div>
+<div class="paragraph">
+<p>And now, because you are reading those lines I guess everything worked fine.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I miss Hubpress which has a web interface to edit the asciidoc but it&#8217;s completely replaced by the automating of the deployement to the Github Pages.</p>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2020/02/03/Mon-premier-livre-electronique-La-dure-vie-de-Tech-Lead.html" data-toggle="tooltip" data-placement="top" title="Mon premier livre électronique : La dure vie de TechLead">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2021/01/10/Which-alternatives-to-go-native-for-an-api-with-java.html" data-toggle="tooltip" data-placement="top" title="Which alternatives could be used to make an api with GraalVM">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

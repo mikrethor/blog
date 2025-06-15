@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Integrate Open AI API to your Spring Boot application - part 2 - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Integrate Open AI API to your Spring Boot application - part 2 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2024/03/10/spring-ai-integration-image.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/2024-03-05-open-api.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Integrate Open AI API to your Spring Boot application - part 2</h1>
+            
+            <h2 class="subheading">Open AI API</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on March 10, 2024 &middot; <span class="reading-time" title="Estimated read time">
+  
+   6 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Integrate Open AI API to your Spring Boot application - part 2</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At the moment, we are all trying to find the best way to integrate our system to Open AI.
+In this blog post, I will show you how to integrate Open AI API in your Spring Boot application to generate an image. This blog post is the second part of the series. In <a href="../04/spring-ai-integration">the first part</a>, I showed you how to integrate Open AI API in your Spring Boot application to generate a text.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_adapt_the_existing_app_to_add_an_image_endpoint">2. Adapt the existing app to add an image endpoint</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First we need to add a new endpoint to our application. We will use the same approach as in the previous blog post.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"> <span class="nd">@Bean</span>
+    <span class="k">fun</span> <span class="nf">aiRouter</span><span class="p">(</span><span class="n">chatClient</span><span class="p">:</span> <span class="nc">OpenAiChatClient</span><span class="p">,</span> <span class="n">imageClient</span><span class="p">:</span> <span class="nc">OpenAiImageClient</span><span class="p">)</span> <span class="p">=</span> <span class="nf">router</span> <span class="p">{</span>
+        <span class="o">..</span><span class="p">.</span>
+		<span class="nc">GET</span><span class="p">(</span><span class="s">"/api/ai/generateImage"</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="nc">ServerResponse</span>
+                <span class="p">.</span><span class="nf">ok</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">contentType</span><span class="p">(</span><span class="nc">MediaType</span><span class="p">.</span><span class="nf">parseMediaType</span><span class="p">(</span><span class="s">"application/zip"</span><span class="p">))</span>
+                <span class="p">.</span><span class="nf">body</span><span class="p">(</span>
+                    <span class="nf">imageResponse</span><span class="p">(</span><span class="n">imageClient</span><span class="p">,</span> <span class="n">request</span>
+                        <span class="p">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+                        <span class="p">.</span><span class="nf">orElse</span><span class="p">(</span><span class="s">"A photo of a cat"</span><span class="p">))</span>
+                <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="o">..</span><span class="p">.</span>
+    <span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The &#8230;&#8203; means that I removed some code to focus on the important part.</p>
+</div>
+<div class="paragraph">
+<p>As we can see, we now use an <strong>OpenAiImageClient</strong> to generate the image.
+The imageResponse method is used to call this client and download the generated the image.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">RouterConfiguration</span> <span class="p">{</span>
+    <span class="o">..</span><span class="p">.</span>
+    <span class="k">private</span> <span class="k">fun</span> <span class="nf">imageResponse</span><span class="p">(</span><span class="n">imageClient</span><span class="p">:</span> <span class="nc">OpenAiImageClient</span><span class="p">):</span> <span class="nc">ByteArray</span> <span class="p">{</span>
+
+        <span class="kd">val</span> <span class="py">imageResponse</span> <span class="p">=</span> <span class="n">imageClient</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
+			<span class="nc">ImagePrompt</span><span class="p">(</span>
+                <span class="n">instruction</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="kd">val</span> <span class="py">imageInBase64</span> <span class="p">=</span> <span class="n">imageResponse</span><span class="p">.</span><span class="n">result</span><span class="p">.</span><span class="n">output</span><span class="p">.</span><span class="n">b64Json</span>
+
+
+        <span class="kd">val</span> <span class="py">files</span> <span class="p">=</span> <span class="n">imageResponse</span><span class="p">.</span><span class="n">results</span><span class="p">.</span><span class="nf">asSequence</span><span class="p">().</span><span class="nf">withIndex</span><span class="p">().</span><span class="nf">map</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">test</span> <span class="p">=</span> <span class="n">imageInBase64</span><span class="p">.</span><span class="nf">decodeFromBase64</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">output</span><span class="p">.</span><span class="n">b64Json</span><span class="p">)</span>
+            <span class="nc">Pair</span><span class="p">(</span><span class="s">"${it.index}.png"</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+        <span class="p">}.</span><span class="nf">toMap</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="nc">ZipUtilities</span><span class="p">.</span><span class="nf">createZipFile</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The &#8230;&#8203; means that I removed some code to focus on the important part.</p>
+</div>
+<div class="paragraph">
+<p>Spring AI would be able to download more than one image but the Open AI API only returns one image. The code could handle more than one image if the API returns more than one image.
+Because Spring AI support other API to generate images such as <a href="https://stability.ai/news/api-platform-for-stability-ai">Stability API</a>.
+The <strong>ZipUtilities</strong> and its <strong>createZipFile</strong> method are used to create a zip file from with as many image as the map contains.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="kd">object</span> <span class="nc">ZipUtilities</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nf">createZipFile</span><span class="p">(</span><span class="n">pngFiles</span><span class="p">:</span> <span class="nc">Map</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="nc">ByteArray</span><span class="p">&gt;):</span> <span class="nc">ByteArray</span> <span class="p">{</span>
+        <span class="nc">ByteArrayOutputStream</span><span class="p">().</span><span class="nf">use</span> <span class="p">{</span> <span class="n">baos</span> <span class="p">-&gt;</span>
+            <span class="nc">ZipOutputStream</span><span class="p">(</span><span class="n">baos</span><span class="p">).</span><span class="nf">use</span> <span class="p">{</span> <span class="n">zos</span> <span class="p">-&gt;</span>
+                <span class="n">pngFiles</span><span class="p">.</span><span class="nf">forEach</span> <span class="p">{</span> <span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="n">fileContent</span><span class="p">)</span> <span class="p">-&gt;</span>
+                    <span class="kd">val</span> <span class="py">entry</span> <span class="p">=</span> <span class="nc">ZipEntry</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
+                    <span class="n">zos</span><span class="p">.</span><span class="nf">putNextEntry</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+                    <span class="n">zos</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">fileContent</span><span class="p">)</span>
+                    <span class="n">zos</span><span class="p">.</span><span class="nf">closeEntry</span><span class="p">()</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">baos</span><span class="p">.</span><span class="nf">toByteArray</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To try our endpoint we can use the following curl command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl <span class="s2">"localhost:8080/api/ai/generateImage"</span> <span class="nt">-o</span> image.zip</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The image.zip file should contain a photo of a cat.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>image.zip
+	|- 0.png</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>0 is the index of the image in the return result.</p>
+</div>
+<div class="paragraph">
+<p>If you want to adapt the message to personalize the image, you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl <span class="s2">"localhost:8080/api/ai/generateImage?message=a%20photo%20of%20a%20dog"</span> <span class="nt">-o</span> image.zip</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_conclusion">3. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In my point of view, <strong>Spring AI</strong> is a nice way to integrate Open AI to your Spring Boot APP.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the final <a href="https://github.com/mikrethor/spring-ai">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/75355506/springboot-3-graalvm-native-image-stuck-forever-mac-m1">Stackoverflow - SpringBoot 3 GraalVM native-image stuck forever (Mac M1)</a></p>
+</li>
+<li>
+<p><a href="https://github.com/jamesburt-iw/Spring-AI-examples" class="bare">https://github.com/jamesburt-iw/Spring-AI-examples</a></p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-ai/reference/getting-started.html" class="bare">https://docs.spring.io/spring-ai/reference/getting-started.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2024/03/04/spring-ai-integration.html" data-toggle="tooltip" data-placement="top" title="Integrate Open AI API to your Spring Boot application">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2024/03/16/install-ollama.html" data-toggle="tooltip" data-placement="top" title="Use AI models on your computer with Ollama">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

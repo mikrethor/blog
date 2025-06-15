@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Integrate Open AI API to your Spring Boot application - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Integrate Open AI API to your Spring Boot application 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2024/03/04/spring-ai-integration.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/2024-03-05-open-api.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Integrate Open AI API to your Spring Boot application</h1>
+            
+            <h2 class="subheading">Open AI API</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on March 04, 2024 &middot; <span class="reading-time" title="Estimated read time">
+  
+   14 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Integrate Open AI API to your Spring Boot application</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At the moment, we are all trying to find the best way to integrate our system to Open AI.
+In this blog post, I will show you how to integrate Open AI API to your Spring Boot application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_creating_a_open_api_integration_with_spring_boot">2. Creating a Open API integration with Spring Boot</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s use the <a href="https://start.spring.io/">Spring Initialzr</a> to create the Spring Boot project.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Group : com.xavierbouclet</p>
+</li>
+<li>
+<p>Artifact : spring-ai</p>
+</li>
+<li>
+<p>Project : Gradle - Kotlin</p>
+</li>
+<li>
+<p>Language : Kotlin</p>
+</li>
+<li>
+<p>Java : 17</p>
+</li>
+<li>
+<p>Dependencies :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Spring Web</p>
+</li>
+<li>
+<p>OpenAI</p>
+</li>
+<li>
+<p>GraalVM</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>build.gradle.kts</code> file should look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kts">import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+	id("org.springframework.boot") version "3.2.3"
+	id("io.spring.dependency-management") version "1.1.4"
+	id("org.graalvm.buildtools.native") version "0.9.28"
+	kotlin("jvm") version "1.9.22"
+	kotlin("plugin.spring") version "1.9.22"
+}
+
+group = "com.xavierbouclet"
+version = "0.0.1-SNAPSHOT"
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+	mavenCentral()
+	maven { url = uri("https://repo.spring.io/milestone") }
+}
+
+extra["springAiVersion"] = "0.8.0"
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.ai:spring-ai-bom:${property("springAiVersion")}")
+	}
+}
+
+tasks.withType&lt;KotlinCompile&gt; {
+	kotlinOptions {
+		freeCompilerArgs += "-Xjsr305=strict"
+		jvmTarget = "17"
+	}
+}
+
+tasks.withType&lt;Test&gt; {
+	useJUnitPlatform()
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create a simple configuration file with a router.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="k">import</span> <span class="nn">org.springframework.ai.chat.messages.UserMessage</span>
+<span class="k">import</span> <span class="nn">org.springframework.ai.chat.prompt.Prompt</span>
+<span class="k">import</span> <span class="nn">org.springframework.ai.openai.OpenAiChatClient</span>
+<span class="k">import</span> <span class="nn">org.springframework.context.annotation.Bean</span>
+<span class="k">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span>
+<span class="k">import</span> <span class="nn">org.springframework.web.servlet.function.ServerResponse</span>
+<span class="k">import</span> <span class="nn">org.springframework.web.servlet.function.router</span>
+
+<span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">RouterConfiguration</span> <span class="p">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="k">fun</span> <span class="nf">aiRouter</span><span class="p">(</span><span class="n">chatClient</span><span class="p">:</span> <span class="nc">OpenAiChatClient</span><span class="p">)</span> <span class="p">=</span> <span class="nf">router</span> <span class="p">{</span>
+        <span class="nc">GET</span><span class="p">(</span><span class="s">"/api/ai/generate"</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="nc">ServerResponse</span>
+                <span class="p">.</span><span class="nf">ok</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">body</span><span class="p">(</span>
+                    <span class="n">chatClient</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
+                        <span class="n">request</span>
+                            <span class="p">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+                            <span class="p">.</span><span class="nf">orElse</span><span class="p">(</span><span class="s">"Tell me a chuck norris fact"</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nc">GET</span><span class="p">(</span><span class="s">"/api/ai/generateStream"</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="nc">ServerResponse</span>
+                <span class="p">.</span><span class="nf">ok</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">body</span><span class="p">(</span><span class="n">chatClient</span><span class="p">.</span><span class="nf">stream</span><span class="p">(</span>
+                    <span class="nc">Prompt</span><span class="p">(</span>
+                        <span class="nc">UserMessage</span><span class="p">(</span>
+                            <span class="n">request</span>
+                                <span class="p">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+                                <span class="p">.</span><span class="nf">orElse</span><span class="p">(</span><span class="s">"Tell me a chuck norris fact"</span><span class="p">)</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">).</span><span class="nf">mapNotNull</span> <span class="p">{</span> <span class="n">chatResp</span> <span class="p">-&gt;</span> <span class="n">chatResp</span><span class="o">?.</span><span class="n">result</span><span class="o">?.</span><span class="n">output</span><span class="o">?.</span><span class="n">content</span> <span class="p">}</span>
+                    <span class="p">.</span><span class="nf">toStream</span><span class="p">()</span>
+                    <span class="p">.</span><span class="nf">toList</span><span class="p">()</span>
+                <span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use the Open AI API, you need to create an account on Open AI and get an API key.
+Then, you can use the following configuration to set the API key.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">ai</span><span class="pi">:</span>
+    <span class="na">openai</span><span class="pi">:</span>
+      <span class="na">api-key</span><span class="pi">:</span> <span class="s">${OPEN_AI_KEY}</span>
+      <span class="na">chat</span><span class="pi">:</span>
+        <span class="na">options</span><span class="pi">:</span>
+          <span class="na">model</span><span class="pi">:</span> <span class="s">gpt-3.5-turbo</span>
+          <span class="na">temperature</span><span class="pi">:</span> <span class="s">0.7</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nb">export </span><span class="nv">OPEN_AI_KEY</span><span class="o">=</span>your-open-ai-key</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To build your application, you can use the following Gradle command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">./gradlew bootJar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To execute the jar you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">java <span class="nt">-jar</span> build/libs/spring-ai-0.0.1-SNAPSHOT.jar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To test your API you can try the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nv">$ </span>curl localhost:8080/api/ai/generate
+
+Chuck Norris doesn<span class="s1">'t do push-ups. He pushes the Earth down.%</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Because, the generate witout parameter will use the default message "Tell me a chuck norris fact".
+We can specify a message by adding a specific message in the URL.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl <span class="s2">"localhost:8080/api/ai/generate?message=explain%20me%20spring%20boot"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We could also you the generateStream endpoint to get a stream of messages.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">curl <span class="s2">"localhost:8080/api/ai/generateStream?message=explain%20me%20spring%20boot"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The answer should look like this :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="o">[</span><span class="s2">""</span>,<span class="s2">"Spring"</span>,<span class="s2">" Boot"</span>,<span class="s2">" is"</span>,<span class="s2">" an"</span>,<span class="s2">" open"</span>,<span class="s2">"-source"</span>,<span class="s2">" Java"</span>,<span class="s2">"-based"</span>,<span class="s2">" framework"</span>,<span class="s2">" that"</span>,<span class="s2">" is"</span>,<span class="s2">" used"</span>,<span class="s2">" to"</span>,<span class="s2">" create"</span>,<span class="s2">" stand"</span>,<span class="s2">"-alone"</span>,<span class="s2">","</span>,<span class="s2">" production"</span>,<span class="s2">"-grade"</span>,<span class="s2">" Spring"</span>,<span class="s2">"-based"</span>,<span class="s2">" applications"</span>,<span class="s2">"."</span>,<span class="s2">" It"</span>,<span class="s2">" provides"</span>,<span class="s2">" a"</span>,<span class="s2">" pre"</span>,<span class="s2">"-config"</span>,<span class="s2">"ured"</span>,<span class="s2">" set"</span>,<span class="s2">" of"</span>,<span class="s2">" tools"</span>,<span class="s2">" and"</span>,<span class="s2">" libraries"</span>,<span class="s2">" to"</span>,<span class="s2">" simplify"</span>,<span class="s2">" the"</span>,<span class="s2">" process"</span>,<span class="s2">" of"</span>,<span class="s2">" building"</span>,<span class="s2">" and"</span>,<span class="s2">" deploying"</span>,<span class="s2">" applications"</span>,<span class="s2">"."</span>,<span class="s2">" </span><span class="se">\n\n</span><span class="s2">"</span>,<span class="s2">"Spring"</span>,<span class="s2">" Boot"</span>,<span class="s2">" aims"</span>,<span class="s2">" to"</span>,<span class="s2">" streamline"</span>,<span class="s2">" the"</span>,<span class="s2">" development"</span>,<span class="s2">" process"</span>,<span class="s2">" by"</span>,<span class="s2">" providing"</span>,<span class="s2">" a"</span>,<span class="s2">" convention"</span>,<span class="s2">"-over"</span>,<span class="s2">"-"</span>,<span class="s2">"configuration"</span>,<span class="s2">" approach"</span>,<span class="s2">","</span>,<span class="s2">" meaning"</span>,<span class="s2">" that"</span>,<span class="s2">" developers"</span>,<span class="s2">" can"</span>,<span class="s2">" quickly"</span>,<span class="s2">" set"</span>,<span class="s2">" up"</span>,<span class="s2">" a"</span>,<span class="s2">" project"</span>,<span class="s2">" without"</span>,<span class="s2">" having"</span>,<span class="s2">" to"</span>,<span class="s2">" spend"</span>,<span class="s2">" time"</span>,<span class="s2">" on"</span>,<span class="s2">" configuring"</span>,<span class="s2">" various"</span>,<span class="s2">" components"</span>,<span class="s2">"."</span>,<span class="s2">" It"</span>,<span class="s2">" also"</span>,<span class="s2">" includes"</span>,<span class="s2">" embedded"</span>,<span class="s2">" servers"</span>,<span class="s2">","</span>,<span class="s2">" such"</span>,<span class="s2">" as"</span>,<span class="s2">" Tom"</span>,<span class="s2">"cat"</span>,<span class="s2">","</span>,<span class="s2">" Jet"</span>,<span class="s2">"ty"</span>,<span class="s2">","</span>,<span class="s2">" or"</span>,<span class="s2">" Undert"</span>,<span class="s2">"ow"</span>,<span class="s2">","</span>,<span class="s2">" allowing"</span>,<span class="s2">" applications"</span>,<span class="s2">" to"</span>,<span class="s2">" be"</span>,<span class="s2">" run"</span>,<span class="s2">" as"</span>,<span class="s2">" standalone"</span>,<span class="s2">" J"</span>,<span class="s2">"AR"</span>,<span class="s2">" files"</span>,<span class="s2">" without"</span>,<span class="s2">" the"</span>,<span class="s2">" need"</span>,<span class="s2">" for"</span>,<span class="s2">" a"</span>,<span class="s2">" separate"</span>,<span class="s2">" server"</span>,<span class="s2">" installation"</span>,<span class="s2">".</span><span class="se">\n\n</span><span class="s2">"</span>,<span class="s2">"Additionally"</span>,<span class="s2">","</span>,<span class="s2">" Spring"</span>,<span class="s2">" Boot"</span>,<span class="s2">" offers"</span>,<span class="s2">" built"</span>,<span class="s2">"-in"</span>,<span class="s2">" support"</span>,<span class="s2">" for"</span>,<span class="s2">" aspects"</span>,<span class="s2">" such"</span>,<span class="s2">" as"</span>,<span class="s2">" security"</span>,<span class="s2">","</span>,<span class="s2">" logging"</span>,<span class="s2">","</span>,<span class="s2">" monitoring"</span>,<span class="s2">","</span>,<span class="s2">" and"</span>,<span class="s2">" testing"</span>,<span class="s2">","</span>,<span class="s2">" making"</span>,<span class="s2">" it"</span>,<span class="s2">" easier"</span>,<span class="s2">" for"</span>,<span class="s2">" developers"</span>,<span class="s2">" to"</span>,<span class="s2">" create"</span>,<span class="s2">" robust"</span>,<span class="s2">" and"</span>,<span class="s2">" scalable"</span>,<span class="s2">" applications"</span>,<span class="s2">"."</span>,<span class="s2">" It"</span>,<span class="s2">" also"</span>,<span class="s2">" integrates"</span>,<span class="s2">" seamlessly"</span>,<span class="s2">" with"</span>,<span class="s2">" other"</span>,<span class="s2">" Spring"</span>,<span class="s2">" projects"</span>,<span class="s2">","</span>,<span class="s2">" such"</span>,<span class="s2">" as"</span>,<span class="s2">" Spring"</span>,<span class="s2">" Framework"</span>,<span class="s2">","</span>,<span class="s2">" Spring"</span>,<span class="s2">" Data"</span>,<span class="s2">","</span>,<span class="s2">" and"</span>,<span class="s2">" Spring"</span>,<span class="s2">" Security"</span>,<span class="s2">","</span>,<span class="s2">" allowing"</span>,<span class="s2">" developers"</span>,<span class="s2">" to"</span>,<span class="s2">" leverage"</span>,<span class="s2">" the"</span>,<span class="s2">" full"</span>,<span class="s2">" power"</span>,<span class="s2">" of"</span>,<span class="s2">" the"</span>,<span class="s2">" Spring"</span>,<span class="s2">" ecosystem"</span>,<span class="s2">".</span><span class="se">\n\n</span><span class="s2">"</span>,<span class="s2">"Overall"</span>,<span class="s2">","</span>,<span class="s2">" Spring"</span>,<span class="s2">" Boot"</span>,<span class="s2">" is"</span>,<span class="s2">" a"</span>,<span class="s2">" powerful"</span>,<span class="s2">" framework"</span>,<span class="s2">" that"</span>,<span class="s2">" simpl"</span>,<span class="s2">"ifies"</span>,<span class="s2">" the"</span>,<span class="s2">" development"</span>,<span class="s2">" process"</span>,<span class="s2">" and"</span>,<span class="s2">" helps"</span>,<span class="s2">" developers"</span>,<span class="s2">" create"</span>,<span class="s2">" high"</span>,<span class="s2">"-quality"</span>,<span class="s2">","</span>,<span class="s2">" production"</span>,<span class="s2">"-ready"</span>,<span class="s2">" applications"</span>,<span class="s2">" quickly"</span>,<span class="s2">" and"</span>,<span class="s2">" efficiently"</span>,<span class="s2">"."</span><span class="o">]</span>%</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_open_ai_with_graalvm">3. Open AI with GraalVM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The purpose of this blog post is not to explain how to use GraalVM, but to show you how to use it with Spring Boot. So if you need to install it please refer to the <a href="https://www.graalvm.org/22.0/docs/getting-started/">official documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>To build a native image, you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">./gradlew bootBuildImage</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If like me, you are on a MAC and an ARM64 architecture, you need to use the following task in your gradle build file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="n">tasks</span><span class="p">.</span><span class="n">withType</span><span class="p">&lt;</span><span class="nc">BootBuildImage</span><span class="p">&gt;</span> <span class="p">{</span>
+	<span class="kd">val</span> <span class="py">osName</span> <span class="p">=</span> <span class="nc">System</span><span class="p">.</span><span class="nf">getProperty</span><span class="p">(</span><span class="s">"os.name"</span><span class="p">).</span><span class="nf">lowercase</span><span class="p">()</span>
+	<span class="kd">val</span> <span class="py">arch</span> <span class="p">=</span> <span class="nc">System</span><span class="p">.</span><span class="nf">getProperty</span><span class="p">(</span><span class="s">"os.arch"</span><span class="p">)</span>
+
+	<span class="kd">val</span> <span class="py">runningOnM1Mac</span> <span class="p">=</span> <span class="s">"mac"</span> <span class="k">in</span> <span class="n">osName</span> <span class="p">&amp;&amp;</span> <span class="n">arch</span> <span class="p">==</span> <span class="s">"aarch64"</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">runningOnM1Mac</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">builder</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="s">"dashaun/builder:tiny"</span><span class="p">)</span>
+		<span class="n">environment</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="nf">mapOf</span><span class="p">(</span><span class="s">"BP_NATIVE_IMAGE"</span> <span class="n">to</span> <span class="s">"true"</span><span class="p">))</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The bootBuildImage command should end with a success message.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">Deprecated Gradle features were used <span class="k">in </span>this build, making it incompatible with Gradle 9.0.
+
+You can use <span class="s1">'--warning-mode all'</span> to show the individual deprecation warnings and determine <span class="k">if </span>they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.5/userguide/command_line_interface.html#sec:command_line_warnings <span class="k">in </span>the Gradle documentation.
+
+BUILD SUCCESSFUL <span class="k">in </span>6m 13s
+10 actionable tasks: 2 executed, 8 up-to-date</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To find the container, you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="nv">$ </span>docker images | <span class="nb">grep </span>spring-ai
+spring-ai                                           0.0.1-SNAPSHOT         d66dd3be8bb9   44 years ago    130MB</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To start the container, you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">docker run <span class="nt">-e</span> <span class="nv">OPEN_AI_KEY</span><span class="o">=</span><span class="nv">$OPEN_AI_KEY</span> <span class="nt">-p</span> 8080:8080 spring-ai:0.0.1-SNAPSHOT</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <strong>OPEN_AI_KEY=$OPEN_AI_KEY</strong> is used to pass the environment variable to the container.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">  <span class="nb">.</span>   ____          _            __ _ _
+ /<span class="se">\\</span> / ___<span class="s1">'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '</span>_ | <span class="s1">'_| | '</span>_ <span class="se">\/</span> _<span class="sb">`</span> | <span class="se">\ \ \ \</span>
+ <span class="se">\\</span>/  ___<span class="o">)</span>| |_<span class="o">)</span>| | | | | <span class="o">||</span> <span class="o">(</span>_| |  <span class="o">)</span> <span class="o">)</span> <span class="o">)</span> <span class="o">)</span>
+  <span class="s1">'  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+2024-03-05T01:51:52.610Z  INFO 1 --- [           main] c.x.springai.SpringAiApplicationKt       : Starting AOT-processed SpringAiApplicationKt using Java 17.0.10 with PID 1 (/workspace/com.xavierbouclet.springai.SpringAiApplicationKt started by cnb in /workspace)
+2024-03-05T01:51:52.610Z  INFO 1 --- [           main] c.x.springai.SpringAiApplicationKt       : No active profile set, falling back to 1 default profile: "default"
+2024-03-05T01:51:52.617Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-03-05T01:51:52.618Z  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-03-05T01:51:52.618Z  INFO 1 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-05T01:51:52.622Z  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-03-05T01:51:52.622Z  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 12 ms
+2024-03-05T01:51:52.646Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-03-05T01:51:52.661Z  INFO 1 --- [           main] c.x.springai.SpringAiApplicationKt       : Started SpringAiApplicationKt in 0.057 seconds (process running for 0.059)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The app starts in <strong>0.057 seconds</strong> and that&#8217;s pretty fast and could be a could candidate for a serverless application or a cli. The container size is <strong>44MB</strong> which is low for a Spring Boot application.</p>
+</div>
+<div class="paragraph">
+<p>You can use the curl commands given previously to test the docker flavour of the application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In my point of view, <strong>Spring AI</strong> is a nice way to integrate Open AI to your Spring Boot APP.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the final <a href="https://github.com/mikrethor/spring-ai">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/75355506/springboot-3-graalvm-native-image-stuck-forever-mac-m1">Stackoverflow - SpringBoot 3 GraalVM native-image stuck forever (Mac M1)</a></p>
+</li>
+<li>
+<p><a href="https://github.com/jamesburt-iw/Spring-AI-examples" class="bare">https://github.com/jamesburt-iw/Spring-AI-examples</a></p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-ai/reference/getting-started.html" class="bare">https://docs.spring.io/spring-ai/reference/getting-started.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2024/02/04/declarative-rest-client.html" data-toggle="tooltip" data-placement="top" title="Declarative REST client">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2024/03/10/spring-ai-integration-image.html" data-toggle="tooltip" data-placement="top" title="Integrate Open AI API to your Spring Boot application - part 2">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

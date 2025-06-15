@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    AWS Lambda with GraalVM - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="AWS Lambda with GraalVM 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2023/02/18/Lambda-GraalVM.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2023-02-18-Lambda-GraalVM.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>AWS Lambda with GraalVM</h1>
+            
+            <h2 class="subheading">AWS Lambda with GraalVM</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on February 18, 2023 &middot; <span class="reading-time" title="Estimated read time">
+  
+   7 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>AWS Lambda with GraalVM</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the <a href="https://maxday.github.io/lambda-perf/">Lambda Cold Starts analysis by maxday</a> page, we could see that Java on Lambda is really slow compared to :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rust</p>
+</li>
+<li>
+<p>Go</p>
+</li>
+<li>
+<p>Python</p>
+</li>
+<li>
+<p>NodeJS</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2023-02-18-Lambda-Perf-Analysis.png" alt="Lambda Cold Starts analysis 2023-02-18">
+</div>
+</div>
+<div class="paragraph">
+<p>I am a big fan of <a href="https://www.graalvm.org">GraalVM</a>, so I thought we could do better.
+To avoid you the need of reading a lot about GraalVM, I am going to give a small description.</p>
+</div>
+<div class="paragraph">
+<p>GraalVM is a JVM created by Oracle in order to improve performance of languages that run on the JVM.
+It provides also the 'native-image' tool that transforms JVM applications into native executable.</p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s how we are going to improve the performance of the Java based lambda.</p>
+</div>
+<div class="paragraph">
+<p>Important fact, GraalVM removes unused code and sometimes because of reflection it removes too much code.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_problem_with_graalvm_on_a_lambda">2. Problem with GraalVM on a Lambda</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Contrary to a Java Lambda that only need a class that implements <strong>com.amazonaws.services.lambda.runtime.RequestHandler</strong>, GraalVM needs  an entry point. Meaning a main function to start the lambda.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s complicated to call directly the <strong>handleRequest</strong> method of our <strong>RequestHandler</strong> class because we don&#8217;t have access to <strong>com.amazonaws.services.lambda.runtime.Context</strong>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_the_implementation">3. The implementation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Fortunately for us, there is already a library to facilitate us the implementation of that : <a href="https://github.com/formkiq/lambda-runtime-graalvm">lambda Runtime GraalVM</a>.</p>
+</div>
+<div class="paragraph">
+<p>For our example, the handler is pretty simple and just return "ok".</p>
+</div>
+<div class="paragraph">
+<p>The code is as follows :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="nn">com.xavierbouclet</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.Context</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.RequestHandler</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OkHandler</span> <span class="kd">implements</span> <span class="nc">RequestHandler</span><span class="o">&lt;</span><span class="nc">String</span> <span class="o">,</span><span class="nc">String</span><span class="o">&gt;{</span>
+
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"software.amazon.awssdk.http.service.impl"</span><span class="o">,</span>
+                <span class="s">"software.amazon.awssdk.http.urlconnection.UrlConnectionSdkHttpService"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="nc">String</span> <span class="n">s</span><span class="o">,</span> <span class="nc">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"ok"</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And that&#8217;s it  for tha Java code. The magic happens in the <strong>pom.xml</strong> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         <span class="na">xsi:schemaLocation=</span><span class="s">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+
+    <span class="nt">&lt;groupId&gt;</span>com.xavierbouclet<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>graalvm-java17<span class="nt">&lt;/artifactId&gt;</span>
+    ...
+
+    <span class="nt">&lt;dependencies&gt;</span>
+        ...
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>com.formkiq<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>lambda-runtime-graalvm<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.0<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+    ...
+
+<span class="nt">&lt;profiles&gt;</span>
+        <span class="nt">&lt;profile&gt;</span>
+            <span class="nt">&lt;id&gt;</span>native<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;build&gt;</span>
+                <span class="nt">&lt;plugins&gt;</span>
+                    <span class="nt">&lt;plugin&gt;</span>
+                        <span class="nt">&lt;groupId&gt;</span>org.graalvm.buildtools<span class="nt">&lt;/groupId&gt;</span>
+                        <span class="nt">&lt;artifactId&gt;</span>native-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                        <span class="nt">&lt;version&gt;</span>${graalvm.native.maven.plugin.version}<span class="nt">&lt;/version&gt;</span>
+                        <span class="nt">&lt;executions&gt;</span>
+                            <span class="nt">&lt;execution&gt;</span>
+                                <span class="nt">&lt;id&gt;</span>build-native<span class="nt">&lt;/id&gt;</span>
+                                <span class="nt">&lt;goals&gt;</span>
+                                    <span class="nt">&lt;goal&gt;</span>build<span class="nt">&lt;/goal&gt;</span>
+                                <span class="nt">&lt;/goals&gt;</span>
+                                <span class="nt">&lt;phase&gt;</span>package<span class="nt">&lt;/phase&gt;</span>
+                            <span class="nt">&lt;/execution&gt;</span>
+                        <span class="nt">&lt;/executions&gt;</span>
+                        <span class="nt">&lt;configuration&gt;</span>
+                            <span class="nt">&lt;imageName&gt;</span>graalvm-java17<span class="nt">&lt;/imageName&gt;</span>
+                            <span class="nt">&lt;mainClass&gt;</span>com.formkiq.lambda.runtime.graalvm.LambdaRuntime<span class="nt">&lt;/mainClass&gt;</span>
+                            <span class="nt">&lt;buildArgs</span> <span class="na">combine.children=</span><span class="s">"append"</span><span class="nt">&gt;</span>
+                                <span class="c">&lt;!-- BouncyCastleAlpn issue tracked in https://github.com/netty/netty/issues/11369 --&gt;</span>
+                                <span class="nt">&lt;buildArgs&gt;</span>
+                                    --verbose
+                                    --no-fallback
+                                    --initialize-at-build-time=org.slf4j
+                                    --initialize-at-run-time=io.netty.handler.ssl.BouncyCastleAlpnSslUtils
+                                    --enable-url-protocols=http
+                                    -H:ReflectionConfigurationFiles=${project.basedir}/src/main/resources/reflect.json
+                                <span class="nt">&lt;/buildArgs&gt;</span>
+                            <span class="nt">&lt;/buildArgs&gt;</span>
+                        <span class="nt">&lt;/configuration&gt;</span>
+                    <span class="nt">&lt;/plugin&gt;</span>
+                <span class="nt">&lt;/plugins&gt;</span>
+            <span class="nt">&lt;/build&gt;</span>
+        <span class="nt">&lt;/profile&gt;</span>
+    <span class="nt">&lt;/profiles&gt;</span>
+<span class="nt">&lt;/project&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Like I said, we need to have a main class.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml">                <span class="nt">&lt;plugins&gt;</span>
+                    <span class="nt">&lt;plugin&gt;</span>
+                        <span class="nt">&lt;groupId&gt;</span>org.graalvm.buildtools<span class="nt">&lt;/groupId&gt;</span>
+                        <span class="nt">&lt;artifactId&gt;</span>native-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                        <span class="nt">&lt;version&gt;</span>${graalvm.native.maven.plugin.version}<span class="nt">&lt;/version&gt;</span>
+                       ...
+                        <span class="nt">&lt;configuration&gt;</span>
+                            ...
+                            <span class="nt">&lt;mainClass&gt;</span>com.formkiq.lambda.runtime.graalvm.LambdaRuntime<span class="nt">&lt;/mainClass&gt;</span>
+...
+                        <span class="nt">&lt;/configuration&gt;</span>
+                    <span class="nt">&lt;/plugin&gt;</span>
+                <span class="nt">&lt;/plugins&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The LambdaRuntime gives a main class <strong>com.formkiq.lambda.runtime.graalvm.LambdaRuntime</strong> that invokes everything we need to trigger our Lambda.</p>
+</div>
+<div class="paragraph">
+<p>But using that we need to indicate to GraalVM that our <strong>OkHandler</strong> needs to stay in our final code.
+In order dto do that, we need to add a <strong>reflect.json</strong> that contains.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.xavierbouclet.OkHandler"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"allDeclaredConstructors"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"allPublicConstructors"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"allDeclaredMethods"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"allPublicMethods"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And we need to indicate to GraalVM where to find the <strong>reflect.json</strong> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml">                    <span class="nt">&lt;plugin&gt;</span>
+                        <span class="nt">&lt;groupId&gt;</span>org.graalvm.buildtools<span class="nt">&lt;/groupId&gt;</span>
+                        <span class="nt">&lt;artifactId&gt;</span>native-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                        <span class="nt">&lt;version&gt;</span>${graalvm.native.maven.plugin.version}<span class="nt">&lt;/version&gt;</span>
+                       ...
+                        <span class="nt">&lt;configuration&gt;</span>
+...
+                            <span class="nt">&lt;buildArgs</span> <span class="na">combine.children=</span><span class="s">"append"</span><span class="nt">&gt;</span>
+                                <span class="c">&lt;!-- BouncyCastleAlpn issue tracked in https://github.com/netty/netty/issues/11369 --&gt;</span>
+                                <span class="nt">&lt;buildArgs&gt;</span>
+                                    --verbose
+                                    --no-fallback
+                                    --initialize-at-build-time=org.slf4j
+                                    --initialize-at-run-time=io.netty.handler.ssl.BouncyCastleAlpnSslUtils
+                                    --enable-url-protocols=http
+                                    -H:ReflectionConfigurationFiles=${project.basedir}/src/main/resources/reflect.json
+                                <span class="nt">&lt;/buildArgs&gt;</span>
+                            <span class="nt">&lt;/buildArgs&gt;</span>
+                        <span class="nt">&lt;/configuration&gt;</span>
+                    <span class="nt">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The build argument to indicate where to find the <strong>reflect"json</strong> file is <strong>H:ReflectionConfigurationFiles=${project.basedir}/src/main/resources/reflect.json</strong>.</p>
+</div>
+<div class="paragraph">
+<p>To build our lambda, we need a <strong>Dockerfile</strong> :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.3-java17 AS builder
+RUN curl https://dlcdn.apache.org/maven/maven-3/3.9.0/binaries/apache-maven-3.9.0-bin.tar.gz --output apache-maven-3.9.0-bin.tar.gz
+RUN tar xzf apache-maven-3.9.0-bin.tar.gz
+COPY src ./src
+COPY pom.xml .
+RUN ./apache-maven-3.9.0/bin/mvn package -Pnative
+
+# strip the binary
+FROM ubuntu as stripper
+RUN apt-get update -y
+RUN apt-get install -y binutils
+COPY --from=builder /project/target/graalvm-java17 /tmp
+RUN strip /tmp/graalvm-java17
+
+# zip the extension
+FROM ubuntu:latest as compresser
+RUN apt-get update
+RUN apt-get install -y zip
+RUN mkdir /package
+WORKDIR /package
+COPY --from=stripper /tmp/graalvm-java17 /package/bootstrap
+RUN zip -j code.zip /package/bootstrap
+
+FROM scratch
+COPY --from=compresser /package/code.zip /
+ENTRYPOINT ["/code.zip"]</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2023-02-18-Lambda-java-perf.png" alt="Lambda Java performance - 2023-02-18">
+</div>
+</div>
+<div class="paragraph">
+<p>Our implementation with GraalVM gives better results than nodejs runtimes and python runtimes except the runtime <strong>python39</strong>.
+So it becomes a viable option if you want to keep Java code, but you still need performance.
+This lambda is really basic and doesn&#8217;t do anything, but it still gives us an interesting comparison of what performance we can have on AWS Lambda depending the runtime used.</p>
+</div>
+<div class="paragraph">
+<p>In a future blog post, I will remove the library to control all the code added in the GraalVM executable.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the <a href="https://github.com/maxday/lambda-perf">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2022/08/08/TestContainer-Wait-DB-SQL.html" data-toggle="tooltip" data-placement="top" title="Properly wait for TestContainers PostgresSQL">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2023/02/25/Confoo-2023.html" data-toggle="tooltip" data-placement="top" title="Confoo 2023">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

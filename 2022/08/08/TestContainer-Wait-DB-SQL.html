@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Properly wait for TestContainers PostgresSQL - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Properly wait for TestContainers PostgresSQL 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2022/08/08/TestContainer-Wait-DB-SQL.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2022-08-08-SpringBoot-TestContainers-PostgresSQL.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Properly wait for TestContainers PostgresSQL</h1>
+            
+            <h2 class="subheading">Properly wait for TestContainers PostgresSQL</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on August 08, 2022 &middot; <span class="reading-time" title="Estimated read time">
+  
+   10 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Properly wait for TestContainers PostgresSQL</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In our projects we tend to use <a href="https://www.testcontainers.org">TestContainers</a> more and more, and I wanted to describe the recipe that we put in place in order to be sure that our PostgresSQL was up and running before our tests even began.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_the_default_wait_strategy">2. The default wait strategy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To trigger testcontainers, we use the Junit 5 interfaces <strong>BeforeAllCallback</strong> and <strong>AfterAllCallback</strong> to respectively start and stop our PostgresSQL container.
+At first, we used the default wait strategy and from time to time our tests were failing.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PostgresSQLExtension</span> <span class="kd">implements</span> <span class="nc">BeforeAllCallback</span><span class="o">,</span> <span class="nc">AfterAllCallback</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">PostgreSQLContainer</span><span class="o">&lt;?&gt;</span> <span class="n">postgresSQLServerPrimary</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PostgreSQLContainer</span><span class="o">&lt;&gt;(</span><span class="s">"postgres:14.1"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">waitingFor</span><span class="o">(</span><span class="nc">Wait</span><span class="o">.</span><span class="na">defaultWaitStrategy</span><span class="o">());</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">beforeAll</span><span class="o">(</span><span class="nc">ExtensionContext</span> <span class="n">extensionContext</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterAll</span><span class="o">(</span><span class="nc">ExtensionContext</span> <span class="n">extensionContext</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">stop</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@DynamicPropertySource</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">properties</span><span class="o">(</span><span class="nc">DynamicPropertyRegistry</span> <span class="n">registry</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.datasource.driver-class-name"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="s">"org.postgresql.Driver"</span><span class="o">);</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.datasource.url"</span><span class="o">,</span> <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">getJdbcUrl</span><span class="o">());</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.datasource.username"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.datasource.password"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">getPassword</span><span class="o">());</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.primary.datasource.driver-class-name"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="s">"org.postgresql.Driver"</span><span class="o">);</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.primary.datasource.url"</span><span class="o">,</span> <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">getJdbcUrl</span><span class="o">());</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.primary.datasource.username"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.primary.datasource.password"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">getPassword</span><span class="o">());</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.replica.datasource.driver-class-name"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="s">"org.postgresql.Driver"</span><span class="o">);</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.replica.datasource.url"</span><span class="o">,</span> <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">getJdbcUrl</span><span class="o">());</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.replica.datasource.username"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"spring.replica.datasource.password"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">postgresSQLServerPrimary</span><span class="o">.</span><span class="na">getPassword</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The default wait strategy try to listen the exposed port and when it is, it indicates that we can use the container.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="cm">/**
+* Convenience class with logic for building common {@link WaitStrategy} instances.
+*
+*/</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Wait</span> <span class="o">{</span>
+
+    <span class="cm">/**
+     * Convenience method to return the default WaitStrategy.
+     *
+     * @return a WaitStrategy
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">WaitStrategy</span> <span class="nf">defaultWaitStrategy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">forListeningPort</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">....</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Meaning, our container may be up but our database could be unavailable.
+Obviously, we could do better.</p>
+</div>
+<div class="paragraph">
+<p>We need a new wait strategy that will try to query the database using SQL.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_the_sql_wait_strategy">3. The SQL wait strategy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to implement our new wait strategy, we need to extend the class <strong>AbstractWaitStrategy</strong> and override the method <strong>waitUntilReady</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestContainerPostgresSQLWaitStrategy</span> <span class="kd">extends</span> <span class="nc">AbstractWaitStrategy</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">SELECT_VERSION_QUERY</span> <span class="o">=</span> <span class="s">"SELECT 666"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">TIMEOUT_ERROR</span> <span class="o">=</span> <span class="s">"Timed out waiting for PostgresSQL to be accessible for query execution"</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">waitUntilReady</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// execute select version query until success or timeout</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">retryUntilSuccess</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span> <span class="n">startupTimeout</span><span class="o">.</span><span class="na">getSeconds</span><span class="o">(),</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                <span class="n">getRateLimiter</span><span class="o">().</span><span class="na">doWhenReady</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                    <span class="k">try</span> <span class="o">(</span><span class="nc">DatabaseDelegate</span> <span class="n">databaseDelegate</span> <span class="o">=</span> <span class="n">getDatabaseDelegate</span><span class="o">())</span> <span class="o">{</span>
+                        <span class="n">databaseDelegate</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="no">SELECT_VERSION_QUERY</span><span class="o">,</span> <span class="s">""</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">});</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">});</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">ContainerLaunchException</span><span class="o">(</span><span class="no">TIMEOUT_ERROR</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">DatabaseDelegate</span> <span class="nf">getDatabaseDelegate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">TestContainerPostgresSQLDelegate</span><span class="o">(</span><span class="n">waitStrategyTarget</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Our wait strategy uses an <strong>AbstractDatabaseDelegate</strong> to execute the SQL query to the PostgresSQL database.
+We need to implement ours as well : <strong>TestContainerPostgresSQLDelegate</strong>.
+An <strong>AbstractDatabaseDelegate</strong> takes a generics as CONNECTION.
+In our case, it is a good old <strong>java.sql.Connection</strong> but in your case, it could be a nosql connection or anything you use to connect to something.</p>
+</div>
+<div class="paragraph">
+<p>Our <strong>TestContainerPostgresSQLDelegate</strong> has to override three methods :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>createNewConnection - to create the connection to the db</p>
+</li>
+<li>
+<p>execute - used in <strong>TestContainerPostgresSQLWaitStrategy</strong> to execute the SQL query</p>
+</li>
+<li>
+<p>closeConnectionQuietly - to close the connection used</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Slf4j</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestContainerPostgresSQLDelegate</span> <span class="kd">extends</span> <span class="nc">AbstractDatabaseDelegate</span><span class="o">&lt;</span><span class="nc">Connection</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ContainerState</span> <span class="n">container</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="nc">Connection</span> <span class="nf">createNewConnection</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">Properties</span> <span class="n">connectionProps</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Properties</span><span class="o">();</span>
+            <span class="n">connectionProps</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="s">"test"</span><span class="o">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+            <span class="n">connectionProps</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"password"</span><span class="o">,</span> <span class="s">"test"</span><span class="o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+            <span class="k">return</span> <span class="nc">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span>
+                    <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"jdbc:postgresql://localhost:%s/test"</span><span class="o">,</span> <span class="n">container</span><span class="o">.</span><span class="na">getFirstMappedPort</span><span class="o">()),</span>
+                    <span class="n">connectionProps</span><span class="o">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Could not obtain PostgresSQL connection"</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">ConnectionCreationException</span><span class="o">(</span><span class="s">"Could not obtain PostgresSQL connection"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="nc">String</span> <span class="n">statement</span><span class="o">,</span> <span class="nc">String</span> <span class="n">scriptPath</span><span class="o">,</span> <span class="kt">int</span> <span class="n">lineNumber</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">continueOnError</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">ignoreFailedDrops</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">ResultSet</span> <span class="n">result</span> <span class="o">=</span> <span class="n">getConnection</span><span class="o">().</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">statement</span><span class="o">).</span><span class="na">executeQuery</span><span class="o">();</span>
+            <span class="n">result</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="mi">666</span><span class="o">))</span> <span class="o">{</span> <i class="conum" data-value="4"></i><b>(4)</b>
+                <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"Statement {} was applied"</span><span class="o">,</span> <span class="n">statement</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nc">ScriptUtils</span><span class="o">.</span><span class="na">ScriptStatementFailedException</span><span class="o">(</span><span class="n">statement</span><span class="o">,</span> <span class="n">lineNumber</span><span class="o">,</span> <span class="n">scriptPath</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nc">ScriptUtils</span><span class="o">.</span><span class="na">ScriptStatementFailedException</span><span class="o">(</span><span class="n">statement</span><span class="o">,</span> <span class="n">lineNumber</span><span class="o">,</span> <span class="n">scriptPath</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">closeConnectionQuietly</span><span class="o">(</span><span class="nc">Connection</span> <span class="n">connection</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Could not close PostgresSQL connection"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The user used to conect to the db.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The password used by the user.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The jdbc url of the db.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>A test corresponding to the query SELECT_VERSION_QUERY in <strong>TestContainerPostgresSQLWaitStrategy</strong>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>And voilà, now you have a wait strategy that make sure that any SQL query is executable before allowing us to run our integration tests.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_conclusion">4. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We now have seen how to properly implement a proper wait strategy to any sql database used through Testcontainers.</p>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2022/07/17/Kafka-Json-Serialization.html" data-toggle="tooltip" data-placement="top" title="Json Serialization with Kafka">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2023/02/18/Lambda-GraalVM.html" data-toggle="tooltip" data-placement="top" title="AWS Lambda with GraalVM">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

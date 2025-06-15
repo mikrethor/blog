@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Tryout Rust, Java on a CLI (no network) - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Tryout Rust, Java on a CLI (no network) 1. Purpose of this blog post">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2023/03/19/Tryout-Rust-Java-CLI-avoid-network.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2023-03-12-rust-graalvm.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Tryout Rust, Java on a CLI (no network)</h1>
+            
+            <h2 class="subheading">A Java and Rust comparison part 2</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on March 19, 2023 &middot; <span class="reading-time" title="Estimated read time">
+  
+   14 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Tryout Rust, Java on a CLI (no network)</h1>
+<div class="sect1">
+<h2 id="1_purpose_of_this_blog_post">1. Purpose of this blog post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When I published <a href="https://www.xavierbouclet.com/2023/03/12/Tryout-Rust-Java-CLI.html">my last blog post</a>, I got some feedback to improve the Rust version and I decided to remove the network factor.</p>
+</div>
+<div class="paragraph">
+<p>Instead of calling an API to get some UUID, we will indicate a file and iterate through it to look for the first N items.</p>
+</div>
+<div class="paragraph">
+<p>The parameters of the executable are :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PATH : path of the file containing the uuid</p>
+</li>
+<li>
+<p>COUNT : number of uuid to request</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you want to try out the code, you can check the project on <a href="https://github.com/mikrethor/uuid">GITHUB</a>.</p>
+</div>
+<div class="paragraph">
+<p>The results (compile time, execution time) have been obtained on a MacBook Pro (2021) M1 Max.</p>
+</div>
+<div class="paragraph">
+<p>I will do a Graal VM version to compare.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2_contribution_on_uuid_rust_the_sync_version">2. Contribution on uuid-rust (the sync version)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First I want to say, that I got a contribution from Francis Lalonde on the code from last post to add a sync version equivalent to the rust code. If you want to check the <a href="https://github.com/mikrethor/uuid/pull/2">pull request</a>.</p>
+</div>
+<div class="paragraph">
+<p>And thanks to this contribution, I discovered <a href="https://github.com/sharkdp/hyperfine">a command-line benchmarking tool : hyperfine</a>.</p>
+</div>
+<div class="paragraph">
+<p>The code consists of a main file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="rust"><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">str</span><span class="p">::</span><span class="n">FromStr</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span> <span class="nn">anyhow</span><span class="p">::</span><span class="n">Error</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">args</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">std</span><span class="p">::</span><span class="nn">env</span><span class="p">::</span><span class="nf">args</span><span class="p">()</span><span class="nf">.collect</span><span class="p">();</span>
+    <span class="k">let</span> <span class="n">version</span> <span class="o">=</span> <span class="nn">u32</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">?</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">count</span> <span class="o">=</span> <span class="nn">u32</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="nd">format!</span><span class="p">(</span><span class="s">"https://www.uuidtools.com/api/generate/v{}/count/{}"</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+    <span class="k">let</span> <span class="n">uuids</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">ureq</span><span class="p">::</span><span class="nf">get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">url</span><span class="p">)</span>
+        <span class="nf">.call</span><span class="p">()</span><span class="o">?</span>
+        <span class="nf">.into_json</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="n">uuids</span><span class="nf">.iter</span><span class="p">()</span><span class="nf">.for_each</span><span class="p">(|</span><span class="n">uuid</span><span class="p">|</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">uuid</span><span class="p">));</span>
+    <span class="nf">Ok</span><span class="p">(())</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The sync Rust version is slightly better compared to the Java native executable.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rust</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">uuid/uuid-rust-sync <span class="o">[</span>🌱 master][📦 v0.1.0][ v1.68.0]
+❯ hyperfine <span class="nt">--runs</span> 50 <span class="s1">'./target/release/uuid-rust-sync 4 5'</span>
+
+Benchmark 1: ./target/release/uuid-rust-sync 4 5
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:     132.7 ms ±  16.4 ms    <span class="o">[</span>User: 4.0 ms, System: 4.4 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:   109.4 ms … 218.9 ms    50 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Graal VM</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">❯ hyperfine <span class="nt">--runs</span> 50 <span class="s1">'./target/uuid-java 4 5'</span>
+
+Benchmark 1: ./target/uuid-java 4 5
+  Time <span class="o">(</span>mean ± σ<span class="o">)</span>:     136.8 ms ±  10.0 ms    <span class="o">[</span>User: 14.1 ms, System: 9.5 ms]
+  Range <span class="o">(</span>min … max<span class="o">)</span>:   112.9 ms … 154.4 ms    50 runs</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So let&#8217;s try to remove the network factor and open a file to look for a number of uuid in a file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3_uuid_rust">3. uuid-rust</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The code consists of a main file. The important thing is that I use serde for deserialization.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="rust"><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="n">fs</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">str</span><span class="p">::</span><span class="n">FromStr</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span> <span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span> <span class="nn">std</span><span class="p">::</span><span class="nn">error</span><span class="p">::</span><span class="n">Error</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">args</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">std</span><span class="p">::</span><span class="nn">env</span><span class="p">::</span><span class="nf">args</span><span class="p">()</span><span class="nf">.collect</span><span class="p">();</span>
+    <span class="k">let</span> <span class="n">file_path</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">let</span> <span class="n">count</span> <span class="o">=</span> <span class="nn">usize</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="k">let</span> <span class="n">content</span> <span class="o">=</span> <span class="nn">fs</span><span class="p">::</span><span class="nf">read_to_string</span><span class="p">(</span><span class="n">file_path</span><span class="p">);</span>
+
+    <span class="k">let</span> <span class="n">uuids</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">serde_json</span><span class="p">::</span><span class="nf">from_str</span><span class="p">(</span><span class="o">&amp;</span><span class="n">content</span><span class="o">?</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+
+    <span class="n">uuids</span><span class="nf">.iter</span><span class="p">()</span><span class="nf">.take</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="nf">.for_each</span><span class="p">(|</span><span class="n">uuid</span><span class="p">|</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">uuid</span><span class="p">));</span>
+
+    <span class="nf">Ok</span><span class="p">(())</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4_uuid_java">4. uuid-java</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The code consists of a main class. The important thing is that I use the Jackson library to deserialize my response into a list of UUID.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="nn">com.xavierbouclet</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.core.type.TypeReference</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.file.Paths</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="kt">var</span> <span class="n">filepath</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="kt">var</span> <span class="n">count</span> <span class="o">=</span> <span class="nc">Long</span><span class="o">.</span><span class="na">parseLong</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+        <span class="nc">ObjectMapper</span> <span class="n">objectMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectMapper</span><span class="o">();</span>
+
+        <span class="n">objectMapper</span><span class="o">.</span><span class="na">readValue</span><span class="o">(</span><span class="nc">Files</span><span class="o">.</span><span class="na">readString</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">filepath</span><span class="o">)),</span> <span class="k">new</span> <span class="nc">TypeReference</span><span class="o">&lt;</span><span class="nc">List</span><span class="o">&lt;</span><span class="no">UUID</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
+        <span class="o">}).</span><span class="na">stream</span><span class="o">().</span><span class="na">limit</span><span class="o">(</span><span class="n">count</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span>
+        <span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="5_lets_run_some_tests">5 Let&#8217;s run some tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The tests consist of calling our executable with a json file and requesting a number of uuids in it.</p>
+</div>
+<div class="paragraph">
+<p>Example of file :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">[</span><span class="w">
+  </span><span class="s2">"40aef568-bca6-4b15-a367-f15964cab651"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"6e3f166c-eff4-41b4-8b3d-c72116bf6f2d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"07fd7a9e-0e1e-45fc-a202-72ed73902b56"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"e96128f9-1ec0-490f-85eb-9e6e9e07f47f"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"5d5c9320-d610-42fc-8cf9-710158669749"</span><span class="w">
+</span><span class="p">]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The file uuids.json contains 100 uuids and the files uuids2.json contains 83162 uuids.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s run some tests.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rust</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids.json" 5'</span>
+
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids.json"</span> 5
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:       0.6 ms ±   0.5 ms    <span class="o">[</span>User: 0.5 ms, System: 0.3 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:     0.1 ms …   2.6 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 5'</span>
+
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 5
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:       7.9 ms ±   1.2 ms    <span class="o">[</span>User: 6.0 ms, System: 1.7 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:     6.8 ms …  13.9 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 1000'</span>
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 1000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:       8.9 ms ±   0.4 ms    <span class="o">[</span>User: 6.2 ms, System: 2.2 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:     8.3 ms …  11.3 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>10000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 10000'</span>
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 10000
+  Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      14.2 ms ±   0.7 ms    <span class="o">[</span>User: 8.1 ms, System: 5.6 ms]
+  Range <span class="o">(</span>min … max<span class="o">)</span>:    13.5 ms …  18.8 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>40000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 40000'</span>
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 40000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      31.6 ms ±   0.6 ms    <span class="o">[</span>User: 14.2 ms, System: 16.8 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:    30.9 ms …  33.8 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>80000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-rust/target/release/uuid-rust "/Users/xavierbouclet/Sources/uuid/uuids2.json" 80000'</span>
+Benchmark 1: ./uuid-rust/target/release/uuid-rust <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 80000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      54.7 ms ±   0.8 ms    <span class="o">[</span>User: 22.3 ms, System: 31.7 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:    53.0 ms …  59.1 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Graal VM</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids.json" 5'</span>
+
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids.json"</span> 5
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      10.3 ms ±   1.1 ms    <span class="o">[</span>User: 4.0 ms, System: 3.5 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:     9.0 ms …  13.7 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 5'</span>
+
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 5
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      39.1 ms ±   2.2 ms    <span class="o">[</span>User: 29.7 ms, System: 6.0 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:    36.6 ms …  45.7 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 1000'</span>
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 1000
+  Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      40.0 ms ±   1.0 ms    <span class="o">[</span>User: 30.2 ms, System: 6.1 ms]
+  Range <span class="o">(</span>min … max<span class="o">)</span>:    38.8 ms …  43.6 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>10000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 10000'</span>
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 10000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      49.9 ms ±   1.2 ms    <span class="o">[</span>User: 36.2 ms, System: 9.8 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:    48.5 ms …  53.2 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>40000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 40000'</span>
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 40000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:      81.9 ms ±   1.4 ms    <span class="o">[</span>User: 55.8 ms, System: 22.0 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:    79.8 ms …  86.2 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>80000 items 83k file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">hyperfine <span class="nt">--runs</span> 100  <span class="s1">'./uuid-java/target/uuid-java "/Users/xavierbouclet/Sources/uuid/uuids2.json" 80000'</span>
+Benchmark 1: ./uuid-java/target/uuid-java <span class="s2">"/Users/xavierbouclet/Sources/uuid/uuids2.json"</span> 80000
+Time <span class="o">(</span>mean ± σ<span class="o">)</span>:     123.2 ms ±   1.5 ms    <span class="o">[</span>User: 81.7 ms, System: 37.6 ms]
+Range <span class="o">(</span>min … max<span class="o">)</span>:   121.3 ms … 131.7 ms    100 runs</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can see on the following graph that Rust is more performant than Java with Graal VM.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2023-03-19-rust-vs-java.png" alt="Rust compared to GraalVM">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="6_conclusion">6. Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rust overall is more performant than Java with Graal VM.
+And we can see, that more item we output it says consistant.</p>
+</div>
+<div class="paragraph">
+<p>If you want to check the <a href="https://github.com/mikrethor/uuid">code</a> on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/XavierBOUCLET">Twitter</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2023/03/12/Tryout-Rust-Java-CLI.html" data-toggle="tooltip" data-placement="top" title="Tryout Rust, Java on a CLI">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2023/03/26/functional-webmvc.html" data-toggle="tooltip" data-placement="top" title="Functional Routing in Spring MVC">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>

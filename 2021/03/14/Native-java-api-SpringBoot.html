@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Building a Java native REST API — Part 1: Spring Boot - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Building a Java native REST API — Part 1: Spring Boot What is Spring Boot ?">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/2021/03/14/Native-java-api-SpringBoot.html">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2021-01-11-GraalVM-going-native.png')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Building a Java native REST API — Part 1: Spring Boot</h1>
+            
+            <h2 class="subheading">Building a Java native REST API — Part 1: Spring Boot</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">Xavier Bouclet</a>
+              on March 14, 2021 &middot; <span class="reading-time" title="Estimated read time">
+  
+   15 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Building a Java native REST API — Part 1: Spring Boot</h1>
+<div class="sect1">
+<h2 id="what_is_spring_boot">What is Spring Boot ?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you don&#8217;t know it yet, Spring Boot has been around for quite a while now (2014).
+For the oldest ones, who used Spring before Spring Boot, you know that you had to choose what frameworks to use with Spring and which versions worked well together.
+Spring Boot came with the goal of already defined what people did.
+Like they say on their page :</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss.
+</blockquote>
+<div class="attribution">
+&#8212; Spring team
+</div>
+</div>
+<div class="paragraph">
+<p>So now using Spring Boot, we are able with a minimal effort to launch a Spring based application and start developing in it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="why_should_we_build_a_java_native_application">Why should we build a Java Native application ?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Java has been around for more than 25 years now and it&#8217;s still evolving and I would add that it has never evolved that fast before.
+In the cloud, java was competing with others technologies (Go, NodeJS) which were using less resources than Java (you need a JVM after all).
+So Java was behind those technologies and then came <a href="https://www.graalvm.org">GraalVM</a> and the possibility to compile Java as close as possible to the system running it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what_well_be_building">What We’ll Be Building</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In one of my previous <a href="https://www.xavierbouclet.com/2021/01/10/Which-alternatives-to-go-native-for-an-api-with-java.html">post</a>,
+I wrote about which alternative you can use to use the full potential of Java Native in one of your APIs.
+So this post is about the Spring Boot alternative.</p>
+</div>
+<div class="paragraph">
+<p>In order to compare every alternative, we will be building a REST API for movies and actors.</p>
+</div>
+<div class="paragraph">
+<p>To see a bit more about the design check my last <a href="https://www.xavierbouclet.com/2021/01/24/Native-java-api-with-PostgreSQL.html">post</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="requirements">Requirements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Good understanding of Kotlin or Java programming language.
+Basic knowledge of Maven and Spring Boot.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tools_needed">Tools Needed</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>GraalVM</p>
+</li>
+<li>
+<p>Java Development Kit (JDK) 11</p>
+</li>
+<li>
+<p>IntelliJ IDEA, NetBeans, Eclipse (I will be using IntelliJ IDEA).</p>
+</li>
+<li>
+<p>Docker</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting_started">Getting Started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To create the project you can go on <a href="https://start.spring.io/">Spring Initializr</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2021-03-15-create-project.png" alt="Create project" width="100%">
+</div>
+</div>
+<div class="paragraph">
+<p>Add the following dependencies :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Spring Native [Experimental]</p>
+</li>
+<li>
+<p>Spring Web</p>
+</li>
+<li>
+<p>Testcontainers</p>
+</li>
+<li>
+<p>Spring Data JPA</p>
+</li>
+<li>
+<p>PostgreSQL Driver</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Add the following dependency to your pom :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.zalando<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>problem<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.25.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This dependency is to handle error more beautifully :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin">    <span class="kd">val</span> <span class="py">problem</span> <span class="p">=</span> <span class="nc">Problem</span><span class="p">.</span><span class="nf">builder</span><span class="p">()</span>
+    <span class="p">.</span><span class="nf">withType</span><span class="p">(</span><span class="nc">URI</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="s">"https://mymovieapp.com/probs/cant-add-other-movie-kung-fury"</span><span class="p">))</span>
+    <span class="p">.</span><span class="nf">withTitle</span><span class="p">(</span><span class="s">"Kung Fury movies are the only ones"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">withDetail</span><span class="p">(</span><span class="s">"How dare you add this movie ? Only Kung Fury movies are worthy."</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">withStatus</span><span class="p">(</span><span class="nc">Status</span><span class="p">.</span><span class="nc">FORBIDDEN</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">build</span><span class="p">()</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to compile your project using GraalVM, you need to add the followin profile :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"> <span class="nt">&lt;profiles&gt;</span>
+    <span class="nt">&lt;profile&gt;</span>
+        <span class="nt">&lt;id&gt;</span>native<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;build&gt;</span>
+            <span class="nt">&lt;plugins&gt;</span>
+                <span class="nt">&lt;plugin&gt;</span>
+                    <span class="nt">&lt;groupId&gt;</span>org.graalvm.nativeimage<span class="nt">&lt;/groupId&gt;</span>
+                    <span class="nt">&lt;artifactId&gt;</span>native-image-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                    <span class="nt">&lt;version&gt;</span>21.0.0<span class="nt">&lt;/version&gt;</span>
+                    <span class="nt">&lt;configuration&gt;</span>
+                        <span class="nt">&lt;mainClass&gt;</span>com.lafabrique.digit.owl.JvmApiApplicationKt<span class="nt">&lt;/mainClass&gt;</span>
+                        <span class="nt">&lt;buildArgs&gt;</span>-Dspring.native.remove-yaml-support=true -Dspring.spel.ignore=true
+<span class="c">&lt;!--                            -Dspring.native.dump-config=./feature-reflect-config.json--&gt;</span>
+                        <span class="nt">&lt;/buildArgs&gt;</span>
+                    <span class="nt">&lt;/configuration&gt;</span>
+                    <span class="nt">&lt;executions&gt;</span>
+                        <span class="nt">&lt;execution&gt;</span>
+                            <span class="nt">&lt;goals&gt;</span>
+                                <span class="nt">&lt;goal&gt;</span>native-image<span class="nt">&lt;/goal&gt;</span>
+                            <span class="nt">&lt;/goals&gt;</span>
+                            <span class="nt">&lt;phase&gt;</span>package<span class="nt">&lt;/phase&gt;</span>
+                        <span class="nt">&lt;/execution&gt;</span>
+                    <span class="nt">&lt;/executions&gt;</span>
+                <span class="nt">&lt;/plugin&gt;</span>
+                <span class="nt">&lt;plugin&gt;</span>
+                    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+                    <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;/plugin&gt;</span>
+            <span class="nt">&lt;/plugins&gt;</span>
+        <span class="nt">&lt;/build&gt;</span>
+    <span class="nt">&lt;/profile&gt;</span>
+ <span class="nt">&lt;/profiles&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I won&#8217;t detail all the code because at the end of this post you will find the link to my repo on Github.</p>
+</div>
+<div class="paragraph">
+<p>But I am going to detail the movie part with the components :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>MovieController</p>
+</li>
+<li>
+<p>MovieService</p>
+</li>
+<li>
+<p>MovieRepository</p>
+</li>
+<li>
+<p>Movie</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The MovieController is to handle every request to my endpoints /movies/* :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">"movies"</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">MovieController</span><span class="p">(</span><span class="kd">val</span> <span class="py">service</span><span class="p">:</span> <span class="nc">MovieService</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nd">@GetMapping</span>
+    <span class="k">fun</span> <span class="nf">list</span><span class="p">():</span> <span class="nc">ResponseEntity</span><span class="p">&lt;</span><span class="err">*</span><span class="p">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nc">HttpStatus</span><span class="p">.</span><span class="nc">OK</span><span class="p">).</span><span class="nf">body</span><span class="p">(</span><span class="n">service</span><span class="p">.</span><span class="nf">list</span><span class="p">())</span>
+    <span class="p">}</span>
+
+    <span class="nd">@GetMapping</span><span class="p">(</span><span class="s">"/{id}"</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">list</span><span class="p">(</span><span class="nd">@PathVariable</span> <span class="n">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">):</span> <span class="nc">ResponseEntity</span><span class="p">&lt;</span><span class="err">*</span><span class="p">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nc">HttpStatus</span><span class="p">.</span><span class="nc">OK</span><span class="p">).</span><span class="nf">body</span><span class="p">(</span><span class="n">service</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">id</span><span class="p">))</span>
+    <span class="p">}</span>
+
+    <span class="nd">@PostMapping</span>
+    <span class="k">fun</span> <span class="nf">add</span><span class="p">(</span><span class="nd">@RequestBody</span> <span class="n">movie</span><span class="p">:</span> <span class="nc">Movie</span><span class="p">):</span> <span class="nc">ResponseEntity</span><span class="p">&lt;</span><span class="err">*</span><span class="p">&gt;?</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">title</span> <span class="p">=</span> <span class="n">movie</span><span class="p">.</span><span class="n">title</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">title</span><span class="p">.</span><span class="nf">isNotBlank</span><span class="p">()</span> <span class="p">&amp;&amp;</span> <span class="p">(</span><span class="s">"Kung Fury"</span> <span class="p">==</span> <span class="n">title</span> <span class="p">||</span> <span class="s">"Kung Fury 2"</span> <span class="p">==</span> <span class="n">title</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nc">HttpStatus</span><span class="p">.</span><span class="nc">CREATED</span><span class="p">).</span><span class="nf">body</span><span class="p">(</span><span class="n">service</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="n">movie</span><span class="p">))</span>
+        <span class="p">}</span>
+        <span class="kd">val</span> <span class="py">problem</span> <span class="p">=</span> <span class="nc">Problem</span><span class="p">.</span><span class="nf">builder</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">withType</span><span class="p">(</span><span class="nc">URI</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="s">"https://mymovieapp.com/probs/cant-add-other-movie-kung-fury"</span><span class="p">))</span>
+                <span class="p">.</span><span class="nf">withTitle</span><span class="p">(</span><span class="s">"Kung Fury movies are the only ones"</span><span class="p">)</span>
+                <span class="p">.</span><span class="nf">withDetail</span><span class="p">(</span><span class="s">"How dare you add this movie ? Only Kung Fury movies are worthy."</span><span class="p">)</span>
+                <span class="p">.</span><span class="nf">withStatus</span><span class="p">(</span><span class="nc">Status</span><span class="p">.</span><span class="nc">FORBIDDEN</span><span class="p">)</span>
+                <span class="p">.</span><span class="nf">build</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nc">HttpStatus</span><span class="p">.</span><span class="nc">FORBIDDEN</span><span class="p">).</span><span class="nf">body</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nd">@PutMapping</span>
+    <span class="k">fun</span> <span class="nf">modify</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="nc">Movie</span><span class="p">):</span> <span class="nc">ResponseEntity</span><span class="p">&lt;</span><span class="err">*</span><span class="p">&gt;?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nc">HttpStatus</span><span class="p">.</span><span class="nc">ACCEPTED</span><span class="p">).</span><span class="nf">body</span><span class="p">(</span><span class="n">service</span><span class="p">.</span><span class="nf">modify</span><span class="p">(</span><span class="n">movie</span><span class="p">))</span>
+    <span class="p">}</span>
+
+    <span class="nd">@DeleteMapping</span><span class="p">(</span><span class="s">"/{id}"</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">delete</span><span class="p">(</span><span class="nd">@PathVariable</span> <span class="n">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">):</span> <span class="nc">ResponseEntity</span><span class="p">&lt;</span><span class="err">*</span><span class="p">&gt;?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nc">HttpStatus</span><span class="p">.</span><span class="nc">OK</span><span class="p">).</span><span class="nf">body</span><span class="p">(</span><span class="n">service</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="n">id</span><span class="p">))</span>
+    <span class="p">}</span>
+
+    <span class="nd">@PutMapping</span><span class="p">(</span><span class="s">"/{id}/actors/{actorId}"</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">addActorToMovie</span><span class="p">(</span><span class="nd">@PathVariable</span> <span class="n">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">,</span> <span class="nd">@PathVariable</span> <span class="n">actorId</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">):</span> <span class="nc">ResponseEntity</span><span class="p">&lt;</span><span class="err">*</span><span class="p">&gt;?</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">movie</span> <span class="p">=</span> <span class="n">service</span><span class="p">.</span><span class="nf">addActorToMovie</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">actorId</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nc">HttpStatus</span><span class="p">.</span><span class="nc">ACCEPTED</span><span class="p">).</span><span class="nf">body</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nd">@DeleteMapping</span><span class="p">(</span><span class="s">"/{id}/actors/{actorId}"</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">deleteActorFromMovie</span><span class="p">(</span><span class="nd">@PathVariable</span> <span class="n">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">,</span> <span class="nd">@PathVariable</span> <span class="n">actorId</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">):</span> <span class="nc">ResponseEntity</span><span class="p">&lt;</span><span class="err">*</span><span class="p">&gt;?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nc">HttpStatus</span><span class="p">.</span><span class="nc">OK</span><span class="p">).</span><span class="nf">body</span><span class="p">(</span><span class="n">service</span><span class="p">.</span><span class="nf">removeActorFromMovie</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">actorId</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nothing fancy there, it calls the MovieService :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Component</span>
+<span class="kd">class</span> <span class="nc">MovieService</span><span class="p">(</span><span class="kd">val</span> <span class="py">repository</span><span class="p">:</span> <span class="nc">MovieRepository</span><span class="p">,</span> <span class="kd">val</span> <span class="py">actorRepository</span><span class="p">:</span> <span class="nc">ActorRepository</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">fun</span> <span class="nf">list</span><span class="p">():</span> <span class="nc">MutableIterable</span><span class="p">&lt;</span><span class="nc">Movie</span><span class="p">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">repository</span><span class="p">.</span><span class="nf">findAll</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">list</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nc">String</span><span class="p">):</span> <span class="nc">List</span><span class="p">&lt;</span><span class="nc">Movie</span><span class="p">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">repository</span><span class="p">.</span><span class="nf">findByTitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">add</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="nc">Movie</span><span class="p">):</span> <span class="nc">Movie</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">repository</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">modify</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="nc">Movie</span><span class="p">):</span> <span class="nc">Movie</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">repository</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">delete</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">):</span> <span class="nc">UUID</span> <span class="p">{</span>
+        <span class="n">repository</span><span class="p">.</span><span class="nf">deleteById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">id</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">addActorToMovie</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">,</span> <span class="n">idActor</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">):</span> <span class="nc">Movie</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">movie</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="nf">findById</span><span class="p">(</span><span class="n">id</span><span class="p">).</span><span class="k">get</span><span class="p">()</span>
+        <span class="kd">val</span> <span class="py">actor</span> <span class="p">=</span> <span class="n">actorRepository</span><span class="p">.</span><span class="nf">findById</span><span class="p">(</span><span class="n">idActor</span><span class="p">).</span><span class="k">get</span><span class="p">()</span>
+        <span class="n">movie</span><span class="p">.</span><span class="n">actors</span><span class="o">?.</span><span class="nf">add</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+        <span class="n">actor</span><span class="p">.</span><span class="n">movies</span><span class="o">?.</span><span class="nf">add</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">repository</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">get</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">):</span> <span class="nc">Movie</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">repository</span><span class="p">.</span><span class="nf">findByIdOrNull</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">removeActorFromMovie</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">,</span> <span class="n">idActor</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">):</span> <span class="nc">Movie</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">movie</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="nf">findById</span><span class="p">(</span><span class="n">id</span><span class="p">).</span><span class="k">get</span><span class="p">()</span>
+        <span class="kd">val</span> <span class="py">actor</span> <span class="p">=</span> <span class="n">actorRepository</span><span class="p">.</span><span class="nf">findById</span><span class="p">(</span><span class="n">idActor</span><span class="p">).</span><span class="k">get</span><span class="p">()</span>
+        <span class="n">movie</span><span class="p">.</span><span class="n">actors</span><span class="o">?.</span><span class="nf">remove</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+        <span class="n">actor</span><span class="p">.</span><span class="n">movies</span><span class="o">?.</span><span class="nf">remove</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">repository</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And the JPA repository MovieRepository :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Repository</span>
+<span class="kd">interface</span> <span class="nc">MovieRepository</span> <span class="p">:</span> <span class="nc">JpaRepository</span><span class="p">&lt;</span><span class="nc">Movie</span><span class="p">,</span> <span class="nc">UUID</span><span class="p">&gt;</span> <span class="p">{</span>
+
+    <span class="k">fun</span> <span class="nf">findByTitle</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nc">String</span><span class="p">):</span> <span class="nc">List</span><span class="p">&lt;</span><span class="nc">Movie</span><span class="p">&gt;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And then the object Movie itself :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@Entity</span>
+<span class="nd">@JsonIdentityInfo</span><span class="p">(</span><span class="n">generator</span><span class="p">=</span> <span class="nc">ObjectIdGenerators</span><span class="p">.</span><span class="nc">PropertyGenerator</span><span class="o">::</span><span class="k">class</span><span class="p">,</span> <span class="n">property</span><span class="p">=</span><span class="s">"id"</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">Movie</span> <span class="p">{</span>
+
+    <span class="err">@</span><span class="n">javax</span><span class="p">.</span><span class="n">persistence</span><span class="p">.</span><span class="nc">Id</span>
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="p">(</span><span class="n">generator</span> <span class="p">=</span> <span class="s">"uuid"</span><span class="p">)</span>
+    <span class="nd">@GenericGenerator</span><span class="p">(</span><span class="n">name</span> <span class="p">=</span> <span class="s">"uuid"</span><span class="p">,</span> <span class="n">strategy</span> <span class="p">=</span> <span class="s">"uuid2"</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="py">id</span><span class="p">:</span> <span class="nc">UUID</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
+
+    <span class="kd">var</span> <span class="py">title</span><span class="p">:</span> <span class="nc">String</span> <span class="p">=</span> <span class="s">""</span>
+    <span class="kd">var</span> <span class="py">year</span><span class="p">:</span> <span class="nc">Int</span> <span class="p">=</span> <span class="mi">0</span>
+
+    <span class="nd">@JsonIgnoreProperties</span><span class="p">(</span><span class="s">"movies"</span><span class="p">)</span>
+    <span class="nd">@ManyToMany</span><span class="p">(</span><span class="n">mappedBy</span> <span class="p">=</span> <span class="s">"movies"</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="py">actors</span><span class="p">:</span> <span class="nc">MutableSet</span><span class="p">&lt;</span><span class="nc">Actor</span><span class="p">&gt;?</span> <span class="p">=</span> <span class="nf">mutableSetOf</span><span class="p">()</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To be noted, the annotations :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@JsonIdentityInfo</span><span class="p">(</span><span class="n">generator</span><span class="p">=</span> <span class="nc">ObjectIdGenerators</span><span class="p">.</span><span class="nc">PropertyGenerator</span><span class="o">::</span><span class="k">class</span><span class="p">,</span> <span class="n">property</span><span class="p">=</span><span class="s">"id"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="kotlin"><span class="nd">@JsonIgnoreProperties</span><span class="p">(</span><span class="s">"movies"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These annotations are there to avoid going too deep in the serialisation to JSON and avoid cyclic reference.</p>
+</div>
+<div class="paragraph">
+<p>And now we are gonna deep dive in the compilation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build_the_project">Build the project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It&#8217;s a normal Maven project so you can use the following command to build it :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">mvn package</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And execute it on a JVM. Like you always do.</p>
+</div>
+<div class="paragraph">
+<p>If you want to compile your artefact using GraalVM, you need to use the profile <strong>"native"</strong> we added in the pom.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">mvn spring-boot:build-image <span class="nt">-Pnative</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The compilation takes a few minutes depending on your machine. That&#8217;s why you pratically never compile natively on your machine.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../img/posts/2021-03-15-native-compilation.png" alt="Create project" width="100%">
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see it took 9 minutes on my laptop.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="whats_next">What&#8217;s Next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>On my next post I will write about the micronaut alternative.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="source_code">Source code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can check the code on <a href="https://github.com/mikrethor/native-apis/tree/master/native-spring-api">Github</a>.</p>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2021/01/24/Native-java-api-with-PostgreSQL.html" data-toggle="tooltip" data-placement="top" title="Movie API a concrete example for a CRUD GraalVM API">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2021/10/13/Bad-Way-Of-Using-Flyway-In-SpringBoot.html" data-toggle="tooltip" data-placement="top" title="Which of Flyway or JPA should be responsible of generating your db structure?">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/XavierBOUCLET">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>
