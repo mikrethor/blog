@@ -6,7 +6,7 @@ baseurl:            ""
 url:                "https://startbootstrap.github.io"
 
 # Social Profiles
-twitter_username:   XavierBOUCLET
+twitter_username:
 github_username:    mikrethor
 facebook_username:
 instagram_username:
@@ -36,5 +36,8 @@ asciidoctor:
 
 collections:
   conferences:
+    output: true
+    permalink: /conferences/:year/:month/:day/:title
+  courses:
     output: true
     permalink: /conferences/:year/:month/:day/:title

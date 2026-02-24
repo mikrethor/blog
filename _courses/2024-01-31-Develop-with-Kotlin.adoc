@@ -1,0 +1,184 @@
+---
+lang: en
+---
+= Formation Kotlin – Programme - 1 jour
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2022-01-31 7:00:00 -0500
+:layout: course
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Kotlin course
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: en
+
+:toc:
+:toclevels: 3
+:sectnums:
+:icons: font
+
+== Introduction au langage
+
+=== Historique
+
+=== Intérêt
+
+=== Contexte d'utilisation
+
+* Développement mobile (Android)
+* Développement backend
+* Autres environnements (multiplatform, scripting)
+
+== Cycle de développement
+
+* Programmation
+* Compilation
+* Environnement d'exécution
+
+== Introduction à l’environnement de développement IntelliJ
+
+* Présentation de l’IDE
+* Création d’un projet Kotlin
+* Navigation dans le code
+* Outils de debugging
+
+== Concepts de base
+
+=== Variables et types de données
+
+=== Conventions de nommage
+
+=== Opérateurs
+
+=== Expressions et blocs
+
+=== Conditions, boucles et autres instructions
+
+* if / when
+* for / while
+
+=== Nullité
+
+* Types nullable
+* Opérateur `?`
+* Opérateur `!!`
+* Elvis operator `?:`
+
+=== Immuabilité
+
+* `val` vs `var`
+* Bonnes pratiques
+
+== Opérations d'entrée / sortie de base
+
+* Lecture depuis la console
+* Écriture vers la console
+
+== Concepts de programmation orientée objet
+
+=== Classes et objets
+
+=== Constructeurs, méthodes et attributs
+
+=== Encapsulation et visibilité des données
+
+* public
+* private
+* protected
+* internal
+
+=== Héritage
+
+=== Redéfinition et surcharge de méthodes
+
+=== Packages
+
+=== Interfaces
+
+=== Classes abstraites
+
+=== Classes internes et anonymes
+
+=== Polymorphisme
+
+== Définitions d'identité et d'égalité
+
+* `==` (égalité structurelle)
+* `===` (égalité référentielle)
+
+== Techniques de refactoring avec IntelliJ
+
+* Rename
+* Extract method
+* Safe delete
+* Optimisation des imports
+
+== Exceptions
+
+* Types d’exceptions
+* Définition
+* Lancement (`throw`)
+* Interception (`try / catch / finally`)
+* Interprétation des stack traces
+
+== Collections
+
+=== Listes
+
+=== Ensembles
+
+=== Tables de correspondance (Map)
+
+=== Itération
+
+* Boucles
+* Fonctions lambda
+* Fonctions d’ordre supérieur
+
+== Types paramétrés (Generics)
+
+* Définition
+* Utilisation
+* Variance (in / out)
+
+== Opérations d'entrée / sortie sur fichiers
+
+* Lecture de fichiers
+* Écriture de fichiers
+
+== Sérialisation
+
+* Principes
+* Formats courants (JSON, etc.)
+
+== Interprétation et formatage de dates
+
+* API Date/Time
+* Formatage et parsing
+
+== Utilisation de librairies externes
+
+* Notion de classpath
+* Gestion des dépendances
+* Exécution
+* Sélection et recommandations
+
+== Création d’un exécutable JAR
+
+* Compilation
+* Génération du JAR
+* Exécution
+
+== Contact
+
+Pour prendre cette formation, merci d'envoyer un courriel à mailto:xavier.bouclet@digitowls.com[xavier.bouclet@digitowls.com] ou sur le portail de L'ÉTS https://www.perf.etsmtl.ca/Descriptions/PER451-Kotlin-les-fondements/[PER-451]
+
+==   Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+// - https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+- https://www.youtube.com/@xavierbouclet[Youtube]
+
+

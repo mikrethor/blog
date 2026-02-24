@@ -1,0 +1,284 @@
+---
+lang: en
+---
+= Formation Spring Boot 4 – Programme 2 Jours
+:showtitle:
+//:page-excerpt: Excerpt goes here.
+//:page-root: ../../../
+:date: 2026-01-31 7:00:00 -0500
+:layout: course
+//:title: Man must explore, r sand this is exploration at its greatest
+:page-subtitle: "Spring Boot 4 course
+// :page-background: /img/2023-profil-pic-conference.png
+:author: "Xavier Bouclet"
+:lang: en
+
+
+:toc:
+:toclevels: 3
+:sectnums:
+:icons: font
+
+== Objectifs pédagogiques
+
+À l’issue de la formation, les participants seront capables de :
+
+* Concevoir une API REST robuste avec Spring Boot 4
+* Structurer une application en couches (Controller / Service / Repository)
+* Gérer la persistance avec Spring Data JPA
+* Implémenter validation et gestion globale des erreurs
+* Sécuriser une API avec Spring Security
+* Écrire des tests unitaires et d’intégration
+* Préparer une application pour la production
+
+== Public cible
+
+* Développeurs Java ou Kotlin
+* Développeurs backend
+* Équipes techniques souhaitant standardiser leurs pratiques Spring
+
+== Pré-requis
+
+* Bonne maîtrise de Java opu Kotlin
+* Notions HTTP / REST
+* Maven ou Gradle
+* Java 21+ installé
+* IDE (IntelliJ / Eclipse / VS Code)
+* PostgreSQL installé ou accessible
+
+== Jour 1 – Fondamentaux & API REST
+
+=== 1. Introduction & Architecture Spring Boot 4 (1h)
+
+==== Objectifs
+
+Comprendre l’écosystème Spring et les nouveautés de Spring Boot 4.
+
+==== Contenu
+
+* Spring Framework vs Spring Boot
+* Nouveautés Spring Boot 4
+* Jakarta EE 10+
+* Auto-configuration
+* Starters et dépendances
+* Structure d’un projet
+* Architecture en couches
+
+==== Démonstration
+
+* Génération d’un projet via Spring Initializr
+* Analyse de la structure du projet
+
+=== 2. Création d’une API REST propre (1h30)
+
+==== Objectifs
+
+Construire une API maintenable et bien structurée.
+
+==== Contenu
+
+* `@SpringBootApplication`
+* `@RestController`
+* Mapping HTTP (GET, POST, PUT, DELETE)
+* `@PathVariable`, `@RequestParam`
+* DTO vs Entity
+* Injection de dépendance
+* `ResponseEntity`
+* Bonnes pratiques REST
+
+==== Atelier
+
+Création d’une API CRUD `Product`.
+
+=== 3. Configuration & gestion des environnements (45 min)
+
+==== Contenu
+
+* `application.yml`
+* Profils (`dev`, `test`, `prod`)
+* `@ConfigurationProperties`
+* Variables d’environnement
+* Externalisation de la configuration
+
+==== Atelier
+
+Mise en place d’un profil `dev` et `prod`.
+
+=== 4. Persistance avec Spring Data JPA (1h45)
+
+==== Objectifs
+
+Mettre en place une couche d’accès aux données robuste.
+
+==== Contenu
+
+* Configuration datasource PostgreSQL
+* `@Entity`, `@Id`, `@GeneratedValue`
+* Relations (`@OneToMany`, `@ManyToOne`)
+* `JpaRepository`
+* Méthodes dérivées
+* Requêtes personnalisées (`@Query`)
+* Pagination et tri
+* Gestion des transactions
+
+==== Atelier
+
+Ajout des entités :
+
+* `Product`
+* `Category`
+* Relation entre les deux
+
+Connexion à PostgreSQL et persistance réelle des données.
+
+=== 5. Validation & gestion des erreurs (1h)
+
+==== Contenu
+
+* Jakarta Validation (`@NotNull`, `@Email`, etc.)
+* `@Valid`
+* `@ControllerAdvice`
+* Gestion globale des exceptions
+* Format d’erreur standardisé
+
+==== Atelier
+
+Ajout de la validation et d’un gestionnaire global d’erreurs.
+
+=== Bilan Jour 1
+
+Application REST complète avec :
+
+* CRUD fonctionnel
+* Persistance PostgreSQL
+* Validation
+* Gestion d’erreurs propre
+
+== Jour 2 – Sécurité, Tests & Production
+
+=== 6. Sécurité avec Spring Security (2h)
+
+==== Objectifs
+
+Sécuriser une API REST.
+
+==== Contenu
+
+* Configuration `SecurityFilterChain`
+* Authentification Basic
+* Introduction JWT
+* Rôles et autorités
+* Gestion CORS
+* Désactivation CSRF pour API REST
+
+==== Atelier
+
+* Endpoint public
+* Endpoint sécurisé
+* Ajout rôle `ADMIN`
+
+=== 7. Tests avec Spring Boot (1h30)
+
+==== Objectifs
+
+Mettre en place une stratégie de test.
+
+==== Contenu
+
+* JUnit 5
+* Mockito
+* `@SpringBootTest`
+* `MockMvc`
+* Tests repository
+* Tests d’intégration avec PostgreSQL (Testcontainers recommandé)
+
+==== Atelier
+
+* Test de la couche service
+* Test d’un controller REST
+
+=== 8. Application prête pour la production (1h)
+
+==== Contenu
+
+* Spring Boot Actuator
+* Endpoints `health` et `metrics`
+* Logging (Logback)
+* Configuration des logs par profil
+* Packaging JAR
+* Dockerisation de l’application
+* Docker Compose avec PostgreSQL
+
+==== Démonstration
+
+* Ajout Actuator
+* Création d’un `Dockerfile`
+* Exemple `docker-compose.yml`
+
+=== 9. Architecture & bonnes pratiques (1h)
+
+==== Contenu
+
+* Clean Architecture adaptée à Spring
+* Séparation DTO / Entity
+* Mapper (MapStruct)
+* Gestion des transactions
+* Organisation des packages
+* Bonnes pratiques d’industrialisation
+
+==== Discussion
+
+* Monolithe vs microservices
+* Quand découper ?
+
+== Projet Fil Rouge
+
+API e-commerce simplifiée :
+
+=== Entités
+
+* User
+* Product
+* Category
+* Order
+
+=== Fonctionnalités
+
+* CRUD produits
+* Création commande
+* Sécurisation des endpoints
+* Validation
+* Tests
+* Monitoring via Actuator
+* Base PostgreSQL
+
+== Répartition pédagogique
+
+[cols="1,1"]
+|===
+|Théorie |35%
+|Démonstration |25%
+|Pratique |40%
+|===
+
+== Livrables
+
+* Support PDF
+* Code source complet
+* Version étape par étape
+* Exercices corrigés
+* Cheatsheet annotations Spring Boot
+* Dockerfile et docker-compose
+
+== Contact
+
+Pour prendre cette formation, merci d'envoyer un courriel à mailto:xavier.bouclet@digitowls.com[xavier.bouclet@digitowls.com]
+
+==   Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+// - https://twitter.com/XavierBOUCLET[Twitter]
+- https://www.xavierbouclet.com/[Blog]
+- https://www.youtube.com/@xavierbouclet[Youtube]
+
+

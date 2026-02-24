@@ -1,0 +1,32 @@
+---
+layout: page
+title: Courses
+background: '/img/bg-conference.jpg'
+---
+
+{% for course in site.courses reversed %}
+
+<article class="course-preview">
+
+    <div>
+        <a href="{{ course.url | prepend: site.baseurl | replace: '//', '/' }}">
+            <h2 class="course-title">
+                {{ course.title }}
+            </h2>
+            {% if course.author %}
+            <h3 class="course-subtitle">{{ course.author }}</h3>
+            {% else %}
+            <h3 class="course-subtitle">{{ course.excerpt | strip_html | truncatewords: 15 }}</h3>
+            {% endif %}
+        </a>
+        <p class="course-meta">
+            {{ course.date | date: '%B %d, %Y' }}
+        </p>
+    </div>
+</article>
+{% else %}
+
+<h2 class="course-title">Coming soon...</h2>
+
+{% endfor %}
+
