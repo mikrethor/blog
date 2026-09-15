@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Formation Kotlin – Programme - 1 jour - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Formation Kotlin – Programme - 1 jour">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/conferences/2024/01/31/Develop-with-Kotlin">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/courses">Courses</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+  <header class="masthead">
+    
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Formation Kotlin – Programme - 1 jour</h1>
+            
+            <h2 class="subheading">"Kotlin course</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">"Xavier Bouclet"</a>
+              on January 31, 2024 &middot; <span class="reading-time" title="Estimated read time">
+  
+   5 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Formation Kotlin – Programme - 1 jour</h1>
+<div class="sect1">
+<h2 id="introduction_au_langage">1. Introduction au langage</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="historique">1.1. Historique</h3>
+
+</div>
+<div class="sect2">
+<h3 id="intérêt">1.2. Intérêt</h3>
+
+</div>
+<div class="sect2">
+<h3 id="contexte_dutilisation">1.3. Contexte d&#8217;utilisation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Développement mobile (Android)</p>
+</li>
+<li>
+<p>Développement backend</p>
+</li>
+<li>
+<p>Autres environnements (multiplatform, scripting)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cycle_de_développement">2. Cycle de développement</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Programmation</p>
+</li>
+<li>
+<p>Compilation</p>
+</li>
+<li>
+<p>Environnement d&#8217;exécution</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction_à_lenvironnement_de_développement_intellij">3. Introduction à l’environnement de développement IntelliJ</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Présentation de l’IDE</p>
+</li>
+<li>
+<p>Création d’un projet Kotlin</p>
+</li>
+<li>
+<p>Navigation dans le code</p>
+</li>
+<li>
+<p>Outils de debugging</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="concepts_de_base">4. Concepts de base</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="variables_et_types_de_données">4.1. Variables et types de données</h3>
+
+</div>
+<div class="sect2">
+<h3 id="conventions_de_nommage">4.2. Conventions de nommage</h3>
+
+</div>
+<div class="sect2">
+<h3 id="opérateurs">4.3. Opérateurs</h3>
+
+</div>
+<div class="sect2">
+<h3 id="expressions_et_blocs">4.4. Expressions et blocs</h3>
+
+</div>
+<div class="sect2">
+<h3 id="conditions_boucles_et_autres_instructions">4.5. Conditions, boucles et autres instructions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>if / when</p>
+</li>
+<li>
+<p>for / while</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nullité">4.6. Nullité</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Types nullable</p>
+</li>
+<li>
+<p>Opérateur <code>?</code></p>
+</li>
+<li>
+<p>Opérateur <code>!!</code></p>
+</li>
+<li>
+<p>Elvis operator <code>?:</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="immuabilité">4.7. Immuabilité</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>val</code> vs <code>var</code></p>
+</li>
+<li>
+<p>Bonnes pratiques</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="opérations_dentrée_sortie_de_base">5. Opérations d&#8217;entrée / sortie de base</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Lecture depuis la console</p>
+</li>
+<li>
+<p>Écriture vers la console</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="concepts_de_programmation_orientée_objet">6. Concepts de programmation orientée objet</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="classes_et_objets">6.1. Classes et objets</h3>
+
+</div>
+<div class="sect2">
+<h3 id="constructeurs_méthodes_et_attributs">6.2. Constructeurs, méthodes et attributs</h3>
+
+</div>
+<div class="sect2">
+<h3 id="encapsulation_et_visibilité_des_données">6.3. Encapsulation et visibilité des données</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>public</p>
+</li>
+<li>
+<p>private</p>
+</li>
+<li>
+<p>protected</p>
+</li>
+<li>
+<p>internal</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="héritage">6.4. Héritage</h3>
+
+</div>
+<div class="sect2">
+<h3 id="redéfinition_et_surcharge_de_méthodes">6.5. Redéfinition et surcharge de méthodes</h3>
+
+</div>
+<div class="sect2">
+<h3 id="packages">6.6. Packages</h3>
+
+</div>
+<div class="sect2">
+<h3 id="interfaces">6.7. Interfaces</h3>
+
+</div>
+<div class="sect2">
+<h3 id="classes_abstraites">6.8. Classes abstraites</h3>
+
+</div>
+<div class="sect2">
+<h3 id="classes_internes_et_anonymes">6.9. Classes internes et anonymes</h3>
+
+</div>
+<div class="sect2">
+<h3 id="polymorphisme">6.10. Polymorphisme</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="définitions_didentité_et_dégalité">7. Définitions d&#8217;identité et d&#8217;égalité</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>==</code> (égalité structurelle)</p>
+</li>
+<li>
+<p><code>===</code> (égalité référentielle)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="techniques_de_refactoring_avec_intellij">8. Techniques de refactoring avec IntelliJ</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Rename</p>
+</li>
+<li>
+<p>Extract method</p>
+</li>
+<li>
+<p>Safe delete</p>
+</li>
+<li>
+<p>Optimisation des imports</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="exceptions">9. Exceptions</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Types d’exceptions</p>
+</li>
+<li>
+<p>Définition</p>
+</li>
+<li>
+<p>Lancement (<code>throw</code>)</p>
+</li>
+<li>
+<p>Interception (<code>try / catch / finally</code>)</p>
+</li>
+<li>
+<p>Interprétation des stack traces</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="collections">10. Collections</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="listes">10.1. Listes</h3>
+
+</div>
+<div class="sect2">
+<h3 id="ensembles">10.2. Ensembles</h3>
+
+</div>
+<div class="sect2">
+<h3 id="tables_de_correspondance_map">10.3. Tables de correspondance (Map)</h3>
+
+</div>
+<div class="sect2">
+<h3 id="itération">10.4. Itération</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Boucles</p>
+</li>
+<li>
+<p>Fonctions lambda</p>
+</li>
+<li>
+<p>Fonctions d’ordre supérieur</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="types_paramétrés_generics">11. Types paramétrés (Generics)</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Définition</p>
+</li>
+<li>
+<p>Utilisation</p>
+</li>
+<li>
+<p>Variance (in / out)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="opérations_dentrée_sortie_sur_fichiers">12. Opérations d&#8217;entrée / sortie sur fichiers</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Lecture de fichiers</p>
+</li>
+<li>
+<p>Écriture de fichiers</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sérialisation">13. Sérialisation</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Principes</p>
+</li>
+<li>
+<p>Formats courants (JSON, etc.)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="interprétation_et_formatage_de_dates">14. Interprétation et formatage de dates</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>API Date/Time</p>
+</li>
+<li>
+<p>Formatage et parsing</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="utilisation_de_librairies_externes">15. Utilisation de librairies externes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Notion de classpath</p>
+</li>
+<li>
+<p>Gestion des dépendances</p>
+</li>
+<li>
+<p>Exécution</p>
+</li>
+<li>
+<p>Sélection et recommandations</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="création_dun_exécutable_jar">16. Création d’un exécutable JAR</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Compilation</p>
+</li>
+<li>
+<p>Génération du JAR</p>
+</li>
+<li>
+<p>Exécution</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contact">17. Contact</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pour prendre cette formation, merci d&#8217;envoyer un courriel à <a href="mailto:xavier.bouclet@digitowls.com">xavier.bouclet@digitowls.com</a> ou sur le portail de L&#8217;ÉTS <a href="https://www.perf.etsmtl.ca/Descriptions/PER451-Kotlin-les-fondements/">PER-451</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">18. Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          
+          <a class="btn btn-primary float-right" href="/conferences/2024/02/23/Develop-your-first-Api-with-Spring-Boot-4" data-toggle="tooltip" data-placement="top" title="Formation Spring Boot 4 – Programme 2 Jours">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2026</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>
