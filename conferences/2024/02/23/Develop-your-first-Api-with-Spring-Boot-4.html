@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Formation Spring Boot 4 – Programme 2 Jours - Xavier Bouclet
+    
+  </title>
+
+  <meta name="description" content="Formation Spring Boot 4 – Programme 2 Jours">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍🏻</text></svg>">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/css/syntax_github.css">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://startbootstrap.github.io/conferences/2024/02/23/Develop-your-first-Api-with-Spring-Boot-4">
+  <link rel="alternate" type="application/rss+xml" title="Xavier Bouclet" href="/feed.xml">
+
+  <script defer data-domain="xavierbouclet.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Xavier Bouclet</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/conferences">Talks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/courses">Courses</a>
+        </li>
+<!--        Deactivated because of cors-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/contact">Contact</a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+  <header class="masthead">
+    
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Formation Spring Boot 4 – Programme 2 Jours</h1>
+            
+            <h2 class="subheading">"Spring Boot 4 course</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">"Xavier Bouclet"</a>
+              on February 23, 2024 &middot; <span class="reading-time" title="Estimated read time">
+  
+   9 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+        <h1>Formation Spring Boot 4 – Programme 2 Jours</h1>
+<div class="sect1">
+<h2 id="objectifs_pédagogiques">1. Objectifs pédagogiques</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>À l’issue de la formation, les participants seront capables de :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Concevoir une API REST robuste avec Spring Boot 4</p>
+</li>
+<li>
+<p>Structurer une application en couches (Controller / Service / Repository)</p>
+</li>
+<li>
+<p>Gérer la persistance avec Spring Data JPA</p>
+</li>
+<li>
+<p>Implémenter validation et gestion globale des erreurs</p>
+</li>
+<li>
+<p>Sécuriser une API avec Spring Security</p>
+</li>
+<li>
+<p>Écrire des tests unitaires et d’intégration</p>
+</li>
+<li>
+<p>Préparer une application pour la production</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="public_cible">2. Public cible</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Développeurs Java ou Kotlin</p>
+</li>
+<li>
+<p>Développeurs backend</p>
+</li>
+<li>
+<p>Équipes techniques souhaitant standardiser leurs pratiques Spring</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pré_requis">3. Pré-requis</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Bonne maîtrise de Java opu Kotlin</p>
+</li>
+<li>
+<p>Notions HTTP / REST</p>
+</li>
+<li>
+<p>Maven ou Gradle</p>
+</li>
+<li>
+<p>Java 21+ installé</p>
+</li>
+<li>
+<p>IDE (IntelliJ / Eclipse / VS Code)</p>
+</li>
+<li>
+<p>PostgreSQL installé ou accessible</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jour_1_fondamentaux_api_rest">4. Jour 1 – Fondamentaux &amp; API REST</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="1_introduction_architecture_spring_boot_4_1h">4.1. 1. Introduction &amp; Architecture Spring Boot 4 (1h)</h3>
+<div class="sect3">
+<h4 id="objectifs">4.1.1. Objectifs</h4>
+<div class="paragraph">
+<p>Comprendre l’écosystème Spring et les nouveautés de Spring Boot 4.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="contenu">4.1.2. Contenu</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Spring Framework vs Spring Boot</p>
+</li>
+<li>
+<p>Nouveautés Spring Boot 4</p>
+</li>
+<li>
+<p>Jakarta EE 10+</p>
+</li>
+<li>
+<p>Auto-configuration</p>
+</li>
+<li>
+<p>Starters et dépendances</p>
+</li>
+<li>
+<p>Structure d’un projet</p>
+</li>
+<li>
+<p>Architecture en couches</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="démonstration">4.1.3. Démonstration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Génération d’un projet via Spring Initializr</p>
+</li>
+<li>
+<p>Analyse de la structure du projet</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="2_création_dune_api_rest_propre_1h30">4.2. 2. Création d’une API REST propre (1h30)</h3>
+<div class="sect3">
+<h4 id="objectifs_2">4.2.1. Objectifs</h4>
+<div class="paragraph">
+<p>Construire une API maintenable et bien structurée.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="contenu_2">4.2.2. Contenu</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@SpringBootApplication</code></p>
+</li>
+<li>
+<p><code>@RestController</code></p>
+</li>
+<li>
+<p>Mapping HTTP (GET, POST, PUT, DELETE)</p>
+</li>
+<li>
+<p><code>@PathVariable</code>, <code>@RequestParam</code></p>
+</li>
+<li>
+<p>DTO vs Entity</p>
+</li>
+<li>
+<p>Injection de dépendance</p>
+</li>
+<li>
+<p><code>ResponseEntity</code></p>
+</li>
+<li>
+<p>Bonnes pratiques REST</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="atelier">4.2.3. Atelier</h4>
+<div class="paragraph">
+<p>Création d’une API CRUD <code>Product</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3_configuration_gestion_des_environnements_45_min">4.3. 3. Configuration &amp; gestion des environnements (45 min)</h3>
+<div class="sect3">
+<h4 id="contenu_3">4.3.1. Contenu</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>application.yml</code></p>
+</li>
+<li>
+<p>Profils (<code>dev</code>, <code>test</code>, <code>prod</code>)</p>
+</li>
+<li>
+<p><code>@ConfigurationProperties</code></p>
+</li>
+<li>
+<p>Variables d’environnement</p>
+</li>
+<li>
+<p>Externalisation de la configuration</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="atelier_2">4.3.2. Atelier</h4>
+<div class="paragraph">
+<p>Mise en place d’un profil <code>dev</code> et <code>prod</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="4_persistance_avec_spring_data_jpa_1h45">4.4. 4. Persistance avec Spring Data JPA (1h45)</h3>
+<div class="sect3">
+<h4 id="objectifs_3">4.4.1. Objectifs</h4>
+<div class="paragraph">
+<p>Mettre en place une couche d’accès aux données robuste.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="contenu_4">4.4.2. Contenu</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Configuration datasource PostgreSQL</p>
+</li>
+<li>
+<p><code>@Entity</code>, <code>@Id</code>, <code>@GeneratedValue</code></p>
+</li>
+<li>
+<p>Relations (<code>@OneToMany</code>, <code>@ManyToOne</code>)</p>
+</li>
+<li>
+<p><code>JpaRepository</code></p>
+</li>
+<li>
+<p>Méthodes dérivées</p>
+</li>
+<li>
+<p>Requêtes personnalisées (<code>@Query</code>)</p>
+</li>
+<li>
+<p>Pagination et tri</p>
+</li>
+<li>
+<p>Gestion des transactions</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="atelier_3">4.4.3. Atelier</h4>
+<div class="paragraph">
+<p>Ajout des entités :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Product</code></p>
+</li>
+<li>
+<p><code>Category</code></p>
+</li>
+<li>
+<p>Relation entre les deux</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Connexion à PostgreSQL et persistance réelle des données.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="5_validation_gestion_des_erreurs_1h">4.5. 5. Validation &amp; gestion des erreurs (1h)</h3>
+<div class="sect3">
+<h4 id="contenu_5">4.5.1. Contenu</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Jakarta Validation (<code>@NotNull</code>, <code>@Email</code>, etc.)</p>
+</li>
+<li>
+<p><code>@Valid</code></p>
+</li>
+<li>
+<p><code>@ControllerAdvice</code></p>
+</li>
+<li>
+<p>Gestion globale des exceptions</p>
+</li>
+<li>
+<p>Format d’erreur standardisé</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="atelier_4">4.5.2. Atelier</h4>
+<div class="paragraph">
+<p>Ajout de la validation et d’un gestionnaire global d’erreurs.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="bilan_jour_1">4.6. Bilan Jour 1</h3>
+<div class="paragraph">
+<p>Application REST complète avec :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CRUD fonctionnel</p>
+</li>
+<li>
+<p>Persistance PostgreSQL</p>
+</li>
+<li>
+<p>Validation</p>
+</li>
+<li>
+<p>Gestion d’erreurs propre</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jour_2_sécurité_tests_production">5. Jour 2 – Sécurité, Tests &amp; Production</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="6_sécurité_avec_spring_security_2h">5.1. 6. Sécurité avec Spring Security (2h)</h3>
+<div class="sect3">
+<h4 id="objectifs_4">5.1.1. Objectifs</h4>
+<div class="paragraph">
+<p>Sécuriser une API REST.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="contenu_6">5.1.2. Contenu</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Configuration <code>SecurityFilterChain</code></p>
+</li>
+<li>
+<p>Authentification Basic</p>
+</li>
+<li>
+<p>Introduction JWT</p>
+</li>
+<li>
+<p>Rôles et autorités</p>
+</li>
+<li>
+<p>Gestion CORS</p>
+</li>
+<li>
+<p>Désactivation CSRF pour API REST</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="atelier_5">5.1.3. Atelier</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Endpoint public</p>
+</li>
+<li>
+<p>Endpoint sécurisé</p>
+</li>
+<li>
+<p>Ajout rôle <code>ADMIN</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="7_tests_avec_spring_boot_1h30">5.2. 7. Tests avec Spring Boot (1h30)</h3>
+<div class="sect3">
+<h4 id="objectifs_5">5.2.1. Objectifs</h4>
+<div class="paragraph">
+<p>Mettre en place une stratégie de test.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="contenu_7">5.2.2. Contenu</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>JUnit 5</p>
+</li>
+<li>
+<p>Mockito</p>
+</li>
+<li>
+<p><code>@SpringBootTest</code></p>
+</li>
+<li>
+<p><code>MockMvc</code></p>
+</li>
+<li>
+<p>Tests repository</p>
+</li>
+<li>
+<p>Tests d’intégration avec PostgreSQL (Testcontainers recommandé)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="atelier_6">5.2.3. Atelier</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Test de la couche service</p>
+</li>
+<li>
+<p>Test d’un controller REST</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="8_application_prête_pour_la_production_1h">5.3. 8. Application prête pour la production (1h)</h3>
+<div class="sect3">
+<h4 id="contenu_8">5.3.1. Contenu</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Spring Boot Actuator</p>
+</li>
+<li>
+<p>Endpoints <code>health</code> et <code>metrics</code></p>
+</li>
+<li>
+<p>Logging (Logback)</p>
+</li>
+<li>
+<p>Configuration des logs par profil</p>
+</li>
+<li>
+<p>Packaging JAR</p>
+</li>
+<li>
+<p>Dockerisation de l’application</p>
+</li>
+<li>
+<p>Docker Compose avec PostgreSQL</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="démonstration_2">5.3.2. Démonstration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Ajout Actuator</p>
+</li>
+<li>
+<p>Création d’un <code>Dockerfile</code></p>
+</li>
+<li>
+<p>Exemple <code>docker-compose.yml</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="9_architecture_bonnes_pratiques_1h">5.4. 9. Architecture &amp; bonnes pratiques (1h)</h3>
+<div class="sect3">
+<h4 id="contenu_9">5.4.1. Contenu</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Clean Architecture adaptée à Spring</p>
+</li>
+<li>
+<p>Séparation DTO / Entity</p>
+</li>
+<li>
+<p>Mapper (MapStruct)</p>
+</li>
+<li>
+<p>Gestion des transactions</p>
+</li>
+<li>
+<p>Organisation des packages</p>
+</li>
+<li>
+<p>Bonnes pratiques d’industrialisation</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="discussion">5.4.2. Discussion</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Monolithe vs microservices</p>
+</li>
+<li>
+<p>Quand découper ?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="projet_fil_rouge">6. Projet Fil Rouge</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>API e-commerce simplifiée :</p>
+</div>
+<div class="sect2">
+<h3 id="entités">6.1. Entités</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>User</p>
+</li>
+<li>
+<p>Product</p>
+</li>
+<li>
+<p>Category</p>
+</li>
+<li>
+<p>Order</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="fonctionnalités">6.2. Fonctionnalités</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>CRUD produits</p>
+</li>
+<li>
+<p>Création commande</p>
+</li>
+<li>
+<p>Sécurisation des endpoints</p>
+</li>
+<li>
+<p>Validation</p>
+</li>
+<li>
+<p>Tests</p>
+</li>
+<li>
+<p>Monitoring via Actuator</p>
+</li>
+<li>
+<p>Base PostgreSQL</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="répartition_pédagogique">7. Répartition pédagogique</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Théorie</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">35%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Démonstration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pratique</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">40%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="livrables">8. Livrables</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Support PDF</p>
+</li>
+<li>
+<p>Code source complet</p>
+</li>
+<li>
+<p>Version étape par étape</p>
+</li>
+<li>
+<p>Exercices corrigés</p>
+</li>
+<li>
+<p>Cheatsheet annotations Spring Boot</p>
+</li>
+<li>
+<p>Dockerfile et docker-compose</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contact">9. Contact</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pour prendre cette formation, merci d&#8217;envoyer un courriel à <a href="mailto:xavier.bouclet@digitowls.com">xavier.bouclet@digitowls.com</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="follow_me">10. Follow Me</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">Linkedin</a></p>
+</li>
+<li>
+<p><a href="https://www.xavierbouclet.com/">Blog</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/@xavierbouclet">Youtube</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/conferences/2024/01/31/Develop-with-Kotlin" data-toggle="tooltip" data-placement="top" title="Formation Kotlin – Programme - 1 jour">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="entry-meta">
+    
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'https-mikrethor-github-io-blog'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+    
+  </footer>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:mikrethor@gmail.com.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/mikrethor">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Xavier Bouclet 2026</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVG0Q9ZG4E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVG0Q9ZG4E');
+</script>
+
+
+  
+
+</body>
+
+</html>
