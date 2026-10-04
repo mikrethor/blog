@@ -22,4 +22,4 @@ The site is then available on http://127.0.0.1:4000.
 
 ## Deployment
 
-Every push to `master` builds the site and publishes it to the `gh-pages` branch through the GitHub Actions workflow in `.github/workflows/`.
+Every push to `main` builds the site and deploys it to GitHub Pages through the GitHub Actions workflow in `.github/workflows/`.
