@@ -2,6 +2,7 @@
 lang: fr
 ---
 = Formation Spring Boot 4 – Programme 2 Jours
+:page-description: "Formation Spring Boot 4 de 2 jours : concevoir, sécuriser, tester et préparer pour la production une API REST."
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2026-01-31 7:00:00 -0500

@@ -1,4 +1,6 @@
 = Postgres Embeded
+:page-description: "When I develop locally on my laptop, I usually use H2 database to test the layer between my code and the database. But sometimes it's not enough..."
+:page-tags: [spring-boot, database, testing]
 // :hp-image: /covers/cover.png
 // :published_at: 2019-05-19
 // :hp-tags: Spring Boot, Postgres Embeded

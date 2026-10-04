@@ -1,4 +1,7 @@
 = Se déconnecter des réseaux sociaux
+:page-description: "Il y a quelques semaines, suite à la visualisation d'une conférence TED, j'ai décidé de fortement limiter mon utilisation des réseaux sociaux. Je voulais..."
+:page-tags: [career]
+:page-lang: fr
 // :hp-image: /covers/cover.png
 :published_at: 2017-04-11
 :hp-tags: SocialNetworks, Life

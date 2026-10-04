@@ -1,4 +1,7 @@
 = Mon premier livre électronique : La dure vie de TechLead
+:page-description: "C’est avec grand plaisir que je vous fait partager mon premier livre électronique :"
+:page-tags: [tech-lead]
+:page-lang: fr
 // See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
 :page-background:  /img/techlead-book-cover.png
 :published_at: 2019-02-03

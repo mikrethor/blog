@@ -1,4 +1,6 @@
 = Be specific with your Spring data repositories
+:page-description: "The purpose of this post is to detail why our build and test time went from 3 min 30 to 1 hour just by switching from H2 to PostgreSQL with Testcontainers."
+:page-tags: [spring-boot, database, testing]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-06-21 7:00:00 -0500

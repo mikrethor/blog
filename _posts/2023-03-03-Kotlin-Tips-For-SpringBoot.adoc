@@ -1,4 +1,6 @@
 = Convert a Java Spring Boot app to Kotlin
+:page-description: "During Confoo 2023, I presented some new features about Spring Boot 3. The API I prepared is in Java 17 and I wanted to convert it to Kotlin. This post is..."
+:page-tags: [kotlin, spring-boot]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-03-03 7:00:00 -0500

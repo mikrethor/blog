@@ -2,6 +2,7 @@
 lang: fr
 ---
 = Devriez-vous migrer à Spring Boot 3
+:page-description: "8 ans après la première release de Spring Boot il était temps pour une mise à jour. Spring Boot 3 sorti en 2022 est la nouvelle mouture du framework le plus..."
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-02-24 7:00:00 -0500

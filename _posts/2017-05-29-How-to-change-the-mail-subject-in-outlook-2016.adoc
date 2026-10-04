@@ -1,4 +1,6 @@
 = How to change the mail subject in outlook 2016
+:page-description: "For a while now I have been wondering how to best organise my mails. Now I have found a tip very useful to me : rewrite the subject of your inbox mails."
+:page-tags: [tools]
 // :hp-image: /covers/cover.png
 :published_at: 2017-05-29
 :hp-tags: Outlook, Subject

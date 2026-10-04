@@ -1,4 +1,6 @@
 = Use AI models on your computer with Ollama
+:page-description: "In this blog post, I will show you how to use AI models locally without the need of Open AI API or other cloud-based AI services."
+:page-tags: [ai]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2024-03-16 7:00:00 -0500

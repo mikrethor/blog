@@ -1,4 +1,7 @@
 = Bilan de 7 années en SSII
+:page-description: "Récemment, j'ai vu que mes anciens collègues de la SSII S....A (disons SA) se congratulaient d'être présents au super kick-off de l'entreprise. Vous savez..."
+:page-tags: [career]
+:page-lang: fr
 // :hp-image: /covers/cover.png
 :published_at: 2017-03-22
 :hp-tags: SSII,

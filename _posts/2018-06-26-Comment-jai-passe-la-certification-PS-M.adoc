@@ -1,4 +1,7 @@
 = Comment j'ai passé la certification  PSM1
+:page-description: "Depuis quelques temps déjà, mon positionnement en tant que Tech Lead et mon expérience en gestion de projets font que je suis généralement choisi pour..."
+:page-tags: [agile]
+:page-lang: fr
 // See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
 // :hp-image: /covers/cover.png
 // :published_at: 2019-01-31

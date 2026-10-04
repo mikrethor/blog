@@ -1,4 +1,6 @@
 = Let's write a reactive Kafka producer/consumer
+:page-description: "Last time we wrote a simple Kafka producer/consumer using Spring Boot. This time, we are gonna implement ones using the Spring Boot reactive stack Webflux...."
+:page-tags: [kafka, spring-boot]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-07-11 7:00:00 -0500

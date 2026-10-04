@@ -1,4 +1,7 @@
 = Écouter sa voie intérieure
+:page-description: "Dans mon post précédent, j'ai parlé du fait qu'en 2014, après 7 ans de SSII, j'avais tout plaqué pour partir à l'étranger avec ma femme et mes 2 enfants...."
+:page-tags: [career]
+:page-lang: fr
 // :hp-image: /covers/cover.png
 :published_at: 2017-03-23
 :hp-tags: Inner voice

@@ -1,4 +1,6 @@
 = The weight of annotations @Mock and @MockBean
+:page-description: "Once I run a test class with the MockitoExtension within Intellij Idea. I was amazed by the time it took to execute a simple test : 0.5 second."
+:page-tags: [spring-boot, testing]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2021-10-19 7:00:00 -0500

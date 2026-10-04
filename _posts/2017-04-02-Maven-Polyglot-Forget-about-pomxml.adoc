@@ -1,4 +1,6 @@
 = Maven Polyglot - Forget about pom.xml
+:page-description: "Fed up of pom xml files when you use Maven? Here is the solution : Maven Polyglot. Maven Polyglot is out there since over 5 years now and can be used to..."
+:page-tags: [maven]
 // :hp-image: /covers/cover.png
 :published_at: 2017-04-02
 :hp-tags: Maven, Polyglot

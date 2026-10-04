@@ -1,4 +1,6 @@
 = Log in angular with NgxLogger
+:page-description: "Coming from the Java world, I am used to use Log Framework in my projects. I was fed up of using the following."
+:page-tags: [angular]
 // See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
 // :hp-image: /covers/cover.png
 :published_at: 2018-01-15

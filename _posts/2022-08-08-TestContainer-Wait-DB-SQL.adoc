@@ -1,4 +1,6 @@
 = Properly wait for TestContainers PostgresSQL
+:page-description: "In our projects we tend to use TestContainers more and more, and I wanted to describe the recipe that we put in place in order to be sure that our..."
+:page-tags: [testing, database]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-08-08 7:00:00 -0500

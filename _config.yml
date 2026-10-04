@@ -1,7 +1,9 @@
 title:              Xavier Bouclet
 email:              mikrethor@gmail.com
 courses_email:      xavier.bouclet@digitowls.com
-description:        My personal blog
+description:        "Java, Kotlin and Spring Boot: posts, talks and courses"
+lang:               en
+share_image:        /img/share-default.jpg
 author:             Xavier Bouclet
 baseurl:            ""
 url:                "https://www.xavierbouclet.com"
@@ -14,6 +16,15 @@ instagram_username:
 linkedin_username: 🇨🇦-xavier-bouclet-667b0431/
 disqus-shortname: https-mikrethor-github-io-blog
 
+# Used by jekyll-seo-tag for structured data
+social:
+  name: Xavier Bouclet
+  links:
+    - https://github.com/mikrethor
+    - https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/
+    - https://bsky.app/profile/xavierbouclet.bsky.social
+    - https://www.youtube.com/@xavierbouclet
+
 # Add your google-analytics ID here to activate google analytics
 google_analytics: G-XVG0Q9ZG4E # out your google-analytics code
 
@@ -24,6 +35,7 @@ paginate_path:      "/posts/page:num/"
 plugins:
   - jekyll-feed
   - jekyll-paginate
+  - jekyll-seo-tag
   - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
 
 asciidoc: {}

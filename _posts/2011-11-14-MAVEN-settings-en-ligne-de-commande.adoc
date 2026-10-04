@@ -1,4 +1,7 @@
 = [MAVEN] settings en ligne de commande
+:page-description: "Indiquer un settings.xml pour maven en ligne de commande Il est possible de surcharger les settings.xml de base pour maven."
+:page-tags: [maven]
+:page-lang: fr
 // :hp-image: /covers/cover.png
 :published_at: 2011-11-14
 :hp-tags: Maven, Settings

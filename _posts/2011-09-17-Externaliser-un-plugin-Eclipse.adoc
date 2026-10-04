@@ -1,4 +1,7 @@
 = Externaliser un plugin Eclipse
+:page-description: "Afin de ne pas polluer un environnement Eclipse existant lors du test d'un plugin, Eclipse offre la possibilité d'externaliser ses plugins. Pour cela, il..."
+:page-tags: [java, tools]
+:page-lang: fr
 // :hp-image: /covers/cover.png
 :published_at: 2011-09-17
 :hp-tags: Eclipse, Plugins

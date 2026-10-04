@@ -1,4 +1,6 @@
 = Which of Flyway or JPA should be responsible of generating your db structure?
+:page-description: "Flyway is an open-source database migration tool. It helps to keep track of all the changes done on the DB. It's done with the help of the table..."
+:page-tags: [spring-boot, database]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2021-10-13 7:00:00 -0500

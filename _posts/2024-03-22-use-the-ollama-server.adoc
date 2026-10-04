@@ -1,4 +1,6 @@
 = Use Ollama as a server
+:page-description: "If you saw my last blog posts about Install Ollama and how to install Specific Models on Ollama you should be able to address a lot of use cases. But in..."
+:page-tags: [ai]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2024-03-22 7:00:00 -0500

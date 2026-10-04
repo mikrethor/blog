@@ -2,6 +2,7 @@
 lang: en
 ---
 = Should you migrate to Spring Boot 3?
+:page-description: "8 years after the first release of Spring Boot, it was time for an update. Spring Boot 3, released in 2022, is the new version of the most widely used Java..."
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-05-03 7:00:00 -0500

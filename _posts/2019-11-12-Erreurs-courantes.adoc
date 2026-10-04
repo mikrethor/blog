@@ -3,6 +3,9 @@
 :hp-alt-title: Erreurs courantes
 
 = Erreurs courantes
+:page-description: "Le succès, c'est se promener d'échecs en échecs tout en restant motivé."
+:page-tags: [tech-lead]
+:page-lang: fr
 
 [quote, Winston Churchill]
 Le succès, c'est se promener d'échecs en échecs tout en restant motivé.
