@@ -1,0 +1,28 @@
+---
+lang: fr
+---
+= Reactive Programming avec Spring WebFlux
+:page-description: "WebFlux, basé sur le projet Reactor, permet de faire des applications non bloquantes et asynchrones. À l'heure des threads virtuels, est-ce toujours intéressant ?"
+:date: 2026-02-25 7:00:00 -0500
+:layout: conference
+:page-subtitle: "Spring WebFlux, Reactor, Threads virtuels"
+:author: Xavier Bouclet
+
+== 1. Abstract
+
+WebFlux basé sur le projet Reactor permet de faire des applications non bloquantes et asynchrones.
+À l'heure des threads virtuels est-ce toujours intéressant ?
+Est-ce que la montée en compétence sur cette stack Spring est suffisamment intéressante pour vos applications ?
+Nous essayerons de répondre à ces questions.
+
+== 2. Conférence
+
+Cette conférence a été donnée à ConFoo Montréal le 25 février 2026, puis au Montréal JUG le 30 avril 2026.
+https://confoo.ca/en/2026/session/reactive-programming-avec-spring-webflux[Page de la session sur le site de ConFoo]
+
+== Me suivre
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
+- https://www.xavierbouclet.com/[Blog]
+- https://www.youtube.com/@xavierbouclet[Youtube]

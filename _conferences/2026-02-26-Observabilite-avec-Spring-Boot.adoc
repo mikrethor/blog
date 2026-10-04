@@ -1,0 +1,26 @@
+---
+lang: fr
+---
+= Observabilité avec Spring Boot
+:page-description: "Vous avez livré votre application et maintenant ? Logs, métriques, traces distribuées : quels outils utiliser avec Spring Boot ?"
+:date: 2026-02-26 7:00:00 -0500
+:layout: conference
+:page-subtitle: "Spring Boot, Micrometer, Prometheus, Grafana"
+:author: Xavier Bouclet
+
+== 1. Abstract
+
+Vous avez livré votre application et maintenant ? Comment savoir ce qu'il se passe ? Logs, métriques, traces distribuées, que faire ?
+Micrometer, Prometheus, Grafana, quels outils utiliser, nous en discuterons lors de cette session.
+
+== 2. Conférence
+
+Cette conférence a été donnée à ConFoo Montréal le 26 février 2026.
+https://confoo.ca/en/2026/session/observabilite-avec-spring-boot[Page de la session sur le site de ConFoo]
+
+== Me suivre
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
+- https://www.xavierbouclet.com/[Blog]
+- https://www.youtube.com/@xavierbouclet[Youtube]

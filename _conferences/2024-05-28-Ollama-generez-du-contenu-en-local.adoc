@@ -1,0 +1,36 @@
+---
+lang: fr
+---
+= Ollama. Générez du contenu en local avec ses outils open sources
+:page-description: "Découvrez Ollama, une solution pour installer et utiliser des LLM sur votre machine, avec des modèles tels que Mistral, LLaVA ou Llama 3."
+:date: 2024-05-28 7:00:00 -0500
+:layout: conference
+:page-subtitle: "Ollama, LLM, Mistral, LLaVA, Llama 3"
+:author: Xavier Bouclet
+
+== 1. Abstract
+
+Avez-vous déjà pensé à tester des LLM (Large Language Models) afin de découvrir leurs différentes possibilités ?
+
+Je vous propose de découvrir Ollama, une solution pour installer et utiliser des LLM sur votre machine.
+Nous utiliserons des modèles tels que Mistral, LLaVA, Llama 3, etc. afin de découvrir différents cas d'utilisation.
+
+== 2. Conférence
+
+Cette conférence a été donnée au GenAI Meetup Montréal le 28 mai 2024.
+
+== 3. Pour aller plus loin
+
+Mes articles sur Ollama :
+
+- link:/2024/03/16/install-ollama.html[Use AI models on your computer with Ollama]
+- link:/2024/03/20/use-other-models-ollama.html[Install models not available on Ollama]
+- link:/2024/03/22/use-the-ollama-server.html[Use Ollama as a server]
+- link:/2024/04/02/llava-try.html[Bridging Visions and Words with LLava]
+
+== Me suivre
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
+- https://www.xavierbouclet.com/[Blog]
+- https://www.youtube.com/@xavierbouclet[Youtube]
