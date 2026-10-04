@@ -7,7 +7,7 @@
 :layout: post
 //:title: Man must explore, r sand this is exploration at its greatest
 :page-subtitle: "Spring Boot"
-:page-background: /img/posts/2024-12-advent-of-code.png
+:page-background: /img/posts/2024-12-advent-of-code.jpg
 
 == 1. Purpose of this blog post
 

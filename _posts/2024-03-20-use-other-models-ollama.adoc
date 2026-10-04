@@ -28,17 +28,17 @@ You can find some on :
 
 Let's use the *Hugging Face* website to find a model.
 
-image::../../../img/posts/2024-03-20-search-downloadable-models.png[Search for downloadable models, height=600]
+image::../../../img/posts/2024-03-20-search-downloadable-models.webp[Search for downloadable models, height=600]
 
 We are looking for a model with a *gguf* file extension.
 
-image::../../../img/posts/2024-03-20-see-the-files.png[Llama-2-7B.GGUF,height=600]
+image::../../../img/posts/2024-03-20-see-the-files.webp[Llama-2-7B.GGUF,height=600]
 
 Let's choose the *Llama-2-7B* model.
 
 Go to *Files and versions* and choose the llama-2-7b.Q5_0.gguf file.
 
-image::../../../img/posts/2024-03-20-download-the-file-manually.png[Download the file manually,height=600]
+image::../../../img/posts/2024-03-20-download-the-file-manually.webp[Download the file manually,height=600]
 
 Click on the download button.
 

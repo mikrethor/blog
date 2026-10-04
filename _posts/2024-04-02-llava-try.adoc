@@ -64,7 +64,7 @@ Let's see how we could find a use case more useful in our daily life.
 
 I wrote a note on a piece of paper :
 
-image::../../../img/posts/2024-04-03-text-recognition.jpg[Handwritten Text, 50%]
+image::../../../img/posts/2024-04-03-text-recognition.webp[Handwritten Text, 50%]
 
 [source, bash]
 ----

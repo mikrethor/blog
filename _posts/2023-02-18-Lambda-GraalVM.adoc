@@ -18,7 +18,7 @@ In the https://maxday.github.io/lambda-perf/[Lambda Cold Starts analysis by maxd
 - Python
 - NodeJS
 
-image::../../../img/posts/2023-02-18-Lambda-Perf-Analysis.png[Lambda Cold Starts analysis 2023-02-18]
+image::../../../img/posts/2023-02-18-Lambda-Perf-Analysis.webp[Lambda Cold Starts analysis 2023-02-18]
 
 I am a big fan of https://www.graalvm.org[GraalVM], so I thought we could do better.
 To avoid you the need of reading a lot about GraalVM, I am going to give a small description.

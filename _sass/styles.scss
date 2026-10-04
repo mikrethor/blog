@@ -1,2 +1,31 @@
 // Import Core Clean Blog SCSS
 @import "../assets/vendor/startbootstrap-clean-blog/scss/clean-blog.scss";
+
+// Inline SVG icons (replace the Font Awesome web font)
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  font-size: 1.33em;
+  color: #fff;
+  background-color: #212529;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: #0085a1;
+  }
+}
+
+.comments {
+  margin: 3rem 0;
+}
