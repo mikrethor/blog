@@ -1,17 +1,16 @@
 ---
-lang: en
+lang: fr
 ---
 = Formation Kotlin – Programme - 1 jour
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-01-31 7:00:00 -0500
 :layout: course
 //:title: Man must explore, r sand this is exploration at its greatest
-:page-subtitle: "Kotlin course
+:page-subtitle: "Kotlin course"
 // :page-background: /img/2023-profil-pic-conference.png
-:author: "Xavier Bouclet"
-:lang: en
+:author: Xavier Bouclet
+:lang: fr
 
 :toc:
 :toclevels: 3

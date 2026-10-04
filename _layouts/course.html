@@ -17,11 +17,6 @@ layout: default
             {% if page.subtitle %}
             <h2 class="subheading">{{ page.subtitle }}</h2>
             {% endif %}
-            <span class="meta">Posted by
-              <a href="#">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
-              on {{ page.date | date: '%B %d, %Y' }} &middot; {% include read_time.html
-              content=page.content %}
-            </span>
           </div>
         </div>
       </div>
@@ -36,25 +31,13 @@ layout: default
 
         <hr>
 
-        <div class="clearfix">
-
-          {% if page.previous.url %}
-          <a class="btn btn-primary float-left" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.previous.title }}">&larr; Previous<span class="d-none d-md-inline">
-              Post</span></a>
-          {% endif %}
-          {% if page.next.url %}
-          <a class="btn btn-primary float-right" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">Next<span class="d-none d-md-inline">
-              Post</span> &rarr;</a>
-          {% endif %}
-
+        {% assign course_email = site.courses_email | default: site.email %}
+        {% if course_email %}
+        <div class="clearfix text-center">
+          <a class="btn btn-primary" href="mailto:{{ course_email | encode_email }}?subject={{ page.title | uri_escape }}">{% if page.lang == "fr" %}Demander un devis{% else %}Request a quote{% endif %}</a>
         </div>
+        {% endif %}
 
       </div>
     </div>
   </div>
-
-  <footer class="entry-meta">
-    {% if site.disqus-shortname %}
-    {% include disqus_comments.html %}
-    {% endif %}
-  </footer>

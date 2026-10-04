@@ -1,5 +1,4 @@
 = Convert a Java Spring Boot app to Kotlin
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-03-03 7:00:00 -0500

@@ -1,17 +1,16 @@
 ---
-lang: en
+lang: fr
 ---
 = Formation Spring Boot 4 – Programme 2 Jours
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2026-01-31 7:00:00 -0500
 :layout: course
 //:title: Man must explore, r sand this is exploration at its greatest
-:page-subtitle: "Spring Boot 4 course
+:page-subtitle: "Spring Boot 4 course"
 // :page-background: /img/2023-profil-pic-conference.png
-:author: "Xavier Bouclet"
-:lang: en
+:author: Xavier Bouclet
+:lang: fr
 
 
 :toc:

@@ -1,5 +1,4 @@
 = Tryout Rust, Java on a CLI
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-03-12 7:00:00 -0500

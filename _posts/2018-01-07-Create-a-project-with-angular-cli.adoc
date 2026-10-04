@@ -44,5 +44,4 @@ ng serve
 
 Et voilà!
 
-image::../../../img/posts/2018-01-07-angular-app-cli.png[myproject app]
 

@@ -1,5 +1,4 @@
 = Let's write a simple Kafka producer/consumer
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-07-07 7:00:00 -0500

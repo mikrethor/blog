@@ -1,5 +1,4 @@
 = Building a Java native REST API — Part 1: Spring Boot
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2021-03-15 7:00:00 -0500

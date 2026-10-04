@@ -1,5 +1,4 @@
 = Integrate Open AI API to your Spring Boot application
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2024-03-04 7:00:00 -0500

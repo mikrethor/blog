@@ -1,9 +1,10 @@
 title:              Xavier Bouclet
-email:              mikrethor@gmail.com.com
+email:              mikrethor@gmail.com
+courses_email:      xavier.bouclet@digitowls.com
 description:        My personal blog
 author:             Xavier Bouclet
 baseurl:            ""
-url:                "https://startbootstrap.github.io"
+url:                "https://www.xavierbouclet.com"
 
 # Social Profiles
 twitter_username:
@@ -40,4 +41,4 @@ collections:
     permalink: /conferences/:year/:month/:day/:title
   courses:
     output: true
-    permalink: /conferences/:year/:month/:day/:title
+    permalink: /courses/:year/:month/:day/:title

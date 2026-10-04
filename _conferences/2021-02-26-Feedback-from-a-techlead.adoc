@@ -2,11 +2,10 @@
 lang: en
 ---
 = Feedback from a techlead!
-:showtitle:
 :date: 2021-02-26 7:00:00 -0500
 :layout: conference
 :page-subtitle: "Techlead"
-:author: "Xavier Bouclet"
+:author: Xavier Bouclet
 
 == 1. Abstract
 

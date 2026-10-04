@@ -2,8 +2,6 @@
 lang: en
 ---
 = Should you migrate to Spring Boot 3?
-
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-05-03 7:00:00 -0500
@@ -11,7 +9,7 @@ lang: en
 //:title: Man must explore, r sand this is exploration at its greatest
 :page-subtitle: "Sprint Boot 3x, Migration"
 // :page-background: /img/2023-profil-pic-conference.png
-:author: "Xavier Bouclet"
+:author: Xavier Bouclet
 
 == 1. Abstract
 
@@ -19,7 +17,7 @@ lang: en
 
 == 2. Slides
 
-PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2023-02-24-Spring-Boot-3-eng.pdf[ici].
+PDF extraction of the conference slides https://www.xavierbouclet.com/conferences/2023-02-24-Spring-Boot-3-eng.pdf[ici].
 
 == 3. Code
 

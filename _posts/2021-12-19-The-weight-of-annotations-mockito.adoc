@@ -1,5 +1,4 @@
 = The weight of annotations @Mock and @MockBean
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2021-10-19 7:00:00 -0500

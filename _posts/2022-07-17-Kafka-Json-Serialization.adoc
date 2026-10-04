@@ -1,5 +1,4 @@
 = Json Serialization with Kafka
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-07-17 7:00:00 -0500
