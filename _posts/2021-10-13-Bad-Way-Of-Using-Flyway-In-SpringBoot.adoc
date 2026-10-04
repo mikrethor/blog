@@ -7,7 +7,7 @@
 :layout: post
 //:title: Man must explore, r sand this is exploration at its greatest
 :page-subtitle: "Which of Flyway or JPA should be responsible of generating your db structure?"
-:page-background: /img/posts/Flyway-plus-SpringBoot.png
+:page-background: /img/posts/Flyway-plus-SpringBoot.jpg
 
 == 1. What is Flyway ?
 

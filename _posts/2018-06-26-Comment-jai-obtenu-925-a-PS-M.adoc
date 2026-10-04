@@ -44,7 +44,7 @@ Il est possible d'aller plus loin dans les tests en allant sur des sites payants
 
 Une fois ma préparation terminée, je me suis lancé et j’ai finalement obtenu un score de 92,5% soit 6 mauvaises réponses sur 80. Je pense que si j’avais passé plus de temps sur le forum, j’aurais pu améliorer mon score mais je suis satisfait après tout mon but n’est pas de devenir scrum master…
 
-image::../../../img/posts/2018-06-26-stats.png[Résultat final]
+image::../../../img/posts/2018-06-26-stats.webp[Résultat final]
 
 Il est un peu désolant de ne pas pouvoir savoir sur quelles réponses on a échouées mais on peut au moins avoir un aperçu des domaines à travailler.
 

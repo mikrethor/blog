@@ -9,12 +9,15 @@ baseurl:            ""
 url:                "https://www.xavierbouclet.com"
 
 # Social Profiles
-twitter_username:
 github_username:    mikrethor
-facebook_username:
-instagram_username:
 linkedin_username: 🇨🇦-xavier-bouclet-667b0431/
-disqus-shortname: https-mikrethor-github-io-blog
+
+# Comments (https://giscus.app). They show up once category_id is set.
+giscus:
+  repo:        mikrethor/blog
+  repo_id:     MDEwOlJlcG9zaXRvcnkyODQ1MjM3NzA=
+  category:    Announcements
+  category_id:
 
 # Used by jekyll-seo-tag for structured data
 social:
@@ -25,8 +28,6 @@ social:
     - https://bsky.app/profile/xavierbouclet.bsky.social
     - https://www.youtube.com/@xavierbouclet
 
-# Add your google-analytics ID here to activate google analytics
-google_analytics: G-XVG0Q9ZG4E # out your google-analytics code
 
 # Build settings
 markdown:           kramdown
@@ -45,7 +46,6 @@ asciidoctor:
   attributes:
     - idseparator=_
     - source-highlighter=rouge
-    - icons=font
 
 collections:
   conferences:
