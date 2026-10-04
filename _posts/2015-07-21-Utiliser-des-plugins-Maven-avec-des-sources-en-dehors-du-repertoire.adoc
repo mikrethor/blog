@@ -1,4 +1,7 @@
 = Utiliser des plugins Maven avec des sources en dehors du répertoire src/main/java
+:page-description: "Tout d'abord, le non respect des conventions limite le choix des plugins utilisables par Maven. Par exemple, je n'ai pas réussi à faire marcher le plugin..."
+:page-tags: [maven]
+:page-lang: fr
 // :hp-image: /covers/cover.png
 :published_at: 2015-07-21
 :hp-tags: Maven, Plugin Execution, No convention

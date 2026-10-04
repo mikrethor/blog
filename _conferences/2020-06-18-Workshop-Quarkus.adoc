@@ -2,6 +2,7 @@
 lang: fr
 ---
 = Workshop Quarkus
+:page-description: "Ce workshop a été donnée au Montreal Java User Group le 18 juin 2020."
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2020-06-18 7:00:00 -0500

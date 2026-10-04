@@ -1,4 +1,6 @@
 = Integrate Open AI API to your Spring Boot application
+:page-description: "At the moment, we are all trying to find the best way to integrate our system to Open AI. In this blog post, I will show you how to integrate Open AI API to..."
+:page-tags: [ai, spring-boot]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2024-03-04 7:00:00 -0500

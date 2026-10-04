@@ -2,6 +2,7 @@
 lang: fr
 ---
 = Formation Kotlin – Programme - 1 jour
+:page-description: "Formation Kotlin d'une journée : concepts de base, programmation orientée objet, exceptions, collections et types paramétrés."
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-01-31 7:00:00 -0500

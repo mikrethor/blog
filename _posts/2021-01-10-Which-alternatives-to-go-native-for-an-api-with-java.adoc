@@ -1,4 +1,6 @@
 = Which alternatives could be used to make an api with GraalVM
+:page-description: "This blog post is the first of many on native compilation of Java API."
+:page-tags: [graalvm, java]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2021-01-10 7:00:00 -0500

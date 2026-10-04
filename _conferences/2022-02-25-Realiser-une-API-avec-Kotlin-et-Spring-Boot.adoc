@@ -2,6 +2,7 @@
 lang: fr
 ---
 = Réaliser une API avec Kotlin et Spring Boot
+:page-description: "Vous en avez marre de développer en Java? Kotlin a maintenant plus de 10 ans et n'est pas seulement destiné à la plateforme Android. Lors de cette..."
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-02-24 7:00:00 -0500

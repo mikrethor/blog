@@ -1,4 +1,6 @@
 = Why I use asciidoc to take my notes
+:page-description: "For some time now I have used asciidoc to write all my notes. I even use asciidoc to write this blog."
+:page-tags: [tools]
 // :hp-image: /covers/cover.png
 :published_at: 2017-03-29
 :hp-tags: Notes, Asciidoc

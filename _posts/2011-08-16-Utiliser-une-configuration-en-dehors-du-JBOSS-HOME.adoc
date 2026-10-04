@@ -1,4 +1,7 @@
 = [JBOSS] Utiliser une configuration en dehors du JBOSS_HOME
+:page-description: "Le but est de décorreler une configuration JBOSS du serveur lui même afin d'avoir cette configuration en gestion de conf."
+:page-tags: [java]
+:page-lang: fr
 // :hp-image: /covers/cover.png
 :published_at: 2011-08-16
 :hp-tags: Jboss

@@ -1,4 +1,6 @@
 = Jpa and private setter and private constructor
+:page-description: "Today, with my colleagues, I talked about Oriented Programming and why we shouldn't always generate all the getters and setters when we design a class Why..."
+:page-tags: [java, database]
 // See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
 // :hp-image: /covers/cover.png
 // :published_at: 2019-05-10

@@ -1,4 +1,6 @@
 = Start a search engine
+:page-description: "In our web application we have a search functionality which is based on SQL requests. It works ok but it's really hard to test, maintain and optimize."
+:page-tags: [elasticsearch]
 Xavier BOUCLET
 :published_at: 2018-02-25
 :hp-tags: Elastic, Kibana, Db2

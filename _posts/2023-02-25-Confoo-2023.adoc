@@ -1,4 +1,7 @@
 = Confoo 2023
+:page-description: "Lors de mon passage à Confoo 2020, en tant que spectateur, je m'étais donné l'objectif vaincre mon syndrome de l'imposteur et de présenter en présentiel à..."
+:page-tags: [conferences]
+:page-lang: fr
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-02-25 7:00:00 -0500

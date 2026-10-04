@@ -1,4 +1,6 @@
 = Building a Java native REST API — Part 1: Spring Boot
+:page-description: "If you don't know it yet, Spring Boot has been around for quite a while now (2014). For the oldest ones, who used Spring before Spring Boot, you know that..."
+:page-tags: [graalvm, spring-boot]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2021-03-15 7:00:00 -0500

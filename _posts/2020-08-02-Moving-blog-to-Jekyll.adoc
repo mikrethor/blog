@@ -1,4 +1,6 @@
 = Moving my blog to Jekyll
+:page-description: "A few weeks ago, I decided to move my blog from Hubpress to something else. Indeed, Hubpress is not maintained anymore and I wanted someting close enough to..."
+:page-tags: [blog]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2020-08-02 23:45:13 -0400

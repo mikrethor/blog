@@ -1,4 +1,6 @@
 = Declarative REST client
+:page-description: "To create a REST client easily with Spring, we often use feign. For Spring Boot, we can use :"
+:page-tags: [spring-boot]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2024-02-04 7:00:00 -0500

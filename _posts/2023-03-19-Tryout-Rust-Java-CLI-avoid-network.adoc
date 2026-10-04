@@ -1,4 +1,6 @@
 = Tryout Rust, Java on a CLI (no network)
+:page-description: "When I published my last blog post, I got some feedback to improve the Rust version and I decided to remove the network factor."
+:page-tags: [rust, graalvm]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-03-19 7:00:00 -0500

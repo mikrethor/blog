@@ -1,4 +1,6 @@
 = Movie API a concrete example for a CRUD GraalVM API
+:page-description: "To push forward my last article Which alternatives could be used to make an api with GraalVM, I am going to develop a CRUD Api to handle actors and movies."
+:page-tags: [graalvm, java]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2021-01-24 7:00:00 -0500

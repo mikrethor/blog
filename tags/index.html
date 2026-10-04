@@ -1,0 +1,29 @@
+---
+layout: page
+title: Tags
+description: Posts by topic.
+background: '/img/bg-post.webp'
+---
+
+{% assign sorted_tags = site.tags | sort %}
+
+<p>
+  {% for tag in sorted_tags %}
+  <a href="#{{ tag[0] | slugify }}">{{ tag[0] }}</a> ({{ tag[1].size }}){% unless forloop.last %} &middot; {% endunless %}
+  {% endfor %}
+</p>
+
+{% for tag in sorted_tags %}
+
+<h2 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h2>
+
+<ul>
+  {% for post in tag[1] %}
+  <li>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    <span class="text-muted">&middot; {{ post.date | date: '%B %d, %Y' }}</span>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endfor %}

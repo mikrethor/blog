@@ -1,4 +1,6 @@
 = Vaadin 8
+:page-description: "Last week, I had the chance to attend to the Vaadin talk by @marcushellberg (Marcus Hellberg) hosted by the Montreal Jug. I have been so impressed that I am..."
+:page-tags: [java]
 // :hp-image: /covers/cover.png
 :published_at: 2017-04-18
 :hp-tags: Vaadin, Spring

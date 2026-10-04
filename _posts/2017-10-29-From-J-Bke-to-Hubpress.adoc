@@ -1,4 +1,6 @@
 = From JBake to Hubpress
+:page-description: "Somedays ago I watched a 2015 Devoxx Fr Video about Asciidoc and Hubpress and I chose to migrate my blog from JBake to Hubpress."
+:page-tags: [blog]
 // See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
 // :hp-image: /covers/cover.png
 :published_at: 2017-10-29

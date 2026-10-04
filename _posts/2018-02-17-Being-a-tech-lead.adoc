@@ -1,4 +1,6 @@
 = Being a tech lead
+:page-description: "Almost one year ago, my client needed a Tech Lead in one of it's development team. In fact they needed someone that would help to get their regulatory..."
+:page-tags: [tech-lead]
 Xavier BOUCLET
 2018-02-18
 :jbake-type: post

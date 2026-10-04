@@ -1,4 +1,6 @@
 = NgxLogger to Kibana
+:page-description: "My last post was about NgxLogger and its logging capabilities. One of the reason I chose NgxLogger was that I liked the possibility to send my logs through..."
+:page-tags: [angular, elasticsearch]
 // See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
 // :hp-image: /covers/cover.png
 :published_at: 2018-01-17

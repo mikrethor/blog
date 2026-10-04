@@ -1,4 +1,6 @@
 = Let's write a simple Kafka producer/consumer
+:page-description: "We are gonna implement a producer and a consumer for Kafka. It should take less than 1 hour."
+:page-tags: [kafka, spring-boot]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-07-07 7:00:00 -0500

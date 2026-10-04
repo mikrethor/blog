@@ -2,6 +2,7 @@
 lang: en
 ---
 = Feedback from a techlead!
+:page-description: "What is a techlead? What are the common mistakes of a techlead? How to avoid them? How to build a dream team? You will see these different points during..."
 :date: 2021-02-26 7:00:00 -0500
 :layout: conference
 :page-subtitle: "Techlead"

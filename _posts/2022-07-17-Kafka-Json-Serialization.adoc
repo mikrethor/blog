@@ -1,4 +1,6 @@
 = Json Serialization with Kafka
+:page-description: "Last time we wrote a reactive Kafka producer/consumer using Spring Boot with a simple String serializer. This time, we are gonna use a Json serializer using..."
+:page-tags: [kafka]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-07-17 7:00:00 -0500

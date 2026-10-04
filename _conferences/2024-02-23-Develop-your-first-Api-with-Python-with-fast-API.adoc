@@ -2,6 +2,7 @@
 lang: en
 ---
 = Develop your first Api with Python with fast API
+:page-description: "As a Java developer, I heard a lot about Python and I thought to give it a try. This presentation is about Fast API and how it’s revolutionizing API..."
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2024-02-23 7:00:00 -0500

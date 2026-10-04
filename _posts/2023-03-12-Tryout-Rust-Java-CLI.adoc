@@ -1,4 +1,6 @@
 = Tryout Rust, Java on a CLI
+:page-description: "I wanted to try a bit of Rust for a while and I thought a cli would give me the will to try it."
+:page-tags: [rust, graalvm]
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-03-12 7:00:00 -0500
