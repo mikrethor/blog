@@ -96,3 +96,5 @@ _site/
 /Gemfile.lock
 
 .tweet-cache
+
+.DS_Store
