@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "jekyll", ">= 4.3.1"
 
-gem 'rouge', '~> 3.29'
+gem 'rouge', '~> 4.5'
 
 group :jekyll_plugins do
   gem "jekyll-feed", ">= 0.17"
