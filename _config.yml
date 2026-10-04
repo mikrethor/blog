@@ -19,7 +19,7 @@ giscus:
   repo:        mikrethor/blog
   repo_id:     MDEwOlJlcG9zaXRvcnkyODQ1MjM3NzA=
   category:    Announcements
-  category_id:
+  category_id: DIC_kwDOEPV8-s4DG-0N
 
 # Used by jekyll-seo-tag for structured data
 social:
