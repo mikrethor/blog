@@ -54,3 +54,7 @@ collections:
   courses:
     output: true
     permalink: /courses/:year/:month/:day/:title
+
+# The vendored Bootstrap 4 / Clean Blog Sass predates the current Dart Sass syntax
+sass:
+  silence_deprecations: [import, global-builtin, color-functions]
