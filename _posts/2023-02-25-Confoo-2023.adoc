@@ -1,5 +1,4 @@
 = Confoo 2023
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-02-25 7:00:00 -0500
@@ -118,7 +117,7 @@ J'ai bien apprécié cette session Confoo 2023, et je vous incite à essayer de 
 == Me suivre
 
 - https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
-- https://twitter.com/XavierBOUCLET[Twitter]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
 - https://www.xavierbouclet.com/[Blog]
 - https://www.youtube.com/@xavierbouclet[Youtube]
 

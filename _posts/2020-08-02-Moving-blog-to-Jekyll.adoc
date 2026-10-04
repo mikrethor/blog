@@ -1,5 +1,4 @@
 = Moving my blog to Jekyll
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2020-08-02 23:45:13 -0400

@@ -2,7 +2,6 @@
 lang: en
 ---
 = Spring Boot 3 Migration, worth it - Ottawa JUG?
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-06-14 7:00:00 -0500
@@ -10,7 +9,7 @@ lang: en
 //:title: Man must explore, r sand this is exploration at its greatest
 :page-subtitle: "Sprint Boot 3x, Migration, Open Rewrite"
 // :page-background: /img/2023-profil-pic-conference.png
-:author: "Xavier Bouclet"
+:author: Xavier Bouclet
 
 
 == 1. Abstract
@@ -19,7 +18,7 @@ lang: en
 
 == 2. Slides
 
-PDF extraction of the conference slides http://xavier.bouclet.com/conferences/2023-02-24-Spring-Boot-3-eng.pdf[here].
+PDF extraction of the conference slides https://www.xavierbouclet.com/conferences/2023-02-24-Spring-Boot-3-eng.pdf[here].
 
 == 3. Code
 
@@ -33,7 +32,7 @@ https://www.meetup.com/ottawa-java-user-group/events/293727754/[Meetup link]
 == Me suivre
 
 - https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
-- https://twitter.com/XavierBOUCLET[Twitter]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
 - https://www.xavierbouclet.com/[Blog]
 - https://www.youtube.com/@xavierbouclet[Youtube]
 

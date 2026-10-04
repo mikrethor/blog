@@ -18,3 +18,10 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "wdm", ">= 0.1.0" if Gem.win_platform?
 
 gem "webrick", ">= 1.8.1"
+
+# No longer default gems since Ruby 3.4 / 4.0, but still required by Jekyll and Liquid
+gem "logger"
+gem "csv"
+gem "base64"
+gem "bigdecimal"
+gem "ostruct"

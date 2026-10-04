@@ -6,7 +6,6 @@
 :hp-alt-title: NgxLogger to Kibana
 :page-root: ../../../
 :layout: post
-:page-background: /img/posts/03.jpg
 
 My last link:../15/Log-in-angular-with-Ngx-Logger.html[post] was about NgxLogger and its logging capabilities.
 One of the reason I chose NgxLogger was that I liked the possibility to send my

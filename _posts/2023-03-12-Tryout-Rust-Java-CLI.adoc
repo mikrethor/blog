@@ -1,5 +1,4 @@
 = Tryout Rust, Java on a CLI
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-03-12 7:00:00 -0500
@@ -160,7 +159,7 @@ If you want to check the https://github.com/mikrethor/uuid/tree/first-blog[code]
 == Follow Me
 
 - https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
-- https://twitter.com/XavierBOUCLET[Twitter]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
 - https://www.xavierbouclet.com/[Blog]
 - https://www.youtube.com/@xavierbouclet[Youtube]
 

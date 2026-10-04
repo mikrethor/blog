@@ -1,5 +1,4 @@
 = Properly wait for TestContainers PostgresSQL
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2022-08-08 7:00:00 -0500

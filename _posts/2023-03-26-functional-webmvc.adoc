@@ -1,12 +1,11 @@
 = Functional Routing in Spring MVC
-:showtitle:
 //:page-excerpt: Excerpt goes here.
 //:page-root: ../../../
 :date: 2023-03-26 7:00:00 -0500
 :layout: post
 //:title: Man must explore, r sand this is exploration at its greatest
 :page-subtitle: "Router Functions and Handler Functions"
-:page-background: /img/road-1303617_1920.jpg
+:page-background: /img/road-1303617_1920.webp
 
 == 1. Purpose of this blog post
 
@@ -212,7 +211,7 @@ If you want to check the final https://github.com/mikrethor/whiskies-api/tree/ro
 == Follow Me
 
 - https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
-- https://twitter.com/XavierBOUCLET[Twitter]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
 - https://www.xavierbouclet.com/[Blog]
 - https://www.youtube.com/@xavierbouclet[Youtube]
 
