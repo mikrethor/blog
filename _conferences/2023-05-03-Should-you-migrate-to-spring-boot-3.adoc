@@ -30,7 +30,7 @@ https://2023.jconftoronto.dev/session?id=Should%20you%20migrate%20to%20Spring%20
 == Me suivre
 
 - https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
-- https://twitter.com/XavierBOUCLET[Twitter]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
 - https://www.xavierbouclet.com/[Blog]
 - https://www.youtube.com/@xavierbouclet[Youtube]
 

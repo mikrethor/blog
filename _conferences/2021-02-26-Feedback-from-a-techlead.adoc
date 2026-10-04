@@ -22,7 +22,7 @@ https://confoo.ca/en/yul2021/session/feedback-from-a-techlead[Remote talk] for C
 == Follow Me
 
 - https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
-- https://twitter.com/XavierBOUCLET[Twitter]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
 - https://www.xavierbouclet.com/[Blog]
 - https://www.youtube.com/@xavierbouclet[Youtube]
 

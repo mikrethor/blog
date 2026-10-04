@@ -44,7 +44,7 @@ Lien sur le site de la conférence https://confoo.ca/en/speaker/xavier-bouclet-1
 == Me suivre
 
 - https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
-- https://twitter.com/XavierBOUCLET[Twitter]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
 - https://www.xavierbouclet.com/[Blog]
 - https://www.youtube.com/@xavierbouclet[Youtube]
 
