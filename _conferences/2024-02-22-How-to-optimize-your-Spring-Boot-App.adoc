@@ -1,0 +1,30 @@
+---
+lang: en
+---
+= How to optimize your Spring Boot App
+:page-description: "Elevate your Spring Boot application performances: an insightful presentation on performance enhancement tips."
+:date: 2024-02-22 7:00:00 -0500
+:layout: conference
+:page-subtitle: "Spring Boot, Performance"
+:author: Xavier Bouclet
+
+== 1. Abstract
+
+Elevate your Spring Boot application performances! Join me for an insightful presentation on performance enhancement tips.
+Don't miss this opportunity to optimize your Spring Boot apps for peak performance.
+
+== 2. Slides
+
+PDF extraction of the conference slides https://www.xavierbouclet.com/conferences/2024-02-24-How-to-Optimize-Spring-Boot.pdf[here].
+
+== 3. Conference
+
+This conference was given at ConFoo Montreal on February 22, 2024.
+https://confoo.ca/en/2024/session/how-to-optimize-your-spring-boot-app[Session page on the ConFoo website]
+
+== Follow Me
+
+- https://www.linkedin.com/in/🇨🇦-xavier-bouclet-667b0431/[Linkedin]
+- https://bsky.app/profile/xavierbouclet.bsky.social[Bluesky]
+- https://www.xavierbouclet.com/[Blog]
+- https://www.youtube.com/@xavierbouclet[Youtube]

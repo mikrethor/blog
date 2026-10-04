@@ -29,6 +29,37 @@ layout: default
 
         {{ content }}
 
+        <!-- Home highlights -->
+        {% assign latest_talks = site.conferences | sort: 'date' | reverse %}
+        {% assign latest_courses = site.courses | sort: 'date' | reverse %}
+        <div class="row home-highlights">
+          <div class="col-md-4">
+            <h2 class="home-highlight-title"><a href="{{ "/conferences" | relative_url }}">Talks</a></h2>
+            <ul class="list-unstyled">
+              {% for talk in latest_talks limit: 3 %}
+              <li><a href="{{ talk.url | relative_url }}">{{ talk.title }}</a> <span class="text-muted">{{ talk.date | date: '%Y' }}</span></li>
+              {% endfor %}
+            </ul>
+            <a href="{{ "/conferences" | relative_url }}">All talks &rarr;</a>
+          </div>
+          <div class="col-md-4">
+            <h2 class="home-highlight-title"><a href="{{ "/courses" | relative_url }}">Courses</a></h2>
+            <ul class="list-unstyled">
+              {% for course in latest_courses limit: 3 %}
+              <li><a href="{{ course.url | relative_url }}">{{ course.title }}</a></li>
+              {% endfor %}
+            </ul>
+            <a href="{{ "/courses" | relative_url }}">All courses &rarr;</a>
+          </div>
+          <div class="col-md-4">
+            <h2 class="home-highlight-title"><a href="{{ site.youtube_url }}">YouTube</a></h2>
+            <p>Videos about Java, Kotlin and Spring Boot, including a 24-day Advent of Spring Boot series.</p>
+            <a href="{{ site.youtube_url }}">Watch the channel &rarr;</a>
+          </div>
+        </div>
+
+        <hr>
+
         <!-- Home Post List -->
         {% for post in site.posts limit : 5 %}
 

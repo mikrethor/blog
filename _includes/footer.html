@@ -21,6 +21,13 @@
             </a>
           </li>
           {% endif %}
+          {% if site.bluesky_username %}
+          <li class="list-inline-item">
+            <a class="social-icon" href="https://bsky.app/profile/{{ site.bluesky_username }}" aria-label="Bluesky">
+              {% include icons/bluesky.svg %}
+            </a>
+          </li>
+          {% endif %}
           {% if site.github_username %}
           <li class="list-inline-item">
             <a class="social-icon" href="https://github.com/{{ site.github_username }}" aria-label="GitHub">
